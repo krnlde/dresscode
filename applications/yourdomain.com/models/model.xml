@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xmlfs
+	xmlns:xref="x-schema:refSchema.xml"
+	xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://mocovi.de/schema/xmlfs"
+	xmlns:c="http://mocovi.de/schema/controller"
+	timezone="Europe/Berlin"
+	defaultMedia="html"
+	defaultTheme="krnl"
+	defaultLanguage="de"
+	>
+
+	<file name="home" alias="Home" aliasToken="Home" methods="get" author="You">
+		<c:root>
+			Your content goes here.
+		</c:root>
+	</file>
+
+</xmlfs>

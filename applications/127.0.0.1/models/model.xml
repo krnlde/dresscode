@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xmlfs
+	xmlns:xref="x-schema:refSchema.xml"
+	xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://mocovi.de/schema/xmlfs"
+	xmlns:c="http://mocovi.de/schema/controller"
+	timezone="Europe/Berlin"
+	defaultMedia="html"
+	defaultTheme="krnl"
+	defaultLanguage="de"
+	>
+	<file name="home" aliasToken="Home" methods="get" author="Kai Dorschner">
+		<keywords>
+			<element lang="de">krnl</element>
+		</keywords>
+		<c:root>
+			<c:header>
+				<c:image source="http://placehold.it/896x420">
+					<c:attribute name="description">
+						<c:translate token="loremipsum" cut="40"/>
+					</c:attribute>
+				</c:image>
+				<c:paragraph showFromDate="2012-01-09">
+					<c:image source="http://placehold.it/221x160"/>
+					<c:image source="http://placehold.it/221x160"/>
+					<c:image source="http://placehold.it/221x160"/>
+					<c:image source="http://placehold.it/221x160"/>
+				</c:paragraph>
+			</c:header>
+			<c:article>
+				<c:header>
+					<c:headline>
+						<c:translate token="loremipsum" cut="15"/>
+					</c:headline>
+
+				</c:header>
+				<c:section>
+					<c:paragraph>
+						<c:translate token="loremipsum"/>
+					</c:paragraph>
+					<c:listing maximum="4">
+						<c:element>
+							<c:translate token="loremipsum" cut="30"/>
+						</c:element>
+						<c:link to="http://krnl.de/">
+							<c:translate token="loremipsum" cut="25"/>
+						</c:link>
+						<c:element>Test 3</c:element>
+						<c:element>Test 4</c:element>
+						<c:element>Test 5</c:element>
+					</c:listing>
+					<c:paragraph>
+						<c:translate token="loremipsum"/>
+					</c:paragraph>
+					<c:slider>
+						<c:element>
+							<c:headline>Slide 1</c:headline>
+							<c:paragraph>
+								<c:translate token="loremipsum"/>
+							</c:paragraph>
+						</c:element>
+						<c:element>
+							<c:headline>Slide 2</c:headline>
+							<c:paragraph>
+								<c:translate token="loremipsum" cut="200"/>
+							</c:paragraph>
+						</c:element>
+						<c:element>
+							<c:headline>Slide 3</c:headline>
+							<c:paragraph>
+								<c:translate token="loremipsum" cut="20"/>
+							</c:paragraph>
+						</c:element>
+					</c:slider>
+				</c:section>
+			</c:article>
+			<c:footer>
+				<c:section>
+					<c:headline priority="4">Sitemap</c:headline>
+					<c:menu source="/" />
+				</c:section>
+				<c:section>
+					<c:headline priority="4">Interessanter Artikel</c:headline>
+					<c:paragraph><c:translate token="loremipsum"/></c:paragraph>
+					<c:link href="">weiterlesen ...</c:link>
+				</c:section>
+				<c:section>
+					<c:headline priority="4">Anderer Artikel</c:headline>
+					<c:paragraph><c:translate token="loremipsum" cut="140"/></c:paragraph>
+				</c:section>
+				<c:section>
+					<c:headline priority="4">Interessanter Artikel</c:headline>
+					<c:paragraph><c:translate token="loremipsum"/></c:paragraph>
+					<c:link href="">weiterlesen ...</c:link>
+				</c:section>
+			</c:footer>
+		</c:root>
+		<file name="subfile" aliasToken="Subfile" methods="get" author="Kai Dorschner">
+			<c:root>
+				<c:article>
+					<c:headline>Lorem</c:headline>
+					<c:paragraph>
+						<c:translate token="loremipsum"/>
+					</c:paragraph>
+					<c:youtube videoId="JtF7z_DZdVk"/>
+					<c:vimeo videoId="21762564"/>
+				</c:article>
+				<c:footer>
+					<c:section>
+						<c:headline priority="4">Sitemap</c:headline>
+						<c:menu source="/" />
+					</c:section>
+				</c:footer>
+			</c:root>
+			<file name="foobar" alias="Foo Bar" methods="get" author="Kai Dorschner">
+				<c:root>
+					<c:article>
+						<c:headline>Test</c:headline>
+						<c:paragraph>
+							<c:translate token="loremipsum"/>
+						</c:paragraph>
+					</c:article>
+					<c:footer>
+						<c:section>
+							<c:headline priority="4">Sitemap</c:headline>
+							<c:menu source="/" />
+						</c:section>
+					</c:footer>
+				</c:root>
+			</file>
+		</file>
+	</file>
+
+	<file name="test" aliasToken="Testfile" methods="get" author="Kai Dorschner">
+		<c:root>
+			<c:article>
+				<c:headline xml:id="reference1">Cross Reference Test</c:headline>
+				<c:paragraph>
+					<c:translate token="loremipsum"/>
+				</c:paragraph>
+			</c:article>
+			<c:footer>
+				<c:section>
+					<c:headline priority="4">Sitemap</c:headline>
+					<c:menu source="/" />
+				</c:section>
+			</c:footer>
+		</c:root>
+	</file>
+
+	<file name="404" invisible="1" statusCode="404">
+		<c:root>
+			<c:article>
+				<c:header>
+					<c:headline>404 - File not found</c:headline>
+				</c:header>
+				<c:section>
+					<c:paragraph>The requested file "$path" was not found.</c:paragraph>
+				</c:section>
+			</c:article>
+		</c:root>
+	</file>
+
+</xmlfs>

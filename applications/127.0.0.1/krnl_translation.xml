@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<token name="Home">
+		<translation lang="all">Startseite</translation>
+	</token>
+	<token name="AboutMePreface">
+		<translation lang="de">Machen Sie sich auf den folgenden Seiten ein Bild von mir. Bei eventuellen Fragen oder dem Wunsch auf ein persönliches Gespräch wenden Sie sich bitte direkt über die Kontaktmöglichkeiten im <anchor href="/imprint">Impressum</anchor> an mich.</translation>
+	</token>
+	<token name="AboutMePreface1">
+		<translation lang="de">Ich besitze mehr als neun Jahre Erfahrung und fachspezifisches Wissen im Bereich Informatik, denn bereits in der 8. Klasse der Erich-Kästner-Gesamtschule in Baunatal habe ich drei Jahre lang über eine HTML AG den Grundstein für die Arbeit mit neuen Medien gelegt. In den darauf folgenden zwei Jahren wurde ich an der Herwig-Blankertz Fachoberschule in Hofgeismar im technischen Bereich der Informatik im Schwerpunktfach Netzwerktechnik nach dem Cisco Systems Curriculum geschult. Dadurch habe ich umfangreiches und vielseitig anwendbares Wissen über die Erstellung und Pflege von Netzwerken erhalten. Außerdem habe ich grundlegendes Verständnis in der Elektro- und Digitaltechnik (Schaltungen, Logische Operationen, etc.) erlangt. Im letzten Jahr der Fachoberschule programmierten wir mit Turbopascal (Delphi), dies war für mich der Einstieg in die objektorientierte Programmierung.</translation>
+	</token>
+	<token name="AboutMePreface1.1">
+		<translation lang="de">Die Gelegenheit des einjährigen schulbegleitenden Praktikums nutzte ich, um bei SMA Technologie AG (heute SMA Solar Technology AG) in Kassel im 2nd Level Support praktische Erfahrungen zu sammeln. Meine Hauptaufgabe dort war es, Defekte an Hard- und Software in Rechnern festzustellen und diese zu beheben. Durch meine aufgeschlossenen Kollegen erhielt ich zudem sehr viel Wissen über Serversysteme/-räume, Backupsysteme, Archiv-Verwaltung, USVs, (Spam-)Firewalls, die firmeninterne Vernetzung und Virtual-Machines.</translation>
+	</token>
+
+	<token name="AboutMePreface2">
+		<translation lang="de">Von 2005 bis 2008 arbeitete ich für die Internetagentur [[http://www.pixelconcept.de/|pixelconcept GmbH]] im Bereich Screendesign und Web Publishing. Meine Tätigkeiten dort umfassten insbesondere das Erstellen, Pflegen und Aktualisieren von CI-gerechten Webseiten von Porsche Zentren, Audi- und VW-Autohäusern sowie Autohäuser anderer Marken östlicher und fernöstlicher Herkunft. Dazu gehörten das Bearbeiten und Retuschieren von zugeliefertem oder selbst erstelltem Bildmaterial und die ausführliche Beratung, zu einem hohen Anteil mit den Geschäftsführern, um eine effiziente Umsetzung der Kundenwünsche zu ermöglichen. Dabei umfasste der von mir selbstständig zu pflegende Kundenstamm deutschlandweit ca. 120 Unternehmen.</translation>
+	</token>
+	<token name="AboutMePreface3">
+		<translation lang="de">Berufsbegleitend besuchte ich von 2006 bis 2008 einen zweijährigen Kurs an der [[http://www.akk.de/|Akademie für Kommunikation in Kassel]] (AKK), an der ich Grundkenntnisse in den Bereichen Marketing, Marktforschung, Kommunikation, Recht, Gestaltung, Verkaufsförderung, Zeitmanagement und Neue Medien vermittelt bekommen habe. Hauptbestandteil der Weiterbildung an der AKK war eine so genannte Junioragentur, bei der die Studenten selbstständig Agenturen gründeten, um so auf Grund des uns an der AKK vermittelten Wissens ein Marketingkonzept für einen zuvor ausgesuchten Kunden, wie z.B. Mars Inc., K + S AG, Porsche AG, die Stadt Göttingen oder die Deutsche Stiftung Organspende (DSO), über einen Zeitraum von etwa 3 Monaten zu erarbeiten. Abschluss an der AKK ist der staatlich geprüfte Kommunikationswirt, den ich Ende Sommer 2008 erhalten habe.</translation>
+	</token>
+	<token name="AboutMePreface4">
+		<translation lang="de">Aus eigenem Interesse beschäftige ich mich seit mehr als 5 Jahren mit Datenbanksystemen, Programmierung mit PHP 4 und 5 sowie zu einem kleineren Anteil mit 3D Modelling und Rendering. Darüber hinaus besitze ich alle nötigen Kenntnisse für die objektorientierte Programmierung (wie z.B. PHP5, Delphi, C#, Java, etc.). Zu meiner Leidenschaft zählt seit ca. 2 Jahren das Fotografieren von Stillleben, Portraits und Situationen.</translation>
+	</token>
+
+	<token name="SitemapPrefaceText">
+		<translation lang="all">Irgendwo muss ja alles aufgelistet werden - wo sonst wenn nicht hier. Alle Seiten im Überblick, hierarchisch strukturiert und mit einem Klick zu erreichen.</translation>
+	</token>
+
+	<token name="IdeasMenu">
+		<translation lang="de">Ideen</translation>
+		<translation lang="all">Ideas</translation>
+	</token>
+	<token name="IdeasPreface">
+		<translation lang="de">Manchmal hat man einfach mal eine schnelle Idee beim Einkaufen, kurz vor'm Einschlafen oder auf dem Klo. Einige Ideen müssen einfach dokumentiert werden damit man sie vielleicht irgendwann mal in die Tat umsetzen kann.</translation>
+	</token>
+
+	<token name="Hitchhiking2_0Menu">
+		<translation lang="all">Hitch-Hiking 2.0</translation>
+	</token>
+	<token name="Hitchhike2_0Preface">
+		<translation lang="de">Neue Geräte und Technologien machen es möglich das Hitch-Hiking neu zu erfinden und allen Leuten auf der Straße die Möglichkeit zu bieten ihnen anzuzeigen ob man sie mitnehmen würde anstatt als Fahrer Daumen-Hoch Offerten vom Straßen Rand abzuwimmeln.</translation>
+	</token>
+	<token name="Hitchhike2_0Text1">
+		<translation lang="de">Auf dem langen Heimweg nach meinem allwöchentlichen Einkauf fuhr ein Auto mit Anhänger an mir vorbei. Da er relativ langsam und genau in die Richtung fuhr in die ich musste, stellte ich mir vor wie es wäre sich einfach hinten drauf zu setzen und ein Stück mitgenommen zu werden und ob es den Fahrer wohl stören würde wenn ich einfach kurz hinten aufspringe und an meiner Station einfach wieder abspringe. Mein Medieninformatik-vorbelasteter Kopf brauchte nicht lange um das Problem mit einer leicht zu realisierenden Erfindung zu lösen.</translation>
+	</token>
+	<token name="Hitchhike2_0Text2">
+		<translation lang="de">Die Idee ist einfach und alles was man dazu braucht sind ein iPhone und ein breites Display: Der Fahrer tippt seinen gewünschten Zielort in Google Maps ein, welches dann für ihn die Route berechnet. Gibt man diese Daten an ein spezielles Programm weiter greift es diese Daten ab und schreibt Zielort sowie eventuelle Wegpunkte (bei größeren Strecken) z.B. via Bluetooth auf das Display, welches man wie bei einer Laufschrift oben an der Windschutzscheibe platziert. Somit kann jeder von außen sehen, wohin die Person fährt und ob sie Personen mitnehmen würde (wenn das Display etwas anzeigt heißt das "ja"). Optional könnte noch Streckengeld anhand des Spritverbrauchs geteilt durch die Anzahl aller Insassen berechnet werden und so als "Privattaxi" mit eigenem Ziel fungieren.</translation>
+	</token>
+
+	<token name="BooksMenu">
+		<translation lang="de">Lektüre und Literatur</translation>
+	</token>
+	<token name="BooksHeadline">
+		<translation lang="de">Gelesene Lektüre und Literatur</translation>
+	</token>
+	<token name="BooksPreface">
+		<translation lang="de">Ich zähle hier in chronologischer Reihenfolge auf welche Bücher, Lektüren, Fachliteraturen und sonstige Schriften ich gelesen habe. Der Autor wird jeweils in Klammern genannt.</translation>
+	</token>
+	<token name="CurriculumVitaePreface">
+		<translation lang="de">Zusammengefasst findet man hier meine Bildungsgänge und Kompetenzen in gegliederter Form. Einleitend noch ein paar Worte über mich.</translation>
+	</token>
+	<token name="ReferencesPreface">
+		<translation lang="de">Damit sich jeder selbst ein Bild von meinen Leistungen machen kann, führe ich hier die von mir fertiggestellten Projekte auf.</translation>
+	</token>
+	<token name="PortfolioPreface">
+		<translation lang="de">Hierin sind alle von mir realisierten Projekte und Arbeiten enthalten.</translation>
+	</token>
+
+	<token name="BuchstabenMenu">
+		<translation lang="all">Buchstaben</translation>
+	</token>
+	<token name="BuchstabenPreface">
+		<translation lang="all">Das Ergebnis des Projektes "Buchstaben die keine sind" aus dem Fach Grafische Gestaltung im ersten Semester Medieninformatik kann man hier und auf den Folgeseiten sehen.</translation>
+	</token>
+	<token name="BuchstabenText1">
+		<translation lang="all">Einige Bilder haben noch viel "Fleisch" um das eigentliche Objekt um sie später passender in die Collage einbauen zu können. Das hat den Vorteil, dass man wenigstens immer erkennt woher der Buchstabe eigentlich kommt oder woraus er sich bildet.</translation>
+	</token>
+
+
+	<token name="HoerspielMenu">
+		<translation lang="all">Hörspiel</translation>
+	</token>
+	<token name="HoerspielPreface">
+		<translation lang="all">"Das Leben in vollen Zügen genießen" ist als ein metaphorisches Hörspiel zu verstehen, welches nervige Alltagssituationen anhand eines Stereotypen, dem überfüllten Zug mit dem kompletten Aufgebot an schreienden Kindern, drückender Enge, grölenden Jugendlichen, stickiger Luft und Monotonie, zeigt wie man diese Situationen für sich nutzen kann um dem faden Alltag zu entkommen und Neuem gegenüber aufgeschlossener zu reagieren. "Think positive" ist also die Botschaft.</translation>
+	</token>
+
+	<token name="ActionSportsMenu">
+		<translation lang="all">Action Sports</translation>
+	</token>
+	<token name="ActionSportsPreface">
+		<translation lang="all">Fotoshooting vom 10. Februar 2009. Wir hatten sichtlich viel Spaß. Vielen Dank an Alexander Klutzny.</translation>
+	</token>
+	<token name="ActionSportsText">
+		<translation lang="all">Weitere Bilder folgen in Kürze. Sie sind noch in der Bearbeitung.</translation>
+	</token>
+
+
+	<token name="MercureMenu">
+		<translation lang="all">Mercure Fotoshooting</translation>
+	</token>
+	<token name="MercurePreface">
+		<translation lang="de">Im Sommer 2008 erhielt ich den Auftrag Innen- und Außenaufnahmen für das Mercure Hotel Stuttgart Sindelfingen an der Messe anzufertigen. Hier nun einige Auszüge.</translation>
+	</token>
+
+	<token name="WernigerodeMenu">
+		<translation lang="all">Sightseeing in Wernigerode</translation>
+	</token>
+	<token name="WernigerodePreface">
+		<translation lang="de">Am 11. Oktober 2008 war ich mit meinem besten Kumpel auf dem Schloss in Wernigerode. Einige schöne Eindrücke konnte ich digital festhalten. "Wernigerode at its best."</translation>
+	</token>
+
+	<token name="VorlesungenMenu">
+		<translation lang="all">Aktuelle Vorlesungen</translation>
+	</token>
+	<token name="VorlesungenPreface">
+		<translation lang="de">Im zweiten Semester des Bachelor-Studiengangs "Medieninformatik" an der Hochschule Harz habe ich folgende Vorlesungen.</translation>
+	</token>
+	<token name="VorlesungenPreface2">
+		<translation lang="de">Ich genieße an der Hochschule Harz sehr, dass direktes branchenbezogenes und anwendbares Wissen vermittelt wird. Arbeiten wie Hörbücher oder Kurzfilme werden praxisnah und unter realen Bedingungen abgefordert um alle Studenten auf die Anforderungen des Arbeitsmarkts bestmöglich vorzubereiten und keine Laborbedingungen darzustellen.</translation>
+	</token>
+
+	<token name="ChroniclesMenu">
+		<translation lang="de">Freie Arbeiten, Chronik</translation>
+		<translation lang="en">Chronicles</translation>
+	</token>
+	<token name="ChroniclesPreface">
+		<translation lang="de">Hier kann man meinen Entwicklungsstand im grafischen Bereich verfolgen. Die Unterteilung erfolgt nach Jahren.</translation>
+	</token>
+
+	<token name="PhotographyMenu">
+		<translation lang="de">Fotografie</translation>
+		<translation lang="all">Photography</translation>
+	</token>
+	<token name="PhotographyPreface">
+		<translation lang="de">Fotografieren ist eine Leidenschaft die ich schon seit vielen Jahren ausübe. Hier ist nun eine Übersicht über alle Fotoshootings von mir zu finden.</translation>
+	</token>
+
+	<token name="FotoShootingStephieMenu">
+		<translation lang="all">Stephie</translation>
+	</token>
+	<token name="FotoShootingStephiePreface">
+		<translation lang="de">Ein Fotoshooting für Stephie am 8. Mai 2009. Alexander Klutzny und ich haben Fotos aus den verschiedensten Bereichen wie Bewerbung, Sport, Spaß, Essen, Gemütlichkeit, Erotik und Farbe geschossen.</translation>
+	</token>
+
+	<token name="FotoShootingMenu">
+		<translation lang="all">Fotoshooting</translation>
+	</token>
+	<token name="FotoShootingHochzeitMenu">
+		<translation lang="all">Hochzeit</translation>
+	</token>
+	<token name="FotoShootingHochzeitPreface">
+		<translation lang="de">Im Sommer 2009 wurde ich zusammen mit Alexander Klutzny als Fotograf für eine Hochzeit eingesetzt. In der Galerie kann man sich nun einige Eindrücke des Tages einholen.</translation>
+	</token>
+
+	<token name="FotoreportageMenu">
+		<translation lang="de">Fotoreportage</translation>
+		<translation lang="en">Photo Reportage</translation>
+	</token>
+	<token name="FotoreportagePreface">
+		<translation lang="de">Den euphemistisch zu verstehenden Titel "Pünktlichkeit ist eine Tugend" zum Hauptthema "Die Deutschen" wählte ich, weil ich selbst einige Jahre Agentur-Luft geschnuppert habe und einen Einblick bekam was Stress durch Abgaben, Vorbereitungen für Pitchings, kurzfristige Änderungen von Kunden und drängelnde Außendienstmitarbeiter bzw. Chefs bedeutet. Ich habe über die Zeit den Eindruck gewonnen die Deutschen schauen sich einiges von den "Vorbilderstaaten" (z.B. Amerika und China) ab oder versuchen teilweise sogar mit ihnen gleich zu ziehen. Die Tugend wird kurzerhand zu einer Verantwortung die man zu tragen hat.</translation>
+	</token>
+	<token name="FotoreportageText1">
+		<translation lang="de">Mit meiner Reportage im Corporate Design der NEON schneide ich kurz die Konsequenzen an und möchte Aufgeschlossenheit gegenüber dem Thema schaffen. Viele Menschen frühstücken morgens beispielsweise gar nicht mehr – dazu zähle ich mich selbst auch – und verbinden mit dem Wort Stress lediglich die Reizüberflutung durch die beschränkte Aufnahmefähigkeit der Sinne und die Ohnmacht zur Bewältigung der gestellten Aufgaben. Jedoch sind der biologische Aspekt und vor allem die Folgen nicht ganz unwichtig.</translation>
+	</token>
+	<token name="FotoreportageText2">
+		<translation lang="de">So stellen sich zum Beispiel die Fragen: Was ist Stress und was verursacht er in mir? Welche Routinen sind dafür verantwortlich? Was verändern sie? Wie lange sind sie verfügbar? Wodurch regenerieren sie sich? Welche Konsequenzen gibt es? Dieses Thema ist so interessant, dass ich meinen Wissensdurst sofort zu stillen versuchte. Dabei erfuhr ich, dass Stress ebenso nützlich wie schädlich ist. Er führt uns zu Leistungsspitzen aber ebenso leicht zu Depressionen oder chronischen Erkrankungen. Adrenalin ist nur relativ kurz verfügbar und zählt wohl eher zu den Relikten aus vergangenen Zeiten. Es stellt kurzfristig das volle Leistungspotenzial des Körpers zur Verfügung, weitet die Bronchien und Blutgefäße und schärft die Sinne auf ein Maximum, was damals natürlich überwiegend dem Kampf oder der Flucht diente. Heutzutage ist es lediglich Schrecksituationen aber vor allem dem Sport dienlich. Cortisol hingegen steuert unsere psychische Leistungsfähigkeit und das Immunsystem. Außerdem ist wirkt entzündungshemmend. Es wird über Nacht auf Vorrat produziert und erreicht am Morgen gegen um 7 seinen Höchststand. Tagsüber wird es in stressigen Situation ausgeschüttet um diese effektiv bewältigen zu können. Jedoch führt dauerhafter Stress gerade über mehrere Tage und Nächte hindurch zu Störungen bei der Regeneration des Cortisols, welches in der Nebennierenrinde gebildet wird. Es kann dazu kommen, dass die Produktion gestoppt wird wodurch man sich dann dauerhaft matt und antriebslos fühlt. Dieser Zustand ist auch bekannt als Burn-Out Syndrom. Depressionen sind nicht selten eine Folge von Schwankungen im Cortisol-Haushalt. Auch ist man anfälliger für Krankheiten, welche, wie bereits im Text beschrieben, zu chronischen Erkrankungen führen können, wenn sie nicht behandelt werden. Gerade weil sich das Thema Stress in Zukunft noch drastischer in den Vordergrund drängen wird möchte ich Anreize liefern um entsprechende Maßnahmen einzuleiten, die einem effektiv zu einem geregelten und ausgeglichenen Tag verhelfen können.</translation>
+	</token>
+	<token name="FotoreportageText3">
+		<translation lang="de">Die Fotografien wurden am Berliner Hauptbahnhof geschossen und zeigen Zeitabschnitte, Menschen in Eile und Bewegung / Aktionen welche durch ihre Schärfen-Unschärfen Verhältnisse allesamt Dynamik suggerieren. Sie stehen im Kontrast zu den sonst sehr statisch wirkenden Fotografien. Die sehr hellen Töne wirken offen und lebendig. Auf jedem Bild sind Menschen zu sehen um entsprechende Emotionen auf den Betrachter zu übertragen und ihm das Gefühl zu vermitteln alles live mit zu erleben. Zudem ist bei allen ein fester Blickwinkel eingestellt um welchen sich die Szenerie abspielt. Anders ist das bei dem Keyvisual auf der Doppelseite. Dieses richtet mit dem Objekt mit um die Aufmerksamkeit auf die zentrale Person und ihr Verhalten zu legen. Es visualisiert den Menschen in Stresssituationen. Unwichtige Elemente in der Peripherie werden ausgeblendet oder sind nur noch schemenhaft zu erkennen – die volle Konzentration richtet sich auf das zu erreichende (Teil-)Ziel.</translation>
+	</token>
+
+	<token name="MocoviPreface">
+		<translation lang="de">Mocovi ist ein auf verschiedene Medien (Cross Media) ausgelegtes Content Management System welches seinen Namen vornehmlich durch das ihm zugrundliegende Entwurfsmuster des Model-View-Controllers erhielt. Außerdem findet es Anlehnung an eine Sprache die von einem kleinen argentinischen Stamm mit ca. 4.000 Menschen gesprochen wird, nämlich "Mocoví". Das System basiert ausschließlich auf freien und zum großen Teil vom W3C empfohlenen Standards, Systemen und Sprachen: Apache FOP, PHP, XML und XSLT um nur die wichtigsten zu nennen.</translation>
+	</token>
+	<token name="MocoviText1">
+		<translation lang="de">In Kombination ist das durchaus eine marktfähige Konstellation, denn XML ist der bereits etablierte neue Standard zur Speicherung von Daten der gleichermaßen von Computersystemen und Menschen gelesen und bearbeitet werden kann. Ganz nach dem Motto "Create once, use everywhere". Die freie, serverseitige Programmiersprache PHP wurde 1995 von Rasmus Lerdorf entwickelt um Websites in ihrem Ablauf zu dynamisieren – diese Intension ist bis heute beständig geblieben: PHP ist nicht zuletzt durch die jüngst implementierte Objektorientierung eine sehr mächtige und von Ihrer Community stark vorangetriebene Programmiersprache die bereits seit vielen Jahren von jungen und heranwachsenden Programmierern benutzt wird um schnell mit dem Thema Programmierung vertraut zu werden und zügig Ergebnisse zu erhalten. Sie ist daher nahezu allgegenwärtig, da nahezu jeder zumindest Grundkenntnisse in dieser Sprache besitzt – vielleicht auch deswegen weil sie eine an die Sprache C angelehnte, wie ich finde, äußerst übersichtliche Syntax besitzt.</translation>
+	</token>
+	<token name="MocoviText2">
+		<translation lang="de">XSL(T) als das jüngste Mitglied der Gruppe findet aktuell noch nicht sehr viel anwendungsbezogene Nutzung im sichtbaren öffentlichen Bereich. Diese Transformationssprache wird häufig bei Schnittstellen für XML basierende Imports und Exports benutzt. Als eine der mächtigsten sprachlichen Konstrukte die es Anfang des 21. Jahrhunderts gegeben hat, wird es bei Mocovi als Template-Renderengine benutzt, also genau für das wozu es geschaffen wurde.</translation>
+	</token>
+
+	<token name="StoryBoardBook">
+		<translation lang="de">Storyboard / Drehbuch</translation>
+		<translation lang="en">Storyboard / Book</translation>
+	</token>
+
+	<token name="FilmMenu">
+		<translation lang="de">Filmografie</translation>
+		<translation lang="all">Filmography</translation>
+		<!--
+		<translation lang="de">Film- und Kameratechnik</translation>
+		<translation lang="all">Film and Camera</translation>
+		-->
+	</token>
+
+	<token name="FilmText">
+		<translation lang="de">Von oder mit mir erstellte filmische Arbeiten (Kurzfilme) an der Hochschule und im privaten Bereich sind in dieser Kategorie zu finden. Mein Engagement liegt dabei in der Kameraführung, im Schnitt sowie der Post-Produktion.</translation>
+	</token>
+
+	<token name="WinterMenu">
+		<translation lang="all">Winter in Wernigerode</translation>
+	</token>
+	<token name="WinterPreface">
+		<translation lang="de">Dieser Winter war in Wernigerode besonders schön. Wir hatten stellenweise 30 bis 40 Zentimeter Schnee, viel Sonne und angenehme Temperaturen um die -4°C. Ich konnte noch einige Eindrücke einfangen bevor die Temperaturen sich heben und die schöne Landschaft sich wieder für den Sommer wappnet.</translation>
+	</token>
+
+	<token name="FilmText">
+		<translation lang="de">Von oder mit mir erstellte filmische Arbeiten (Kurzfilme) an der Hochschule und im privaten Bereich sind in dieser Kategorie zu finden. Mein Engagement liegt dabei in der Kameraführung, im Schnitt sowie der Post-Produktion.</translation>
+	</token>
+
+	<token name="SuicidalIntelligenceText">
+		<translation lang="all">Dieser Film ist im Rahmen zweier Abgaben für die Hochschule Harz im fünften Semester entstanden. Er beschäftigt sich mit dem Egoismus des Menschen und den Auswirkungen die entstehen wenn der Mensch seine Intelligenz für seine eigenen Zwecke einsetzt.</translation>
+	</token>
+
+	<token name="MimikryMenu">
+		<translation lang="all">Mimikry</translation>
+	</token>
+
+	<token name="MimikryText">
+		<translation lang="all">Semesterprojekt "Kurzfilm" im 2. Semester Medieninformatik an der HS Harz. (2009)</translation>
+	</token>
+
+	<token name="TheCleanerSolutionMenu">
+		<translation lang="all">The Cleaner Solution</translation>
+	</token>
+
+	<token name="TheCleanerSolutionText">
+		<translation lang="de">Dieser Filmbeitrag wurde für den Media Informatics Flying Fish (Minff) Award 2009 erstellt. Mit diesem Kurzfilm belegten wir an dem Abend den 3. PlatzHochzeit. Insgesamt wurden 8 Beiträge aus allen Semestern gezeigt. Die größte Beteiligung befand sich im filmischen Bereich.</translation>
+	</token>
+
+	<token name="MikasaMenu">
+		<translation lang="all">Mikasa Grenzenlos</translation>
+	</token>
+
+	<token name="MikasaText">
+		<translation lang="de">Im Rahmen des Foto- und Videowettbewerbs von Mikasa haben Daniel und ich einen Beitrag ausgearbeitet. Alle Szenen sind mit meiner Canon 7D gedreht.</translation>
+	</token>
+
+	<token name="CaturdayMenu">
+		<translation lang="all">Caturday</translation>
+	</token>
+
+	<token name="CaturdayText">
+		<translation lang="de">Der MINFF Award 2010 war für uns auch dieses Jahr trotz der vielen Projekte und der wenigen Zeit kein Tabu und wir haben in kurzer Zeit einen kleinen Beitrag zum diesjährigen Thema "<strong>Obsession</strong>" erstellt. Der zweite Platz ist für uns natürlich neben einem vor Freude und Gefallen lachenden Publikum das größte Lob. Vielen Dank für den schönen Abend!</translation>
+	</token>
+	<token name="MikasaText2">
+		<translation lang="de">Idee und Umsetzung: <anchor href="http://dblossfeld.de/">Daniel Bloßfeld</anchor> und Kai Dorschner</translation>
+	</token>
+
+	<token name="GANoticeHeadline">
+		<translation lang="all">Google Analytics</translation>
+	</token>
+	<token name="GANoticeText">
+		<translation lang="all">Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. ("Google"). Google Analytics verwendet sog. "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der Website durch Sie ermöglicht. Die durch den Cookie erzeugten Informationen über Ihre Benutzung diese Website (einschließlich Ihrer IP-Adresse) wird an einen Server von Google in den USA übertragen und dort gespeichert. Google wird diese Informationen benutzen, um Ihre Nutzung der Website auszuwerten, um Reports über die Websiteaktivitäten für die Websitebetreiber zusammenzustellen und um weitere mit der Websitenutzung und der Internetnutzung verbundene Dienstleistungen zu erbringen. Auch wird Google diese Informationen gegebenenfalls an Dritte übertragen, sofern dies gesetzlich vorgeschrieben oder soweit Dritte diese Daten im Auftrag von Google verarbeiten. Google wird in keinem Fall Ihre IP-Adresse mit anderen Daten der Google in Verbindung bringen. Sie können die Installation der Cookies durch eine entsprechende Einstellung Ihrer Browser Software verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser Website voll umfänglich nutzen können. Durch die Nutzung dieser Website erklären Sie sich mit der Bearbeitung der über Sie erhobenen Daten durch Google in der zuvor beschriebenen Art und Weise und zu dem zuvor benannten Zweck einverstanden.</translation>
+	</token>
+
+	<token name="MI2010Menu">
+		<translation lang="all">10 Jahre MI</translation>
+	</token>
+	<token name="MI2010Preface">
+		<translation lang="all">Hier ein kleiner Auszug des sehr gelungenen Abends mit den Alumnis.</translation>
+	</token>
+
+	<token name="parseTest" type="parse"><!-- JSON -->
+		<translation lang="de">Mein Name ist Kai Dorschner und ich bin derzeit [["duration" : {"textToken" : "DurationYears", "from" : "10.04.1986", "to" : "now", "format" : "Y"}]] alt.</translation>
+		<translation lang="en">Table of contents</translation>
+	</token>
+
+	<token name="personalData">
+		<translation lang="de">Zur Person</translation>
+	</token>
+	<token name="werdegangBeruflich">
+		<translation lang="de">Beruflicher Werdegang</translation>
+	</token>
+	<token name="werdegangSchulisch">
+		<translation lang="de">Schulischer Werdegang</translation>
+	</token>
+	<token name="werdegangSonstiges">
+		<translation lang="de">Sonstiges</translation>
+	</token>
+	<token name="interessen">
+		<translation lang="de">Freizeit: Interessen und Hobbies</translation>
+	</token>
+	<token name="musik">
+		<translation lang="de">Musikrichtung</translation>
+	</token>
+</root>

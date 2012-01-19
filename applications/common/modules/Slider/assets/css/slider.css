@@ -1,0 +1,16 @@
+.slider {
+	width: 100%;
+	min-height: 300px;
+	margin-top: 20px;
+	overflow: hidden;
+	position: relative;
+}
+
+.slider .slide {
+	width: 700px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	position: absolute;
+	display: none;
+}
