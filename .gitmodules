@@ -1,0 +1,12 @@
+[submodule "lib/vendor/Minify"]
+	path = lib/vendor/Minify
+	url = https://github.com/mrclay/minify.git
+[submodule "lib/vendor/Assetic"]
+	path = lib/vendor/Assetic
+	url = https://github.com/kriswallsmith/assetic.git
+[submodule "lib/vendor/Lessphp"]
+	path = lib/vendor/Lessphp
+	url = https://github.com/leafo/lessphp.git
+[submodule "lib/vendor/Opl"]
+	path = lib/vendor/Opl
+	url = https://github.com/OPL/opl3-autoloader.git
