@@ -6,17 +6,18 @@
  */
 define('STARTTIME', microtime(true));
 
-require __DIR__.'/lib/vendor/Opl/Autoloader/GenericLoader.php';
+require __DIR__.'/lib/vendor/Opl/src/Opl/Autoloader/GenericLoader.php';
 
 use \Opl\Autoloader\GenericLoader;
 
-$loader = new GenericLoader('lib/vendor/');
+$loader = new GenericLoader(__DIR__.'/lib/vendor/');
 $loader->addNamespace('Mocovi');
-$loader->addNamespace('Assetic', 'lib/vendor/Assetic/src');
+$loader->addNamespace('Assetic', __DIR__.'/lib/vendor/Assetic/src');
 $loader->register();
 
 require 'options.php';
 
-$applicationPool	= new \DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'applications');
-
-$application = new \Mocovi\Application($applicationPool, $options);
+$application = new \Mocovi\Application
+	( $applicationPool = new \DirectoryIterator(__DIR__.DIRECTORY_SEPARATOR.'applications')
+	, $options
+	);
