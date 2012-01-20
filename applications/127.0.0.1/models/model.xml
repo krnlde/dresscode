@@ -37,7 +37,7 @@
 				</c:header>
 				<c:section>
 					<c:paragraph>
-						<c:translate token="loremipsum"/>
+						<c:translate token="AboutMePreface"/>
 					</c:paragraph>
 					<c:listing maximum="4">
 						<c:element>

@@ -197,7 +197,10 @@ abstract class Controller
 					 ;
 				foreach ($this->children as $child)
 				{
-					$child->launch($method, $params, $this->node, $application);
+					if ($this->launchChild($child))
+					{
+						$child->launch($method, $params, $this->node, $application);
+					}
 				}
 				$this->$method($params); // -> HTTP Method
 				$this->after($params);
@@ -208,6 +211,14 @@ abstract class Controller
 			}
 		}
 		return $this->getNode();
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function launchChild(\Mocovi\Controller $child)
+	{
+		return true;
 	}
 
 	/**

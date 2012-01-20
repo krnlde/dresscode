@@ -22,16 +22,20 @@ class Translate extends Inline
 	/**
 	 * When "true" no words will be cut.
 	 *
-	 * Requires $cut to be set.
+	 * Requires {@see $cut} to be set.
 	 *
 	 * @property
 	 * @var boolean
 	 */
 	protected $preserveWords = true;
 
+	public function launchChild(\Mocovi\Controller $child)
+	{
+		return false;
+	}
+
 	protected function get(array $params = array())
 	{
-		// parent::get(); // prevent class from loading children, since it's an inline element.
 		$translatedText = \Mocovi\Translator::translate($this->token);
 		if (!empty($this->cut))
 		{
