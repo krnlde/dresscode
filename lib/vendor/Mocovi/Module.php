@@ -27,6 +27,8 @@ namespace Mocovi;
  *
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
+ * @todo		Exclude the factory classes (createControllerFromNode, etc.)
+ * @todo		Rename this class to something more intuitive. Suggestions?
  */
 class Module
 {

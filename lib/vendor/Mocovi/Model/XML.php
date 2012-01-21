@@ -167,7 +167,14 @@ class XML extends \Mocovi\Model
 			{
 				if ($token = $childNode->getAttribute('aliasToken'))
 				{
-					$childNode->setAttribute('alias', \Mocovi\Translator::translate($token));
+					if ($translation = \Mocovi\Translator::translate($token))
+					{
+						$childNode->setAttribute('alias', $translation->nodeValue);
+					}
+					else
+					{
+						$childNode->setAttribute('alias', $token);
+					}
 				}
 				$list[$this->getPath($childNode)] = $childNode;
 			}

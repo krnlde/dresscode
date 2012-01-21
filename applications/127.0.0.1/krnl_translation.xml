@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root>
+<root xmlns:c="http://mocovi.de/schema/controller">
+	<token name="loremipsum">
+		<translation lang="all">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</translation>
+	</token>
 	<token name="Home">
 		<translation lang="all">Startseite</translation>
 	</token>
 	<token name="AboutMePreface">
-		<translation lang="de">Machen Sie sich auf den folgenden Seiten ein Bild von mir. Bei eventuellen Fragen oder dem Wunsch auf ein persönliches Gespräch wenden Sie sich bitte direkt über die Kontaktmöglichkeiten im <anchor href="/imprint">Impressum</anchor> an mich.</translation>
+		<translation lang="de">Machen Sie sich auf den folgenden Seiten ein Bild von mir. Bei eventuellen Fragen oder dem Wunsch auf ein persönliches Gespräch wenden Sie sich bitte direkt über die Kontaktmöglichkeiten im <c:link to="/imprint">Impressum</c:link> an mich. <c:translate token="AboutMePreface1"/></translation>
 	</token>
 	<token name="AboutMePreface1">
 		<translation lang="de">Ich besitze mehr als neun Jahre Erfahrung und fachspezifisches Wissen im Bereich Informatik, denn bereits in der 8. Klasse der Erich-Kästner-Gesamtschule in Baunatal habe ich drei Jahre lang über eine HTML AG den Grundstein für die Arbeit mit neuen Medien gelegt. In den darauf folgenden zwei Jahren wurde ich an der Herwig-Blankertz Fachoberschule in Hofgeismar im technischen Bereich der Informatik im Schwerpunktfach Netzwerktechnik nach dem Cisco Systems Curriculum geschult. Dadurch habe ich umfangreiches und vielseitig anwendbares Wissen über die Erstellung und Pflege von Netzwerken erhalten. Außerdem habe ich grundlegendes Verständnis in der Elektro- und Digitaltechnik (Schaltungen, Logische Operationen, etc.) erlangt. Im letzten Jahr der Fachoberschule programmierten wir mit Turbopascal (Delphi), dies war für mich der Einstieg in die objektorientierte Programmierung.</translation>
@@ -245,7 +248,7 @@
 		<translation lang="de">Der MINFF Award 2010 war für uns auch dieses Jahr trotz der vielen Projekte und der wenigen Zeit kein Tabu und wir haben in kurzer Zeit einen kleinen Beitrag zum diesjährigen Thema "<strong>Obsession</strong>" erstellt. Der zweite Platz ist für uns natürlich neben einem vor Freude und Gefallen lachenden Publikum das größte Lob. Vielen Dank für den schönen Abend!</translation>
 	</token>
 	<token name="MikasaText2">
-		<translation lang="de">Idee und Umsetzung: <anchor href="http://dblossfeld.de/">Daniel Bloßfeld</anchor> und Kai Dorschner</translation>
+		<translation lang="de">Idee und Umsetzung: <c:link to="http://dblossfeld.de/">Daniel Bloßfeld</c:link> und Kai Dorschner</translation>
 	</token>
 
 	<token name="GANoticeHeadline">

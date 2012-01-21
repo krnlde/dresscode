@@ -41,11 +41,7 @@ abstract class Translator
 	 *
 	 * @var array of array
 	 */
-	protected static $translation = array
-	( 'all' => array
-		( 	'loremipsum' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
-		)
-	);
+	protected static $translation = array();
 
 	/**
 	 * @param string $language
@@ -55,7 +51,7 @@ abstract class Translator
 	{
 		if (strlen($language) != 2)
 		{
-			throw new Exception\NotAllowed('Language code: '.$language);
+			throw new Exception\NotAllowed($language);
 		}
 		self::$language = (string)$language;
 	}
@@ -74,21 +70,13 @@ abstract class Translator
 	 * @param string $language Default: 'all';
 	 * @return void
 	 */
-	public static function addTranslation($token, $value, $language = 'all')
+	public static function addTranslation(\DomNode $token)
 	{
-		self::$translation[$language][$token] = $value;
-	}
-
-	/**
-	 * @param array $translations
-	 * @param string $language Default: 'all';
-	 * @return void
-	 */
-	public static function addTranslations(array $translations, $language = 'all')
-	{
-		$newTranslations = array();
-		$newTranslations[$language] = $translations;
-		self::$translation = array_merge(self::$translation, $newTranslation);
+		$name = $token->getAttribute('name');
+		foreach ($token->getElementsByTagName('translation') as $translation)
+		{
+			self::$translation[$translation->getAttribute('lang')][$name] = $translation;
+		}
 	}
 
 	/**
@@ -99,28 +87,24 @@ abstract class Translator
 	{
 		foreach ($xml->getElementsByTagName('token') as $token)
 		{
-			$name = $token->getAttribute('name');
-			foreach ($token->getElementsByTagName('translation') as $translation)
-			{
-				self::$translation[$translation->getAttribute('lang')][$name] = $translation->nodeValue;
-			}
+			self::addTranslation($token);
 		}
 	}
 
 	/**
 	 * @param string $token
-	 * @return string Value based on the current language {@see self::$language}.
+	 * @return \DomNode Value based on the current language {@see self::$language}.
 	 */
 	public static function translate($token)
 	{
 		if (isset(self::$translation[self::$language][$token]))
 		{
-			return trim(self::$translation[self::$language][$token]);
+			return self::$translation[self::$language][$token];
 		}
 		if (isset(self::$translation['all'][$token]))
 		{
-			return trim(self::$translation['all'][$token]);
+			return self::$translation['all'][$token];
 		}
-		return $token; // @todo return $token or better an empty string?
+		return null; // @todo return $token or better an empty string?
 	}
 }

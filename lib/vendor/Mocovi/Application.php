@@ -223,10 +223,17 @@ class Application implements Routable
 	 */
 	public function head($path, $format, array $params = array())
 	{
+		$params['method']	= $this->Request->method;
+		$params['scheme']	= $this->Request->scheme;
+		$params['domain']	= $this->name;
+		$params['port']		= $this->Request->port;
+		$params['path']		= $this->Request->path;
+		$params['format']	= $this->Request->format;
 		try
 		{
 			$file	= $this->Model->read($path);
 			$mtime	= $this->Model->lastModified($path);
+			$params['modified']	= $mtime;
 
 			// handle client side cache
 			// @todo also see: If-Modified-Since, If-Unmodified-Since, If-Match and If-None-Match
@@ -277,13 +284,6 @@ class Application implements Routable
 				or $params['author'] = $file->getAttribute('author');
 
 			$params['title']	= $file->getAttribute('alias') ?: $file->getAttribute('name');
-			$params['modified']	= $mtime;
-			$params['method']	= $this->Request->method;
-			$params['scheme']	= $this->Request->scheme;
-			$params['domain']	= $this->name;
-			$params['port']		= $this->Request->port;
-			$params['path']		= $this->Request->path;
-			$params['format']	= $this->Request->format;
 
 			// @todo implement partial GET (with "HTTP/1.1 206 Partial Content")
 
@@ -590,12 +590,13 @@ class Application implements Routable
 	{
 		$asset = self::getCssAssetFactory()->createAsset
 		(	self::$stylesheets
-		,	array
-			(	'import'
-			,	'rewrite'
-			,	'less'
+		,	array // @todo make modifiable
+			(	'less'
+			,	'import'
+			// ,	'rewrite'
 			,	'min'
 			)
+		,	array('output' => 'assetic/*.css')
 		);
 		$cache = self::getAssetCache($asset);
 		self::getAssetWriter()->writeAsset($cache);
@@ -611,6 +612,8 @@ class Application implements Routable
 	{
 		$asset = self::getJsAssetFactory()->createAsset
 		(	self::$javascripts
+		,	array(/* filters */) // @todo make modifiable
+		,	array('output' => 'assetic/*.js')
 		);
 		$cache = self::getAssetCache($asset);
 		self::getAssetWriter()->writeAsset($cache);
@@ -629,9 +632,9 @@ class Application implements Routable
 		class_exists('\lessc') or require('lib/vendor/lessphp/lessc.inc.php');
 
 		$fm = new FilterManager();
+		$fm->set('less', new Filter\LessPhpFilter());
 		$fm->set('import', new Filter\CssImportFilter());
 		$fm->set('rewrite', new Filter\CssRewriteFilter());
-		$fm->set('less', new Filter\LessPhpFilter());
 		$fm->set('min', new Filter\CssMinFilter());
 
 		$factory = new AssetFactory(self::getAssetBuildPath());

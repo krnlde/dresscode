@@ -25,6 +25,8 @@ namespace Mocovi;
 /**
  * Abstract RESTful Controller.
  *
+ * It uses an ReflectionObject of itself to determine its controller properties.
+ *
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
  */

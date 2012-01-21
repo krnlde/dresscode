@@ -7,7 +7,7 @@ class Link extends \Mocovi\Controller
 	/**
 	 * @var string
 	 */
-	protected $url;
+	private $url;
 
 	/**
 	 * @property

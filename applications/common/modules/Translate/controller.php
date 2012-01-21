@@ -6,6 +6,13 @@ class_exists('Mocovi\\Controller\\Inline', false) or require __DIR__.'/../Inline
 class Translate extends Inline
 {
 	/**
+	 * This variable is used to track used tokens to avoid loop-cycles.
+	 *
+	 * @var array
+	 */
+	private static $usedTokens = array();
+
+	/**
 	 * @property
 	 * @var string
 	 */
@@ -36,9 +43,14 @@ class Translate extends Inline
 
 	protected function get(array $params = array())
 	{
-		$translatedText = \Mocovi\Translator::translate($this->token);
+		if (!($translation = \Mocovi\Translator::translate($this->token)))
+		{
+			$this->setText($this->token);
+			return;
+		}
 		if (!empty($this->cut))
 		{
+			$translatedText = $translation->nodeValue;
 			if ($this->preserveWords)
 			{
 				$words		= explode(' ', $translatedText);
@@ -61,7 +73,23 @@ class Translate extends Inline
 			{
 				$translatedText = rtrim(substr($translatedText, 0, $this->cut));
 			}
+			$this->setText($translatedText);
 		}
-		$this->setText($translatedText);
+		else
+		{
+			if (array_key_exists($this->token, self::$usedTokens))
+			{
+				throw new \Mocovi\Exception('Loop detected: '.$this->token);
+			}
+			self::$usedTokens[$this->token] = null;
+			foreach($translation->childNodes as $child)
+			{
+				if ($controller = \Mocovi\Module::createControllerFromNode($child))
+				{
+					$controller->launch('get', $params, $this->parentNode, $this->Application);
+				}
+			}
+			self::$usedTokens = array();
+		}
 	}
 }

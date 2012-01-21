@@ -82,7 +82,7 @@
 				</c:section>
 				<c:section>
 					<c:headline priority="4">Interessanter Artikel</c:headline>
-					<c:paragraph><c:translate token="loremipsum"/></c:paragraph>
+					<c:paragraph><c:translate token="loremipsum" cut="500"/></c:paragraph>
 					<c:link href="">weiterlesen ...</c:link>
 				</c:section>
 				<c:section>
