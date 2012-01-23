@@ -136,7 +136,7 @@ class XML extends \Mocovi\Model
 		}
 		foreach ($this->getFileList() as $pathCandidate => $node)
 		{
-			if ($node->hasChildNodes() && $pathCandidate === $path)
+			if (/* $node->hasChildNodes() && */ $pathCandidate === $path) // disabled hasChildNodes because of empty redirect files.
 			{
 				return $node;
 			}

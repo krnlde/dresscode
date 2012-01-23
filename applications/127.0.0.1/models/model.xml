@@ -10,6 +10,7 @@
 	defaultTheme="krnl"
 	defaultLanguage="de"
 	>
+	<file name="index" invisible="1" redirect="/home"/>
 	<file name="home" aliasToken="Home" methods="get" author="Kai Dorschner">
 		<keywords>
 			<element lang="de">krnl</element>
@@ -33,7 +34,6 @@
 					<c:headline>
 						<c:translate token="loremipsum" cut="15"/>
 					</c:headline>
-
 				</c:header>
 				<c:section>
 					<c:paragraph>
@@ -96,12 +96,16 @@
 				</c:section>
 			</c:footer>
 		</c:root>
-		<file name="subfile" aliasToken="Subfile" methods="get" author="Kai Dorschner">
+
+		<file name="videos" alias="Youtube &amp; Vimeo Videos" methods="get" author="Kai Dorschner">
 			<c:root>
 				<c:article>
 					<c:headline>Lorem</c:headline>
 					<c:paragraph>
 						<c:translate token="loremipsum"/>
+					</c:paragraph>
+					<c:paragraph>
+						Text $title, $path, $path
 					</c:paragraph>
 					<c:youtube videoId="JtF7z_DZdVk"/>
 					<c:vimeo videoId="21762564"/>
@@ -113,6 +117,7 @@
 					</c:section>
 				</c:footer>
 			</c:root>
+
 			<file name="foobar" alias="Foo Bar" methods="get" author="Kai Dorschner">
 				<c:root>
 					<c:article>
@@ -157,6 +162,7 @@
 				</c:header>
 				<c:section>
 					<c:paragraph>The requested file "$path" was not found.</c:paragraph>
+					<c:menu source="/" />
 				</c:section>
 			</c:article>
 		</c:root>
