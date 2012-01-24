@@ -193,8 +193,8 @@ abstract class Controller
 		{
 			try
 			{
-				$this->loadIn($parentNode)
-					 ->setApplication($application)
+				$this->setApplication($application)
+					 ->loadIn($parentNode)
 					 ->before($params)
 					 ;
 				foreach ($this->children as $child)
@@ -370,36 +370,11 @@ abstract class Controller
 	// }
 
 	/**
-	 * @return string XQuery leading to the current sourcenode.
+	 * @return string XPath leading to the current {@see $sourceNode}.
 	 */
-	public function getXQuery()
+	public function getXPath()
 	{
-		$xquery		= '';
-		$node		= $this->sourceNode;
-		$parentNode	= $node->parentNode;
-		$dom		= $node->ownerDocument;
-		do
-		{
-			$count = 1;
-			foreach ($parentNode->childNodes as $childNode)
-			{
-				if ($childNode->nodeName === $node->nodeName)
-				{
-					if ($childNode === $node)
-					{
-						$xquery = '/'.$node->nodeName.'['.$count.']'.$xquery;
-						continue;
-					}
-					else
-					{
-						$count++;
-					}
-				}
-			}
-			$node = $parentNode;
-		}
-		while (($parentNode = $parentNode->parentNode) && $node !== $dom);
-		return $xquery;
+		return $this->sourceNode->getNodePath();
 	}
 
 	/**
@@ -460,13 +435,28 @@ abstract class Controller
 	{
 		if ($this->node instanceof \DomNode)
 		{
-			$this->node->parentNode->replaceChild
-				( $newNode
-				, $this->node
-				);
+			try
+			{
+				$this->node->parentNode->replaceChild
+					( $newNode
+					, $this->node
+					);
+			}
+			catch (\Exception $e) // NotFoundException or similar
+			{
+				if (!$newNode->ownerDocument->isSameNode($this->dom))
+				{
+					$newNode = $this->dom->importNode($newNode, true);
+				}
+				$this->parentNode->appendChild($newNode);
+			}
 		}
 		elseif (empty($this->node) && $this->parentNode instanceof \DomElement)
 		{
+			if (!$newNode->ownerDocument->isSameNode($this->dom))
+			{
+				$newNode = $this->dom->importNode($newNode, true);
+			}
 			$this->parentNode->appendChild($newNode);
 		}
 		else
@@ -560,7 +550,10 @@ abstract class Controller
 			$this->dom			= $parentNode instanceof \DomDocument ? $parentNode : $parentNode->ownerDocument;
 			$this->node			= $this->createNode();
 
-			$this->parentNode->appendChild($this->node);
+			if ($this->node instanceof \DomNode && $this->node->ownerDocument->isSameNode($this->dom))
+			{
+				$this->parentNode->appendChild($this->node);
+			}
 		}
 		return $this;
 	}

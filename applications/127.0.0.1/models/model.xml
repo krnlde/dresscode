@@ -22,8 +22,10 @@
 						<c:translate token="loremipsum" cut="40"/>
 					</c:attribute>
 				</c:image>
-				<c:paragraph showFromDate="2012-01-09">
-					<c:image source="http://placehold.it/221x160"/>
+				<c:paragraph>
+					<c:image source="http://placehold.it/221x160">
+						<c:attribute name="description">moep</c:attribute>
+					</c:image>
 					<c:image source="http://placehold.it/221x160"/>
 					<c:image source="http://placehold.it/221x160"/>
 					<c:image source="http://placehold.it/221x160"/>

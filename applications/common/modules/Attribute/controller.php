@@ -11,6 +11,11 @@ class Attribute extends \Mocovi\Controller
 
 	protected function createNode()
 	{
-		return $this->parentNode->setAttribute($this->name, null); // will be filled later
+		return $this->sourceNode->parentNode->setAttribute($this->name, null);
+	}
+
+	public function get(array $params = array())
+	{
+		$this->parent->setProperty($this->name, $this->node->nodeValue);
 	}
 }
