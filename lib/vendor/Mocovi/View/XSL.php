@@ -45,6 +45,10 @@ class XSL extends \Mocovi\View
 		$this->addPool($resource);
 	}
 
+	/**
+	 * @param \DomDocument $dom
+	 * @return \Mocovi\View\Intermediate
+	 */
 	public function transform(\DomDocument $dom)
 	{
 		$this->Xslt = new \XSLTProcessor();
@@ -52,13 +56,17 @@ class XSL extends \Mocovi\View
 		return new Intermediate($this, $dom);
 	}
 
+	/**
+	 * @param string format
+	 * @return \Mocovi\View\XSL $this
+	 */
 	public function setOutputFormat($format)
 	{
 		if(!($path = $this->Pool->find($format)))
 		{
 			throw new \Mocovi\Exception\WrongFormat($format);
 		}
-		$Xsl						= new \DOMDocument();
+		$Xsl						= new \DomDocument();
 		$Xsl->preserveWhiteSpace	= false;
 		$Xsl->formatOutput			= false;
 		$Xsl->load($path);
@@ -78,6 +86,12 @@ class XSL extends \Mocovi\View
 		return $this;
 	}
 
+	/**
+	 * This method performs the actual transformation from the parameter DomDocument to the {@see setOutputFormat()}.
+	 *
+	 * @param \DomDocument $Dom
+	 * @return string
+	 */
 	public function _transform(\DomDocument $Dom)
 	{
 		return $this->Xslt->transformToXml($Dom);

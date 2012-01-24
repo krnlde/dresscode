@@ -130,16 +130,22 @@ class Application implements Routable
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	public static function basePath()
 	{
 		return dirname($_SERVER['SCRIPT_NAME']);
 	}
 
+	/**
+	 * Resets the {@see $dom} (creates a new DomDocument).
+	 */
 	public function resetDom()
 	{
 		$this->dom						= new \DomDocument('1.0', 'utf-8');
 		$this->dom->preserveWhiteSpace	= false;
-		$this->dom->formatOutput		= true;
+		$this->dom->formatOutput		= false;
 		return $this;
 	}
 
@@ -591,10 +597,10 @@ class Application implements Routable
 		$asset = self::getCssAssetFactory()->createAsset
 		(	self::$stylesheets
 		,	array // @todo make modifiable
-			(	'less'
-			,	'import'
-			// ,	'rewrite'
-			,	'min'
+			(	'less' // Less CSS Compiler
+			,	'import' // Solves @imports
+			// ,	'rewrite' // Rewrites Base URLs when moving to another URL
+			,	'min' // Minifies the script
 			)
 		,	array('output' => 'assetic/*.css')
 		);
@@ -628,10 +634,11 @@ class Application implements Routable
 	 */
 	private static function getCssAssetFactory()
 	{
-		class_exists('\\CssMin') or require('lib/vendor/CssMin.php');
-		class_exists('\lessc') or require('lib/vendor/lessphp/lessc.inc.php');
+		class_exists('\\CssMin') or require('lib/vendor/CssMin.php'); // @todo This class is very slow - it needs about 0.2 sec to load!!!!!!
+		class_exists('\\lessc') or require('lib/vendor/lessphp/lessc.inc.php');
 
 		$fm = new FilterManager();
+
 		$fm->set('less', new Filter\LessPhpFilter());
 		$fm->set('import', new Filter\CssImportFilter());
 		$fm->set('rewrite', new Filter\CssRewriteFilter());
@@ -639,6 +646,7 @@ class Application implements Routable
 
 		$factory = new AssetFactory(self::getAssetBuildPath());
 		$factory->setFilterManager($fm);
+
 		return $factory;
 	}
 
