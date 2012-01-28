@@ -634,7 +634,7 @@ class Application implements Routable
 	 */
 	private static function getCssAssetFactory()
 	{
-		class_exists('\\CssMin') or require('lib/vendor/CssMin.php'); // @todo This class is very slow - it needs about 0.2 sec to load!!!!!!
+		class_exists('\\CssMin') or require('lib/vendor/CssMin/CssMin.php'); // @todo This class is very slow - it needs about 0.2 sec to load!!!!!!
 		class_exists('\\lessc') or require('lib/vendor/lessphp/lessc.inc.php');
 
 		$fm = new FilterManager();
