@@ -3,7 +3,7 @@ $(function() {
 	$slider.find('.slide:first-child').css({display: 'block'});
 	var revolver = $slider.revolver(
 		{ autoPlay:			true
-		, rotationSpeed:	2000
+		, rotationSpeed:	5000
 		, transition:
 			{ direction:	'up'
 			, easing:		'swing'

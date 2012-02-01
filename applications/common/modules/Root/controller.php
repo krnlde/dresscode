@@ -6,6 +6,16 @@ use Assetic\Asset;
 class Root extends \Mocovi\Controller
 {
 	/**
+	 * You are able to define another "theme" for your website just by changing the CSS folder.
+	 *
+	 * @todo implement
+	 * @property
+	 * @hideIfEmpty
+	 * @var string
+	 */
+	protected $theme;
+
+	/**
 	 * @property
 	 * @var string
 	 */
@@ -45,6 +55,8 @@ class Root extends \Mocovi\Controller
 	{
 		$cssPool = new \Mocovi\Pool('css');
 		$cssPool->add(new \DirectoryIterator('applications/common/assets/css'));
+
+		// @todo $theme goes here!!
 
 		if (file_exists($custom = 'applications/'.$this->Application->getName().'/assets/css'))
 		{
