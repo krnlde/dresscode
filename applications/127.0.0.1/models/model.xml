@@ -16,7 +16,7 @@
 			<element lang="de">krnl</element>
 		</keywords>
 		<c:root>
-			<c:header>
+			<c:header class="hero-unit">
 				<c:image source="http://placehold.it/896x420">
 					<c:attribute name="description">
 						<c:translate token="loremipsum" cut="40"/>
@@ -77,21 +77,21 @@
 					</c:slider>
 				</c:section>
 			</c:article>
-			<c:footer>
-				<c:section>
+			<c:footer class="row">
+				<c:section class="span4">
 					<c:headline priority="4">Sitemap</c:headline>
 					<c:menu source="/" />
 				</c:section>
-				<c:section>
+				<c:section class="span4">
 					<c:headline priority="4">Interessanter Artikel</c:headline>
 					<c:paragraph><c:translate token="loremipsum" cut="500"/></c:paragraph>
 					<c:link href="">weiterlesen ...</c:link>
 				</c:section>
-				<c:section>
+				<c:section class="span4">
 					<c:headline priority="4">Anderer Artikel</c:headline>
 					<c:paragraph><c:translate token="loremipsum" cut="140"/></c:paragraph>
 				</c:section>
-				<c:section>
+				<c:section class="span4">
 					<c:headline priority="4">Interessanter Artikel</c:headline>
 					<c:paragraph><c:translate token="loremipsum"/></c:paragraph>
 					<c:link href="">weiterlesen ...</c:link>
