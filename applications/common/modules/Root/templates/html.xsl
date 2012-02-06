@@ -27,7 +27,7 @@
 				<xsl:comment><![CDATA[[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]]]></xsl:comment>
 			</head>
 			<body>
-				<div class="container">
+				<div id="container">
 					<xsl:apply-templates/>
 				</div>
 				<!--

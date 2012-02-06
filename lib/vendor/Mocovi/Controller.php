@@ -30,9 +30,11 @@ namespace Mocovi;
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
  */
-abstract class Controller
+abstract class Controller implements Observable
 {
 	const NS = 'http://mocovi.de/schema/controller';
+
+	private $observers = array();
 
 	/**
 	 * @var \Mocovi\Application
@@ -214,6 +216,31 @@ abstract class Controller
 		}
 		return $this->getNode();
 	}
+
+	/* Observer Methods */
+	public function attach(\Mocovi\Observer $observer)
+	{
+
+		$this->observers[] = $observer;
+	}
+	public function detach(\Mocovi\Observer $observer)
+	{
+		foreach ($this->observers as &$candidate)
+		{
+			if ($observer === $candidate)
+			{
+				unset($candidate);
+			}
+		}
+	}
+	public function notify($message)
+	{
+		foreach ($this->observers as $observer)
+		{
+			$observer->update($this, $message);
+		}
+	}
+
 
 	/**
 	 * @return boolean

@@ -32,6 +32,19 @@ class Menu extends \Mocovi\Controller
 
 	protected function get(array $params = array())
 	{
+		// @Test Observer Test
+		// $o = new \Mocovi\Observer();
+		// $this->attach($o);
+		// $o->on('load', function($source) {
+		// 	echo 'works.';
+		// })
+		// ->on('NOTload', function($source) {
+		// 	echo 'doesn\'t work.';
+		// })
+		// ->on('load', function($source) {
+		// 	echo 'works too.';
+		// });
+		// $this->notify('load');
 		if (!is_null($this->depth))
 		{
 			if ($this->depth < self::MIN_DEPTH)

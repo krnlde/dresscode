@@ -10,6 +10,3 @@
 [submodule "lib/vendor/Opl"]
 	path = lib/vendor/Opl
 	url = https://github.com/OPL/opl3-autoloader.git
-[submodule "bootstrap"]
-	path = bootstrap
-	url = git://github.com/twitter/bootstrap.git
