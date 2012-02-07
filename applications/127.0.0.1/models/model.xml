@@ -123,7 +123,7 @@
 			<file name="foobar" alias="Foo Bar" methods="get" author="Kai Dorschner">
 				<c:root>
 					<c:article>
-						<c:headline>Test</c:headline>
+						<xref:reference ref="reference1"/>
 						<c:paragraph>
 							<c:translate token="loremipsum"/>
 						</c:paragraph>

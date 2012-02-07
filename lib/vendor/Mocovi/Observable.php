@@ -22,13 +22,14 @@
  */
 namespace Mocovi;
 
+use \Mocovi\Event;
+
 /**
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
  */
 interface Observable
 {
-	public function attach(\Mocovi\Observer $observer);
-	public function detach(\Mocovi\Observer $observer);
-	public function notify($message);
+	public function on($type, $callback);
+	public function trigger(Event $event);
 }

@@ -22,6 +22,8 @@
  */
 namespace Mocovi;
 
+use \Mocovi\Event;
+
 /**
  * Abstract RESTful Controller.
  *
@@ -34,7 +36,12 @@ abstract class Controller implements Observable
 {
 	const NS = 'http://mocovi.de/schema/controller';
 
-	private $observers = array();
+	/**
+	 * Callbacks from the Observers
+	 *
+	 * @var array
+	 */
+	private $callbacks = array();
 
 	/**
 	 * @var \Mocovi\Application
@@ -131,9 +138,7 @@ abstract class Controller implements Observable
 	 */
 	final public function __construct(\DomNode $sourceNode)
 	{
-
 		$this->Reflection	= new \ReflectionClass($this);
-
 		$this->sourceNode	= $sourceNode;
 
 		if ($this->sourceNode->hasAttributes())
@@ -217,28 +222,40 @@ abstract class Controller implements Observable
 		return $this->getNode();
 	}
 
-	/* Observer Methods */
-	public function attach(\Mocovi\Observer $observer)
-	{
+	// @todo Callbacks as middleware like in http://expressjs.com/guide.html#route-middleware
 
-		$this->observers[] = $observer;
-	}
-	public function detach(\Mocovi\Observer $observer)
+	/**
+	 * Invokes all observing callbacks matching the event.
+	 *
+	 * @param \Mocovi\Event $event
+	 * @return void
+	 */
+	public function trigger(Event $event)
 	{
-		foreach ($this->observers as &$candidate)
+		if (isset($this->callbacks[$event->type]))
 		{
-			if ($observer === $candidate)
+			foreach ($this->callbacks[$event->type] as $callback)
 			{
-				unset($candidate);
+				$callback($event);
 			}
 		}
 	}
-	public function notify($message)
+
+	/**
+	 * Sets a callback listener (Observer) for an event type.
+	 *
+	 * @param $string $type
+	 * @param \Closure|array $callback
+	 * @return \Mocovi\Controller $this
+	 */
+	final public function on($type, $callback)
 	{
-		foreach ($this->observers as $observer)
+		if (is_callable($callback))
 		{
-			$observer->update($this, $message);
+			$this->callbacks[$type][] = $callback;
+			return $this;
 		}
+		throw new Exception('Second argument has a wrong callback type.');
 	}
 
 

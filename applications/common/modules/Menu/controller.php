@@ -1,6 +1,8 @@
 <?php
 namespace Mocovi\Controller;
 
+use \Mocovi\Event;
+
 class Menu extends \Mocovi\Controller
 {
 	/*
@@ -32,19 +34,13 @@ class Menu extends \Mocovi\Controller
 
 	protected function get(array $params = array())
 	{
-		// @Test Observer Test
-		// $o = new \Mocovi\Observer();
-		// $this->attach($o);
-		// $o->on('load', function($source) {
-		// 	echo 'works.';
-		// })
-		// ->on('NOTload', function($source) {
-		// 	echo 'doesn\'t work.';
-		// })
-		// ->on('load', function($source) {
-		// 	echo 'works too.';
+		// @example Working event example
+		// $this->on('addElement', function ($event) {
+		// 	if ($event->target->getAttribute('path') === '/home')
+		// 	{
+		// 		$event->target->setAttribute('path', '/DoesntExist');
+		// 	}
 		// });
-		// $this->notify('load');
 		if (!is_null($this->depth))
 		{
 			if ($this->depth < self::MIN_DEPTH)
@@ -60,7 +56,7 @@ class Menu extends \Mocovi\Controller
 		{
 			$this->depth = self::MAX_DEPTH;
 		}
-		$this->path		= $this->Application->Request->path;
+		$this->path = $this->Application->Request->path;
 
 		if ($this->source === '.')
 		{
@@ -96,6 +92,8 @@ class Menu extends \Mocovi\Controller
 			{
 				$elementNode->setAttribute('active', 1);
 			}
+			$event = new Event('addElement', $elementNode);
+			$this->trigger($event);
 			if ($depth <= $this->depth)
 			{
 				$list = $this->Application->Model->getList($path);
