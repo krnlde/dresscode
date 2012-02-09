@@ -34,13 +34,6 @@ class Menu extends \Mocovi\Controller
 
 	protected function get(array $params = array())
 	{
-		// @example Working event example
-		// $this->on('addElement', function ($event) {
-		// 	if ($event->target->getAttribute('path') === '/home')
-		// 	{
-		// 		$event->target->setAttribute('path', '/DoesntExist');
-		// 	}
-		// });
 		if (!is_null($this->depth))
 		{
 			if ($this->depth < self::MIN_DEPTH)
@@ -92,8 +85,7 @@ class Menu extends \Mocovi\Controller
 			{
 				$elementNode->setAttribute('active', 1);
 			}
-			$event = new Event('addElement', $elementNode);
-			$this->trigger($event);
+			$this->trigger('addElement', $elementNode);
 			if ($depth <= $this->depth)
 			{
 				$list = $this->Application->Model->getList($path);

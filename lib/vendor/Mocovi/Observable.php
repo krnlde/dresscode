@@ -31,5 +31,5 @@ use \Mocovi\Event;
 interface Observable
 {
 	public function on($type, $callback);
-	public function trigger(Event $event);
+	public function trigger($type, $target);
 }

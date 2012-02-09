@@ -227,17 +227,20 @@ abstract class Controller implements Observable
 	/**
 	 * Invokes all observing callbacks matching the event.
 	 *
-	 * @param \Mocovi\Event $event
-	 * @return void
+	 * @param string $type
+	 * @param mixed $target
+	 * @return \Mocovi\Event
 	 */
-	public function trigger(Event $event)
+	public function trigger($type, $target = null)
 	{
-		if (isset($this->callbacks[$event->type]))
+		if (isset($this->callbacks[$type]))
 		{
-			foreach ($this->callbacks[$event->type] as $callback)
+			$event = new Event($type, $target);
+			foreach ($this->callbacks[$type] as $callback)
 			{
 				$callback($event);
 			}
+			return $event;
 		}
 	}
 
@@ -439,6 +442,25 @@ abstract class Controller implements Observable
 			$matches = array_merge($matches, $child->find($name)); // recursion!
 		}
 		return $matches;
+	}
+
+	/**
+	 * Find closest parent controller.
+	 *
+	 * @param string $name Controller
+	 * @return \Mocovi\Controller
+	 */
+	public function closest($name)
+	{
+		$parent = $this;
+		while ($parent = $parent->getParent())
+		{
+			if (strtolower($parent->getName()) === strtolower($name))
+			{
+				return $parent;
+			}
+		}
+		return null;
 	}
 
 	/**

@@ -80,7 +80,9 @@
 			<c:footer>
 				<c:section>
 					<c:headline priority="4">Sitemap</c:headline>
-					<c:menu source="/" />
+					<c:menu source="/">
+						<c:menuextension/>
+					</c:menu>
 				</c:section>
 				<c:section>
 					<c:headline priority="4">Interessanter Artikel</c:headline>

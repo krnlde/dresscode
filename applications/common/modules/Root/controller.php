@@ -1,8 +1,6 @@
 <?php
 namespace Mocovi\Controller;
 
-use Assetic\Asset;
-
 class Root extends \Mocovi\Controller
 {
 	/**
@@ -81,13 +79,13 @@ class Root extends \Mocovi\Controller
 
 	protected function get(array $params = array())
 	{
-		$this->canonical = $params['scheme'].'://'.$params['domain'].($params['port'] ? ':'.$params['port'] : '').$this->Application->basePath().$params['path'];
-		$this->language	= \Mocovi\Translator::getLanguage();
-		$this->author	= isset($params['author']) ? $params['author'] : '[unknown]';
-		$this->title	= isset($params['title']) ? $params['title'] : '[no title provided]';
-		$this->modified	= isset($params['modified']) ? $params['modified'] : null;
-		$this->domain	= isset($params['domain']) ? $params['domain'] : null;
-		$this->path		= isset($params['path']) ? $params['path'] : null;
+		$this->canonical	= $params['scheme'].'://'.$params['domain'].($params['port'] ? ':'.$params['port'] : '').$this->Application->basePath().$params['path'];
+		$this->language		= \Mocovi\Translator::getLanguage();
+		$this->author		= isset($params['author']) ? $params['author'] : '[unknown]';
+		$this->title		= isset($params['title']) ? $params['title'] : '[no title provided]';
+		$this->modified		= isset($params['modified']) ? $params['modified'] : null;
+		$this->domain		= isset($params['domain']) ? $params['domain'] : null;
+		$this->path			= isset($params['path']) ? $params['path'] : null;
 		parent::get($params);
 	}
 }
