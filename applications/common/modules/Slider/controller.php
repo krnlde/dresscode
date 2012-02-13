@@ -21,7 +21,7 @@ class Slider extends \Mocovi\Controller
 		$this->Application->javascripts
 		(	array
 			(	'applications/common/assets/js/jquery.min.js' // or 'http://code.jquery.com/jquery.min.js'
-			,	'applications/common/modules/Slider/assets/js/jquery.revolver.min.js'
+			,	'applications/common/modules/Slider/assets/js/jquery-revolver/jquery.revolver.min.js'
 			,	'applications/common/modules/Slider/assets/js/slider.js'
 			)
 		);
