@@ -425,10 +425,10 @@ abstract class Controller implements Observable
 	}
 
 	/**
-	 * Find child-Controllers.
+	 * Find child controllers.
 	 *
 	 * @param string $name Controller
-	 * @return array Matching controllers
+	 * @return \Mocovi\Controller\Collection Matching controllers
 	 */
 	public function find($name)
 	{
@@ -441,14 +441,14 @@ abstract class Controller implements Observable
 			}
 			$matches = array_merge($matches, $child->find($name)); // recursion!
 		}
-		return $matches;
+		return new Controller\Collection($matches);
 	}
 
 	/**
 	 * Find closest parent controller.
 	 *
 	 * @param string $name Controller
-	 * @return \Mocovi\Controller
+	 * @return \Mocovi\Controller\Collection Matching controllers
 	 */
 	public function closest($name)
 	{
@@ -457,10 +457,10 @@ abstract class Controller implements Observable
 		{
 			if (strtolower($parent->getName()) === strtolower($name))
 			{
-				return $parent;
+				return new Controller\Collection(array($parent));
 			}
 		}
-		return null;
+		return new Controller\Collection();
 	}
 
 	/**

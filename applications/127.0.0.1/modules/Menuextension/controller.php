@@ -11,7 +11,7 @@ class Menuextension extends \Mocovi\Controller
 			if ($event->target->getAttribute('path') === '/home')
 			{
 				$new = $event->target->cloneNode(true);
-				$new->setAttribute('alias', 'Cloned');
+				$new->setAttribute('alias', '[Generated]');
 				$menu = $event->target->ownerDocument->createElement('menu');
 				$menu->appendChild($new);
 				$event->target->appendChild($menu);

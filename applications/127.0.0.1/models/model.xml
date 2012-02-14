@@ -45,9 +45,14 @@
 						<c:element>
 							<c:translate token="loremipsum" cut="30"/>
 						</c:element>
-						<c:link to="http://krnl.de/">
-							<c:translate token="loremipsum" cut="25"/>
-						</c:link>
+						<c:element>
+							<c:link to="http://krnl.de/">
+								<c:translate token="loremipsum" cut="25"/>
+							</c:link>
+							<c:listing>
+								<c:element>verschachtelt!</c:element>
+							</c:listing>
+						</c:element>
 						<c:element>Test 3</c:element>
 						<c:element>Test 4</c:element>
 						<c:element>Test 5</c:element>
@@ -59,7 +64,7 @@
 						<c:element>
 							<c:headline>Slide 1</c:headline>
 							<c:paragraph>
-								<c:translate token="loremipsum"/>
+								<c:translate token="loremipsum" cut="370"/>
 							</c:paragraph>
 						</c:element>
 						<c:element>
@@ -86,7 +91,7 @@
 				</c:section>
 				<c:section>
 					<c:headline priority="4">Interessanter Artikel</c:headline>
-					<c:paragraph><c:translate token="loremipsum" cut="500"/></c:paragraph>
+					<c:paragraph><c:translate token="loremipsum" cut="300"/></c:paragraph>
 					<c:link href="">weiterlesen ...</c:link>
 				</c:section>
 				<c:section>
@@ -95,7 +100,7 @@
 				</c:section>
 				<c:section>
 					<c:headline priority="4">Interessanter Artikel</c:headline>
-					<c:paragraph><c:translate token="loremipsum"/></c:paragraph>
+					<c:paragraph><c:translate token="loremipsum" cut="200"/></c:paragraph>
 					<c:link href="">weiterlesen ...</c:link>
 				</c:section>
 			</c:footer>

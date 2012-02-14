@@ -64,7 +64,7 @@ class Root extends \Mocovi\Controller
 		$this->Application->stylesheets
 		(	array
 			// (	'applications/common/assets/bootstrap/bootstrap.min.css'
-			(	'applications/common/assets/css/less/main.css'
+			(	'applications/common/assets/css/less/main-16px.css'
 			,	$cssPool->find('main')
 			)
 		);
