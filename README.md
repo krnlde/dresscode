@@ -6,7 +6,7 @@ mocovi is a [single-source-](http://de.wikipedia.org/wiki/Single_Source_Publishi
 
 For me _understanding_ was the most complicated part in programming. So I decided to save me some WTFs reading howtos & tutorials and better start over to make an **easy, clear and human-readable** framework built from the ground up - including all new features and technologies. No abbreviations. No "$v1, $v2, $v3" and [stuff](http://wikipedia.org/wiki/Anti-pattern). Read everything like a book.
 
-Starting with reading and observing other products I saw that many Content Management Systems and Frameworks lack in structured models and are being developed by many different programmers over many years - which means patchworked code and furthermore, inconsistencies. Plus, nearly every CMS uses [MySQL](http://wikipedia.org/wiki/MySQL) to store every kind of data. In my opinion databases should only be used for huge loads of constantly changing and indexable data. MySQL is hard to understand and to handle [relational tables](http://dev.mysql.com/doc/refman/5.5/en/innodb-foreign-key-constraints.html). This is why mocovi is based on [W3C standards](http://www.w3.org/standards/xml/) ([XML](http://www.w3.org/TR/xml/) and [XSLT](http://www.w3.org/TR/xslt)) and programming design patterns (written in [PHP](http://www.php.net/)).
+Starting with reading and observing other products I saw that many Content Management Systems and Frameworks lack in structured models and are being developed by many different programmers over many years - which means patchworked code and furthermore, inconsistencies. Plus, almost every CMS uses [MySQL](http://wikipedia.org/wiki/MySQL) to store every kind of data. In my opinion databases should only be used for huge loads of constantly changing and indexable data. MySQL is hard to understand and to handle [relational tables](http://dev.mysql.com/doc/refman/5.5/en/innodb-foreign-key-constraints.html). This is why mocovi is based on [W3C standards](http://www.w3.org/standards/xml/) ([XML](http://www.w3.org/TR/xml/) and [XSLT](http://www.w3.org/TR/xslt)) and programming design patterns (written in [PHP](http://www.php.net/)).
 
 ## Why [XML](http://wikipedia.org/wiki/XML) as data model
 
@@ -16,9 +16,9 @@ XML is readable by humans and computers likewise. XML won't be a problem if you 
 
 PHP became more serious since version [5.3](http://php.net/releases/5_3_0.php) (and of course 6). Many deficiencies were cleaned up. The object oriented features like [Late Static Binding](http://php.net/manual/language.oop5.late-static-bindings.php), [Namespaces](http://php.net/manual/language.namespaces.php) and even [Closures](http://php.net/manual/functions.anonymous.php) were added recently. The support of PHP on the webservers of the providers is common.
 
-Apache is one of the most powerful and secure webserver in the world. With .htaccess you can control nearly every behaviour of the server. URL-Rewriting for instance.
+Apache is one of the most powerful and secure webserver in the world. With .htaccess you can control almost every behaviour of the server. URL-rewriting for instance.
 
-## Why XSLT as view
+## Why [XSLT](http://wikipedia.org/wiki/XSLT) as view
 
 Because you can choose either a formatted output for better reading or a stripped one for more performance on the client side. Well formed and W3C compliant!
 
@@ -46,14 +46,15 @@ mocovi is tested on Windows 7 64Bit, XAMPP 1.7.4
 
 ## Install
 
-Go to your htdocs directory in your command line and execute the following command `git clone git://github.com/krnlde/mocovi.git mocovi`.
-After cloning the mocovi repository you'll want to initialize all submodules by executing the following commands: `cd mocovi` to switch to the git repo, `git submodule update --init` to fetch all submodules.
-Newer versions of git (git >= 1.6.5) support the shorthand command `git clone --recursive git://github.com/krnlde/mocovi.git mocovi`.
+Navigate to your Apache document root, usually the `htdocs` directory, in your command line and execute the following command: `git clone git://github.com/krnlde/mocovi.git mocovi`
 
-Now open your web-browser at http://127.0.0.1/mocovi/ and see the rendered website.
+After cloning the mocovi repository you will want to initialize all submodules by executing the following commands: `cd mocovi` to switch to the git repo, `git submodule update --init` to fetch all submodules.
+Newer versions of git (git >= 1.6.5) support the shorthand command `git clone --recursive git://github.com/krnlde/mocovi.git mocovi`, which combines all three commands.
 
-Please note that the directories found in `mocovi/applications` represent the current domain, which means the contents of the directory `127.0.0.1` will be used to render the output.
+Now open your web-browser at http://127.0.0.1/mocovi/ and see the rendered example website.
 
-You can set a default domain instead of using the domain recognition in the `mocovi/options.php`.
+**Please note that the directories found in `mocovi/applications` represent the current domain, which means the contents of the directory `127.0.0.1` will be used to render the output.**
 
-Play around and explore the rest :)
+**You can set a default domain instead of using the domain recognition in the `mocovi/options.php`.**
+
+Play around and explore the rest :) Have fun!
