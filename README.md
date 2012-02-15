@@ -4,7 +4,7 @@ mocovi is a [single-source-](http://de.wikipedia.org/wiki/Single_Source_Publishi
 
 ## Why mocovi?
 
-For me _understanding_ was the most complicated part in programming. So I decided to save me some WTFs reading howtos & tutorials and better start over to make an *easy, clear and human-readable* framework built from the ground up - including all new features and technologies. No abbreviations. No "$v1, $v2, $v3" and [stuff](http://wikipedia.org/wiki/Anti-pattern). Read everything like a book.
+For me _understanding_ was the most complicated part in programming. So I decided to save me some WTFs reading howtos & tutorials and better start over to make an **easy, clear and human-readable** framework built from the ground up - including all new features and technologies. No abbreviations. No "$v1, $v2, $v3" and [stuff](http://wikipedia.org/wiki/Anti-pattern). Read everything like a book.
 
 Starting with reading and observing other products I saw that many Content Management Systems and Frameworks lack in structured models and are being developed by many different programmers over many years - which means patchworked code and furthermore, inconsistencies. Plus, nearly every CMS uses [MySQL](http://wikipedia.org/wiki/MySQL) to store every kind of data. In my opinion databases should only be used for huge loads of constantly changing and indexable data. MySQL is hard to understand and to handle [relational tables](http://dev.mysql.com/doc/refman/5.5/en/innodb-foreign-key-constraints.html). This is why mocovi is based on [W3C standards](http://www.w3.org/standards/xml/) ([XML](http://www.w3.org/TR/xml/) and [XSLT](http://www.w3.org/TR/xslt)) and programming design patterns (written in [PHP](http://www.php.net/)).
 
