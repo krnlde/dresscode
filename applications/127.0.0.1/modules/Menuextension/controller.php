@@ -7,14 +7,18 @@ class Menuextension extends \Mocovi\Controller
 {
 	protected function get(array $params = array())
 	{
-		$this->closest('Menu')->on('addElement', function ($event) {
-			if ($event->target->getAttribute('path') === '/home')
+		/*
+			Here is an example how to select modules in the hierarchy,
+			modify them and use events with its callbacks.
+		*/
+		$this->closest('Menu')->on('addElement', function (\Mocovi\Event $event) {
+			$node = $event->relatedTarget;
+			if ($node->getAttribute('path') === '/home')
 			{
-				$new = $event->target->cloneNode(true);
+				$menu = $node->ownerDocument->createElement('menu');
+				$menu->appendChild($new = $node->cloneNode(true));
 				$new->setAttribute('alias', '[Generated]');
-				$menu = $event->target->ownerDocument->createElement('menu');
-				$menu->appendChild($new);
-				$event->target->appendChild($menu);
+				$node->appendChild($menu);
 			}
 		});
 	}

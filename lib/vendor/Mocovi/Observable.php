@@ -28,8 +28,73 @@ use \Mocovi\Event;
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
  */
-interface Observable
+class Observable
 {
-	public function on($type, $callback);
-	public function trigger($type, $target);
+	/**
+	 * Callbacks from the Observers / Event Handlers are saved in here.
+	 *
+	 * @var array
+	 */
+	private $eventHandlers = array();
+
+	/**
+	 * Target which will be attached to the Event.
+	 *
+	 * @var mixed
+	 */
+	private $target;
+
+	/**
+	 * Modifies the default target, which is $this.
+	 *
+	 * @param mixed $target
+	 * @return \Mocovi\Observable $this
+	 */
+	public function setTarget($target)
+	{
+		$this->target = $target;
+		return $this;
+	}
+
+	/**
+	 * Invokes all observing callbacks matching the event.
+	 *
+	 * @param string $type
+	 * @param mixed $relatedTarget
+	 * @param array $data Default: array();
+	 * @return \Mocovi\Event
+	 */
+	public function trigger($type, $relatedTarget = null, array $data = array())
+	{
+		$event = new Event($type, ($this->target ?: $this), $relatedTarget, $data);
+		if (isset($this->eventHandlers[$type]))
+		{
+			foreach ($this->eventHandlers[$type] as $callback)
+			{
+				if (!$event->isPropagationStopped())
+				{
+					$event->result = $callback($event);
+				}
+			}
+		}
+		return $event;
+	}
+
+	/**
+	 * Sets a callback listener (Observer) for an event type.
+	 *
+	 * @param $string $type
+	 * @param \Closure|array $callback
+	 * @return \Mocovi\Observable $this
+	 * @throws \Mocovi\Exception\NotAllowed
+	 */
+	final public function on($type, $callback)
+	{
+		if (is_callable($callback))
+		{
+			$this->eventHandlers[$type][] = $callback;
+			return $this;
+		}
+		throw new Exception\NotAllowed('Second argument has a wrong callback type.');
+	}
 }

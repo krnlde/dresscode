@@ -32,16 +32,9 @@ use \Mocovi\Event;
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
  */
-abstract class Controller implements Observable
+abstract class Controller extends Observable
 {
 	const NS = 'http://mocovi.de/schema/controller';
-
-	/**
-	 * Callbacks from the Observers
-	 *
-	 * @var array
-	 */
-	private $callbacks = array();
 
 	/**
 	 * @var \Mocovi\Application
@@ -180,7 +173,7 @@ abstract class Controller implements Observable
 		{
 			$controllerName = ucfirst($sourceNode->localName);
 		}
-		$class = '\Mocovi\Controller\\'.$controllerName;
+		$class = '\\Mocovi\\Controller\\'.$controllerName;
 		class_exists($class ,false)
 			or require $controllerPath->getPathname();
 		return new $class($sourceNode);
@@ -219,55 +212,18 @@ abstract class Controller implements Observable
 				$this->error($e);
 			}
 		}
+		$this->trigger('ready');
 		return $this->getNode();
 	}
 
 	// @todo Callbacks as middleware like in http://expressjs.com/guide.html#route-middleware
 
 	/**
-	 * Invokes all observing callbacks matching the event.
-	 *
-	 * @param string $type
-	 * @param mixed $target
-	 * @return \Mocovi\Event
-	 */
-	public function trigger($type, $target = null)
-	{
-		if (isset($this->callbacks[$type]))
-		{
-			$event = new Event($type, $target);
-			foreach ($this->callbacks[$type] as $callback)
-			{
-				$callback($event);
-			}
-			return $event;
-		}
-	}
-
-	/**
-	 * Sets a callback listener (Observer) for an event type.
-	 *
-	 * @param $string $type
-	 * @param \Closure|array $callback
-	 * @return \Mocovi\Controller $this
-	 */
-	final public function on($type, $callback)
-	{
-		if (is_callable($callback))
-		{
-			$this->callbacks[$type][] = $callback;
-			return $this;
-		}
-		throw new Exception('Second argument has a wrong callback type.');
-	}
-
-
-	/**
 	 * @return boolean
 	 */
 	public function launchChild(\Mocovi\Controller $child)
 	{
-		return true;
+		return !$this->trigger('launchChild', $child)->isDefaultPrevented();
 	}
 
 	/**
@@ -309,7 +265,10 @@ abstract class Controller implements Observable
 	 */
 	public function addChild(\Mocovi\Controller $child)
 	{
-		$this->children[] = $child;
+		if (!$this->trigger('addChild', $child)->isDefaultPrevented())
+		{
+			$this->children[] = $child;
+		}
 		return $this;
 	}
 
@@ -319,7 +278,10 @@ abstract class Controller implements Observable
 	 */
 	public function setParent(\Mocovi\Controller $parent)
 	{
-		$this->parent = $parent;
+		if (!$this->trigger('setParent', $parent)->isDefaultPrevented())
+		{
+			$this->parent = $parent;
+		}
 		return $this;
 	}
 
@@ -335,18 +297,23 @@ abstract class Controller implements Observable
 			$property = $this->Reflection->getProperty($name);
 			if ($this->isControllerProperty($property))
 			{
-				$type = $this->getPropertyType($property);
-				$this->$name = $type ? $this->cast($value, $type) : $value;
-				$this->removeFromDocCommentCache($name);
+				if (!$this->trigger('setProperty', $name, array('value' => $value))->isDefaultPrevented())
+				{
+					$type = $this->getPropertyType($property);
+					$this->$name = $type ? $this->cast($value, $type) : $value;
+					$this->removeFromDocCommentCache($name);
+				}
 			}
 			return $this;
 		}
+		// @strict
 		// throw new \Exception($name.' is no property of '.get_class($this)); // Ignore undefined properties
 	}
 
 	/**
-	 * Returns a specific property of the controller.
+	 * Returns a specific property of this controller.
 	 *
+	 * @param string $name
 	 * @return mixed|null
 	 */
 	public function getPropery($name)
@@ -363,6 +330,8 @@ abstract class Controller implements Observable
 	}
 
 	/**
+	 * Returns all properties of this controller.
+	 *
 	 * @return array Controller Properties
 	 */
 	public function getProperties()
@@ -392,7 +361,10 @@ abstract class Controller implements Observable
 			{
 				if (!is_null($value) && !$this->node->getAttribute($name))
 				{
-					$this->node->setAttribute($name, $value);
+					if (!$this->trigger('adoptProperty', $name, array('value' => $value))->isDefaultPrevented())
+					{
+						$this->node->setAttribute($name, $value);
+					}
 				}
 			}
 		}
@@ -427,7 +399,7 @@ abstract class Controller implements Observable
 	/**
 	 * Find child controllers.
 	 *
-	 * @param string $name Controller
+	 * @param string $name Searched Wanted child controller
 	 * @return \Mocovi\Controller\Collection Matching controllers
 	 */
 	public function find($name)
@@ -447,7 +419,7 @@ abstract class Controller implements Observable
 	/**
 	 * Find closest parent controller.
 	 *
-	 * @param string $name Controller
+	 * @param string $name Wanted parent controller
 	 * @return \Mocovi\Controller\Collection Matching controllers
 	 */
 	public function closest($name)
@@ -480,6 +452,9 @@ abstract class Controller implements Observable
 	// }
 
 	/**
+	 * Removes a property from the {@see $docCommentCache}.
+	 *
+	 * @param $string name Property cached in {@see $docCommentCache}
 	 * @return \Mocovi\Controller $this
 	 */
 	public function removeFromDocCommentCache($name)
@@ -499,16 +474,27 @@ abstract class Controller implements Observable
 	 */
 	public function replaceNode(\DomNode $newNode)
 	{
-		if ($this->node instanceof \DomNode)
+		if (!$this->trigger('replaceNode', $newNode)->isDefaultPrevented())
 		{
-			try
+			if ($this->node instanceof \DomNode)
 			{
-				$this->node->parentNode->replaceChild
-					( $newNode
-					, $this->node
-					);
+				try
+				{
+					$this->node->parentNode->replaceChild
+						( $newNode
+						, $this->node
+						);
+				}
+				catch (\Exception $e) // NotFoundException or similar
+				{
+					if (!$newNode->ownerDocument->isSameNode($this->dom))
+					{
+						$newNode = $this->dom->importNode($newNode, true);
+					}
+					$this->parentNode->appendChild($newNode);
+				}
 			}
-			catch (\Exception $e) // NotFoundException or similar
+			elseif (empty($this->node) && $this->parentNode instanceof \DomElement)
 			{
 				if (!$newNode->ownerDocument->isSameNode($this->dom))
 				{
@@ -516,20 +502,12 @@ abstract class Controller implements Observable
 				}
 				$this->parentNode->appendChild($newNode);
 			}
-		}
-		elseif (empty($this->node) && $this->parentNode instanceof \DomElement)
-		{
-			if (!$newNode->ownerDocument->isSameNode($this->dom))
+			else
 			{
-				$newNode = $this->dom->importNode($newNode, true);
+				throw new \Mocovi\Exception('Couldn\'t replace current node. Neither the current node nor the parentNode are instanceof DomNode or DomElement');
 			}
-			$this->parentNode->appendChild($newNode);
+			$this->node = $newNode;
 		}
-		else
-		{
-			throw new \Mocovi\Exception('Couldn\'t replace current node. Neither the current node nor the parentNode are instanceof DomNode or DomElement');
-		}
-		$this->node = $newNode;
 		return $this;
 	}
 
@@ -539,19 +517,22 @@ abstract class Controller implements Observable
 	 */
 	public function renameNode($nodeName)
 	{
-		$newNode = $this->dom->createElement($nodeName);
-		if ($this->node->attributes->length > 0)
+		if (!$this->trigger('renameNode', $nodeName)->isDefaultPrevented())
 		{
-			foreach ($this->node->attributes as $attribute)
+			$newNode = $this->dom->createElement($nodeName);
+			if ($this->node->attributes->length > 0)
 			{
-				$newNode->setAttribute($attribute->name, $attribute->value);
+				foreach ($this->node->attributes as $attribute)
+				{
+					$newNode->setAttribute($attribute->name, $attribute->value);
+				}
 			}
+			while ($this->node->firstChild)
+			{
+				$newNode->appendChild($this->node->firstChild);
+			}
+			$this->replaceNode($newNode);
 		}
-		while ($this->node->firstChild)
-		{
-			$newNode->appendChild($this->node->firstChild);
-		}
-		$this->replaceNode($newNode);
 		return $this;
 	}
 
@@ -561,21 +542,30 @@ abstract class Controller implements Observable
 	public function deleteNode()
 	{
 		//$this->replaceNode($this->dom->createComment('deleted controller: '.$this->getName()));
-		if ($this->parentNode instanceof \DomElement && $this->node instanceof \DomNode)
+		if (!$this->trigger('deleteNode')->isDefaultPrevented())
 		{
-			$this->parentNode->removeChild($this->node);
+			if ($this->parentNode instanceof \DomElement && $this->node instanceof \DomNode)
+			{
+				$this->parentNode->removeChild($this->node);
+			}
 		}
 		return $this;
 	}
 
 	/**
+	 * Generates a informative node out of the Exception provided as argument.
+	 *
+	 * @param \Exception $e
 	 * @return \Mocovi\Controller $this
 	 */
 	public function error(\Exception $e)
 	{
-		$controller = \Mocovi\Module::createErrorController($e);
-		$controller->launch('get', $params = array(), $this->node, $this->Application);
-		$this->replaceNode($controller->getNode());
+		if (!$this->trigger('error', $e)->isDefaultPrevented())
+		{
+			$controller = \Mocovi\Module::createErrorController($e);
+			$controller->launch('get', $params = array(), $this->node, $this->Application);
+			$this->replaceNode($controller->getNode());
+		}
 		return $this;
 	}
 
@@ -678,44 +668,59 @@ abstract class Controller implements Observable
 	}
 
 	/**
+	 * Represents the HTTP GET method.
+	 *
+	 * Can be implemented in deriving controllers.
+	 *
 	 * @param array $params array()
 	 * @return void
 	 */
 	protected function get(array $params = array())
-	{
-	}
+	{}
 
 	/**
+	 * Represents the HTTP POST method.
+	 *
+	 * Can be implemented in deriving controllers.
+	 *
 	 * @param array $params array()
 	 * @return void
 	 */
 	protected function post(array $params = array())
-	{
-	}
+	{}
 
 	/**
+	 * Represents the HTTP PUT method.
+	 *
+	 * Can be implemented in deriving controllers.
+	 *
 	 * @param array $params array()
 	 * @return void
 	 */
 	protected function put(array $params = array())
-	{
-	}
+	{}
 
 	/**
+	 * Represents the HTTP DELETE method.
+	 *
+	 * Can be implemented in deriving controllers.
+	 *
 	 * @param array $params array()
 	 * @return void
 	 */
 	protected function delete(array $params = array())
-	{
-	}
+	{}
 
 	/**
+	 * Represents the HTTP OPTIONS method.
+	 *
+	 * Can be implemented in deriving controllers.
+	 *
 	 * @param array $params array()
 	 * @return void
 	 */
 	protected function options(array $params = array())
-	{
-	}
+	{}
 
 
 	/**
@@ -802,7 +807,7 @@ abstract class Controller implements Observable
 	}
 
 	/**
-	 * @param string $docComment
+	 * @param \ReflectionProperty $property
 	 * @return array
 	 */
 	protected function tokenizedDocComment(\ReflectionProperty $property)

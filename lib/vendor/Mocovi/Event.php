@@ -31,23 +31,103 @@ namespace Mocovi;
  */
 class Event
 {
+	/**
+	 * The last value returned by an event handler that was triggered by this event, unless the value was null.
+	 *
+	 * @var mixed
+	 */
+	public $result;
+
+	/**
+	 * Describes the nature of the event.
+	 *
+	 * @var string
+	 */
 	private $type;
-	private $target	= null;
-	private $data	= array();
+
+	/**
+	 * The object that initiated the event.
+	 *
+	 * @var \Mocovi\Observable
+	 */
+	private $target;
+
+	/**
+	 * An object involved in the event, if any.
+	 *
+	 * @var object
+	 */
+	private $relatedTarget;
+
+	/**
+	 * An optional data map passed to an event method when the current executing handler is bound.
+	 *
+	 * @var array
+	 */
+	private $data;
+
+	private $default		= true;
+	private $propagation	= true;
 
 	/**
 	 * Constructor method initially setting event type.
 	 *
 	 * @param string $type
 	 * @param mixed $target
+	 * @param mixed $relatedTarget
 	 * @param array $data Default: array();
 	 * @return void
 	 */
-	public function __construct($type, $target = null, array $data = array())
+	public function __construct($type, $target, $relatedTarget = null, array $data = array())
 	{
-		$this->type		= $type;
-		$this->target	= $target;
-		$this->data		= $data;
+		$this->type				= $type;
+		$this->target			= $target;
+		$this->relatedTarget	= $relatedTarget;
+		$this->data				= $data;
+	}
+
+	/**
+	 * If this method is called, the default action of the event will not be triggered.
+	 *
+	 * Sets the {@see $default} variable to true.
+	 *
+	 * @return \Mocovi\Event
+	 */
+	public function preventDefault()
+	{
+		$this->default = false;
+		return $this;
+	}
+
+	/**
+	 * Returns whether {@see preventDefault()} was ever called on this event object.
+	 *
+	 * @return boolean
+	 */
+	public function isDefaultPrevented()
+	{
+		return !$this->default;
+	}
+
+	/**
+	 * Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
+	 *
+	 * @return \Mocovi\Event $this
+	 */
+	public function stopPropagation()
+	{
+		$this->propagation = false;
+		return $this;
+	}
+
+	/**
+	 * Returns whether {@see stopPropagation()} was ever called on this event object.
+	 *
+	 * @return boolean
+	 */
+	public function isPropagationStopped()
+	{
+		return !$this->propagation;
 	}
 
 	/**
@@ -56,6 +136,7 @@ class Event
 	 * @magic
 	 * @param string $var
 	 * @param mixed $value
+	 * @return void
 	 * @throws \Mocovi\Exception\NotAllowed
 	 */
 	public function __set($var, $value)
