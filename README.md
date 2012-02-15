@@ -37,8 +37,8 @@ More than just one output format: Plain-Text, [XML](http://wikipedia.org/wiki/XM
 ## Requirements
 
 * PHP 5.3.5+
-** libxml 2.7.7+
-** libxslt 1.1.23+
+	* libxml 2.7.7+
+	* libxslt 1.1.23+
 * Apache 2.2.17+
 
 ## Install
