@@ -40,6 +40,9 @@ More than just one output format: Plain-Text, [XML](http://wikipedia.org/wiki/XM
 	* libxml 2.7.7+
 	* libxslt 1.1.23+
 * Apache 2.2.17+
+	* mod_rewrite enabled
+
+mocovi is tested on Windows 7 64Bit, XAMPP 1.7.4
 
 ## Install
 

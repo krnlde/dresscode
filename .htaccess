@@ -1,18 +1,10 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 
-	# minify
-	RewriteRule ^min$ lib/vendor/min/index.php?%{QUERY_STRING} [NE]
-
-	# less css
-	RewriteRule (.*\.less)$ less.php?file=$1 [NE]
-
-
 	# if it's not a real file
 	RewriteCond %{REQUEST_FILENAME} !-f
 	# if it's not a real directory
 	RewriteCond %{REQUEST_FILENAME} !-d
-
 
 	RewriteRule ^(.*)$ index.php?path=$1&%{QUERY_STRING} [L]
 
