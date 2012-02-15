@@ -33,3 +33,22 @@ More than just one output format: Plain-Text, [XML](http://wikipedia.org/wiki/XM
 * HTML5-ready
 * Multi-Domain support
 * Token based translations
+
+## Requirements
+
+* PHP 5.3.5+
+** libxml 2.7.7+
+** libxslt 1.1.23+
+* Apache 2.2.17+
+
+## Install
+
+Go to your htdocs directory in your command line and execute the following command `git clone git://github.com/krnlde/mocovi.git mocovi`.
+
+Now open your web-browser at http://127.0.0.1/mocovi/ and see the rendered website.
+
+Please note that the directories found in `mocovi/applications` represent the current domain, which means the contents of the directory `127.0.0.1` will be used to render the output.
+
+You can set a default domain instead of using the domain recognition in the `mocovi/options.php`.
+
+Play around and explore the rest :)
