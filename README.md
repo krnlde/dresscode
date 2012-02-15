@@ -47,6 +47,8 @@ mocovi is tested on Windows 7 64Bit, XAMPP 1.7.4
 ## Install
 
 Go to your htdocs directory in your command line and execute the following command `git clone git://github.com/krnlde/mocovi.git mocovi`.
+After cloning the mocovi repository you'll want to initialize all submodules by executing the following commands: `cd mocovi` to switch to the git repo, `git submodule update --init` to fetch all submodules.
+Newer versions of git (git >= 1.6.5) support the shorthand command `git clone --recursive git://github.com/krnlde/mocovi.git mocovi`.
 
 Now open your web-browser at http://127.0.0.1/mocovi/ and see the rendered website.
 
