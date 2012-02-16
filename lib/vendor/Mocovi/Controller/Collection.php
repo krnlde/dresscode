@@ -72,7 +72,7 @@ class Collection
 	 *
 	 * @param string $method
 	 * @param array $args
-	 * @return void
+	 * @return \Mocovi\Controller\Collection $this
 	 */
 	public function __call($method, array $args)
 	{
@@ -83,6 +83,7 @@ class Collection
 				call_user_func_array(array($controller, $method), $args);
 			}
 		}
+		return $this;
 	}
 
 	/**

@@ -157,11 +157,11 @@ abstract class Controller extends Observable
 		{
 			if ($sourceNode->nodeType !== \XML_ELEMENT_NODE)
 			{
-				throw new Exception('Wrong node provided. Cannot extract a controller from this one "<'.$sourceNode->nodeName.'/>"). Node-Type musst be either "Text" or "Element"');
+				throw new \Mocovi\Exception('Wrong node provided. Cannot extract a controller from this one "<'.$sourceNode->nodeName.'/>"). Node-Type musst be either "Text" or "Element"');
 			}
 			elseif ($sourceNode->lookupNamespaceURI($sourceNode->prefix ?: null) !== \Mocovi\Controller::NS) // $sourceNode->lookupNamespaceURI(null) returns the default namespace
 			{
-				throw new Exception('The namespace of the Controller "<'.$sourceNode->nodeName.'/>" must be "'.\Mocovi\Controller::NS.'"');
+				throw new \Mocovi\Exception('The namespace of the Controller "<'.$sourceNode->nodeName.'/>" must be "'.\Mocovi\Controller::NS.'"');
 			}
 		}
 
@@ -404,6 +404,11 @@ abstract class Controller extends Observable
 	 */
 	public function find($name)
 	{
+		return new Controller\Collection($this->_find($name));
+	}
+
+	protected function _find($name)
+	{
 		$matches = array();
 		foreach ($this->children as $child)
 		{
@@ -411,9 +416,9 @@ abstract class Controller extends Observable
 			{
 				$matches[] = $child;
 			}
-			$matches = array_merge($matches, $child->find($name)); // recursion!
+			$matches = array_merge($matches, $child->_find($name)); // recursion!
 		}
-		return new Controller\Collection($matches);
+		return $matches;
 	}
 
 	/**
