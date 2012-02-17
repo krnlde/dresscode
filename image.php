@@ -14,8 +14,9 @@ if ($source[0] === '/')
 	$source = $_SERVER['DOCUMENT_ROOT'].$source;
 }
 
-$size		= new Imagine\Image\Box(160, 100);
-$mode		= Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+$size		= new Imagine\Image\Box(200, 400);
+// $mode		= Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+$mode		= Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
 $imagine	= new \Imagine\Gd\Imagine();
 header('Content-Type: image/png');
 echo $imagine->open($source)
