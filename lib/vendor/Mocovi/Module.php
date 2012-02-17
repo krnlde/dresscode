@@ -235,10 +235,10 @@ class Module
 	 * @param array $attributes array();
 	 * @return \DomNode
 	 */
-	public static function createNode($nodeName, $text = '', array $attributes = array())
+	public static function createNode($nodeName, $text = null, array $attributes = array())
 	{
-		$dom = self::$dom;
-		$node = $dom->createElementNS(\Mocovi\Controller::NS, $nodeName, $text);
+		$dom	= self::$dom;
+		$node	= $dom->createElementNS(\Mocovi\Controller::NS, $nodeName, $text);
 		foreach ($attributes as $key => $value)
 		{
 			$node->setAttribute($key, $value);
@@ -247,14 +247,12 @@ class Module
 	}
 
 	/**
-	 * @unused
 	 */
-	// public function createController($nodeName, $text = '', array $attributes = array())
-	// {
-	// 	$node		= Module::createNode($nodeName, $text, $attributes);
-	// 	$controller	= Controller::create($node);
-	// 	return $controller;
-	// }
+	public static function createController($nodeName, $text = null, array $attributes = array())
+	{
+		$node		= Module::createNode($nodeName, $text, $attributes);
+		return self::createControllerFromNode($node);
+	}
 
 	/**
 	 * @param \Exception $exception

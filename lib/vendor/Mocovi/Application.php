@@ -599,7 +599,7 @@ class Application implements Routable
 		,	array // @todo make modifiable
 			(	'less' // Less CSS Compiler
 			,	'import' // Solves @imports
-			// ,	'rewrite' // Rewrites Base URLs when moving to another URL
+			,	'rewrite' // Rewrites Base URLs when moving to another URL
 			,	'min' // Minifies the script
 			)
 		,	array('output' => 'assetic/*.css')

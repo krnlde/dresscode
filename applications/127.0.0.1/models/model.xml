@@ -127,13 +127,16 @@
 				</c:footer>
 			</c:root>
 
-			<file name="foobar" alias="Foo Bar" methods="get" author="Kai Dorschner">
+			<file name="gallery" alias="Image Gallery" methods="get" author="Kai Dorschner">
 				<c:root>
 					<c:article>
-						<xref:reference ref="reference1"/>
-						<c:paragraph>
-							<c:translate token="loremipsum"/>
-						</c:paragraph>
+						<c:headline>$title</c:headline>
+						<c:gallery source="/gallery" maximum="100">
+							<c:filter require="/[^0-9]4\.jpg$/"/>
+							<c:filter skip="/[^0-9][0-9]\.jpg$/"/>
+							<c:filter require="/10\.jpg$/"/>
+						</c:gallery>
+						<c:gallery source="/gallery" maximum="2"/>
 					</c:article>
 					<c:footer>
 						<c:section>

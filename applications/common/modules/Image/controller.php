@@ -10,6 +10,14 @@ class Image extends \Mocovi\Controller
 	protected $source;
 
 	/**
+	 * Groups images for example for lightbox slides.
+	 *
+	 * @property
+	 * @var string
+	 */
+	protected $group;
+
+	/**
 	 * @property
 	 * @var string
 	 */

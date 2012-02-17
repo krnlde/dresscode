@@ -54,7 +54,7 @@ class Router
 		}
 		if ($rawPath[strlen($rawPath) - 1] === '/') // if last character is '/', which is not allowed because of duplicate content
 		{
-			$basepath = Mocovi::basePath();
+			$basepath = Application::basePath();
 			$this->Response->redirect($basepath.$path.($format ? '.'.$format : ''), 301);
 		}
 
