@@ -1,181 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xmlfs
+<fs:xmlfs
 	xmlns:xref="x-schema:refSchema.xml"
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://mocovi.de/schema/xmlfs"
-	xmlns:c="http://mocovi.de/schema/controller"
+	xmlns:fs="http://mocovi.de/schema/xmlfs"
+	xmlns="http://mocovi.de/schema/controller"
 	timezone="Europe/Berlin"
 	defaultMedia="html"
-	defaultTheme="krnl"
-	defaultLanguage="de"
+	defaultLanguage="en"
 	>
-	<file name="index" invisible="1" redirect="/home"/>
-	<file name="home" aliasToken="Home" methods="get" author="Kai Dorschner">
-		<keywords>
-			<element lang="de">krnl</element>
-		</keywords>
-		<c:root>
-			<c:header class="hero-unit">
-				<c:image source="http://placehold.it/896x420">
-					<c:attribute name="description">
-						<c:translate token="loremipsum" cut="40"/>
-					</c:attribute>
-				</c:image>
-				<c:paragraph>
-					<c:image source="http://placehold.it/221x160">
-						<c:attribute name="description">moep</c:attribute>
-					</c:image>
-					<c:image source="http://placehold.it/221x160"/>
-					<c:image source="http://placehold.it/221x160"/>
-					<c:image source="http://placehold.it/221x160"/>
-				</c:paragraph>
-			</c:header>
-			<c:article>
-				<c:header>
-					<c:headline>
-						<c:translate token="loremipsum" cut="15"/>
-					</c:headline>
-				</c:header>
-				<c:section>
-					<c:paragraph>
-						<c:translate token="AboutMePreface"/>
-					</c:paragraph>
-					<c:listing maximum="4">
-						<c:element>
-							<c:translate token="loremipsum" cut="30"/>
-						</c:element>
-						<c:element>
-							<c:link to="http://krnl.de/">
-								<c:translate token="loremipsum" cut="25"/>
-							</c:link>
-							<c:listing>
-								<c:element>verschachtelt!</c:element>
-							</c:listing>
-						</c:element>
-						<c:element>Test 3</c:element>
-						<c:element>Test 4</c:element>
-						<c:element>Test 5</c:element>
-					</c:listing>
-					<c:paragraph>
-						<c:translate token="loremipsum"/>
-					</c:paragraph>
-					<c:slider>
-						<c:element>
-							<c:headline>Slide 1</c:headline>
-							<c:paragraph>
-								<c:translate token="loremipsum" cut="370"/>
-							</c:paragraph>
-						</c:element>
-						<c:element>
-							<c:headline>Slide 2</c:headline>
-							<c:paragraph>
-								<c:translate token="loremipsum" cut="200"/>
-							</c:paragraph>
-						</c:element>
-						<c:element>
-							<c:headline>Slide 3</c:headline>
-							<c:paragraph>
-								<c:translate token="loremipsum" cut="20"/>
-							</c:paragraph>
-						</c:element>
-					</c:slider>
-				</c:section>
-			</c:article>
-			<c:footer>
-				<c:section>
-					<c:headline priority="4">Sitemap</c:headline>
-					<c:menu source="/">
-						<c:menuextension/>
-					</c:menu>
-				</c:section>
-				<c:section>
-					<c:headline priority="4">Interessanter Artikel</c:headline>
-					<c:paragraph><c:translate token="loremipsum" cut="300"/></c:paragraph>
-					<c:link href="">weiterlesen ...</c:link>
-				</c:section>
-				<c:section>
-					<c:headline priority="4">Anderer Artikel</c:headline>
-					<c:paragraph><c:translate token="loremipsum" cut="140"/></c:paragraph>
-				</c:section>
-				<c:section>
-					<c:headline priority="4">Interessanter Artikel</c:headline>
-					<c:paragraph><c:translate token="loremipsum" cut="200"/></c:paragraph>
-					<c:link href="">weiterlesen ...</c:link>
-				</c:section>
-			</c:footer>
-		</c:root>
+	<fs:file name="index" invisible="1" redirect="/home"/>
+	<fs:file name="home" aliasToken="Home" methods="get" author="Kai Dorschner">
+		<fs:keywords>
+			<fs:element lang="de">krnl</fs:element>
+		</fs:keywords>
+		<root>
+			<header class="hero-unit">
+				<image source="http://placehold.it/896x420">
+					<attribute name="description">
+						<translate token="loremipsum" cut="40"/>
+					</attribute>
+				</image>
+				<paragraph>
+					<image source="http://placehold.it/221x160">
+						<attribute name="description">moep</attribute>
+					</image>
+					<image source="http://placehold.it/221x160"/>
+					<image source="http://placehold.it/221x160"/>
+					<image source="http://placehold.it/221x160"/>
+				</paragraph>
+			</header>
+			<article>
+				<header>
+					<headline>
+						<translate token="loremipsum" cut="15"/>
+					</headline>
+				</header>
+				<section>
+					<paragraph>
+						<translate token="AboutMePreface"/>
+					</paragraph>
+					<listing maximum="4">
+						<element>
+							<translate token="loremipsum" cut="30"/>
+						</element>
+						<element>
+							<link to="http://krnl.de/">
+								<translate token="loremipsum" cut="25"/>
+							</link>
+							<listing>
+								<element>verschachtelt!</element>
+							</listing>
+						</element>
+						<element>Test 3</element>
+						<element>Test 4</element>
+						<element>Test 5</element>
+					</listing>
+					<paragraph>
+						<translate token="loremipsum"/>
+					</paragraph>
+					<slider>
+						<element>
+							<headline>Slide 1</headline>
+							<paragraph>
+								<translate token="loremipsum" cut="370"/>
+							</paragraph>
+						</element>
+						<element>
+							<headline>Slide 2</headline>
+							<paragraph>
+								<translate token="loremipsum" cut="200"/>
+							</paragraph>
+						</element>
+						<element>
+							<headline>Slide 3</headline>
+							<paragraph>
+								<translate token="loremipsum" cut="20"/>
+							</paragraph>
+						</element>
+					</slider>
+				</section>
+			</article>
+			<footer>
+				<section>
+					<headline priority="4">Sitemap</headline>
+					<menu source="/">
+						<menuextension/>
+					</menu>
+				</section>
+				<section>
+					<headline priority="4">Interessanter Artikel</headline>
+					<paragraph><translate token="loremipsum" cut="300"/></paragraph>
+					<link href="">weiterlesen ...</link>
+				</section>
+				<section>
+					<headline priority="4">Anderer Artikel</headline>
+					<paragraph><translate token="loremipsum" cut="140"/></paragraph>
+				</section>
+				<section>
+					<headline priority="4">Interessanter Artikel</headline>
+					<paragraph><translate token="loremipsum" cut="200"/></paragraph>
+					<link href="">weiterlesen ...</link>
+				</section>
+			</footer>
+		</root>
 
-		<file name="videos" alias="Youtube &amp; Vimeo Videos" methods="get" author="Kai Dorschner">
-			<c:root>
-				<c:article>
-					<c:headline>Lorem</c:headline>
-					<c:paragraph>
-						<c:translate token="loremipsum"/>
-					</c:paragraph>
-					<c:paragraph>
+		<fs:file name="videos" alias="Youtube &amp; Vimeo Videos" methods="get" author="Kai Dorschner">
+			<root>
+				<article>
+					<headline>Lorem</headline>
+					<paragraph>
+						<translate token="loremipsum"/>
+					</paragraph>
+					<paragraph>
 						Text $title, $path, $path
-					</c:paragraph>
-					<c:youtube videoId="JtF7z_DZdVk"/>
-					<c:vimeo videoId="21762564"/>
-				</c:article>
-				<c:footer>
-					<c:section>
-						<c:headline priority="4">Sitemap</c:headline>
-						<c:menu source="/" />
-					</c:section>
-				</c:footer>
-			</c:root>
+					</paragraph>
+					<youtube videoId="JtF7z_DZdVk"/>
+					<vimeo videoId="21762564"/>
+				</article>
+				<footer>
+					<section>
+						<headline priority="4">Sitemap</headline>
+						<menu source="/" />
+					</section>
+				</footer>
+			</root>
 
-			<file name="gallery" alias="Image Gallery" methods="get" author="Kai Dorschner">
-				<c:root>
-					<c:article>
-						<c:headline>$title</c:headline>
-						<c:paragraph>
-							<c:translate token="loremipsum" cut="300"/>
-						</c:paragraph>
-						<c:gallery source="/gallery" maximum="100"/>
-					</c:article>
-					<c:footer>
-						<c:section>
-							<c:headline priority="4">Sitemap</c:headline>
-							<c:menu source="/" />
-						</c:section>
-					</c:footer>
-				</c:root>
-			</file>
-		</file>
-	</file>
+			<fs:file name="gallery" alias="Image Gallery" methods="get" author="Kai Dorschner">
+				<root>
+					<article>
+						<headline>$title</headline>
+						<paragraph>
+							<translate token="loremipsum" cut="300"/>
+						</paragraph>
+						<gallery source="/gallery" maximum="100"/>
+					</article>
+					<footer>
+						<section>
+							<headline priority="4">Sitemap</headline>
+							<menu source="/" />
+						</section>
+					</footer>
+				</root>
+			</fs:file>
+		</fs:file>
+	</fs:file>
 
-	<file name="test" aliasToken="Testfile" methods="get" author="Kai Dorschner">
-		<c:root>
-			<c:article>
-				<c:headline xml:id="reference1">Cross Reference Test</c:headline>
-				<c:paragraph>
-					<c:translate token="loremipsum"/>
-				</c:paragraph>
-			</c:article>
-			<c:footer>
-				<c:section>
-					<c:headline priority="4">Sitemap</c:headline>
-					<c:menu source="/" />
-				</c:section>
-			</c:footer>
-		</c:root>
-	</file>
+	<fs:file name="test" aliasToken="Testfile" methods="get" author="Kai Dorschner">
+		<root>
+			<article>
+				<headline xml:id="reference1">Cross Reference Test</headline>
+				<paragraph>
+					<translate token="loremipsum"/>
+				</paragraph>
+			</article>
+			<footer>
+				<section>
+					<headline priority="4">Sitemap</headline>
+					<menu source="/" />
+				</section>
+			</footer>
+		</root>
+	</fs:file>
 
-	<file name="404" invisible="1" statusCode="404">
-		<c:root>
-			<c:article>
-				<c:header>
-					<c:headline>404 - File not found</c:headline>
-				</c:header>
-				<c:section>
-					<c:paragraph>The requested file "$path" was not found.</c:paragraph>
-					<c:menu source="/" />
-				</c:section>
-			</c:article>
-		</c:root>
-	</file>
+	<fs:file name="404" invisible="1" statusCode="404">
+		<root>
+			<article>
+				<header>
+					<headline>404 - File not found</headline>
+				</header>
+				<section>
+					<paragraph>The requested file "$path" was not found.</paragraph>
+					<menu source="/" />
+				</section>
+			</article>
+		</root>
+	</fs:file>
 
-</xmlfs>
+</fs:xmlfs>

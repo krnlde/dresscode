@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xmlfs
+<fs:xmlfs
 	xmlns:xref="x-schema:refSchema.xml"
 	xmlns:xi="http://www.w3.org/2001/XInclude"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://mocovi.de/schema/xmlfs"
-	xmlns:c="http://mocovi.de/schema/controller"
+	xmlns:fs="http://mocovi.de/schema/xmlfs"
+	xmlns="http://mocovi.de/schema/controller"
 	timezone="Europe/Berlin"
 	defaultMedia="html"
 	defaultTheme="krnl"
 	defaultLanguage="de"
 	>
 
-	<file name="home" alias="Home" aliasToken="Home" methods="get" author="Kai Dorschner">
-		<c:root>
-			<c:article>
-				<c:header>
-					<c:headline>Welcome to mocovi</c:headline>
-				</c:header>
-				<c:section>
-					<c:paragraph>You haven't defined an application suiting your domain yet. Your domain is "$domain".</c:paragraph>
-					<c:paragraph>Please copy the <c:cite>yourdomain.com</c:cite> folder in the <c:cite>[mocoviroot]/applications</c:cite> folder and rename it to "$domain"</c:paragraph>
-				</c:section>
-			</c:article>
-		</c:root>
-	</file>
+	<fs:file name="home" alias="Home" aliasToken="Home" methods="get" author="Kai Dorschner">
+		<root>
+			<article>
+				<header>
+					<headline>Welcome to mocovi</headline>
+				</header>
+				<section>
+					<paragraph>You haven't defined an application suiting your domain yet. Your domain is "$domain".</paragraph>
+					<paragraph>Please copy the <cite>yourdomain.com</cite> folder in the <cite>[mocoviroot]/applications</cite> folder and rename it to "$domain"</paragraph>
+				</section>
+			</article>
+		</root>
+	</fs:file>
 
-	<file name="404" statusCode="404">
-		<c:root>
-			<c:header>
-				<c:menu/>
-			</c:header>
-			<c:article>
-				<c:header>
-					<c:headline>404 - File not found</c:headline>
-				</c:header>
-				<c:section>
-					<c:paragraph>The requested file $path was not found.</c:paragraph>
-				</c:section>
-			</c:article>
-		</c:root>
-	</file>
+	<fs:file name="404" statusCode="404">
+		<root>
+			<header>
+				<menu/>
+			</header>
+			<article>
+				<header>
+					<headline>404 - File not found</headline>
+				</header>
+				<section>
+					<paragraph>The requested file $path was not found.</paragraph>
+				</section>
+			</article>
+		</root>
+	</fs:file>
 
-</xmlfs>
+</fs:xmlfs>

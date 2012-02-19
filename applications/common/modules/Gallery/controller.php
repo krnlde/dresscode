@@ -18,6 +18,13 @@ class Gallery extends \Mocovi\Controller
 	 */
 	protected $maximum = 5;
 
+	/**
+	 * @property
+	 * @hidden
+	 * @var string
+	 */
+	protected $size = 'medium';
+
 	protected $imageTypes = array
 		( 'jpg'
 		, 'png'
@@ -65,10 +72,18 @@ class Gallery extends \Mocovi\Controller
 		{
 			throw new \Mocovi\Exception('source path "'.$this->source.'" not found.');
 		}
-		natsort($images);
+		usort($images, function($a, $b) {
+			return strnatcmp($a, $b);
+		});
 		for ($i = 0; $i < min(count($images), $this->maximum); $i++)
 		{
-			$controller = \Mocovi\Module::createController('image', null, array('source' => $images[$i], 'group' => substr(md5($this->getXpath()), 0, 6)));
+			$controller = \Mocovi\Module::createController('thumbnail', null, array
+				( 'source'		=> $images[$i]
+				, 'size'		=> $this->size
+				, 'group'		=> substr(md5($this->getXpath()), 0, 6)
+				, 'description'	=> pathinfo($images[$i], PATHINFO_FILENAME)
+				)
+			);
 			$controller->launch('get', $params, $this->node, $this->Application);
 		}
 	}

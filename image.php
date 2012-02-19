@@ -13,8 +13,18 @@ if ($source[0] === '/')
 {
 	$source = $_SERVER['DOCUMENT_ROOT'].$source;
 }
-
-$size		= new Imagine\Image\Box(200, 400);
+if (isset($_GET['size']) && $_GET['size'] === 'small')
+{
+	$size		= new Imagine\Image\Box(50, 100);
+}
+elseif (isset($_GET['size']) && $_GET['size'] === 'large')
+{
+	$size		= new Imagine\Image\Box(200, 400);
+}
+else
+{
+	$size		= new Imagine\Image\Box(100, 200);
+}
 // $mode		= Imagine\Image\ImageInterface::THUMBNAIL_INSET;
 $mode		= Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
 $imagine	= new \Imagine\Gd\Imagine();

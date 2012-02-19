@@ -8,12 +8,14 @@
 	extension-element-prefixes="php"
 	>
 
-	<xsl:template match="image">
+	<xsl:template match="thumbnail">
 		<!-- render image -->
-			<img src="{@source}" alt="{@description}" title="{@description}">
+		<a href="{@source}" rel="lightbox[{@group}]" title="{@description}">
+			<img src="{php:function('\Mocovi\Application::basePath')}/image.php?source={@source}&amp;size={@size}" alt="{@description}">
 				<xsl:copy-of select="@id"/>
 				<xsl:copy-of select="@class"/>
 			</img>
+		</a>
 		<!--<img src="/image.php?source={@source}&amp;orientation={@orientation}&amp;crop={@crop}" alt="{@description}" title="{@description}" />-->
 	</xsl:template>
 

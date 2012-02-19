@@ -195,7 +195,7 @@ class XML extends \Mocovi\Model
 
 	protected function isValidFile(\DomNode $node)
 	{
-		return $node->nodeName === 'file'
+		return $node->localName === 'file'
 				&& $node->lookupNamespaceURI($node->prefix ?: null) === self::NS;
 	}
 
@@ -205,11 +205,11 @@ class XML extends \Mocovi\Model
 	 */
 	protected function getPath(\DomElement $node)
 	{
-		if ($node->nodeName === 'file')
+		if ($node->localName === 'file')
 		{
 			$name = '/'.$node->getAttribute('name');
 			$parent = $node;
-			while (($parent = $parent->parentNode) && $parent->nodeName === 'file')
+			while (($parent = $parent->parentNode) && $parent->localName === 'file')
 			{
 				$name = '/'.$parent->getAttribute('name').$name;
 			}

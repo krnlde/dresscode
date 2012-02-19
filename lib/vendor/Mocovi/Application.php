@@ -252,7 +252,7 @@ class Application implements Routable
 				$this->Response->Header->lastModified($mtime);
 			}
 
-			if ($file->nodeName !== 'file')
+			if ($file->localName !== 'file')
 			{
 				throw new Exception\WrongFormat($path);
 			}

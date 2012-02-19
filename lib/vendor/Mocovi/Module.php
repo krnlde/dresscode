@@ -99,7 +99,7 @@ class Module
 	/**
 	 * Finds a template inside a module (uses the {@see find();} method to find modules).
 	 *
-	 * @param string $name Template name
+	 * @param string $name Module name
 	 * @return \DirectoryIterator template path
 	 * @throws \Mocovi\Exception\ModuleNotFound
 	 */
@@ -111,6 +111,21 @@ class Module
 			{
 				return new \DirectoryIterator($templatePath);
 			}
+		}
+	}
+
+	/**
+	 * Finds a controller inside a module (uses the {@see find();} method to find modules).
+	 *
+	 * @param string $name Module name
+	 * @return \DirectoryIterator controller path
+	 * @throws \Mocovi\Exception\ModuleNotFound
+	 */
+	public static function findController($name)
+	{
+		if ($module = self::find($name))
+		{
+			return new \SplFileObject($module->getPath().DIRECTORY_SEPARATOR.'controller.php');
 		}
 	}
 
