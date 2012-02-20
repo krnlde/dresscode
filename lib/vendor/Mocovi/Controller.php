@@ -174,8 +174,7 @@ abstract class Controller extends Observable
 			$controllerName = ucfirst($sourceNode->localName);
 		}
 		$class = '\\Mocovi\\Controller\\'.$controllerName;
-		class_exists($class ,false)
-			or require $controllerPath->getPathname();
+		require_once($controllerPath->getPathname());
 		return new $class($sourceNode);
 	}
 

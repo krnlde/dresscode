@@ -1,7 +1,7 @@
 <?php
 namespace Mocovi\Controller;
 
-class_exists('Mocovi\\Controller\\Inline', false) or require __DIR__.'/../Inline/controller.php';
+require_once(\Mocovi\Module::findController('Inline'));
 
 class Translate extends Inline
 {

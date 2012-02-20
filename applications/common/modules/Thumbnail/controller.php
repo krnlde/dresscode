@@ -1,6 +1,6 @@
 <?php
 namespace Mocovi\Controller;
-class_exists('\\Mocovi\\Controller\\Image', false) or require(\Mocovi\Module::findController('Image'));
+require_once(\Mocovi\Module::findController('Image'));
 
 class Thumbnail extends \Mocovi\Controller\Image
 {

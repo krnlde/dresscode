@@ -22,7 +22,7 @@
  */
 namespace Mocovi;
 
-class_exists('Mocovi\\View\\Intermediate') or require('View/Intermediate.php');
+require_once('View/Intermediate.php');
 
 /**
  * @author		Kai Dorschner <the-kernel32@web.de>
