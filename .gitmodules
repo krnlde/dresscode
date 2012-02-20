@@ -19,8 +19,8 @@
 [submodule "applications/common/assets/css/less"]
 	path = applications/common/assets/css/less
 	url = git://github.com/jonikorpi/Less-Framework.git
-[submodule "lib\\vendor\\Imagine"]
-	path = lib\\vendor\\Imagine
+[submodule "lib/vendor/Imagine"]
+	path = lib/vendor/Imagine
 	url = git://github.com/avalanche123/Imagine.git
 [submodule "applications/common/modules/Gallery/assets/jquery-fancybox"]
 	path = applications/common/modules/Gallery/assets/jquery-fancybox
