@@ -275,6 +275,7 @@ class Module
 	 */
 	public static function createErrorNode(\Exception $exception)
 	{
+		echo $exception;
 		$error = self::createNode('error');
 		$error->appendChild($headline = self::createNode('headline', get_class($exception)));
 		$headline->setAttribute('priority', 2);

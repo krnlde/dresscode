@@ -57,7 +57,7 @@ class Pool
 	 */
 	public function add(\DirectoryIterator $directory)
 	{
-		if ($directory->isDir())
+		//if ($directory->isDir())
 		{
 			$this->pools[] = $directory;
 		}
@@ -76,17 +76,21 @@ class Pool
 		{
 			return $this->cache[$name]; // Return already used control from cache.
 		}
+
 		for ($i = (count($this->pools) - 1); $i >= 0; $i--) // Search backwards (last added pool is checked first!)
 		{
 			foreach ($this->pools[$i] as $element)
 			{
-				$path		= $element->getPathname();
-				$filename	= $name.($this->extension ? '.'.$this->extension : '');
-
-				if (!$element->isDot() && $element->getFilename() === $filename) // break condition
+				if (!$element->isDot())
 				{
-					$this->cache[$name] = $path; // Once it is found in one pool it is cached.
-					return $path;
+					$path		= $element->getPathName();
+					$filename	= $name.($this->extension ? '.'.$this->extension : '');
+					// @todo DO NOT USE "$element->getFileName() === $filename" here. There seem to be a bug on Ubuntu which will fail loading the correct controller.
+					if (basename($element->getPathName()) === $filename) // break condition
+					{
+						$this->cache[$name] = $path; // Once it is found in one pool it is cached.
+						return $path;
+					}
 				}
 			}
 		}

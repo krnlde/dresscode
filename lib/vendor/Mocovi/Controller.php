@@ -215,6 +215,16 @@ abstract class Controller extends Observable
 		return $this->getNode();
 	}
 
+	/**
+	 * Returns the directory contain this controller.
+	 *
+	 * @return \DirectoryIterator
+	 */
+	public function getPath()
+	{
+		return \Mocovi\Module::find($this->getName());
+	}
+
 	// @todo Callbacks as middleware like in http://expressjs.com/guide.html#route-middleware
 
 	/**
