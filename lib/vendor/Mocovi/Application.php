@@ -640,7 +640,7 @@ class Application implements Routable
 
 		$fm = new FilterManager();
 
-		$fm->set('less', new Filter\LessPhpFilter());
+		$fm->set('less', new Filter\LessphpFilter());
 		$fm->set('import', new Filter\CssImportFilter());
 		$fm->set('rewrite', new Filter\CssRewriteFilter());
 		$fm->set('min', new Filter\CssMinFilter());
