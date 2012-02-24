@@ -130,6 +130,18 @@ class Module
 	}
 
 	/**
+	 * Finds a controller inside a module (uses the {@see find();} method to find modules).
+	 *
+	 * @param string $name Module name
+	 * @return void
+	 * @throws \Mocovi\Exception\ModuleNotFound
+	 */
+	public static function requireController($name)
+	{
+		require_once(self::findController($name)->getRealPath());
+	}
+
+	/**
 	 * Returns the path of the current application.
 	 *
 	 * @return \DirectoryIterator
@@ -189,7 +201,7 @@ class Module
 	{
 		if ($sourceNode->nodeType === \XML_TEXT_NODE)
 		{
-			$moduleName = 'Inline';
+			$moduleName = 'Plain';
 		}
 		elseif ($sourceNode->lookupNamespaceURI($sourceNode->prefix ?: null) !== \Mocovi\Controller::NS) // ignore other nodes
 		{

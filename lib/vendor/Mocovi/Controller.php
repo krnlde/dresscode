@@ -108,19 +108,13 @@ abstract class Controller extends Observable
 	protected $showToDate;
 
 	/**
-	 * CSS class or equivalent.
-	 *
 	 * @property
-	 * @hideIfEmpty
 	 * @var string
 	 */
 	protected $class;
 
 	/**
-	 * CSS ID or equivalent.
-	 *
 	 * @property
-	 * @hideIfEmpty
 	 * @var string
 	 */
 	protected $id;
@@ -167,7 +161,7 @@ abstract class Controller extends Observable
 
 		if ($sourceNode->nodeType === \XML_TEXT_NODE)
 		{
-			$controllerName = 'Inline';
+			$controllerName = 'Plain';
 		}
 		else
 		{
@@ -832,9 +826,9 @@ abstract class Controller extends Observable
 		}
 		$tokens = array();
 		$docComment = trim(str_replace(array('/*', '*/', '*'), '', $property->getDocComment()));
-		$lines = array_map(function ($element){
+		$lines = array_map(function ($element) {
 			return trim($element);
-		}, explode(PHP_EOL, $docComment));
+		}, preg_split("/[\r\n]+/", $docComment));
 		foreach ($lines as $line)
 		{
 			$pieces = explode(' ', $line, 2); // @todo maybe use split('/\s+/'...) here?

@@ -1,9 +1,9 @@
 <?php
 namespace Mocovi\Controller;
 
-require_once(\Mocovi\Module::findController('Inline'));
+\Mocovi\Module::requireController('Plain');
 
-class Translate extends Inline
+class Translate extends Plain
 {
 	/**
 	 * This variable is used to track used tokens to avoid loop-cycles.
@@ -27,6 +27,12 @@ class Translate extends Inline
 	protected $cut;
 
 	/**
+	 * @property
+	 * @var int
+	 */
+	protected $count;
+
+	/**
 	 * When "true" no words will be cut.
 	 *
 	 * Requires {@see $cut} to be set.
@@ -36,11 +42,6 @@ class Translate extends Inline
 	 */
 	protected $preserveWords = true;
 
-	public function launchChild(\Mocovi\Controller $child)
-	{
-		return false;
-	}
-
 	protected function get(array $params = array())
 	{
 		if (!($translation = \Mocovi\Translator::translate($this->token)))
@@ -48,9 +49,16 @@ class Translate extends Inline
 			$this->setText($this->token);
 			return;
 		}
-		if (!empty($this->cut))
+		if (!is_null($this->count))
+		{
+			$translatedText = sprintf(\Mocovi\translator::textByCount($translation->nodeValue, $this->count), $this->count);
+		}
+		else
 		{
 			$translatedText = $translation->nodeValue;
+		}
+		if (!empty($this->cut))
+		{
 			if ($this->preserveWords)
 			{
 				$words		= explode(' ', $translatedText);
@@ -75,6 +83,10 @@ class Translate extends Inline
 			}
 			$this->setText($translatedText);
 		}
+		elseif (!is_null($this->count))
+		{
+			$this->setText($translatedText);
+		}
 		else
 		{
 			if (array_key_exists($this->token, self::$usedTokens))
@@ -86,7 +98,7 @@ class Translate extends Inline
 			{
 				if ($controller = \Mocovi\Module::createControllerFromNode($child))
 				{
-					$controller->launch('get', $params, $this->parentNode, $this->Application);
+					$controller->launch(__FUNCTION__, $params, $this->parentNode, $this->Application);
 				}
 			}
 			self::$usedTokens = array();

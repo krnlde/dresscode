@@ -35,10 +35,30 @@
 					<headline>
 						<translate token="loremipsum" cut="15"/>
 					</headline>
+					<paragraph>
+						<translate token="DurationYears">
+							<attribute name="count">
+								<duration from="2010-01-02" format="y"/>
+							</attribute>
+						</translate>,
+						<translate token="DurationMonths">
+							<attribute name="count">
+								<duration from="2010-01-02" format="m"/>
+							</attribute>
+						</translate> und
+						<translate token="DurationDays">
+							<attribute name="count">
+								<duration from="2010-01-02" format="d"/>
+							</attribute>
+						</translate>
+						<element showFromDate="2010-01-02">seit dem </element>
+						<element showToDate="2010-01-02">bis zum </element>
+						<date format="d.m.Y">2010-01-02</date>
+					</paragraph>
 				</header>
 				<section>
 					<paragraph>
-						<translate token="AboutMePreface"/>
+						<translate token="loremipsum"/>
 					</paragraph>
 					<listing maximum="4">
 						<element>

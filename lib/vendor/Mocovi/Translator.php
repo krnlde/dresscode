@@ -105,6 +105,61 @@ abstract class Translator
 		{
 			return self::$translation['all'][$token];
 		}
-		return null; // @todo return $token or better an empty string?
+		return null;
+		// return new \DomElement('translation', $token); // @todo return $token or better an empty string?
+	}
+
+	/**
+	 * @param string $token
+	 * @return \DomNode Value based on the current language {@see self::$language}.
+	 */
+	public static function translateByCount($token, $count)
+	{
+		$node = self::translate($token)->cloneNode(true); // if not cloned it would be overwritten!
+		foreach ($node->childNodes as $child)
+		{
+			if ($child->nodeType == XML_TEXT_NODE)
+			{
+				$node->replaceChild(new \DomText(self::getTextByCount($child->nodeValue, $count)), $child);
+			}
+		}
+		return $node;
+	}
+
+	/**
+	 * Returns singular or plural of a text determined by the value of {@see $count}.
+	 *
+	 * Example: If you have the text value "tree(s)" and you prepend an amount
+	 * like 1 or 2 to it you'll get something like "1 tree(s)" or "2 tree(s)".
+	 * This function determines singular and plurals by the amount. This results
+	 * in "1 tree" and "2 trees".
+	 * The value inside the brackets is the plural appendix.
+	 *
+	 * @param string $text Unquantified text.
+	 * @param integer $count Amount to be quantified.
+	 * @return string Singular or plural text.
+	 */
+	public static function textByCount($text, $count)
+	{
+		if(strlen($text) > 0)
+		{
+			preg_match('/\((.+)\)/', $text, $regs, PREG_OFFSET_CAPTURE);
+			$fill = '';
+			if(isset($regs[1][0]))
+			{
+				$x = explode('|', $regs[1][0]); // If there are different notations for singular and plural
+				if($count != 1)
+					$fill = $x[count($x) - 1]; // if is not 1 then choose last element (plural)
+				elseif(count($x) > 1)
+					$fill = $x[0];
+			}
+			else
+			{
+				$regs[0][0] = null;
+				$regs[0][1] = null;
+			}
+			return substr_replace($text, $fill, $regs[0][1], strlen($regs[0][0]));
+		}
+		return null;
 	}
 }
