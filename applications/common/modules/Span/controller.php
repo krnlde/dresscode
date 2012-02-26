@@ -1,5 +1,5 @@
 <?php
 namespace Mocovi\Controller;
 
-class Cite extends \Mocovi\Controller
+class Span extends \Mocovi\Controller
 {}

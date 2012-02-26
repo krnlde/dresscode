@@ -5,12 +5,13 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:template match="cite">
-		<cite>
+	<xsl:template match="quote">
+		<q>
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
+			<xsl:copy-of select="@cite"/>
 			<xsl:apply-templates/>
-		</cite>
+		</q>
 	</xsl:template>
 
 </xsl:stylesheet>

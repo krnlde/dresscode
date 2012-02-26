@@ -230,6 +230,14 @@ abstract class Controller extends Observable
 	}
 
 	/**
+	 * @return \DomDocument
+	 */
+	public function getDom()
+	{
+		return $this->dom;
+	}
+
+	/**
 	 * @return \DomElement
 	 */
 	public function getNode()

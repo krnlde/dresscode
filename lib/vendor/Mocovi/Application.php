@@ -59,12 +59,22 @@ class Application implements Routable
 
 	public $defaultRoute = 'index';
 
+	/**
+	 * Current file from Model.
+	 *
+	 * @var \DomElement
+	 */
+	public $file = null;
+
+	/**
+	 * @todo remove this feature
+	 */
 	protected $defaultModules = array
 		( 'root'
 		, 'headline'
 		, 'paragraph'
 		, 'listing'
-		, 'cite'
+		, 'quote'
 		);
 
 	/**
@@ -237,8 +247,8 @@ class Application implements Routable
 		$params['format']	= $this->Request->format;
 		try
 		{
-			$file	= $this->Model->read($path);
-			$mtime	= $this->Model->lastModified($path);
+			$this->file			= $this->Model->read($path);
+			$mtime				= $this->Model->lastModified($path);
 			$params['modified']	= $mtime;
 
 			// handle client side cache
@@ -252,12 +262,12 @@ class Application implements Routable
 				$this->Response->Header->lastModified($mtime);
 			}
 
-			if ($file->localName !== 'file')
+			if ($this->file->localName !== 'file')
 			{
 				throw new Exception\WrongFormat($path);
 			}
 
-			$methods = $file->getAttribute('methods');
+			$methods = $this->file->getAttribute('methods');
 			if ($methods)
 			{
 				$methods = explode(' ', str_replace('get', 'get head', strtolower($methods))); // if get is present, head should be too.
@@ -272,12 +282,12 @@ class Application implements Routable
 				throw new Exception\WrongMethod(__FUNCTION__);
 			}
 
-			if (!is_null($file->getAttribute('statusCode')))
+			if (!is_null($this->file->getAttribute('statusCode')))
 			{
-				$this->statuscode = $file->getAttribute('statusCode');
+				$this->statuscode = $this->file->getAttribute('statusCode');
 			}
 
-			if ($to = $file->getAttribute('redirect'))
+			if ($to = $this->file->getAttribute('redirect'))
 			{
 				if ($to[0] === '/')
 				{
@@ -287,13 +297,13 @@ class Application implements Routable
 			}
 
 			isset($params['author'])
-				or $params['author'] = $file->getAttribute('author');
+				or $params['author'] = $this->file->getAttribute('author');
 
-			$params['title']	= $file->getAttribute('alias') ?: $file->getAttribute('name');
+			$params['title']	= $this->file->getAttribute('alias') ?: $this->file->getAttribute('name');
 
 			// @todo implement partial GET (with "HTTP/1.1 206 Partial Content")
 
-			$rootController	= $file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0); // first occuring controller
+			$rootController	= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0); // first occuring controller
 			$controller		= Module::createControllerFromNode($rootController);
 			$controller->launch('get', $params, $this->dom, $this);
 			// die($this->dom->saveXML()); // @debug
@@ -303,8 +313,8 @@ class Application implements Routable
 			$this->statuscode = 404; // File Not Found
 			try
 			{
-				$file		= $this->Model->read('/404');
-				$controller	= Module::createControllerFromNode($file->childNodes->item(0));
+				$this->file			= $this->Model->read('/404');
+				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0));
 				$params['author']	= get_class($this);
 				$params['title']	= '404';
 				$controller->launch('get', $params, $this->dom, $this);

@@ -42,26 +42,31 @@ class Translate extends Plain
 	 */
 	protected $preserveWords = true;
 
+
 	protected function get(array $params = array())
 	{
-		if (!($translation = \Mocovi\Translator::translate($this->token)))
+		if (!($translation = \Mocovi\Translator::translate($this->token))) // shortcut if translation is not found
 		{
 			$this->setText($this->token);
 			return;
 		}
-		if (!is_null($this->count))
+
+		$this->params = $params;
+
+		if (is_null($this->count))
 		{
-			$translatedText = sprintf(\Mocovi\translator::textByCount($translation->nodeValue, $this->count), $this->count);
+			$text = $translation->nodeValue;
 		}
 		else
 		{
-			$translatedText = $translation->nodeValue;
+			$text = sprintf(\Mocovi\translator::textByCount($translation->nodeValue, $this->count), $this->count);
 		}
-		if (!empty($this->cut))
+
+		if (!is_null($this->cut))
 		{
 			if ($this->preserveWords)
 			{
-				$words		= explode(' ', $translatedText);
+				$words		= explode(' ', $text);
 				$length		= 0;
 				foreach ($words as $word)
 				{
@@ -75,33 +80,31 @@ class Translate extends Plain
 					}
 					$length += strlen($word) + 1; // add a whitespace
 				}
-				$translatedText = trim(substr($translatedText, 0, $length), ',-');
+				$this->cut = $length;
 			}
-			else
-			{
-				$translatedText = rtrim(substr($translatedText, 0, $this->cut));
-			}
-			$this->setText($translatedText);
+			$this->setText(substr($text, 0, $this->cut));
+			return;
 		}
 		elseif (!is_null($this->count))
 		{
-			$this->setText($translatedText);
+			$this->setText($text);
+			return;
 		}
-		else
+
+		if (array_key_exists($this->token, self::$usedTokens))
 		{
-			if (array_key_exists($this->token, self::$usedTokens))
-			{
-				throw new \Mocovi\Exception('Loop detected: '.$this->token);
-			}
-			self::$usedTokens[$this->token] = null;
-			foreach($translation->childNodes as $child)
-			{
-				if ($controller = \Mocovi\Module::createControllerFromNode($child))
-				{
-					$controller->launch(__FUNCTION__, $params, $this->parentNode, $this->Application);
-				}
-			}
-			self::$usedTokens = array();
+			throw new \Mocovi\Exception('Loop detected: '.$this->token);
 		}
+
+		self::$usedTokens[$this->token] = null; // required in order to nest translate controllers
+
+		foreach($translation->childNodes as $child)
+		{
+			if ($controller = \Mocovi\Module::createControllerFromNode($child))
+			{
+				$controller->launch(__FUNCTION__, $this->params, $this->parentNode, $this->Application);
+			}
+		}
+		self::$usedTokens = array(); // @todo this might faile when you put two <translate> controllers next to each other!
 	}
 }

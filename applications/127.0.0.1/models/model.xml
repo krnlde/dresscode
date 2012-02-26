@@ -40,21 +40,17 @@
 							<attribute name="count">
 								<duration from="2010-01-02" format="y"/>
 							</attribute>
-						</translate>,
-						<translate token="DurationMonths">
+						</translate>,<translate token="DurationMonths">
 							<attribute name="count">
 								<duration from="2010-01-02" format="m"/>
 							</attribute>
-						</translate> und
-						<translate token="DurationDays">
+						</translate> und <translate token="DurationDays">
 							<attribute name="count">
 								<duration from="2010-01-02" format="d"/>
 							</attribute>
-						</translate>
-						<element showFromDate="2010-01-02">seit dem </element>
-						<element showToDate="2010-01-02">bis zum </element>
-						<date format="d.m.Y">2010-01-02</date>
+						</translate> <element showFromDate="2010-01-02">seit dem </element><element showToDate="2010-01-02">bis zum </element> <date format="d.m.Y">2010-01-02</date>
 					</paragraph>
+					<toc xpath="//headline"/>
 				</header>
 				<section>
 					<paragraph>

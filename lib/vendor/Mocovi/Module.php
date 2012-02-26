@@ -277,7 +277,7 @@ class Module
 	 */
 	public static function createController($nodeName, $text = null, array $attributes = array())
 	{
-		$node		= Module::createNode($nodeName, $text, $attributes);
+		$node = Module::createNode($nodeName, $text, $attributes);
 		return self::createControllerFromNode($node);
 	}
 
@@ -287,11 +287,11 @@ class Module
 	 */
 	public static function createErrorNode(\Exception $exception)
 	{
-		echo $exception;
+		// echo $exception; // @debug
 		$error = self::createNode('error');
 		$error->appendChild($headline = self::createNode('headline', get_class($exception)));
 		$headline->setAttribute('priority', 2);
-		$error->appendChild(self::createNode('cite', $exception->getMessage()));
+		$error->appendChild(self::createNode('quote', $exception->getMessage()));
 		$error->appendChild(self::createNode('paragraph', ' thrown in '.$exception->getFile().' on line '.$exception->getLine()));
 		$error->appendChild($stacktraceHeadline = self::createNode('headline', 'Stacktrace:'));
 		$stacktraceHeadline->setAttribute('priority', 2);
