@@ -28,15 +28,34 @@ namespace Mocovi;
  */
 class Router
 {
-	protected $Routable;
+	/**
+	 * @var \Mocovi\Application
+	 */
+	protected $Application;
+
+	/**
+	 * @var \Mocovi\Input
+	 */
 	protected $Input;
+
+	/**
+	 * @var \Mocovi\Request
+	 */
 	protected $Request;
+
+	/**
+	 * @var \Mocovi\Response
+	 */
 	protected $Response;
+
+	/**
+	 * @var array
+	 */
 	protected $options = array();
 
-	public function __construct(Routable $Routable, array $options = array())
+	public function __construct(Application $Application, array $options = array())
 	{
-		$this->Routable	= $Routable;
+		$this->Application	= $Application;
 		$this->options	= (object)$options; // array to StdClass object to access properties via $options->$key instead of $options[$key], which is more comfortable
 		$this->Input	= Input::getInstance();
 		$this->Request	= Request::getInstance();
@@ -47,10 +66,10 @@ class Router
 	{
 		$path		= $this->Request->path;
 		$rawPath	= $this->Request->queryString()->get('path');
-		$format		= $this->Request->format;
+		$format		= ($this->Request->format ?: $this->Application->Model->defaultFormat());
 		if (strlen($path) <= 1)
 		{
-			$this->Response->redirect($this->Routable->defaultRoute(), 307); // 301 = Moved Permanently, 307 = Temporary Redirect
+			$this->Response->redirect($this->Application->defaultRoute(), 307); // 301 = Moved Permanently, 307 = Temporary Redirect
 		}
 		if ($rawPath[strlen($rawPath) - 1] === '/') // if last character is '/', which is not allowed because of duplicate content
 		{
@@ -64,19 +83,19 @@ class Router
 		switch (strtolower($this->Request->method))
 		{
 			default /* get, head */:
-				$this->Routable->get($path, $format, $this->Input->get);
+				$this->Application->get($path, $format, $this->Input->get);
 			break;
 			case 'post':
-				$this->Routable->post($path, $format, $this->Input->post);
+				$this->Application->post($path, $format, $this->Input->post);
 			break;
 			case 'put':
-				$this->Routable->put($path, $format, $this->Input->put);
+				$this->Application->put($path, $format, $this->Input->put);
 			break;
 			case 'delete':
-				$this->Routable->delete($path);
+				$this->Application->delete($path);
 			break;
 			case 'options':
-				$this->Routable->options($path);
+				$this->Application->options($path);
 			break;
 		}
 	}

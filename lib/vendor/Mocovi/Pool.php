@@ -94,5 +94,6 @@ class Pool
 				}
 			}
 		}
+		return null; // not found
 	}
 }

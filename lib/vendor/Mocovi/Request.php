@@ -95,7 +95,7 @@ class Request
 		$this->domain				= $_SERVER['SERVER_NAME'];
 		$this->port					= $_SERVER['SERVER_PORT'] != '80' ? $_SERVER['SERVER_PORT'] : null;
 		$this->path					= rtrim(str_replace('\\', '/', $pathinfo->dirname), '/').'/'.$pathinfo->filename;
-		$this->format				= isset($pathinfo->extension) ? $pathinfo->extension : 'html';
+		$this->format				= isset($pathinfo->extension) ? $pathinfo->extension : null;
 		$this->if_modified_since	= isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : null;
 	}
 

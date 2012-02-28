@@ -3,10 +3,10 @@ namespace Mocovi\Controller;
 
 class Root extends \Mocovi\Controller
 {
+	const DEFAULT_THEME = 'main';
 	/**
 	 * You are able to define another "theme" for your website just by changing the CSS folder.
 	 *
-	 * @todo implement
 	 * @property
 	 * @hideIfEmpty
 	 * @var string
@@ -54,20 +54,21 @@ class Root extends \Mocovi\Controller
 		$cssPool = new \Mocovi\Pool('css');
 		$cssPool->add(new \DirectoryIterator('applications/common/assets/css'));
 
-		// @todo $theme goes here!!
-
 		if (file_exists($custom = 'applications/'.$this->Application->getName().'/assets/css'))
 		{
 			$cssPool->add(new \DirectoryIterator($custom));
 		}
+		$stylesheets = array('applications/common/assets/css/less/main-16px.css');
+		if (!$this->theme)
+		{
+			$this->theme = self::DEFAULT_THEME;
+		}
+		if ($theme = $cssPool->find($this->theme))
+		{
+			$stylesheets[] = $theme;
+		}
 
-		$this->Application->stylesheets
-		(	array
-			// (	'applications/common/assets/bootstrap/bootstrap.min.css'
-			(	'applications/common/assets/css/less/main-16px.css'
-			,	$cssPool->find('main')
-			)
-		);
+		$this->Application->stylesheets($stylesheets);
 		$this->Application->javascripts
 		(	array
 			(	'applications/common/assets/js/jquery.min.js' // or 'http://code.jquery.com/jquery.min.js'

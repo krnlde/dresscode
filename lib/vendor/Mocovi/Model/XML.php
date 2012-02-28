@@ -111,18 +111,21 @@ class XML extends \Mocovi\Model
 		return $this->read($path)->getAttribute('modified') ?: $this->modified;
 	}
 
-
-	/**
-	 * Prepares a path for XQuery.
-	 *
-	 * @param string $path Contains the normal path
-	 * @return string XQuery
-	 * @deprecated
-	 */
-	// protected function pathToXquery($path)
-	// {
-	// 	return '/mocovi:xmlfs'.rtrim(preg_replace('#([\w\d-_,]+)\/?#', 'mocovi:file[@name="\\1"]/', $path), '/');
-	// }
+	public function __call($method, $arguments)
+	{
+		try
+		{
+			if (isset($arguments[0]))
+			{
+				return $this->read($arguments[0])->getAttribute($method);
+			}
+			return $this->dom->documentElement->getAttribute($method);
+		}
+		catch (\Exception $e)
+		{
+			return null;
+		}
+	}
 
 	/**
 	 * @param string $path

@@ -63,4 +63,6 @@ abstract class Model
 	abstract public function getList($path);
 
 	abstract public function lastModified($path);
+
+	abstract public function __call($method, $arguments);
 }

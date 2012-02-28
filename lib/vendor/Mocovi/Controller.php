@@ -210,6 +210,14 @@ abstract class Controller extends Observable
 	}
 
 	/**
+	 * @return boolean
+	 */
+	final public function launchChild(\Mocovi\Controller $child)
+	{
+		return !$this->trigger('launchChild', $child)->isDefaultPrevented();
+	}
+
+	/**
 	 * Returns the directory contain this controller.
 	 *
 	 * @return \DirectoryIterator
@@ -220,14 +228,6 @@ abstract class Controller extends Observable
 	}
 
 	// @todo Callbacks as middleware like in http://expressjs.com/guide.html#route-middleware
-
-	/**
-	 * @return boolean
-	 */
-	public function launchChild(\Mocovi\Controller $child)
-	{
-		return !$this->trigger('launchChild', $child)->isDefaultPrevented();
-	}
 
 	/**
 	 * @return \DomDocument

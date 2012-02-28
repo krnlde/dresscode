@@ -6,8 +6,8 @@
 	xmlns:fs="http://mocovi.de/schema/xmlfs"
 	xmlns="http://mocovi.de/schema/controller"
 	timezone="Europe/Berlin"
-	defaultMedia="html"
-	defaultLanguage="en"
+	defaultFormat="html"
+	defaultLanguage="de"
 	>
 	<fs:file name="index" invisible="1" redirect="/home"/>
 	<fs:file name="home" aliasToken="Home" methods="get" author="Kai Dorschner">
@@ -75,26 +75,28 @@
 					<paragraph>
 						<translate token="loremipsum"/>
 					</paragraph>
-					<slider>
-						<element>
-							<headline>Slide 1</headline>
-							<paragraph>
-								<translate token="loremipsum" cut="370"/>
-							</paragraph>
-						</element>
-						<element>
-							<headline>Slide 2</headline>
-							<paragraph>
-								<translate token="loremipsum" cut="200"/>
-							</paragraph>
-						</element>
-						<element>
-							<headline>Slide 3</headline>
-							<paragraph>
-								<translate token="loremipsum" cut="20"/>
-							</paragraph>
-						</element>
-					</slider>
+					<protect require="valid-user">
+						<slider>
+							<element>
+								<headline>Slide 1</headline>
+								<paragraph>
+									<translate token="loremipsum" cut="370"/>
+								</paragraph>
+							</element>
+							<element>
+								<headline>Slide 2</headline>
+								<paragraph>
+									<translate token="loremipsum" cut="200"/>
+								</paragraph>
+							</element>
+							<element>
+								<headline>Slide 3</headline>
+								<paragraph>
+									<translate token="loremipsum" cut="20"/>
+								</paragraph>
+							</element>
+						</slider>
+					</protect>
 				</section>
 			</article>
 			<footer>
@@ -168,6 +170,10 @@
 				<headline xml:id="reference1">Cross Reference Test</headline>
 				<paragraph>
 					<translate token="loremipsum"/>
+					<dbreader use="vehicleadministration.vehicles" limit="2" orderby="price" direction="ASC">
+						<headline><dbfield name="make"/> <dbfield name="model"/></headline>
+						<paragraph><dbfield name="price"/> €</paragraph>
+					</dbreader>
 				</paragraph>
 			</article>
 			<footer>

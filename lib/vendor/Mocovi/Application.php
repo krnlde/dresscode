@@ -35,7 +35,7 @@ use Assetic\Cache\FilesystemCache;
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
  */
-class Application implements Routable
+class Application
 {
 	/**
 	 * @var \Mocovi\Model
@@ -120,7 +120,7 @@ class Application implements Routable
 		$this->Request				= Request::getInstance();
 		$this->Response				= Response::getInstance();
 		$this->name					= isset($options['name']) ? $options['name'] : $this->Request->domain;
-		$this->Router				= new Router(/* $Routable */ $this, /* $options */ $_SERVER);
+		$this->Router				= new Router($this, /* $options */ $_SERVER);
 		$this->resetDom();
 		Module::initialize($this->getPath(), $this->getCommonPath(), $this->dom);
 		foreach($this->defaultModules as $module)
@@ -134,6 +134,14 @@ class Application implements Routable
 		set_exception_handler(array($this, 'exceptionHandler'));
 		$modelPath		= $this->getModelPath();
 		$this->Model	= new Model\XML($modelPath);
+		if ($timezone = $this->Model->timezone())
+		{
+			date_default_timezone_set($timezone);
+		}
+		if ($language = $this->Model->defaultLanguage())
+		{
+			\Mocovi\Translator::setLanguage($language);
+		}
 		if (file_exists($bootstrap = $this->getPath()->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
 		{
 			include $bootstrap;
@@ -145,7 +153,11 @@ class Application implements Routable
 	 */
 	public static function basePath()
 	{
-		return dirname($_SERVER['SCRIPT_NAME']);
+		if (($dirname = dirname($_SERVER['SCRIPT_NAME'])) === '/')
+		{
+			return '';
+		}
+		return $dirname;
 	}
 
 	/**
@@ -244,7 +256,7 @@ class Application implements Routable
 		$params['domain']	= $this->name;
 		$params['port']		= $this->Request->port;
 		$params['path']		= $this->Request->path;
-		$params['format']	= $this->Request->format;
+		$params['format']	= $format;
 		try
 		{
 			$this->file			= $this->Model->read($path);
@@ -296,15 +308,13 @@ class Application implements Routable
 				$this->Response->redirect($to, $this->statuscode);
 			}
 
-			isset($params['author'])
-				or $params['author'] = $this->file->getAttribute('author');
+			isset($params['author']) or $params['author'] = $this->file->getAttribute('author');
+
 
 			$params['title']	= $this->file->getAttribute('alias') ?: $this->file->getAttribute('name');
-
-			// @todo implement partial GET (with "HTTP/1.1 206 Partial Content")
-
-			$rootController	= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0); // first occuring controller
-			$controller		= Module::createControllerFromNode($rootController);
+			// @todo implement partial GET here (with custom Header "X-XPATH: //*"
+			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0); // first occuring controller; @todo maybe use firstChild + NS check
+			$controller			= Module::createControllerFromNode($rootController);
 			$controller->launch('get', $params, $this->dom, $this);
 			// die($this->dom->saveXML()); // @debug
 		}
@@ -584,6 +594,13 @@ class Application implements Routable
 	 */
 	public static function stylesheets(array $elements = array())
 	{
+		foreach ($elements as $key => $element)
+		{
+			if (!file_exists($element))
+			{
+				unset($elements[$key]);
+			}
+		}
 		return self::$stylesheets = array_merge(self::$stylesheets, $elements);
 	}
 
