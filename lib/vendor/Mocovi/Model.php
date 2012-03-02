@@ -58,6 +58,13 @@ abstract class Model
 
 	/**
 	 * @param string $path
+	 * @param string $language Default: null
+	 * @return array
+	 */
+	abstract public function keywords($path, $language = null);
+
+	/**
+	 * @param string $path
 	 * @return array
 	 */
 	abstract public function getList($path);

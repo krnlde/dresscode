@@ -75,8 +75,12 @@ class Request
 		->browser
 			->version
 			->msie|mozilla|webkit|opera
-	$header
 	*/
+
+	/**
+	 * @var \StdClass
+	 */
+	protected $Header;
 
 	protected $uri;
 
@@ -97,6 +101,15 @@ class Request
 		$this->path					= rtrim(str_replace('\\', '/', $pathinfo->dirname), '/').'/'.$pathinfo->filename;
 		$this->format				= isset($pathinfo->extension) ? $pathinfo->extension : null;
 		$this->if_modified_since	= isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : null;
+
+		$this->Header = new \StdClass();
+		foreach ($_SERVER as $key => $value)
+		{
+			if (substr($key, 0, 5) === 'HTTP_')
+			{
+				$this->Header->{strtolower(substr($key, 5))} = $value;
+			}
+		}
 	}
 
 	/**

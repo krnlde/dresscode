@@ -9,25 +9,29 @@
 	defaultFormat="html"
 	defaultLanguage="de"
 	>
+
 	<fs:file name="index" invisible="1" redirect="/home"/>
+
 	<fs:file name="home" aliasToken="Home" methods="get" author="Kai Dorschner">
 		<fs:keywords>
 			<fs:element lang="de">krnl</fs:element>
+			<fs:element lang="en">kernel</fs:element>
+			<fs:element>kernel32</fs:element>
 		</fs:keywords>
 		<root>
 			<header class="hero-unit">
-				<image source="http://placehold.it/896x420">
+				<image source="http://lorempixel.com/896/420/technics">
 					<attribute name="description">
 						<translate token="loremipsum" cut="40"/>
 					</attribute>
 				</image>
 				<paragraph>
-					<image source="http://placehold.it/221x160">
+					<image source="http://lorempixel.com/221/160/people">
 						<attribute name="description">moep</attribute>
 					</image>
-					<image source="http://placehold.it/221x160"/>
-					<image source="http://placehold.it/221x160"/>
-					<image source="http://placehold.it/221x160"/>
+					<image source="http://lorempixel.com/221/160/technics"/>
+					<image source="http://lorempixel.com/221/160/nature"/>
+					<image source="http://lorempixel.com/221/160/transport"/>
 				</paragraph>
 			</header>
 			<article>
@@ -38,19 +42,23 @@
 					<paragraph>
 						<translate token="DurationYears">
 							<attribute name="count">
-								<duration from="2010-01-02" format="y"/>
+								<duration from="2013-12-24" format="y"/>
 							</attribute>
-						</translate>,<translate token="DurationMonths">
+						</translate>, <translate token="DurationMonths">
 							<attribute name="count">
-								<duration from="2010-01-02" format="m"/>
+								<duration from="2013-12-24" format="m"/>
 							</attribute>
 						</translate> und <translate token="DurationDays">
 							<attribute name="count">
-								<duration from="2010-01-02" format="d"/>
+								<duration from="2013-12-24" format="d"/>
 							</attribute>
-						</translate> <element showFromDate="2010-01-02">seit dem </element><element showToDate="2010-01-02">bis zum </element> <date format="d.m.Y">2010-01-02</date>
+						</translate> (insgesamt <translate token="DurationDays">
+							<attribute name="count">
+								<duration from="2013-12-24" format="a"/>
+							</attribute>
+						</translate>) <element showFromDate="2013-12-24">seit dem </element><element showToDate="2013-12-24">bis zum </element> <date format="d.m.Y">2013-12-24</date>
 					</paragraph>
-					<toc xpath="//headline"/>
+					<toc/>
 				</header>
 				<section>
 					<paragraph>
@@ -74,6 +82,8 @@
 					</listing>
 					<paragraph>
 						<translate token="loremipsum"/>
+						<thumbnail source="http://lorempixel.com/221/160/nature"/>
+						<!-- <thumbnail source="/gallery/auswahl-2.jpg"/> -->
 					</paragraph>
 					<protect require="valid-user">
 						<slider>
@@ -133,8 +143,10 @@
 					<paragraph>
 						Text $title, $path, $path
 					</paragraph>
-					<youtube videoId="JtF7z_DZdVk"/>
-					<vimeo videoId="21762564"/>
+					<slider>
+						<youtube videoId="JtF7z_DZdVk"/>
+						<vimeo videoId="21762564"/>
+					</slider>
 				</article>
 				<footer>
 					<section>
@@ -151,7 +163,7 @@
 						<paragraph>
 							<translate token="loremipsum" cut="300"/>
 						</paragraph>
-						<gallery source="/gallery" maximum="100"/>
+						<gallery source="/gallery" maximum="3"/>
 					</article>
 					<footer>
 						<section>
@@ -161,7 +173,9 @@
 					</footer>
 				</root>
 			</fs:file>
+
 		</fs:file>
+
 	</fs:file>
 
 	<fs:file name="test" aliasToken="Testfile" methods="get" author="Kai Dorschner">

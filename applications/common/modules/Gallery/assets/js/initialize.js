@@ -1,4 +1,6 @@
-$('a[rel]').fancybox({
+$('a[rel]').click(function (event) {
+	event.preventDefault();
+}).fancybox({
 	openEffect	: 'fade',
 	closeEffect	: 'none',
 	prevEffect	: 'fade',

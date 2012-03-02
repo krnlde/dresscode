@@ -29,7 +29,6 @@ class Menu extends \Mocovi\Controller
 	 * Trace to the current path
 	 * @var array
 	 */
-
 	protected $path;
 
 	protected function get(array $params = array())

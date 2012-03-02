@@ -6,8 +6,7 @@
 	xmlns:fs="http://mocovi.de/schema/xmlfs"
 	xmlns="http://mocovi.de/schema/controller"
 	timezone="Europe/Berlin"
-	defaultMedia="html"
-	defaultTheme="krnl"
+	defaultFormat="html"
 	defaultLanguage="de"
 	>
 
@@ -19,7 +18,7 @@
 				</header>
 				<section>
 					<paragraph>You haven't defined an application suiting your domain yet. Your domain is "$domain".</paragraph>
-					<paragraph>Please copy the <cite>yourdomain.com</cite> folder in the <cite>[mocoviroot]/applications</cite> folder and rename it to "$domain"</paragraph>
+					<paragraph>Please copy the <quote>yourdomain.com</quote> folder in the <quote>[mocoviroot]/applications</quote> folder and rename it to "$domain"</paragraph>
 				</section>
 			</article>
 		</root>

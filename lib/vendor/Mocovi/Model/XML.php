@@ -91,6 +91,26 @@ class XML extends \Mocovi\Model
 
 	/**
 	 * @param string $path
+	 * @param string $language Default: null
+	 * @return array
+	 */
+	public function keywords($path, $language = null)
+	{
+		$keywords = array();
+		$xpath = new \DomXpath($this->dom);
+		$xpath->registerNamespace('fs', self::NS);
+		foreach ($xpath->query('.//fs:keywords/fs:element', $this->read($path)) as $keyword)
+		{
+			if (!$language || !$keyword->getAttribute('lang') || strtolower($keyword->getAttribute('lang')) === strtolower($language))
+			{
+				$keywords[] = $keyword->nodeValue;
+			}
+		}
+		return $keywords;
+	}
+
+	/**
+	 * @param string $path
 	 * @return array
 	 */
 	public function getList($path)

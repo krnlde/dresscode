@@ -310,12 +310,36 @@ class Application
 
 			isset($params['author']) or $params['author'] = $this->file->getAttribute('author');
 
-
 			$params['title']	= $this->file->getAttribute('alias') ?: $this->file->getAttribute('name');
-			// @todo implement partial GET here (with custom Header "X-XPATH: //*"
-			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0); // first occuring controller; @todo maybe use firstChild + NS check
+			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0);
 			$controller			= Module::createControllerFromNode($rootController);
 			$controller->launch('get', $params, $this->dom, $this);
+
+			// $this->Request->Header->x_xpath = './/headline'; // @debug
+			if (isset($this->Request->Header->x_xpath))
+			{
+				$query		= $this->Request->Header->x_xpath;
+				$xpath		= new \DOMXPath($this->dom);
+				$results	= $xpath->query($query);
+				if ($results->length === 1)
+				{
+					$this->resetDom();
+					$this->dom->appendChild($this->dom->importNode($results->item(0), true));
+				}
+				else if($results->length > 1)
+				{
+					$this->resetDom();
+					$this->dom->appendChild($collection = $this->dom->createElement('collection'));
+					foreach ($results as $result)
+					{
+						$collection->appendChild($this->dom->importNode($result, true));
+					}
+				}
+				else
+				{
+					die('No results'); // @todo improve
+				}
+			}
 			// die($this->dom->saveXML()); // @debug
 		}
 		catch (Exception\FileNotFound $e)
@@ -549,7 +573,7 @@ class Application
 		$this->statuscode	= 500; // Internal Server Error
 		try
 		{
-			$this->Response->end($View->transform($this->dom)->to($this->Request->format), $this->statuscode);
+			$this->Response->end($View->transform($this->dom)->to($this->Request->format ?: 'html'), $this->statuscode);
 			return true;
 		}
 		catch (\Exception $e)
@@ -576,7 +600,7 @@ class Application
 		$this->statuscode	= 500; // Internal Server Error
 		try
 		{
-			$this->Response->end($View->transform($this->dom)->to($this->Request->format), $this->statuscode);
+			$this->Response->end($View->transform($this->dom)->to($this->Request->format ?: 'html'), $this->statuscode);
 			return true;
 		}
 		catch (\Exception $e)

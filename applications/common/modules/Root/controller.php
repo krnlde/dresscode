@@ -72,9 +72,16 @@ class Root extends \Mocovi\Controller
 		$this->Application->javascripts
 		(	array
 			(	'applications/common/assets/js/jquery.min.js' // or 'http://code.jquery.com/jquery.min.js'
-			,	'applications/common/assets/js/external-links.js'
 			)
 		);
+		$Application = $this->Application;
+		$this->on('ready', function ($event) use ($Application) {
+			$Application->javascripts
+			(	array
+				(	'applications/common/assets/js/external-links.js' // load this script at last!
+				)
+			);
+		});
 		parent::before($params);
 	}
 
@@ -87,6 +94,7 @@ class Root extends \Mocovi\Controller
 		$this->modified		= isset($params['modified']) ? $params['modified'] : null;
 		$this->domain		= isset($params['domain']) ? $params['domain'] : null;
 		$this->path			= isset($params['path']) ? $params['path'] : null;
+		$this->node->setAttribute('keywords', implode(',', $this->Application->Model->keywords($this->path, $this->language)));
 		parent::get($params);
 	}
 }

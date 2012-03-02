@@ -17,9 +17,4 @@
 		</div>
 	</xsl:template>
 
-	<!-- maybe something like this? -->
-	<!-- <ext:assets>
-		<script type="text/javascript" src="script.js"> </script>
-	</ext:assets> -->
-
 </xsl:stylesheet>

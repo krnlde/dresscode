@@ -9,9 +9,23 @@
 	>
 
 	<xsl:template match="thumbnail">
+		<xsl:variable name="source">
+			<xsl:choose>
+				<xsl:when test="starts-with(@source, 'http')">
+					<xsl:value-of select="@source"/>
+				</xsl:when>
+				<xsl:otherwise>
+						<xsl:value-of select="php:function('\Mocovi\Application::basePath')"/>
+						<xsl:text>/image.php?source=</xsl:text>
+						<xsl:value-of select="@source"/>
+						<xsl:text>&amp;size=</xsl:text>
+						<xsl:value-of select="@size"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		<!-- render image -->
 		<a href="{@source}" rel="lightbox[{@group}]" title="{@description}">
-			<img src="{php:function('\Mocovi\Application::basePath')}/image.php?source={@source}&amp;size={@size}" alt="{@description}">
+			<img src="{$source}" alt="{@description}">
 				<xsl:copy-of select="@id"/>
 				<xsl:copy-of select="@class"/>
 			</img>

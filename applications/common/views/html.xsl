@@ -42,6 +42,11 @@
 	</xsl:variable>
 
 
+	<xsl:template match="collection">
+		<collection>
+			<xsl:apply-templates/>
+		</collection>
+	</xsl:template>
 
 
 

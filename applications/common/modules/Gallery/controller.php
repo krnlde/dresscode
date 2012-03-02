@@ -45,9 +45,6 @@ class Gallery extends \Mocovi\Controller
 	protected function get(array $params = array())
 	{
 		parent::get($params);
-		$this->Application->stylesheets(array('applications/common/modules/Gallery/assets/jquery-fancybox/source/jquery.fancybox.css'));
-		$this->Application->javascripts(array('applications/common/modules/Gallery/assets/jquery-fancybox/source/jquery.fancybox.pack.js'));
-		$this->Application->javascripts(array('applications/common/modules/Gallery/assets/js/initialize.js'));
 		$this->class = strtolower($this->getName());
 		$images = array();
 		if ($this->source[0] === '/')

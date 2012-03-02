@@ -16,6 +16,8 @@
 				<title><xsl:value-of select="@title" /></title>
 
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta name="keywords" content="{@keywords}" />
+				<meta name="description" content="{php:function('trim', string(//article[1]/*[not(name(.) = 'header')]//paragraph[1]))}" />
 				<meta name="author" content="{@author}" />
 				<meta name="date" content="{php:function('date', 'c')}"/>
 
