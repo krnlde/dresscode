@@ -200,6 +200,10 @@ abstract class Controller extends Observable
 				$this->$method($params); // -> HTTP Method
 				$this->after($params);
 			}
+			catch (\Mocovi\Exception\Input $e)
+			{
+				throw $e;
+			}
 			catch (\Exception $e)
 			{
 				$this->error($e);
@@ -327,7 +331,7 @@ abstract class Controller extends Observable
 	 * @param string $name
 	 * @return mixed|null
 	 */
-	public function getPropery($name)
+	public function getProperty($name)
 	{
 		if ($this->Reflection->hasProperty($name))
 		{
@@ -793,7 +797,7 @@ abstract class Controller extends Observable
 			case 'bool':
 				//fall through
 			case 'boolean':
-				if ($value === 'false')
+				if (in_array(strtolower($value), array('false', 'no')))
 				{
 					return false;
 				}

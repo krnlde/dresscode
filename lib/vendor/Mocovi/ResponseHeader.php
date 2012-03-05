@@ -269,4 +269,17 @@ class ResponseHeader
 		}
 		throw new \Mocovi\Exception('Cannot add a buffer. Response Header already sent.');
 	}
+
+	public function remove($type)
+	{
+		if(!($this->sent = headers_sent()))
+		{
+			if (array_key_exists($type, $this->buffer))
+			{
+				unset($this->buffer[$type]);
+			}
+			return $this;
+		}
+		throw new \Mocovi\Exception('Cannot remove a buffer. Response Header already sent.');
+	}
 }

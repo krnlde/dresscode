@@ -51,7 +51,16 @@ class HTTPQueryString
 	public function set(array $array)
 	{
 		foreach($array as $key => $value)
-			$this->queryString[$key] = $value;
+		{
+			if (is_null($value) && array_key_exists($key, $this->queryString))
+			{
+				unset($this->queryString[$key]);
+			}
+			else
+			{
+				$this->queryString[$key] = $value;
+			}
+		}
 		return $this;
 	}
 

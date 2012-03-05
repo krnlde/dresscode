@@ -231,7 +231,7 @@ class Module
 			if (file_exists($templatePath))
 			{
 				$templatePool = new \DirectoryIterator($templatePath);
-				self::$View->addTemplatePool($templatePool, $sourceNode);
+				self::$View->addTemplatePool($templatePool);
 			}
 		}
 		catch (\UnexpectedValueException $e)

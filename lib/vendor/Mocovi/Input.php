@@ -37,6 +37,8 @@ class Input
 	protected function __construct()
 	{
 		$this->get	= $_GET;
+		unset($this->get['path']);
+		unset($this->get['debug']);
 		$this->post	= $_POST;
 		// @todo put
 	}
@@ -52,7 +54,7 @@ class Input
 
 	public function get($name)
 	{
-		if (isset($this->get[$name]))
+		if (array_key_exists($name, $this->get))
 		{
 			return $this->get[$name];
 		}
@@ -61,7 +63,7 @@ class Input
 
 	public function post($name)
 	{
-		if (isset($this->post[$name]))
+		if (array_key_exists($name, $this->post))
 		{
 			return $this->post[$name];
 		}
@@ -70,7 +72,7 @@ class Input
 
 	public function put($name)
 	{
-		if (isset($this->put[$name]))
+		if (array_key_exists($name, $this->put))
 		{
 			return $this->put[$name];
 		}

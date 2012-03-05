@@ -32,13 +32,14 @@ use \Mocovi\Event;
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
  */
-class Collection
+class Collection implements \Iterator
 {
 	/**
 	 * @var array of \Mocovi\Controller
 	 */
 	protected $set;
 
+	private $position = 0;
 	/**
 	 * Constructor initializes the controller set.
 	 *
@@ -98,5 +99,30 @@ class Collection
 		{
 			return count($this->set);
 		}
+	}
+
+	public function rewind()
+	{
+		$this->position = 0;
+	}
+
+	public function current()
+	{
+		return $this->set[$this->position];
+	}
+
+	public function key()
+	{
+		return $this->position;
+	}
+
+	public function next()
+	{
+		++$this->position;
+	}
+
+	public function valid()
+	{
+		return isset($this->set[$this->position]);
 	}
 }

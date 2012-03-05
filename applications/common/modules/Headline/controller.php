@@ -24,7 +24,7 @@ class Headline extends \Mocovi\Controller
 
 		if (!$this->id) // Set an ID with maxlength 32, if none is set.
 		{
-			$this->id = substr(urlencode($this->node->nodeValue), 0, 32);
+			$this->id = substr(urlencode(trim($this->node->nodeValue)), 0, 32);
 		}
 	}
 }

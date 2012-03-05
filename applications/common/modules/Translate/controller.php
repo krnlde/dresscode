@@ -55,7 +55,7 @@ class Translate extends Plain
 
 		if (is_null($this->count))
 		{
-			$text = $translation->nodeValue;
+			$text = trim($translation->nodeValue);
 		}
 		else
 		{
@@ -105,6 +105,6 @@ class Translate extends Plain
 				$controller->launch(__FUNCTION__, $this->params, $this->parentNode, $this->Application);
 			}
 		}
-		self::$usedTokens = array(); // @todo this might faile when you put two <translate> controllers next to each other!
+		self::$usedTokens = array(); // @todo this might fail when you put two <translate> controllers next to each other!
 	}
 }

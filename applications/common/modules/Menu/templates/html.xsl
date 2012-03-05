@@ -11,13 +11,19 @@
 		<xsl:variable name="list">
 			<ul>
 				<xsl:for-each select="$elements">
+					<xsl:variable name="path">
+						<xsl:if test="not(starts-with(@path, 'http'))">
+							<xsl:value-of select="$basepath"/>
+						</xsl:if>
+						<xsl:value-of select="@path"/>
+					</xsl:variable>
 					<li>
 						<xsl:if test="@active">
 							<xsl:attribute name="class">
 								<xsl:text>active</xsl:text>
 							</xsl:attribute>
 						</xsl:if>
-						<a href="{$basepath}{@path}" title="{$basepath}{@path}">
+						<a href="{$path}" title="{$path}">
 							<xsl:value-of select="@alias"/>
 						</a>
 						<xsl:if test="menu">

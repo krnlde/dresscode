@@ -18,6 +18,7 @@ class Menuextension extends \Mocovi\Controller
 				$menu = $node->ownerDocument->createElement('menu');
 				$menu->appendChild($new = $node->cloneNode(true));
 				$new->setAttribute('alias', '[Generated]');
+				$new->setAttribute('path', 'http://krnl.de/');
 				$node->appendChild($menu);
 			}
 		});

@@ -463,8 +463,55 @@ class Application
 	 */
 	public function post($path, $format, array $params = array())
 	{
-		// @todo if resource is created add Header "201 Created" paired with a "Location: ...""
-		$this->Response->end('HTTP POST', 501); // 501 Not Implemented
+		try
+		{
+			$this->file			= $this->Model->read($path);
+			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0);
+			$controller			= Module::createControllerFromNode($rootController);
+			try
+			{
+				$controller->launch('post', $params, $this->dom, $this);
+			}
+			catch (\Exception $e)
+			{
+				$this->resetDom();
+				$this->get($path, $format, $params);
+			}
+		}
+		catch (Exception\FileNotFound $e)
+		{
+			$this->statuscode = 404; // File Not Found
+			try
+			{
+				$this->file			= $this->Model->read('/404');
+				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0));
+				$params['author']	= get_class($this);
+				$params['title']	= '404';
+				$controller->launch('post', $params, $this->dom, $this);
+			}
+			catch (Exception\FileNotFound $e2)
+			{
+				// @todo show info that no 404 file is defined
+				$this->resetDom();
+				$controller	= Module::createErrorController($e);
+				$controller->launch('post', $params, $this->dom, $this);
+			}
+		}
+		catch (Exception\WrongMethod $e)
+		{
+			// @todo test
+			$this->statuscode = 405; // Method Not Allowed
+			$controller	= Module::createErrorController($e);
+			$controller->launch('post', $params, $this->dom, $this);
+		}
+		catch (Exception $e)
+		{
+			// @todo test
+			$this->statuscode = 500; // Internal Server Error
+			$controller	= Module::createErrorController($e);
+			$controller->launch('post', $params, $this->dom, $this);
+		}
+		$this->Response->end(null, $this->statuscode);
 	}
 
 	/**
