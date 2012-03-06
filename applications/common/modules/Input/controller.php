@@ -4,48 +4,66 @@ namespace Mocovi\Controller;
 class Input extends \Mocovi\Controller
 {
 	/**
+	 * Type of the input.
+	 *
 	 * @property
 	 * @var string
 	 */
 	protected $type = 'text';
 
 	/**
+	 * Name of the input.
+	 *
 	 * @property
 	 * @var string
 	 */
 	protected $name;
 
 	/**
+	 * Applies a preset defined in the {@see $presets} array.
+	 *
 	 * @property
 	 * @var string
 	 */
 	protected $preset;
 
 	/**
+	 * Input value.
+	 *
 	 * @property
 	 * @var string
 	 */
 	protected $value = '';
 
 	/**
+	 * Optional label for the input.
+	 *
+	 * Won't be displayed when empty.
+	 *
 	 * @property
 	 * @var string
 	 */
 	protected $label;
 
 	/**
+	 * Placeholder text.
+	 *
 	 * @property
 	 * @var string
 	 */
 	protected $placeholder;
 
 	/**
+	 * Minimum length of the value (inclusive).
+	 *
 	 * @property
 	 * @var integer
 	 */
 	protected $minlength;
 
 	/**
+	 * Maximum length of the value (inclusive).
+	 *
 	 * @property
 	 * @var integer
 	 */
@@ -79,7 +97,7 @@ class Input extends \Mocovi\Controller
 	 * @property
 	 * @var string
 	 */
-	protected $pattern;
+	protected $pattern = '';
 
 
 	/**
@@ -88,13 +106,13 @@ class Input extends \Mocovi\Controller
 	protected $presets = array
 		( 'email'			=> array
 			( 'type'		=> 'email'
-			, 'pattern'		=> '/^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]{2,}\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$/'
+			, 'pattern'		=> '/^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$/'
 			, 'required'	=> true
 			)
 		, 'url'				=> array
 			( 'type'		=> 'url'
 			, 'value'		=> 'http://'
-			, 'pattern'		=> '/^https?:\/\/[a-zA-Z0-9.-]{2,}\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$/' // needs to be checked!
+			, 'pattern'		=> '/^https?:\/\/[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$/' // needs to be checked!
 			, 'required'	=> true
 			)
 		);
@@ -104,10 +122,24 @@ class Input extends \Mocovi\Controller
 
 	protected function before(array $params = array())
 	{
+		if (!$this->id && strlen($this->label) > 0)
+		{
+			$this->id = uniqid();
+		}
 		if (array_key_exists($this->name, $params))
 		{
 			$this->value = $params[$this->name];
 			$this->dataSent = true;
+		}
+		if ($this->preset && array_key_exists($this->preset, $this->presets))
+		{
+			foreach ($this->presets[$this->preset] as $property => $value)
+			{
+				if (!$this->sourceNode->hasAttribute($property))
+				{
+					$this->setProperty($property, $value);
+				}
+			}
 		}
 	}
 
@@ -115,7 +147,7 @@ class Input extends \Mocovi\Controller
 	{
 		if ($this->isDataSent())
 		{
-			$this->process($params);
+			$this->process();
 		}
 	}
 
@@ -123,27 +155,17 @@ class Input extends \Mocovi\Controller
 	{
 		if ($this->isDataSent())
 		{
-			$this->process($params);
+			$this->process();
 		}
 	}
 
-
-	protected function process(array $params)
+	/**
+	 * Processes the input validation of all child inputs.
+	 *
+	 * @return void
+	 */
+	protected function process()
 	{
-		if ($this->preset && array_key_exists($this->preset, $this->presets))
-		{
-			foreach ($this->presets[$this->preset] as $property => $value)
-			{
-				if (strlen($this->sourceNode->getAttribute($property)) === 0)
-				{
-					$this->setProperty($property, $value);
-				}
-			}
-		}
-		if (!$this->id)
-		{
-			$this->id = uniqid();
-		}
 		if (!$this->isValid())
 		{
 			$this->highlight = true;
@@ -198,6 +220,12 @@ class Input extends \Mocovi\Controller
 		return true;
 	}
 
+	/**
+	 * This magic method transforms all properties to a public readonly.
+	 *
+	 * @return mixed
+	 * @param string $var
+	 */
 	public function __get($var)
 	{
 		if (property_exists($this, $var))

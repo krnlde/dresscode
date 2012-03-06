@@ -374,7 +374,7 @@ abstract class Controller extends Observable
 		{
 			foreach ($this->getProperties() as $name => $value)
 			{
-				if (!is_null($value) && !$this->node->getAttribute($name))
+				if (!is_null($value) && !$this->node->hasAttribute($name))
 				{
 					if (!$this->trigger('adoptProperty', $name, array('value' => $value))->isDefaultPrevented())
 					{
@@ -540,12 +540,9 @@ abstract class Controller extends Observable
 		if (!$this->trigger('renameNode', $nodeName)->isDefaultPrevented())
 		{
 			$newNode = $this->dom->createElement($nodeName);
-			if ($this->node->attributes->length > 0)
+			foreach ($this->node->attributes as $attribute)
 			{
-				foreach ($this->node->attributes as $attribute)
-				{
-					$newNode->setAttribute($attribute->name, $attribute->value);
-				}
+				$newNode->setAttribute($attribute->name, $attribute->value);
 			}
 			while ($this->node->firstChild)
 			{

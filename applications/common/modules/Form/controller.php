@@ -33,6 +33,7 @@ class Form extends \Mocovi\Controller
 	 */
 	protected $inputs;
 
+
 	protected function before(array $params = array())
 	{
 		$Application = $this->Application;
@@ -61,8 +62,8 @@ class Form extends \Mocovi\Controller
 			{
 				$this->process();
 			}
-			catch (\Mocovi\Exception\Input $e) // Important! This prevents the Exception from bubbling up.
-			{}
+			catch (\Mocovi\Exception\Input $e)
+			{} // Important! This prevents the Exception from bubbling up.
 		}
 	}
 
@@ -74,6 +75,17 @@ class Form extends \Mocovi\Controller
 		}
 	}
 
+	/**
+	 * Processes the input values and fires the "success" event on success.
+	 *
+	 * If execute $event->preventDefault(); on the success event, the jumpTo
+	 * header redirect will be ignored.
+	 *
+	 * If one input type validation check fails an "error" event will be triggered.
+	 *
+	 * @triggers success
+	 * @triggers error
+	 */
 	protected function process()
 	{
 		$invalid = false;
@@ -92,11 +104,14 @@ class Form extends \Mocovi\Controller
 		}
 		catch (\Mocovi\Exception\Input $e)
 		{
-			$this->trigger('error', $e);
-			throw $e;
+			$event = $this->trigger('error', $e);
+			if (!$event->isDefaultPrevented())
+			{
+				throw $e;
+			}
 		}
 
-		$event = $this->trigger('success', $values);
+		$event = $this->trigger('success', $values); // @todo change to "data"?
 		if (!$event->isDefaultPrevented())
 		{
 			$this->Application->Response->Header->location($this->jumpTo);

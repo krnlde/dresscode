@@ -3,7 +3,9 @@
 <xsl:stylesheet
 	version="1.0"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:php="http://php.net/xsl"
+	extension-element-prefixes="php">
 
 	<xsl:template match="input">
 		<xsl:if test="@label">
@@ -18,6 +20,11 @@
 			<xsl:copy-of select="@name"/>
 			<xsl:copy-of select="@value"/>
 			<xsl:copy-of select="@placeholder"/>
+			<xsl:if test="@pattern">
+				<xsl:attribute name="pattern">
+					<xsl:value-of select="php:function('trim', string(@pattern), '/')"/>
+				</xsl:attribute>
+			</xsl:if>
 			<xsl:if test="@required = 1">
 				<xsl:attribute name="required">required</xsl:attribute>
 			</xsl:if>

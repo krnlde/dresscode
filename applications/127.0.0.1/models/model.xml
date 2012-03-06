@@ -39,8 +39,12 @@
 					<headline>
 						<translate token="loremipsum" cut="15"/>
 					</headline>
-					<form jumpTo="/home/videos" method="post">
-						<input preset="email" name="asd" />
+					<form jumpTo="/home" method="get">
+						<input preset="email" name="email" value="moep" />
+						<input preset="url" name="url" value="" placeholder="Your Website" />
+						<paragraph>
+							<input preset="text" name="name" value="123" required="1"/>
+						</paragraph>
 					</form>
 					<paragraph>
 						<translate token="DurationYears">
