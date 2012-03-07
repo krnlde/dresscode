@@ -5,12 +5,12 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:template match="strike">
-		<strike>
+	<xsl:template match="address">
+		<address>
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
 			<xsl:apply-templates/>
-		</strike>
+		</address>
 	</xsl:template>
 
 </xsl:stylesheet>

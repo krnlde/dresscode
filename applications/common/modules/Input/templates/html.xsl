@@ -15,16 +15,14 @@
 		</xsl:if>
 		<input>
 			<xsl:copy-of select="@id"/>
-			<xsl:copy-of select="@class"/>
+			<xsl:copy-of select="@class"/><!-- @todo see highlight-->
 			<xsl:copy-of select="@type"/>
 			<xsl:copy-of select="@name"/>
 			<xsl:copy-of select="@value"/>
 			<xsl:copy-of select="@placeholder"/>
-			<xsl:if test="@pattern">
-				<xsl:attribute name="pattern">
-					<xsl:value-of select="php:function('trim', string(@pattern), '/')"/>
-				</xsl:attribute>
-			</xsl:if>
+			<xsl:copy-of select="@minlength"/>
+			<xsl:copy-of select="@maxlength"/>
+			<xsl:copy-of select="@pattern"/>
 			<xsl:if test="@required = 1">
 				<xsl:attribute name="required">required</xsl:attribute>
 			</xsl:if>
@@ -35,6 +33,7 @@
 				<xsl:attribute name="disabled">disabled</xsl:attribute>
 			</xsl:if>
 			<xsl:if test="@highlight = 1">
+				<xsl:attribute name="class">highlight</xsl:attribute><!-- @todo see class-->
 				<xsl:attribute name="style">border: 2px solid red;</xsl:attribute>
 			</xsl:if>
 		</input>

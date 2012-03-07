@@ -42,6 +42,12 @@ class Gallery extends \Mocovi\Controller
 		}
 	}
 
+	/**
+	 * Filters ({@see \Mocovi\Controller\Filter}) can be applied to modify the amount of the resulting images.
+	 *
+	 * @triggers loadFile
+	 * @throws \Mocovi\Exception
+	 */
 	protected function get(array $params = array())
 	{
 		parent::get($params);
@@ -58,7 +64,7 @@ class Gallery extends \Mocovi\Controller
 				if (!$element->isDot() && $element->isFile() && $this->isImage($element))
 				{
 					$result = $this->trigger('loadFile', $element)->result;
-					if (is_null($result) || $result)
+					if (is_null($result) || $result) // if $result is null, no result was returned and therefor ignored, otherwise the result value is considered.
 					{
 						$images[] = str_replace(array($_SERVER['DOCUMENT_ROOT'].\Mocovi\Application::basePath(), '\\'), array('', '/'), $element->getPathName());
 					}

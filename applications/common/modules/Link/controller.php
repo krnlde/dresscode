@@ -39,7 +39,12 @@ class Link extends \Mocovi\Controller
 					)
 				)
 			);
-		$this->url = preg_replace('/^([a-z]+)\%3A\/\//', '$1://', $this->url); // recover scheme declaration
+		$this->url = str_replace('%40', '@', $this->url); // recover mail declaration (from urlencode)
+		$this->url = preg_replace('/^([a-z]+)\%3A\/\//', '$1://', $this->url); // recover scheme declaration (from urlencode)
+		if (preg_match('/^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$/', $this->url))
+		{
+			$this->url = 'mailto:'.$this->url;
+		}
 		$this->node->setAttribute('url', $this->url);
 	}
 }

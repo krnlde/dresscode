@@ -6,31 +6,32 @@ class Filter extends \Mocovi\Controller
 	/**
 	 * @property
 	 * @hideIfEmpty
+	 * @var string
 	 */
 	protected $require;
 
 	/**
 	 * @property
 	 * @hideIfEmpty
+	 * @var string
 	 */
 	protected $skip;
+
+	/**
+	 * @todo implement $event to filter a specific event. Default would be "loadFile".
+	 * @var string
+	 */
+	// protected $event;
 
 	protected function before(array $params = array())
 	{
 		parent::before($params);
 		$self = $this;
 		$this->parent->on('loadFile', function($event) use ($self) {
-			if ($self->require)
+			if ($self->require && !preg_match($self->require, $event->relatedTarget->getFileName()))
 			{
-				if (preg_match($self->require, $event->relatedTarget->getFileName()))
-				{
-					$event->stopPropagation();
-					return true;
-				}
-				else
-				{
-					return $event->result;
-				}
+				$event->stopPropagation();
+				return false;
 			}
 			if ($self->skip && preg_match($self->skip, $event->relatedTarget->getFileName()))
 			{
@@ -44,6 +45,7 @@ class Filter extends \Mocovi\Controller
 	protected function createNode()
 	{
 		return $this->dom->createComment($this->getName());
+		// return $this->dom->createComment($this->getName().' -'.($this->require ? ' require: '.$this->require : '').($this->skip ? ' skip: '.$this->skip : '')); // @todo security issue?
 	}
 
 	/**

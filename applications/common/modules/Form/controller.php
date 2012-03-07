@@ -36,12 +36,6 @@ class Form extends \Mocovi\Controller
 
 	protected function before(array $params = array())
 	{
-		$Application = $this->Application;
-		$this->on('success', function ($event) use ($Application) { // @debug
-			$event->preventDefault();
-			print_r($event->relatedTarget);
-		});
-
 		if (strlen($this->jumpTo) > 0 && $this->jumpTo[0] === '/')
 		{
 			$this->jumpTo = \Mocovi\Application::basePath().$this->jumpTo;
@@ -104,15 +98,12 @@ class Form extends \Mocovi\Controller
 		}
 		catch (\Mocovi\Exception\Input $e)
 		{
-			$event = $this->trigger('error', $e);
-			if (!$event->isDefaultPrevented())
+			if (!$this->trigger('error', $e)->isDefaultPrevented())
 			{
 				throw $e;
 			}
 		}
-
-		$event = $this->trigger('success', $values); // @todo change to "data"?
-		if (!$event->isDefaultPrevented())
+		if (!$this->trigger('success', null, $values)->isDefaultPrevented())
 		{
 			$this->Application->Response->Header->location($this->jumpTo);
 		}

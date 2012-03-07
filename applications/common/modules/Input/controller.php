@@ -106,18 +106,30 @@ class Input extends \Mocovi\Controller
 	protected $presets = array
 		( 'email'			=> array
 			( 'type'		=> 'email'
-			, 'pattern'		=> '/^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$/'
+			, 'pattern'		=> '^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$'
 			, 'required'	=> true
 			)
 		, 'url'				=> array
 			( 'type'		=> 'url'
 			, 'value'		=> 'http://'
-			, 'pattern'		=> '/^https?:\/\/[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$/' // needs to be checked!
-			, 'required'	=> true
+			, 'pattern'		=> '^https?:\/\/[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$' // needs to be checked!
+			)
+		, 'zip'				=> array
+			( 'type'		=> 'zip'
+			, 'minlength'	=> 5
+			, 'maxlength'	=> 5
+			, 'pattern'		=> '^[0-9]{5}$' // needs to be checked!
 			)
 		);
 
+	/**
+	 * @var boolean
+	 */
 	protected $dataSent = false;
+
+	/**
+	 * @var \Mocovi\Exception\Input
+	 */
 	protected $exception;
 
 	protected function before(array $params = array())
@@ -207,13 +219,13 @@ class Input extends \Mocovi\Controller
 		}
 		if ($this->maxlength && strlen($this->value) > $this->maxlength)
 		{
-			throw new \Mocovi\Exception\Input\WrongFormat($this->name);
+			throw new \Mocovi\Exception\Input\WrongFormat\TooLong($this->name);
 		}
 		if ($this->minlength && strlen($this->value) < $this->minlength)
 		{
-			throw new \Mocovi\Exception\Input\WrongFormat($this->name);
+			throw new \Mocovi\Exception\Input\WrongFormat\TooShort($this->name);
 		}
-		if ($this->pattern && !preg_match($this->pattern, $this->value))
+		if ($this->pattern && !preg_match('/'.$this->pattern.'/', $this->value))
 		{
 			throw new \Mocovi\Exception\Input\WrongFormat($this->name);
 		}

@@ -8,7 +8,8 @@ class Toc extends \Mocovi\Controller
 	 * @property
 	 * @var string
 	 */
-	public $xpath = '//headline';
+	public $xpath = '//headline[@id]';
+
 	protected function before(array $params = array())
 	{
 		$self = $this;

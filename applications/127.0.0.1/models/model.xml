@@ -39,13 +39,14 @@
 					<headline>
 						<translate token="loremipsum" cut="15"/>
 					</headline>
-					<form jumpTo="/home" method="get">
-						<input preset="email" name="email" value="moep" />
-						<input preset="url" name="url" value="" placeholder="Your Website" />
-						<paragraph>
-							<input preset="text" name="name" value="123" required="1"/>
-						</paragraph>
-					</form>
+					<guestbook>
+						<form jumpTo="/home" method="get">
+							<input name="name" placeholder="Your Name" minlength="2" required="1" />
+							<input preset="email" name="email" placeholder="Your E-Mail" required="1"/>
+							<input preset="text" name="text" placeholder="Your Message" required="1"/>
+						</form>
+					</guestbook>
+					<link to="me@krnl.de"/>
 					<paragraph>
 						<translate token="DurationYears">
 							<attribute name="count">
@@ -150,10 +151,8 @@
 					<paragraph>
 						Text $title, $path, $path
 					</paragraph>
-					<slider>
-						<youtube videoId="JtF7z_DZdVk"/>
-						<vimeo videoId="21762564"/>
-					</slider>
+					<youtube videoId="JtF7z_DZdVk"/>
+					<vimeo videoId="21762564"/>
 				</article>
 				<footer>
 					<section>
@@ -170,7 +169,9 @@
 						<paragraph>
 							<translate token="loremipsum" cut="300"/>
 						</paragraph>
-						<gallery source="/gallery" maximum="3"/>
+						<gallery source="/gallery" maximum="50">
+							<filter require="/1[0-9]/"/>
+						</gallery>
 					</article>
 					<footer>
 						<section>

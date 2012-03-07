@@ -5,13 +5,12 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:template match="form">
-		<form method="{@method}">
+	<xsl:template match="sub">
+		<sub>
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
 			<xsl:apply-templates/>
-			<input type="submit"/><!-- @todo -->
-		</form>
+		</sub>
 	</xsl:template>
 
 </xsl:stylesheet>
