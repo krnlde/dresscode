@@ -29,4 +29,16 @@
 		<translation lang="de">%d Jahr(e)</translation>
 		<translation lang="all">%d year(s)</translation>
 	</token>
+	<token name="Mocovi\Exception\Input\WrongFormat">
+		<translation lang="all">This value has a wrong format</translation>
+	</token>
+	<token name="Mocovi\Exception\Input\WrongFormat\TooShort">
+		<translation lang="all">This value is too short</translation>
+	</token>
+	<token name="Mocovi\Exception\Input\WrongFormat\TooLong">
+		<translation lang="all">This value is too long</translation>
+	</token>
+	<token name="Mocovi\Exception\Input\Required">
+		<translation lang="all">This value is required</translation>
+	</token>
 </root>

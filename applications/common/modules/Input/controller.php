@@ -54,6 +54,14 @@ class Input extends \Mocovi\Controller
 	protected $placeholder;
 
 	/**
+	 * Title text used for error messages.
+	 *
+	 * @property
+	 * @var string
+	 */
+	protected $title;
+
+	/**
 	 * Minimum length of the value (inclusive).
 	 *
 	 * @property
@@ -94,10 +102,12 @@ class Input extends \Mocovi\Controller
 	protected $highlight = false;
 
 	/**
+	 * Regular expression the {@see $value} must match.
+	 *
 	 * @property
 	 * @var string
 	 */
-	protected $pattern = '';
+	protected $pattern;
 
 
 	/**
@@ -205,6 +215,14 @@ class Input extends \Mocovi\Controller
 		}
 		catch (\Mocovi\Exception\Input $e)
 		{
+			if ($node = \Mocovi\Translator::translate(get_class($e)))
+			{
+				$this->title = $node->nodeValue; // @todo maybe improve this?
+			}
+			else
+			{
+				$this->title = get_class($e);
+			}
 			$this->exception = $e;
 			return false;
 		}

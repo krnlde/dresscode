@@ -10,6 +10,7 @@
 	defaultLanguage="de"
 	>
 
+	<fs:file name="index" redirect="/home" invisible="1"/>
 	<fs:file name="home" alias="Home" aliasToken="Home" methods="get" author="Kai Dorschner">
 		<root>
 			<article>
@@ -24,7 +25,7 @@
 		</root>
 	</fs:file>
 
-	<fs:file name="404" statusCode="404">
+	<fs:file name="404" invisible="1" statusCode="404">
 		<root>
 			<header>
 				<menu/>

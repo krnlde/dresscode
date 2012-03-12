@@ -99,13 +99,19 @@ class XML extends \Mocovi\Model
 		$keywords = array();
 		$xpath = new \DomXpath($this->dom);
 		$xpath->registerNamespace('fs', self::NS);
-		foreach ($xpath->query('.//fs:keywords/fs:element', $this->read($path)) as $keyword)
+		try
 		{
-			if (!$language || !$keyword->getAttribute('lang') || strtolower($keyword->getAttribute('lang')) === strtolower($language))
+			$file = $this->read($path);
+			foreach ($xpath->query('.//fs:keywords/fs:element', $file) as $keyword)
 			{
-				$keywords[] = $keyword->nodeValue;
+				if (!$language || !$keyword->getAttribute('lang') || strtolower($keyword->getAttribute('lang')) === strtolower($language))
+				{
+					$keywords[] = $keyword->nodeValue;
+				}
 			}
 		}
+		catch (\Exception $e)
+		{}
 		return $keywords;
 	}
 
@@ -128,7 +134,14 @@ class XML extends \Mocovi\Model
 
 	public function lastModified($path)
 	{
-		return $this->read($path)->getAttribute('modified') ?: $this->modified;
+		try
+		{
+			return $this->read($path)->getAttribute('modified') ?: $this->modified;
+		}
+		catch (\Mocovi\Exception\FileNotFound $e)
+		{
+			return $this->modified;
+		}
 	}
 
 	public function __call($method, $arguments)

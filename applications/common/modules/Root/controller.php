@@ -54,11 +54,12 @@ class Root extends \Mocovi\Controller
 		$cssPool = new \Mocovi\Pool('css');
 		$cssPool->add(new \DirectoryIterator('applications/common/assets/css'));
 
-		if (file_exists($custom = 'applications/'.$this->Application->getName().'/assets/css'))
+		if (file_exists($custom = 'applications/'.$this->Application->getName().'/assets/css')) // @todo clean this mess up.
 		{
 			$cssPool->add(new \DirectoryIterator($custom));
 		}
 		$stylesheets = array('applications/common/assets/css/less/main-16px.css');
+		// $stylesheets = array('applications/common/assets/bootstrap/less/bootstrap.less');
 		if (!$this->theme)
 		{
 			$this->theme = self::DEFAULT_THEME;

@@ -40,9 +40,9 @@
 						<translate token="loremipsum" cut="15"/>
 					</headline>
 					<guestbook>
-						<form jumpTo="/home" method="get">
+						<form jumpTo="/home/videos" method="get">
 							<input name="name" placeholder="Your Name" minlength="2" required="1" />
-							<input preset="email" name="email" placeholder="Your E-Mail" required="1"/>
+							<input preset="email" name="email" placeholder="to@example.com" required="1"/>
 							<input preset="text" name="text" placeholder="Your Message" required="1"/>
 						</form>
 					</guestbook>
@@ -94,7 +94,7 @@
 						<!-- <thumbnail source="/gallery/auswahl-2.jpg"/> -->
 					</paragraph>
 					<protect require="valid-user">
-						<slider>
+						<paging>
 							<element>
 								<headline>Slide 1</headline>
 								<paragraph>
@@ -113,7 +113,7 @@
 									<translate token="loremipsum" cut="20"/>
 								</paragraph>
 							</element>
-						</slider>
+						</paging>
 					</protect>
 				</section>
 			</article>
@@ -170,7 +170,8 @@
 							<translate token="loremipsum" cut="300"/>
 						</paragraph>
 						<gallery source="/gallery" maximum="50">
-							<filter require="/1[0-9]/"/>
+							<filter require="/1[2-4]/"/>
+							<filter skip="/13/"/>
 						</gallery>
 					</article>
 					<footer>

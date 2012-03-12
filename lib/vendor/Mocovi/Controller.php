@@ -119,6 +119,7 @@ abstract class Controller extends Observable
 	 */
 	protected $id;
 
+	protected $propertiesAdopted = false;
 
 	/**
 	 * @param \DomNode $sourceNode
@@ -316,6 +317,10 @@ abstract class Controller extends Observable
 				{
 					$type = $this->getPropertyType($property);
 					$this->$name = $type ? $this->cast($value, $type) : $value;
+					if ($this->propertiesAdopted)
+					{
+						$this->node->setAttribute($name, $this->$name);
+					}
 					$this->removeFromDocCommentCache($name);
 				}
 			}
@@ -383,6 +388,7 @@ abstract class Controller extends Observable
 				}
 			}
 		}
+		$this->propertiesAdopted = true;
 		return $this;
 	}
 

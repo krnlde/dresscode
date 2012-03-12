@@ -301,7 +301,7 @@ class Application
 
 			if ($to = $this->file->getAttribute('redirect'))
 			{
-				if ($to[0] === '/')
+				if ($to[0] === '/' && dirname($_SERVER['SCRIPT_NAME']) != '/')
 				{
 					$to = dirname($_SERVER['SCRIPT_NAME']).$to;
 				}

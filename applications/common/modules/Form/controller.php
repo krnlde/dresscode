@@ -82,17 +82,21 @@ class Form extends \Mocovi\Controller
 	 */
 	protected function process()
 	{
-		$invalid = false;
 		$values = array();
 		try
 		{
 			foreach ($this->inputs as $input)
 			{
-				$invalid |= $input->isValid();
 				if ($input->isDataSent())
 				{
-					$input->validate();
-					$values[$input->getProperty('name')] = $input->getProperty('value');
+					if($input->isValid())
+					{
+						$values[$input->getProperty('name')] = $input->getProperty('value'); // @todo array values like &equipment[]=23
+					}
+					else
+					{
+						throw $input->exception;
+					}
 				}
 			}
 		}
@@ -103,9 +107,17 @@ class Form extends \Mocovi\Controller
 				throw $e;
 			}
 		}
-		if (!$this->trigger('success', null, $values)->isDefaultPrevented())
+		/*
+			The success event will only be triggered when the size of the
+			inputs inside this form and the count of the received values are matching.
+			Otherwise it's assumed that this is not the correct form.
+		*/
+		if (count($values) === $this->inputs->length)
 		{
-			$this->Application->Response->Header->location($this->jumpTo);
+			if (!$this->trigger('success', /*relatedTarget*/ null, /*data*/ $values)->isDefaultPrevented())
+			{
+				$this->Application->Response->Header->location($this->jumpTo);
+			}
 		}
 	}
 }
