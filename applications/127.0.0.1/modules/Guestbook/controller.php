@@ -10,7 +10,7 @@ class Guestbook extends \Mocovi\Controller
 			$this->class = strtolower($this->getName());
 		}
 		$self = $this;
-		$this->find('Form')->on('success', function ($event) use ($self) {
+		$this->find('Form')->on('success', function ($event) use ($self) { // @todo you can use $this directly in PHP 5.4
 			$event->preventDefault(); // @debug
 			$data = (object)$event->data;
 			$self->saveElement($data->name, $data->email, $data->text);

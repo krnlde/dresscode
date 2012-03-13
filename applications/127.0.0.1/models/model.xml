@@ -39,13 +39,13 @@
 					<headline>
 						<translate token="loremipsum" cut="15"/>
 					</headline>
-					<guestbook>
+					<sessionstore>
 						<form jumpTo="/home/videos" method="get">
 							<input name="name" placeholder="Your Name" label="test" required="1" />
 							<input name="email" placeholder="to@example.com" label="test" />
 							<input name="text" placeholder="Your Message" label="test" />
 						</form>
-					</guestbook>
+					</sessionstore>
 					<link to="me@krnl.de"/>
 					<paragraph>
 						<translate token="DurationYears">

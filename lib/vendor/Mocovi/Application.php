@@ -614,7 +614,7 @@ class Application
 	public function errorHandler($errno, $errstr, $errfile = __FILE__, $errline = __LINE__, array $errcontext = array())
 	{
 		$this->resetDom();
-		$controller	= Module::createErrorController(new Exception($errstr, $errno, 1, $errfile, $errline));
+		$controller	= Module::createErrorController(new \ErrorException($errstr, $errno, 1, $errfile, $errline));
 		$controller->launch('get', $params = array(), $this->dom, $this);
 		$View		= Module::getView();
 		$this->statuscode	= 500; // Internal Server Error
