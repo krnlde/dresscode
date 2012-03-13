@@ -76,7 +76,7 @@ class Root extends \Mocovi\Controller
 			)
 		);
 		$Application = $this->Application;
-		$this->on('ready', function ($event) use ($Application) {
+		$this->on('ready', function ($event) use ($Application) { // @todo you can use $this in anonymous functions directly in PHP 5.4
 			$Application->javascripts
 			(	array
 				(	'applications/common/assets/js/external-links.js' // load this script at last!

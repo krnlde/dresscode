@@ -15,7 +15,7 @@ class Reference extends \Mocovi\Controller\Plain
 	{
 		$self	= $this;
 		$query	= $this->xpath;
-		$this->closest('Root')->on('ready', function ($event) use ($self, $query) {
+		$this->closest('Root')->on('ready', function ($event) use ($self, $query) { // @todo you can use $this in anonymous functions directly in PHP 5.4
 			$xpath	= new \DOMXPath($self->getDom());
 			$result	= $xpath->query($query);
 			if ($result->length > 0)

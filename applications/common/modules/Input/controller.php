@@ -146,11 +146,11 @@ class Input extends \Mocovi\Controller
 	{
 		if (!$this->id && strlen($this->label) > 0)
 		{
-			$this->id = uniqid();
+			$this->id = $this->generateId();
 		}
 		if (array_key_exists($this->name, $params))
 		{
-			$this->value = $params[$this->name];
+			$this->setProperty('value', $params[$this->name]);
 			$this->dataSent = true;
 		}
 		if ($this->preset && array_key_exists($this->preset, $this->presets))
@@ -190,7 +190,7 @@ class Input extends \Mocovi\Controller
 	{
 		if (!$this->isValid())
 		{
-			$this->highlight = true;
+			$this->setProperty('highlight', true);
 		}
 	}
 
@@ -217,11 +217,11 @@ class Input extends \Mocovi\Controller
 		{
 			if ($node = \Mocovi\Translator::translate(get_class($e)))
 			{
-				$this->title = $node->nodeValue; // @todo maybe improve this?
+				$this->setProperty('title', $node->nodeValue); // @todo maybe improve this?
 			}
 			else
 			{
-				$this->title = get_class($e);
+				$this->setProperty('title', get_class($e));
 			}
 			$this->exception = $e;
 			return false;

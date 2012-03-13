@@ -25,6 +25,5 @@ class Slider extends \Mocovi\Controller
 			,	'applications/common/modules/Slider/assets/js/slider.js'
 			)
 		);
-		parent::before($params);
 	}
 }

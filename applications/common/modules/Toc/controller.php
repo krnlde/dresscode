@@ -13,7 +13,7 @@ class Toc extends \Mocovi\Controller
 	protected function before(array $params = array())
 	{
 		$self = $this;
-		$this->closest('Root')->on('ready', function ($event) use ($self) {
+		$this->closest('Root')->on('ready', function ($event) use ($self) { // @todo you can use $this in anonymous functions directly in PHP 5.4
 			$dom	= $self->getDom();
 			$node	= $self->getNode();
 			$xpath	= new \DOMXPath($dom);

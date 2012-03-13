@@ -41,9 +41,9 @@
 					</headline>
 					<guestbook>
 						<form jumpTo="/home/videos" method="get">
-							<input name="name" placeholder="Your Name" minlength="2" required="1" />
-							<input preset="email" name="email" placeholder="to@example.com" required="1"/>
-							<input preset="text" name="text" placeholder="Your Message" required="1"/>
+							<input name="name" placeholder="Your Name" label="test" required="1" />
+							<input name="email" placeholder="to@example.com" label="test" />
+							<input name="text" placeholder="Your Message" label="test" />
 						</form>
 					</guestbook>
 					<link to="me@krnl.de"/>
@@ -94,7 +94,7 @@
 						<!-- <thumbnail source="/gallery/auswahl-2.jpg"/> -->
 					</paragraph>
 					<protect require="valid-user">
-						<paging>
+						<slider>
 							<element>
 								<headline>Slide 1</headline>
 								<paragraph>
@@ -113,7 +113,7 @@
 									<translate token="loremipsum" cut="20"/>
 								</paragraph>
 							</element>
-						</paging>
+						</slider>
 					</protect>
 				</section>
 			</article>

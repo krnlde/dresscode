@@ -27,7 +27,16 @@ use \Mocovi\Event;
 /**
  * Abstract RESTful Controller.
  *
- * It uses an ReflectionObject of itself to determine its controller properties.
+ * It uses an ReflectionObject of itself to determine its controller properties
+ * set by the "@property" DocComment. By setting the "@hidden" comment the property
+ * won't be set as attribute from the output node.
+ *
+ * TL;DR
+ *
+ * * @property - adopt value from the source node and send it attribute to the output node
+ * * @hidden - prevent adoption for the output node but adopt from the sourceNode
+ * * @hideIfEmpty - same as @hidden but only if empty
+ * * @var [type] - enables type casting for the property (boolean, integer, float, string, character)
  *
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
@@ -40,21 +49,6 @@ abstract class Controller extends Observable
 	 * @var \Mocovi\Application
 	 */
 	protected $Application;
-
-	/**
-	 * ReflectionObject is used to determine the type of the property in a controller.
-	 *
-	 * @var \ReflectionClass
-	 */
-	protected $Reflection;
-
-	/**
-	 * Array which contains tokenized doc comments (javadoc) from each property
-	 * of this controller.
-	 *
-	 * @var array 2D Array
-	 */
-	protected $docCommentCache = array();
 
 	/**
 	 * @var \DomNode
@@ -119,7 +113,28 @@ abstract class Controller extends Observable
 	 */
 	protected $id;
 
-	protected $propertiesAdopted = false;
+
+	/**
+	 * ReflectionObject is used to determine the type of the property in a controller.
+	 *
+	 * @var \ReflectionClass
+	 */
+	private $Reflection;
+
+	/**
+	 * Array which contains tokenized doc comments (javadoc) from each property
+	 * of this controller.
+	 *
+	 * @var array 2D Array
+	 */
+	private $docCommentCache = array();
+
+	/**
+	 * Tells whether the properties have already been adopted or not.
+	 *
+	 * @var boolean
+	 */
+	private $propertiesAdopted = false;
 
 	/**
 	 * @param \DomNode $sourceNode
@@ -306,7 +321,7 @@ abstract class Controller extends Observable
 	 * @param string $value
 	 * @return \Mocovi\Controller $this
 	 */
-	public function setProperty($name, $value)
+	final public function setProperty($name, $value)
 	{
 		if ($this->Reflection->hasProperty($name))
 		{
@@ -336,7 +351,7 @@ abstract class Controller extends Observable
 	 * @param string $name
 	 * @return mixed|null
 	 */
-	public function getProperty($name)
+	final public function getProperty($name)
 	{
 		if ($this->Reflection->hasProperty($name))
 		{
@@ -354,7 +369,7 @@ abstract class Controller extends Observable
 	 *
 	 * @return array Controller Properties
 	 */
-	public function getProperties()
+	final public function getProperties()
 	{
 		$properties = array();
 		foreach ($this->Reflection->getProperties() as $property)
@@ -754,7 +769,7 @@ abstract class Controller extends Observable
 	 * @param \ReflectionProperty $property
 	 * @return boolean
 	 */
-	protected function isControllerProperty(\ReflectionProperty $property)
+	final protected function isControllerProperty(\ReflectionProperty $property)
 	{
 		$tokens = $this->tokenizedDocComment($property);
 		return isset($tokens['property']);
@@ -768,7 +783,7 @@ abstract class Controller extends Observable
 	 * @param \ReflectionProperty $property
 	 * @return boolean
 	 */
-	protected function isHiddenProperty(\ReflectionProperty $property)
+	final protected function isHiddenProperty(\ReflectionProperty $property)
 	{
 		$tokens = $this->tokenizedDocComment($property);
 		return isset($tokens['hidden']) || (isset($tokens['hideifempty']) && empty($this->{$property->name}));
@@ -783,7 +798,7 @@ abstract class Controller extends Observable
 	 * @param string $type
 	 * @return mixed
 	 */
-	protected function cast($value, $type)
+	protected static function cast($value, $type)
 	{
 		switch (strtolower($type))
 		{
@@ -823,7 +838,7 @@ abstract class Controller extends Observable
 	 * @param \ReflectionProperty $property
 	 * @return string|null
 	 */
-	protected function getPropertyType(\ReflectionProperty $property)
+	final protected function getPropertyType(\ReflectionProperty $property)
 	{
 		$tokens = $this->tokenizedDocComment($property);
 		return isset($tokens['var']) ? $tokens['var'] : null;
@@ -833,20 +848,25 @@ abstract class Controller extends Observable
 	 * @param \ReflectionProperty $property
 	 * @return array
 	 */
-	protected function tokenizedDocComment(\ReflectionProperty $property)
+	final protected function tokenizedDocComment(\ReflectionProperty $property)
 	{
 		if (isset($this->docCommentCache[$property->name]))
 		{
 			return $this->docCommentCache[$property->name];
 		}
-		$tokens = array();
-		$docComment = trim(str_replace(array('/*', '*/', '*'), '', $property->getDocComment()));
-		$lines = array_map(function ($element) {
-			return trim($element);
-		}, preg_split("/[\r\n]+/", $docComment));
+		$tokens		= array();
+		$docComment	= trim(str_replace(array('/*', '*/', '*'), '', $property->getDocComment()));
+		$lines		= array_map
+		(	function ($element)
+			{
+				return trim($element);
+			}
+		,	preg_split("/[\r\n]+/", $docComment)
+		);
 		foreach ($lines as $line)
 		{
-			$pieces = explode(' ', $line, 2); // @todo maybe use split('/\s+/'...) here?
+			// $pieces = explode(' ', $line, 2); // this is faster than preg_split
+			$pieces = preg_split('/\s+/', $line, 2);
 			if (isset($pieces[0][0]) && $pieces[0][0] == '@')
 			{
 				$tokens[strtolower(substr($pieces[0], 1))] = isset($pieces[1]) ? $pieces[1] : true;
@@ -864,12 +884,21 @@ abstract class Controller extends Observable
 	 * @param string $userdate Contains the the user time format
 	 * @return integer unix timestamp; Returns either the converted time or the current time
 	 */
-	protected function unixtime($userdate)
+	final protected static function unixtime($userdate)
 	{
 		if (empty($userdate))
 		{
 			return time(); //now
 		}
 		return strtotime($userdate);
+	}
+
+	/**
+	 *
+	 * @return string First 8 chars from the sha1 of the XPath
+	 */
+	protected function generateId()
+	{
+		return substr(sha1($this->getXPath()), 0, 8);
 	}
 }
