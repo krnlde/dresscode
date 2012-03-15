@@ -64,7 +64,7 @@
 							<attribute name="count">
 								<duration from="2013-12-24" format="a"/>
 							</attribute>
-						</translate>) <element showFromDate="2013-12-24">seit dem </element><element showToDate="2013-12-24">bis zum </element> <date format="d.m.Y">2013-12-24</date>
+						</translate>) <element showFromDate="2013-12-24">seit dem </element><element showToDate="2013-12-24">bis zum </element> <time datetime="2013-12-24" format="d.m.Y"/>
 					</paragraph>
 					<toc/>
 				</header>

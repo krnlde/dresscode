@@ -3,9 +3,9 @@ namespace Mocovi\Controller;
 
 use \Mocovi\Translator;
 
-\Mocovi\Module::requireController('Date');
+\Mocovi\Module::requireController('Time');
 
-class Duration extends \Mocovi\Controller\Date
+class Duration extends \Mocovi\Controller\Time
 {
 
 	protected $formats = array
@@ -39,6 +39,6 @@ class Duration extends \Mocovi\Controller\Date
 		{
 			$this->format = $this->formats[0];
 		}
-		$this->setText($from->diff($to)->format('%'.$this->format));
+		$this->node->appendChild($this->dom->createTextNode($from->diff($to)->format('%'.$this->format)));
 	}
 }
