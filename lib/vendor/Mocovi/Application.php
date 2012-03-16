@@ -29,6 +29,9 @@ use Assetic\AssetWriter;
 use Assetic\Filter;
 use Assetic\Cache\FilesystemCache;
 
+require_once('lib/vendor/CssMin/src/CssMin.php'); // @todo This class is very slow - it needs about 0.2 sec to load!!!!!!
+require_once('lib/vendor/Lessphp/lessc.inc.php');
+
 /**
  * Handles HTTP requests and provides interfaces for all important HTTP methods.
  *
@@ -103,9 +106,17 @@ class Application
 	 */
 	protected $statuscode = 200;
 
+	protected static $assetOutput = 'assetic/*';
 
-	protected static $stylesheets = array();
-	protected static $javascripts = array();
+	/**
+	 * @var \Assetic\Asset\AssetCollection
+	 */
+	protected static $stylesheets;
+
+	/**
+	 * @var \Assetic\Asset\AssetCollection
+	 */
+	protected static $javascripts;
 
 	private static $AssetWriter;
 
@@ -130,8 +141,6 @@ class Application
 				Module::getView()->addTemplatePool($templatePath);
 			}
 		}
-		set_error_handler(array($this, 'errorHandler'));
-		set_exception_handler(array($this, 'exceptionHandler'));
 		$modelPath		= $this->getModelPath();
 		$this->Model	= new Model\XML($modelPath);
 		if ($timezone = $this->Model->timezone())
@@ -142,10 +151,22 @@ class Application
 		{
 			\Mocovi\Translator::setLanguage($language);
 		}
+		self::$stylesheets = new \Assetic\Asset\AssetCollection
+		( array()
+		, array
+			( new Filter\LessphpFilter()
+			, new Filter\CssImportFilter()
+			, new Filter\CssRewriteFilter()
+			, new Filter\CssMinFilter()
+			)
+		);
+		self::$javascripts = new \Assetic\Asset\AssetCollection();
 		if (file_exists($bootstrap = $this->getPath()->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
 		{
 			include $bootstrap;
 		}
+		set_error_handler(array($this, 'errorHandler'));
+		set_exception_handler(array($this, 'exceptionHandler'));
 	}
 
 	/**
@@ -657,33 +678,55 @@ class Application
 		}
 	}
 
+
+	/**
+	 * Setter for a stylesheet the current path ({@see getPath();}) is using.
+	 *
+	 * @param \Assetic\Asset\AssetInterface $asset
+	 * @return void
+	 */
+	public static function stylesheet(\Assetic\Asset\AssetInterface $asset)
+	{
+		self::$stylesheets->add($asset);
+	}
+
+	/**
+	 * Setter for a javascript the current path ({@see getPath();}) is using.
+	 *
+	 * @param \Assetic\Asset\AssetInterface $asset
+	 * @return void
+	 */
+	public static function javascript(\Assetic\Asset\AssetInterface $asset)
+	{
+		self::$javascripts->add($asset);
+	}
+
 	/**
 	 * Setter for stylesheets the current path ({@see getPath();}) is using.
 	 *
 	 * @param array $elements Default: array();
-	 * @return array stylesheet array
+	 * @return void
 	 */
 	public static function stylesheets(array $elements = array())
 	{
-		foreach ($elements as $key => $element)
+		foreach ($elements as $element)
 		{
-			if (!file_exists($element))
-			{
-				unset($elements[$key]);
-			}
+			self::stylesheet($element);
 		}
-		return self::$stylesheets = array_merge(self::$stylesheets, $elements);
 	}
 
 	/**
 	 * Setter for javscripts the current path ({@see getPath();}) is using.
 	 *
 	 * @param array $elements Default: array();
-	 * @return array javascript array
+	 * @return void
 	 */
 	public static function javascripts(array $elements = array())
 	{
-		return self::$javascripts = array_merge(self::$javascripts, $elements);
+		foreach ($elements as $element)
+		{
+			self::javascript($element);
+		}
 	}
 
 	/**
@@ -693,16 +736,8 @@ class Application
 	 */
 	public static function dumpStylesheets()
 	{
-		$asset = self::getCssAssetFactory()->createAsset
-		(	self::$stylesheets
-		,	array // @todo make modifiable
-			(	'less' // Less CSS Compiler
-			,	'import' // Solves @imports
-			,	'rewrite' // Rewrites Base URLs when moving to another URL
-			,	'min' // Minifies the script
-			)
-		,	array('output' => 'assetic/*.css')
-		);
+		$asset = self::$stylesheets;
+		$asset->setTargetPath(str_replace('*', self::generateAssetName($asset).'.css', self::$assetOutput));
 		$cache = self::getAssetCache($asset);
 		self::getAssetWriter()->writeAsset($cache);
 		return self::basePath().'/'.$asset->getTargetPath();
@@ -715,11 +750,8 @@ class Application
 	 */
 	public static function dumpJavascripts()
 	{
-		$asset = self::getJsAssetFactory()->createAsset
-		(	self::$javascripts
-		,	array(/* filters */) // @todo make modifiable
-		,	array('output' => 'assetic/*.js')
-		);
+		$asset = self::$javascripts;
+		$asset->setTargetPath(str_replace('*', self::generateAssetName($asset).'.js', self::$assetOutput));
 		$cache = self::getAssetCache($asset);
 		self::getAssetWriter()->writeAsset($cache);
 		return self::basePath().'/'.$asset->getTargetPath();
@@ -727,39 +759,16 @@ class Application
 
 
 	/**
-	 * Creates an Assetic Asset Factory for all CSS files in this application.
+	 * Generates a unique asset name for the bundle.
 	 *
-	 * @return \Assetic\Factory\AssetFactory
-	 */
-	private static function getCssAssetFactory()
-	{
-		require_once('lib/vendor/CssMin/src/CssMin.php'); // @todo This class is very slow - it needs about 0.2 sec to load!!!!!!
-		require_once('lib/vendor/Lessphp/lessc.inc.php');
-
-		$fm = new FilterManager();
-
-		$fm->set('less', new Filter\LessphpFilter());
-		$fm->set('import', new Filter\CssImportFilter());
-		$fm->set('rewrite', new Filter\CssRewriteFilter());
-		$fm->set('min', new Filter\CssMinFilter());
-
-		$factory = new AssetFactory(self::getAssetBuildPath());
-		$factory->setFilterManager($fm);
-
-		return $factory;
-	}
-
-	/**
-	 * Creates an Assetic Asset Factory for all JS files in this application.
+	 * The current state (lastModified, used filters and vars) defines the name.
 	 *
-	 * @return \Assetic\Factory\AssetFactory
+	 * @param \Assetic\Asset\AssetCollection $asset
+	 * @return string 8 characters
 	 */
-	private static function getJsAssetFactory()
+	private static function generateAssetName(\Assetic\Asset\AssetCollection $asset)
 	{
-		$fm			= new FilterManager();
-		$factory	= new AssetFactory(self::getAssetBuildPath());
-		$factory->setFilterManager($fm);
-		return $factory;
+		return substr(sha1(serialize($asset->all()).serialize($asset->getFilters()).serialize($asset->getVars())), 0, 7);
 	}
 
 	/**

@@ -1,6 +1,9 @@
 <?php
 namespace Mocovi\Controller;
 
+use \Assetic\Asset\FileAsset;
+use \Assetic\Asset\StringAsset;
+
 class Root extends \Mocovi\Controller
 {
 	const DEFAULT_THEME = 'main';
@@ -51,37 +54,21 @@ class Root extends \Mocovi\Controller
 
 	protected function before(array $params = array())
 	{
-		$cssPool = new \Mocovi\Pool('css');
-		$cssPool->add(new \DirectoryIterator('applications/common/assets/css'));
-
-		if (file_exists($custom = 'applications/'.$this->Application->getName().'/assets/css')) // @todo clean this mess up.
-		{
-			$cssPool->add(new \DirectoryIterator($custom));
-		}
-		$stylesheets = array('applications/common/assets/css/less/main-16px.css');
-		// $stylesheets = array('applications/common/assets/bootstrap/less/bootstrap.less');
+		$cssPool = $this->getCssPool();
+		$this->Application->stylesheet(new FileAsset('applications/common/assets/css/less/main-16px.css'));
 		if (!$this->theme)
 		{
 			$this->theme = self::DEFAULT_THEME;
 		}
 		if ($theme = $cssPool->find($this->theme))
 		{
-			$stylesheets[] = $theme;
+			$this->Application->stylesheet(new FileAsset($theme));
 		}
 
-		$this->Application->stylesheets($stylesheets);
-		$this->Application->javascripts
-		(	array
-			(	'applications/common/assets/js/jquery.min.js' // or 'http://code.jquery.com/jquery.min.js'
-			)
-		);
+		$this->Application->javascript(new FileAsset('applications/common/assets/js/jquery.min.js')); // or new HttpAsset('http://code.jquery.com/jquery.min.js');
 		$Application = $this->Application;
 		$this->on('ready', function ($event) use ($Application) { // @todo you can use $this in anonymous functions directly in PHP 5.4
-			$Application->javascripts
-			(	array
-				(	'applications/common/assets/js/external-links.js' // load this script at last!
-				)
-			);
+			$Application->javascript(new FileAsset('applications/common/assets/js/external-links.js')); // load this script at last!
 		});
 		parent::before($params);
 	}
@@ -97,5 +84,17 @@ class Root extends \Mocovi\Controller
 		$this->path			= isset($params['path']) ? $params['path'] : null;
 		$this->node->setAttribute('keywords', implode(',', $this->Application->Model->keywords($this->path, $this->language)));
 		parent::get($params);
+	}
+
+	protected function getCssPool()
+	{
+		$cssPool = new \Mocovi\Pool('css');
+		$cssPool->add(new \DirectoryIterator('applications/common/assets/css'));
+
+		if (file_exists($custom = 'applications/'.$this->Application->getName().'/assets/css')) // @todo clean this mess up.
+		{
+			$cssPool->add(new \DirectoryIterator($custom));
+		}
+		return $cssPool;
 	}
 }

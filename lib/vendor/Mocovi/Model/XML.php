@@ -132,8 +132,12 @@ class XML extends \Mocovi\Model
 		return array();
 	}
 
-	public function lastModified($path)
+	public function lastModified($path = null)
 	{
+		if (is_null($path))
+		{
+			return $this->modified;
+		}
 		try
 		{
 			return $this->read($path)->getAttribute('modified') ?: $this->modified;
