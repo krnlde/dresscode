@@ -37,6 +37,7 @@ use \Mocovi\Event;
  * * @hidden - prevent adoption for the output node but adopt from the sourceNode
  * * @hideIfEmpty - same as @hidden but only if empty
  * * @var [type] - enables type casting for the property (boolean, integer, float, string, character)
+ * * @pattern [perl regexp] - accepts new input only when matching the pattern
  *
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
@@ -143,14 +144,6 @@ abstract class Controller extends Observable
 	{
 		$this->Reflection	= new \ReflectionClass($this);
 		$this->sourceNode	= $sourceNode;
-
-		if ($this->sourceNode->hasAttributes())
-		{
-			foreach ($this->sourceNode->attributes as $attribute)
-			{
-				$this->setProperty($attribute->name, $attribute->value);
-			}
-		}
 	}
 
 	/**
@@ -202,10 +195,16 @@ abstract class Controller extends Observable
 		{
 			try
 			{
-				$this->setApplication($application)
-					 ->loadIn($parentNode)
-					 ->before($params)
-					 ;
+				$this->setApplication($application);
+				$this->loadIn($parentNode);
+				if ($this->sourceNode->hasAttributes())
+				{
+					foreach ($this->sourceNode->attributes as $attribute)
+					{
+						$this->setProperty($attribute->name, $attribute->value);
+					}
+				}
+				$this->before($params);
 				foreach ($this->children as $child)
 				{
 					if ($this->launchChild($child))
@@ -330,13 +329,21 @@ abstract class Controller extends Observable
 			{
 				if (!$this->trigger('setProperty', $name, array('value' => $value))->isDefaultPrevented())
 				{
-					$type = $this->getPropertyType($property);
-					$this->$name = $type ? $this->cast($value, $type) : $value;
-					if ($this->propertiesAdopted)
+					$pattern = $this->getPropertyPattern($property);
+					if (!$pattern || ($match = preg_match($pattern, $value)))
 					{
-						$this->node->setAttribute($name, $this->$name);
+						$type = $this->getPropertyType($property);
+						$this->$name = $type ? $this->cast($value, $type) : $value;
+						if ($this->propertiesAdopted)
+						{
+							$this->node->setAttribute($name, $this->$name);
+						}
+						$this->removeFromDocCommentCache($name);
 					}
-					$this->removeFromDocCommentCache($name);
+					elseif ($pattern)
+					{
+						throw new \Mocovi\Exception\WrongFormat($name);
+					}
 				}
 			}
 			return $this;
@@ -842,6 +849,16 @@ abstract class Controller extends Observable
 	{
 		$tokens = $this->tokenizedDocComment($property);
 		return isset($tokens['var']) ? $tokens['var'] : null;
+	}
+
+	/**
+	 * @param \ReflectionProperty $property
+	 * @return string|null
+	 */
+	final protected function getPropertyPattern(\ReflectionProperty $property)
+	{
+		$tokens = $this->tokenizedDocComment($property);
+		return isset($tokens['pattern']) ? $tokens['pattern'] : null;
 	}
 
 	/**

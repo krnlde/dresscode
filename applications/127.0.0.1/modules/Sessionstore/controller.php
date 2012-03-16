@@ -34,6 +34,7 @@ class Sessionstore extends \Mocovi\Controller
 			$self->save($event->data);
 		});
 		$this->on('data', function ($event) { // @debug
+			echo 'Sessionstore: ';
 			print_r($event->data);
 		});
 	}

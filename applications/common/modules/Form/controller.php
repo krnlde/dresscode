@@ -57,7 +57,7 @@ class Form extends \Mocovi\Controller
 				$this->process();
 			}
 			catch (\Mocovi\Exception\Input $e)
-			{} // Important! This prevents the Exception from bubbling up.
+			{} // This is important! It prevents the Exception from bubbling up.
 		}
 	}
 

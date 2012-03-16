@@ -21,14 +21,21 @@ class Slider extends \Mocovi\Controller
 	/**
 	 * @property
 	 * @var integer
-	 * @pattern /[0-9]{1,5}/
+	 * @pattern /^[0-9]{1,4}$/
 	 */
 	protected $rotationSpeed = 5000;
 
 	/**
 	 * @property
+	 * @var integer
+	 * @pattern /^[0-9]{1,4}$/
+	 */
+	protected $transitionSpeed = 1000;
+
+	/**
+	 * @property
 	 * @var string
-	 * @pattern /up|down|left|right/
+	 * @pattern /^up|down|left|right$/
 	 */
 	protected $direction = 'up'; // up, down, left, right
 
@@ -39,10 +46,10 @@ class Slider extends \Mocovi\Controller
 		(	array
 			(	new FileAsset('applications/common/assets/js/jquery.min.js') // or 'http://code.jquery.com/jquery.min.js'
 			,	new FileAsset('applications/common/modules/Slider/assets/js/jquery-revolver/jquery.revolver.min.js')
-			,	new StringAsset // initialize
+			,	$x = new StringAsset // initialize
 				('
 					$(function() {
-						var $slider = $(".slider");
+						var $slider = $(".'.$this->class.'");
 						$slider.find(".slide:first-child").css({display: "block"});
 						var revolver = $slider.revolver(
 							{ autoPlay:			'.($this->autoplay ? 'true' : 'false').'
@@ -50,13 +57,14 @@ class Slider extends \Mocovi\Controller
 							, transition:
 								{ direction:	"'.$this->direction.'"
 								, easing:		"swing"
-								, speed:		1000
+								, speed:		'.$this->transitionSpeed.'
 								, type:			"slide"
 								}
 							}
 						).data("revolver");
 					});
 				')
+			, $x
 			)
 		);
 	}

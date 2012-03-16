@@ -150,7 +150,7 @@ class Input extends \Mocovi\Controller
 		}
 		if (array_key_exists($this->name, $params))
 		{
-			$this->setProperty('value', $params[$this->name]);
+			$this->setProperty('value', $params[$this->name]); //@todo sets every input even if the form is POST or GET and you provide the opposite.
 			$this->dataSent = true;
 		}
 		if ($this->preset && array_key_exists($this->preset, $this->presets))
