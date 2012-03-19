@@ -64,7 +64,7 @@ class Observable
 	 * @param array $data Default: array();
 	 * @return \Mocovi\Event
 	 */
-	public function trigger($type, $relatedTarget = null, array $data = array())
+	final public function trigger($type, $relatedTarget = null, array $data = array())
 	{
 		$event = new Event($type, ($this->target ?: $this), $relatedTarget, $data);
 		if (isset($this->eventHandlers[$type]))

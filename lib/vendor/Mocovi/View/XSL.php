@@ -64,7 +64,6 @@ class XSL extends \Mocovi\View
 	{
 		if(!($path = $this->Pool->find($format)))
 		{
-			print_r($this->Pool);
 			throw new \Mocovi\Exception\WrongFormat($format);
 		}
 		$Xsl						= new \DomDocument();
@@ -96,5 +95,14 @@ class XSL extends \Mocovi\View
 	public function _transform(\DomDocument $Dom)
 	{
 		return $this->Xslt->transformToXml($Dom);
+	}
+
+	/**
+	 * @param string requested format
+	 * @return boolean Format is valid or not
+	 */
+	public function isValidFormat($format)
+	{
+		return (bool)$this->Pool->find($format);
 	}
 }

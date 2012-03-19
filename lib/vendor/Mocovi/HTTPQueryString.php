@@ -26,8 +26,11 @@ namespace Mocovi;
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
  */
-class HTTPQueryString
+class HttpQueryString
 {
+	/**
+	 * @var \Mocovi\HttpQueryString
+	 */
 	protected static $instance;
 	protected $queryString = array();
 

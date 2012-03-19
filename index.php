@@ -4,7 +4,7 @@
 
 require 'bootstrap.php';
 
-$application->getRouter()->handleRequests();
+$application->Router->handleRequests();
 
 // ATTENTION: no code will be executed below this statement, since the parser
 // will exit earlier because of the Response::end() method which is eventually

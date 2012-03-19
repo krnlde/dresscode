@@ -107,4 +107,6 @@ abstract class View
 		$this->templates[$resource->getPathname()] = $resource;
 		return $this;
 	}
+
+	abstract public function isValidFormat($format);
 }

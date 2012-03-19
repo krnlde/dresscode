@@ -67,7 +67,14 @@ class Application
 	 *
 	 * @var \DomElement
 	 */
-	public $file = null;
+	public $file;
+
+	/**
+	 * Output format.
+	 *
+	 * @var string
+	 */
+	protected static $format = 'html';
 
 	/**
 	 * @todo remove this feature
@@ -134,15 +141,14 @@ class Application
 		$this->Router				= new Router($this, /* $options */ $_SERVER);
 		$this->resetDom();
 		Module::initialize($this->getPath(), $this->getCommonPath(), $this->dom);
-		foreach($this->defaultModules as $module)
-		{
-			if (file_exists($templatePath = Module::findTemplates($module)))
-			{
-				Module::getView()->addTemplatePool($templatePath);
-			}
-		}
-		$modelPath		= $this->getModelPath();
-		$this->Model	= new Model\XML($modelPath);
+		// foreach($this->defaultModules as $module)
+		// {
+		// 	if (file_exists($templatePath = Module::findTemplates($module)))
+		// 	{
+		// 		Module::getView()->addTemplatePool($templatePath);
+		// 	}
+		// }
+		$this->Model = new Model\XML($this->getModelPath());
 		if ($timezone = $this->Model->timezone())
 		{
 			date_default_timezone_set($timezone);
@@ -151,16 +157,12 @@ class Application
 		{
 			\Mocovi\Translator::setLanguage($language);
 		}
-		self::$stylesheets = new \Assetic\Asset\AssetCollection
-		( array()
-		, array
-			( new Filter\LessphpFilter()
-			, new Filter\CssImportFilter()
-			, new Filter\CssRewriteFilter()
-			, new Filter\CssMinFilter()
-			)
-		);
 		self::$javascripts = new \Assetic\Asset\AssetCollection();
+		self::$stylesheets = new \Assetic\Asset\AssetCollection();
+		self::$stylesheets->ensureFilter(new Filter\LessphpFilter()); // @todo make filters dynamic
+		self::$stylesheets->ensureFilter(new Filter\CssImportFilter());
+		self::$stylesheets->ensureFilter(new Filter\CssRewriteFilter());
+		self::$stylesheets->ensureFilter(new Filter\CssMinFilter());
 		if (file_exists($bootstrap = $this->getPath()->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
 		{
 			include $bootstrap;
@@ -193,11 +195,19 @@ class Application
 	}
 
 	/**
-	 * @return \Mocovi\Router
+	 * @return string
 	 */
-	public function getRouter()
+	public static function setFormat($format)
 	{
-		return $this->Router;
+		self::$format = $format;
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function getFormat()
+	{
+		return self::$format;
 	}
 
 	/**
@@ -270,14 +280,14 @@ class Application
 	 * @return void
 	 * @param string $path
 	 */
-	public function head($path, $format, array $params = array())
+	public function head($path, array $params = array())
 	{
 		$params['method']	= $this->Request->method;
 		$params['scheme']	= $this->Request->scheme;
 		$params['domain']	= $this->name;
 		$params['port']		= $this->Request->port;
 		$params['path']		= $this->Request->path;
-		$params['format']	= $format;
+		$params['format']	= self::$format;
 		try
 		{
 			$this->file			= $this->Model->read($path);
@@ -300,20 +310,21 @@ class Application
 				throw new Exception\WrongFormat($path);
 			}
 
-			$methods = $this->file->getAttribute('methods');
-			if ($methods)
-			{
-				$methods = explode(' ', str_replace('get', 'get head', strtolower($methods))); // if get is present, head should be too.
-			}
-			else
-			{
-				$methods = array('get', 'head'); // default methods.
-			}
+			// $methods = $this->file->getAttribute('methods');
+			// if ($methods)
+			// {
+			// 	$methods = explode(' ', str_replace('get', 'get head', strtolower($methods))); // if get is present, head should be too.
+			// }
+			// else
+			// {
+			// 	$methods = array('get', 'head'); // default methods.
+			// }
 
-			if (!in_array(__FUNCTION__, $methods))
-			{
-				throw new Exception\WrongMethod(__FUNCTION__);
-			}
+			// @todo Doesn't work as expected. It SHOULD do methods="get post ..." and test for this.
+			// if (!in_array(__FUNCTION__, $methods))
+			// {
+			// 	throw new Exception\WrongMethod(__FUNCTION__);
+			// }
 
 			if (!is_null($this->file->getAttribute('statusCode')))
 			{
@@ -384,14 +395,14 @@ class Application
 		}
 		catch (Exception\WrongMethod $e)
 		{
-			// @todo test
+			// @todo test this
 			$this->statuscode = 405; // Method Not Allowed
 			$controller	= Module::createErrorController($e);
 			$controller->launch('get', $params, $this->dom, $this);
 		}
 		catch (Exception $e)
 		{
-			// @todo test
+			// @todo test this
 			$this->statuscode = 500; // Internal Server Error
 			$controller	= Module::createErrorController($e);
 			$controller->launch('get', $params, $this->dom, $this);
@@ -432,12 +443,31 @@ class Application
 	 * @param string $path
 	 * @param array $params HTTP Params; Default: array()
 	 */
-	public function get($path, $format, array $params = array())
+	public function get($path, array $params = array())
 	{
-		$this->head($path, $format, $params);
+		$this->head($path, $params);
 		$View = Module::getView();
-		$View->addTemplatePool(Module::findTemplates('error'));
-		$this->Response->end($View->transform($this->dom)->to($format), $this->statuscode);
+		if ($View->isValidFormat($this->Request->format))
+		{
+			self::setFormat($this->Request->format);
+		}
+		else
+		{
+			self::setFormat($this->Model->defaultFormat());
+		}
+
+		try
+		{
+			$this->Response->end($View->transform($this->dom)->to(self::$format), $this->statuscode);
+		}
+		catch (\Exception $e)
+		{
+			$this->resetDom();
+			$this->statuscode = 500; // Internal Server Error
+			$controller	= Module::createErrorController($e);
+			$controller->launch('get', $params, $this->dom, $this);
+			$this->Response->end($View->transform($this->dom)->to($this->Model->defaultFormat()), $this->statuscode);
+		}
 	}
 
 	/**
@@ -482,7 +512,7 @@ class Application
 	 * @param string $path
 	 * @param array $params HTTP Params; Default: array()
 	 */
-	public function post($path, $format, array $params = array())
+	public function post($path, array $params = array())
 	{
 		try
 		{
@@ -496,7 +526,7 @@ class Application
 			catch (\Exception $e)
 			{
 				$this->resetDom();
-				$this->get($path, $format, $params);
+				$this->get($path, $params);
 			}
 		}
 		catch (Exception\FileNotFound $e)
@@ -575,7 +605,7 @@ class Application
 	 * @param string $path
 	 * @param array $params HTTP Params; Default: array()
 	 */
-	public function put($path, $format, array $params = array())
+	public function put($path, array $params = array())
 	{
 		// If a new resource is created, the origin server MUST inform the user agent via the 201 (Created) response.
 		// If an existing resource is modified, either the 200 (OK) or 204 (No Content) response codes SHOULD be sent to indicate successful completion of the request.
@@ -641,7 +671,7 @@ class Application
 		$this->statuscode	= 500; // Internal Server Error
 		try
 		{
-			$this->Response->end($View->transform($this->dom)->to($this->Request->format ?: 'html'), $this->statuscode);
+			$this->Response->end($View->transform($this->dom)->to(self::$format), $this->statuscode);
 			return true;
 		}
 		catch (\Exception $e)
@@ -668,7 +698,7 @@ class Application
 		$this->statuscode	= 500; // Internal Server Error
 		try
 		{
-			$this->Response->end($View->transform($this->dom)->to($this->Request->format ?: 'html'), $this->statuscode);
+			$this->Response->end($View->transform($this->dom)->to(self::$format), $this->statuscode);
 			return true;
 		}
 		catch (\Exception $e)

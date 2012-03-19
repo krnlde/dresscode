@@ -27,7 +27,6 @@ namespace Mocovi;
  *
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Mocovi
- * @todo		implement preventDefault?
  */
 class Event
 {
@@ -66,7 +65,7 @@ class Event
 	 */
 	private $data;
 
-	private $default		= true;
+	private $executeDefault	= true;
 	private $propagation	= true;
 
 	/**
@@ -83,19 +82,22 @@ class Event
 		$this->type				= $type;
 		$this->target			= $target;
 		$this->relatedTarget	= $relatedTarget;
-		$this->data				= $data;
+		if (is_array($data))
+		{
+			$this->data			= $data;
+		}
 	}
 
 	/**
 	 * If this method is called, the default action of the event will not be triggered.
 	 *
-	 * Sets the {@see $default} variable to true.
+	 * Sets the {@see $executeDefault} variable to true.
 	 *
 	 * @return \Mocovi\Event
 	 */
 	public function preventDefault()
 	{
-		$this->default = false;
+		$this->executeDefault = false;
 		return $this;
 	}
 
@@ -106,7 +108,7 @@ class Event
 	 */
 	public function isDefaultPrevented()
 	{
-		return !$this->default;
+		return !$this->executeDefault;
 	}
 
 	/**

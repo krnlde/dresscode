@@ -66,7 +66,6 @@ class Router
 	{
 		$path		= $this->Request->path;
 		$rawPath	= $this->Request->queryString()->get('path');
-		$format		= ($this->Request->format ?: $this->Application->Model->defaultFormat());
 		if (strlen($path) <= 1)
 		{
 			$this->Response->redirect($this->Application->defaultRoute(), 307); // 301 = Moved Permanently, 307 = Temporary Redirect
@@ -74,22 +73,22 @@ class Router
 		if ($rawPath[strlen($rawPath) - 1] === '/') // if last character is '/', which is not allowed because of duplicate content
 		{
 			$basepath = Application::basePath();
-			$this->Response->redirect($basepath.$path.($format ? '.'.$format : ''), 301);
+			$this->Response->redirect($basepath.$path.(Application::getFormat() ? '.'.Application::getFormat() : ''), 301);
 		}
 
-		$this->Response->Header->contentType($format, 'UTF-8');
+		$this->Response->Header->contentType(Application::getFormat(), 'UTF-8'); // @todo obsolete in PHP 5.4
 
 		// HTTP methods
 		switch (strtolower($this->Request->method))
 		{
 			default /* get, head */:
-				$this->Application->get($path, $format, $this->Input->get);
+				$this->Application->get($path, $this->Input->get);
 			break;
 			case 'post':
-				$this->Application->post($path, $format, $this->Input->post);
+				$this->Application->post($path, $this->Input->post);
 			break;
 			case 'put':
-				$this->Application->put($path, $format, $this->Input->put);
+				$this->Application->put($path, $this->Input->put);
 			break;
 			case 'delete':
 				$this->Application->delete($path);

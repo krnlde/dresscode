@@ -101,26 +101,51 @@ class Collection implements \Iterator
 		}
 	}
 
+	/**
+	 * Iterator rewind method.
+	 *
+	 * @return void
+	 */
 	public function rewind()
 	{
 		$this->position = 0;
 	}
 
+	/**
+	 * Iterator current method.
+	 *
+	 * @return \Mocovi\Controller
+	 */
 	public function current()
 	{
 		return $this->set[$this->position];
 	}
 
+	/**
+	 * Iterator key method.
+	 *
+	 * @return integer
+	 */
 	public function key()
 	{
 		return $this->position;
 	}
 
+	/**
+	 * Iterator next method.
+	 *
+	 * @return void
+	 */
 	public function next()
 	{
 		++$this->position;
 	}
 
+	/**
+	 * Iterator valid method.
+	 *
+	 * @return boolean
+	 */
 	public function valid()
 	{
 		return isset($this->set[$this->position]);

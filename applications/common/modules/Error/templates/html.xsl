@@ -13,7 +13,7 @@
 	</xsl:template>
 
 	<!-- Soft Warning -->
-	<xsl:template match="*">
+	<!-- <xsl:template match="*">
 		<div class="warning">
 			<h1>XSLT Warning</h1>
 			<p>
@@ -27,7 +27,7 @@
 				<xsl:value-of select="."/>
 			</p>
 		</div>
-	</xsl:template>
+	</xsl:template> -->
 
 
 </xsl:stylesheet>

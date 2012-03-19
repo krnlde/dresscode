@@ -187,16 +187,18 @@ abstract class Controller extends Observable
 	 * @param string $method HTTP method
 	 * @param array $params array()
 	 * @param \DomNode $parentNode
-	 * @return \DomNode $destinationNode
+	 * @return void
+	 * @triggers launchChild
+	 * @triggers ready
 	 */
 	final public function launch($method, array $params = array(), \DomNode $parentNode, \Mocovi\Application $application)
 	{
 		if ($this->showtime())
 		{
+			$this->setApplication($application);
+			$this->loadIn($parentNode);
 			try
 			{
-				$this->setApplication($application);
-				$this->loadIn($parentNode);
 				if ($this->sourceNode->hasAttributes())
 				{
 					foreach ($this->sourceNode->attributes as $attribute)
@@ -207,7 +209,7 @@ abstract class Controller extends Observable
 				$this->before($params);
 				foreach ($this->children as $child)
 				{
-					if ($this->launchChild($child))
+					if (!$this->trigger('launchChild', $child)->isDefaultPrevented())
 					{
 						$child->launch($method, $params, $this->node, $application);
 					}
@@ -225,15 +227,6 @@ abstract class Controller extends Observable
 			}
 		}
 		$this->trigger('ready');
-		return $this->getNode();
-	}
-
-	/**
-	 * @return boolean
-	 */
-	final public function launchChild(\Mocovi\Controller $child)
-	{
-		return !$this->trigger('launchChild', $child)->isDefaultPrevented();
 	}
 
 	/**
@@ -292,6 +285,7 @@ abstract class Controller extends Observable
 	/**
 	 * @param \Mocovi\Controller $child
 	 * @return \Mocovi\Controller $this
+	 * @triggers addChild
 	 */
 	public function addChild(\Mocovi\Controller $child)
 	{
@@ -305,6 +299,7 @@ abstract class Controller extends Observable
 	/**
 	 * @param \Mocovi\Controller $parent
 	 * @return \Mocovi\Controller $this
+	 * @triggers setParent
 	 */
 	public function setParent(\Mocovi\Controller $parent)
 	{
@@ -319,6 +314,7 @@ abstract class Controller extends Observable
 	 * @param string $name
 	 * @param string $value
 	 * @return \Mocovi\Controller $this
+	 * @triggers setProperty
 	 */
 	final public function setProperty($name, $value)
 	{
@@ -394,6 +390,7 @@ abstract class Controller extends Observable
 	 * The destination node will get all attributes from the source node + default properties of the controller.
 	 *
 	 * @return \Mocovi\Controller $this
+	 * @triggers adoptProperty
 	 */
 	public function adoptProperties()
 	{
@@ -413,23 +410,6 @@ abstract class Controller extends Observable
 		$this->propertiesAdopted = true;
 		return $this;
 	}
-
-	/**
-	 * Example:
-	 * <code>
-	 * 	<c:control>
-	 * 		<c:param name="someName" value="someValue"/>
-	 * 		<c:param name="someName" value="someOtherValue"/>
-	 * 	</c:control>
-	 * </code>
-	 *
-	 * @return array
-	 * @todo implement
-	 */
-	// public function getParameters()
-	// {
-	// 	return null;
-	// }
 
 	/**
 	 * @return string XPath leading to the current {@see $sourceNode}.
@@ -519,6 +499,7 @@ abstract class Controller extends Observable
 	 *
 	 * @param \DomNode $newNode
 	 * @return \Mocovi\Controller $this
+	 * @triggers replaceNode
 	 */
 	public function replaceNode(\DomNode $newNode)
 	{
@@ -562,6 +543,7 @@ abstract class Controller extends Observable
 	/**
 	 * @param string $nodeName
 	 * @return \Mocovi\Controller $this
+	 * @triggers renameNode
 	 */
 	public function renameNode($nodeName)
 	{
@@ -583,6 +565,7 @@ abstract class Controller extends Observable
 
 	/**
 	 * @return \Mocovi\Controller $this
+	 * @triggers deleteNode
 	 */
 	public function deleteNode()
 	{
@@ -602,6 +585,7 @@ abstract class Controller extends Observable
 	 *
 	 * @param \Exception $e
 	 * @return \Mocovi\Controller $this
+	 * @triggers error
 	 */
 	public function error(\Exception $e)
 	{
@@ -641,7 +625,7 @@ abstract class Controller extends Observable
 	 * Initializes the loading of the own outout node.
 	 *
 	 * @param \DomNode $parentNode
-	 * @return \Mocovi\Controller
+	 * @return \Mocovi\Controller $this
 	 */
 	final protected function loadIn(\DomNode $parentNode)
 	{
@@ -684,8 +668,7 @@ abstract class Controller extends Observable
 	 * @return void
 	 */
 	protected function before(array $params = array())
-	{
-	}
+	{}
 
 	/**
 	 * This method will be executed after the requested method.
@@ -916,6 +899,6 @@ abstract class Controller extends Observable
 	 */
 	protected function generateId()
 	{
-		return substr(sha1($this->getXPath()), 0, 8);
+		return substr(sha1($this->getXPath()), 0, 7);
 	}
 }

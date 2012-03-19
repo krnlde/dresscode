@@ -61,12 +61,12 @@ class Module
 	{
 		self::$applicationPath		= $applicationPath;
 		self::$commonPath			= $commonPath;
+		self::$dom					= $dom;
+		self::$Pool					= new Pool('');
 		self::$View					= new View\XSL(self::getCommonViewPath());
 		self::$View->addPool(self::getViewPath());
-		self::$Pool = new Pool('');
 		self::$Pool->add(self::getCommonPath());
 		self::$Pool->add(self::getPath());
-		self::$dom = $dom;
 	}
 
 	/**
@@ -75,8 +75,7 @@ class Module
 	 */
 	public static function createControllerFromNode(\DomNode $sourceNode)
 	{
-		$controller = self::_createControllerFromNode($sourceNode);
-		return $controller;
+		return self::_createControllerFromNode($sourceNode);
 	}
 
 	/**
@@ -103,7 +102,7 @@ class Module
 	 * @return \DirectoryIterator template path
 	 * @throws \Mocovi\Exception\ModuleNotFound
 	 */
-	public static function findTemplates($name)
+	protected static function findTemplates($name)
 	{
 		if ($module = self::find($name))
 		{
@@ -219,24 +218,18 @@ class Module
 		}
 		catch (\RuntimeException $e)
 		{
-			throw new Exception\ControllerNotFound($controllerPath, 0, 1, __FILE__, __LINE__, $e);
+			throw new Exception\ControllerNotFound($controllerPath, null, null, null, null, $e);
 		}
 
 		$controller = Controller::create($controllerPath, $sourceNode);
 
-		try
+		if ($templatePool = self::findTemplates($moduleName))
 		{
-			$templatePath = $modulePath->getPath().DIRECTORY_SEPARATOR.'templates';
-
-			if (file_exists($templatePath))
-			{
-				$templatePool = new \DirectoryIterator($templatePath);
-				self::$View->addTemplatePool($templatePool);
-			}
+			self::$View->addTemplatePool($templatePool);
 		}
-		catch (\UnexpectedValueException $e)
+		else
 		{
-			throw new Exception\TemplateNotFound($templatePath);
+			// throw new Exception\TemplateNotFound($moduleName); // silently accept the missing template
 		}
 
 		if ($sourceNode->hasChildNodes())
@@ -264,8 +257,11 @@ class Module
 	 */
 	public static function createNode($nodeName, $text = null, array $attributes = array())
 	{
-		$dom	= self::$dom;
-		$node	= $dom->createElementNS(\Mocovi\Controller::NS, $nodeName, $text);
+		if ($templatePool = self::findTemplates($nodeName))
+		{
+			self::$View->addTemplatePool($templatePool);
+		}
+		$node = self::$dom->createElementNS(\Mocovi\Controller::NS, $nodeName, $text);
 		foreach ($attributes as $key => $value)
 		{
 			$node->setAttribute($key, $value);
@@ -274,6 +270,10 @@ class Module
 	}
 
 	/**
+	 * @param string $nodeName
+	 * @param string $text Default: null
+	 * @param array $attributes Default: array();
+	 * @return \Mocovi\Controller
 	 */
 	public static function createController($nodeName, $text = null, array $attributes = array())
 	{
@@ -284,6 +284,7 @@ class Module
 	/**
 	 * @param \Exception $exception
 	 * @return \DomNode
+	 * @todo Make this method prettier. Use createController() and stuff
 	 */
 	public static function createErrorNode(\Exception $exception)
 	{

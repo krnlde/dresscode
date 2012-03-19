@@ -118,7 +118,7 @@ class Response
 		{
 			echo $data;
 		}
-		if (isset($_GET['debug']) && \Mocovi\Request::getInstance()->format === 'html')
+		if (isset($_GET['debug']) && \Mocovi\Application::getFormat() === 'html')
 		{
 			echo '<!-- parsed in: '.round(microtime(true) - STARTTIME, 4).'s -->'; // @debug
 		}
