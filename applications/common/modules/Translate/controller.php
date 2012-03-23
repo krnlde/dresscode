@@ -100,9 +100,9 @@ class Translate extends Plain
 
 		foreach($translation->childNodes as $child)
 		{
-			if ($controller = \Mocovi\Module::createControllerFromNode($child))
+			if ($controller = \Mocovi\Module::createControllerFromNode($child, $this->parentNode, $this->Application))
 			{
-				$controller->launch(__FUNCTION__, $this->params, $this->parentNode, $this->Application);
+				$controller->launch(__FUNCTION__, $this->params);
 			}
 		}
 		self::$usedTokens = array(); // @todo this might fail when you put two <translate> controllers next to each other!

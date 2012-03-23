@@ -40,10 +40,17 @@ require_once('lib/vendor/Lessphp/lessc.inc.php');
  */
 class Application
 {
+	const DEFAULTFORMAT = 'html';
+
 	/**
 	 * @var \Mocovi\Model
 	 */
 	public $Model;
+
+	/**
+	 * @var \Mocovi\View
+	 */
+	public $View;
 
 	/**
 	 * @var \Mocovi\Request
@@ -74,7 +81,7 @@ class Application
 	 *
 	 * @var string
 	 */
-	protected static $format = 'html';
+	protected static $format;
 
 	/**
 	 * @todo remove this feature
@@ -111,7 +118,7 @@ class Application
 	 *
 	 * @var integer
 	 */
-	protected $statuscode = 200;
+	protected $statusCode = 200;
 
 	protected static $assetOutput = 'assetic/*';
 
@@ -139,8 +146,9 @@ class Application
 		$this->Response				= Response::getInstance();
 		$this->name					= isset($options['name']) ? $options['name'] : $this->Request->domain;
 		$this->Router				= new Router($this, /* $options */ $_SERVER);
+		self::$format				= self::DEFAULTFORMAT;
 		$this->resetDom();
-		Module::initialize($this->getPath(), $this->getCommonPath(), $this->dom);
+		Module::initialize($this);
 		// foreach($this->defaultModules as $module)
 		// {
 		// 	if (file_exists($templatePath = Module::findTemplates($module)))
@@ -148,7 +156,8 @@ class Application
 		// 		Module::getView()->addTemplatePool($templatePath);
 		// 	}
 		// }
-		$this->Model = new Model\XML($this->getModelPath());
+		$this->View		= Module::getView();
+		$this->Model	= new Model\XML($this->getModelPath());
 		if ($timezone = $this->Model->timezone())
 		{
 			date_default_timezone_set($timezone);
@@ -184,6 +193,15 @@ class Application
 	}
 
 	/**
+	 * @return string
+	 */
+	public static function baseUrl()
+	{
+		$Request = \Mocovi\Request::getInstance();
+		return $Request->scheme.'://'.$Request->domain.($Request->port !== 80 ? ':'.$Request->port : '');
+	}
+
+	/**
 	 * Resets the {@see $dom} (creates a new DomDocument).
 	 */
 	public function resetDom()
@@ -194,12 +212,24 @@ class Application
 		return $this;
 	}
 
+	public function getDom()
+	{
+		return $this->dom;
+	}
+
 	/**
 	 * @return string
 	 */
 	public static function setFormat($format)
 	{
-		self::$format = $format;
+		if (Module::getView()->isValidFormat($format))
+		{
+			self::$format = $format;
+		}
+		// else
+		// {
+		// 	throw new Exception\WrongFormat($format);
+		// }
 	}
 
 	/**
@@ -295,14 +325,17 @@ class Application
 			$params['modified']	= $mtime;
 
 			// handle client side cache
-			// @todo also see: If-Modified-Since, If-Unmodified-Since, If-Match and If-None-Match
-			if ($mtime === $this->Request->if_modified_since)
+			if (strtotime($mtime) <= strtotime($this->Request->if_modified_since))
 			{
 				$this->Response->end(null, 304); // Not modified
 			}
 			else
 			{
-				$this->Response->Header->lastModified($mtime);
+				$this->Response->Header->lastModified(strtotime($mtime));
+				if (!isset($this->Request->Header->cache_control) || $this->Request->Header->cache_control !== 'no-cache')
+				{
+					$this->Response->Header->expires(strtotime('+ 1 minute'));
+				}
 			}
 
 			if ($this->file->localName !== 'file')
@@ -326,26 +359,26 @@ class Application
 			// 	throw new Exception\WrongMethod(__FUNCTION__);
 			// }
 
-			if (!is_null($this->file->getAttribute('statusCode')))
+			if ($statusCode = $this->file->getAttribute('statusCode'))
 			{
-				$this->statuscode = $this->file->getAttribute('statusCode');
+				$this->statusCode = $statusCode;
 			}
 
 			if ($to = $this->file->getAttribute('redirect'))
 			{
-				if ($to[0] === '/' && dirname($_SERVER['SCRIPT_NAME']) != '/')
+				if ($to[0] === '/')
 				{
-					$to = dirname($_SERVER['SCRIPT_NAME']).$to;
+					$to = self::baseUrl().dirname($_SERVER['SCRIPT_NAME']).$to.($this->Request->format && $this->Request->format !== self::DEFAULTFORMAT ? '.'.$this->Request->format : '');
 				}
-				$this->Response->redirect($to, $this->statuscode);
+				$this->Response->redirect($to, $this->statusCode);
 			}
 
 			isset($params['author']) or $params['author'] = $this->file->getAttribute('author');
 
 			$params['title']	= $this->file->getAttribute('alias') ?: $this->file->getAttribute('name');
 			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0);
-			$controller			= Module::createControllerFromNode($rootController);
-			$controller->launch('get', $params, $this->dom, $this);
+			$controller			= Module::createControllerFromNode($rootController, $this->dom, $this);
+			$controller->launch('get', $params);
 
 			// $this->Request->Header->x_xpath = './/headline'; // @debug
 			if (isset($this->Request->Header->x_xpath))
@@ -376,11 +409,11 @@ class Application
 		}
 		catch (Exception\FileNotFound $e)
 		{
-			$this->statuscode = 404; // File Not Found
+			$this->statusCode = 404; // File Not Found
 			try
 			{
 				$this->file			= $this->Model->read('/404');
-				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0));
+				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0), $this->dom, $this);
 				$params['author']	= get_class($this);
 				$params['title']	= '404';
 				$controller->launch('get', $params, $this->dom, $this);
@@ -396,18 +429,18 @@ class Application
 		catch (Exception\WrongMethod $e)
 		{
 			// @todo test this
-			$this->statuscode = 405; // Method Not Allowed
+			$this->statusCode = 405; // Method Not Allowed
 			$controller	= Module::createErrorController($e);
 			$controller->launch('get', $params, $this->dom, $this);
 		}
 		catch (Exception $e)
 		{
 			// @todo test this
-			$this->statuscode = 500; // Internal Server Error
+			$this->statusCode = 500; // Internal Server Error
 			$controller	= Module::createErrorController($e);
 			$controller->launch('get', $params, $this->dom, $this);
 		}
-		$this->Response->write(null, $this->statuscode);
+		$this->Response->write(null, $this->statusCode);
 	}
 
 	/**
@@ -446,27 +479,17 @@ class Application
 	public function get($path, array $params = array())
 	{
 		$this->head($path, $params);
-		$View = Module::getView();
-		if ($View->isValidFormat($this->Request->format))
-		{
-			self::setFormat($this->Request->format);
-		}
-		else
-		{
-			self::setFormat($this->Model->defaultFormat());
-		}
-
 		try
 		{
-			$this->Response->end($View->transform($this->dom)->to(self::$format), $this->statuscode);
+			$this->Response->end($this->View->transform($this->dom)->to(self::$format), $this->statusCode);
 		}
 		catch (\Exception $e)
 		{
 			$this->resetDom();
-			$this->statuscode = 500; // Internal Server Error
-			$controller	= Module::createErrorController($e);
+			$this->statusCode = 500; // Internal Server Error
+			$controller = Module::createErrorController($e);
 			$controller->launch('get', $params, $this->dom, $this);
-			$this->Response->end($View->transform($this->dom)->to($this->Model->defaultFormat()), $this->statuscode);
+			$this->Response->end($this->View->transform($this->dom)->to(self::$defaultFormat), $this->statusCode);
 		}
 	}
 
@@ -518,7 +541,7 @@ class Application
 		{
 			$this->file			= $this->Model->read($path);
 			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0);
-			$controller			= Module::createControllerFromNode($rootController);
+			$controller			= Module::createControllerFromNode($rootController, $this->dom, $this);
 			try
 			{
 				$controller->launch('post', $params, $this->dom, $this);
@@ -531,11 +554,11 @@ class Application
 		}
 		catch (Exception\FileNotFound $e)
 		{
-			$this->statuscode = 404; // File Not Found
+			$this->statusCode = 404; // File Not Found
 			try
 			{
 				$this->file			= $this->Model->read('/404');
-				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0));
+				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0), $this->dom, $this);
 				$params['author']	= get_class($this);
 				$params['title']	= '404';
 				$controller->launch('post', $params, $this->dom, $this);
@@ -551,18 +574,18 @@ class Application
 		catch (Exception\WrongMethod $e)
 		{
 			// @todo test
-			$this->statuscode = 405; // Method Not Allowed
+			$this->statusCode = 405; // Method Not Allowed
 			$controller	= Module::createErrorController($e);
 			$controller->launch('post', $params, $this->dom, $this);
 		}
 		catch (Exception $e)
 		{
 			// @todo test
-			$this->statuscode = 500; // Internal Server Error
+			$this->statusCode = 500; // Internal Server Error
 			$controller	= Module::createErrorController($e);
 			$controller->launch('post', $params, $this->dom, $this);
 		}
-		$this->Response->end(null, $this->statuscode);
+		$this->Response->end(null, $this->statusCode);
 	}
 
 	/**
@@ -667,17 +690,16 @@ class Application
 		$this->resetDom();
 		$controller	= Module::createErrorController(new \ErrorException($errstr, $errno, 1, $errfile, $errline));
 		$controller->launch('get', $params = array(), $this->dom, $this);
-		$View		= Module::getView();
-		$this->statuscode	= 500; // Internal Server Error
+		$this->statusCode	= 500; // Internal Server Error
 		try
 		{
-			$this->Response->end($View->transform($this->dom)->to(self::$format), $this->statuscode);
+			$this->Response->end($this->View->transform($this->dom)->to(self::$format), $this->statusCode);
 			return true;
 		}
 		catch (\Exception $e)
 		{
 			$this->Response->Header->contentType('text/plain', 'UTF-8');
-			$this->Response->end('Internal Server Error: '.$e, $this->statuscode);
+			$this->Response->end('Internal Server Error: '.$e, $this->statusCode);
 			return false;
 		}
 	}
@@ -690,20 +712,18 @@ class Application
 	 */
 	public function exceptionHandler(\Exception $e)
 	{
-		echo $e;
 		$this->resetDom();
 		$controller	= Module::createErrorController($e);
 		$controller->launch('get', $params = array(), $this->dom, $this);
-		$View		= Module::getView();
-		$this->statuscode	= 500; // Internal Server Error
+		$this->statusCode	= 500; // Internal Server Error
 		try
 		{
-			$this->Response->end($View->transform($this->dom)->to(self::$format), $this->statuscode);
+			$this->Response->end($this->View->transform($this->dom)->to(self::$format), $this->statusCode);
 			return true;
 		}
 		catch (\Exception $e)
 		{
-			$this->Response->end('Internal Server Error: '.$e, $this->statuscode);
+			$this->Response->end('Internal Server Error: '.$e, $this->statusCode);
 			return false;
 		}
 	}

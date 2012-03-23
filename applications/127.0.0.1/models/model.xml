@@ -89,9 +89,9 @@
 						<element>Test 5</element>
 					</listing>
 					<paragraph>
-						<translate token="loremipsum"/>
 						<thumbnail source="http://lorempixel.com/221/160/nature"/>
-						<!-- <thumbnail source="/gallery/auswahl-2.jpg"/> -->
+						<translate token="loremipsum"/>
+						<thumbnail source="/gallery/auswahl-2.jpg"/>
 					</paragraph>
 					<protect require="valid-user">
 						<slider>
@@ -152,6 +152,8 @@
 						Text $title, $path, $path
 					</paragraph>
 					<youtube videoId="JtF7z_DZdVk"/>
+					<vimeo videoId="28571605"/>
+					<vimeo videoId="37512694"/>
 					<vimeo videoId="21762564"/>
 				</article>
 				<footer>
@@ -197,6 +199,33 @@
 						<headline><dbfield name="make"/> <dbfield name="model"/></headline>
 						<paragraph><dbfield name="price"/> €</paragraph>
 					</dbreader>
+				</paragraph>
+			</article>
+			<footer>
+				<section>
+					<headline priority="4">Sitemap</headline>
+					<menu source="/" />
+				</section>
+			</footer>
+		</root>
+	</fs:file>
+
+	<fs:file name="rss" methods="get" author="Kai Dorschner">
+		<root>
+			<article>
+				<paragraph>
+					<listing>
+						<rssreader url="http://delicious.com/v2/rss/krnlde" maximum="1000">
+							<paragraph>
+								<link>
+									<attribute name="to">
+										<variable name="link"/>
+									</attribute>
+									<variable name="title"/>
+								</link>
+							</paragraph>
+						</rssreader>
+					</listing>
 				</paragraph>
 			</article>
 			<footer>

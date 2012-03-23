@@ -248,11 +248,20 @@ class ResponseHeader
 		return $this;
 	}
 
-	public function lastModified($date)
+	public function lastModified($unixtime)
 	{
-		$this->add('Last-Modified', $date);
+		$this->add('Last-Modified', gmdate('D, d M Y H:i:s', $unixtime).' GMT');
 		return $this;
 	}
+
+	public function expires($unixtime)
+	{
+		$this->add('Pragma', 'public');
+		$this->add('Cache-Control', 'maxage='.($unixtime - time()));
+		$this->add('Expires', gmdate('D, d M Y H:i:s', $unixtime).' GMT');
+		return $this;
+	}
+
 
 	public function etag($etag)
 	{

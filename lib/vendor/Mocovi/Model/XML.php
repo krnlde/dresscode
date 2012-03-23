@@ -34,13 +34,27 @@ class XML extends \Mocovi\Model
 	const XINCLUDENS	= 'http://www.w3.org/2001/XInclude';
 	const XREFNS		= 'x-schema:refSchema.xml';
 
+	/**
+	 * @var \DomDocument
+	 */
 	protected $dom;
 
+	/**
+	 * Unix timestamp
+	 *
+	 * @var integer
+	 */
 	protected $modified;
 
+	/**
+	 * @var array
+	 */
 	protected $fileList;
 
 
+	/**
+	 * @param \DirectoryIterator $resource
+	 */
 	public function __construct(\DirectoryIterator $resource)
 	{
 		if (!file_exists($file = $resource->getPath().DIRECTORY_SEPARATOR.'model.xml'))
@@ -135,6 +149,12 @@ class XML extends \Mocovi\Model
 		return array();
 	}
 
+	/**
+	 * Returns the timestamp of the $path or the XML file.
+	 *
+	 * @param string $path
+	 * @return integer Unix timestamp
+	 */
 	public function lastModified($path = null)
 	{
 		if (is_null($path))
@@ -151,7 +171,14 @@ class XML extends \Mocovi\Model
 		}
 	}
 
-	public function __call($method, $arguments)
+	/**
+	 * Returns attributes named after the called $method.
+	 *
+	 * @param string $method
+	 * @param array $arguments
+	 * @return string
+	 */
+	public function __call($method, array $arguments)
 	{
 		try
 		{
@@ -188,7 +215,10 @@ class XML extends \Mocovi\Model
 	}
 
 	/**
-	 * @param \DomElement $node
+	 * Returns the file list.
+	 *
+	 * Caches the result after the first call.
+	 *
 	 * @return array of \DomElement
 	 */
 	protected function getFileList()
@@ -200,6 +230,11 @@ class XML extends \Mocovi\Model
 		return $this->fileList;
 	}
 
+	/**
+	 * @param \DomElement $element
+	 * @param boolean $hideInvisibleFiles
+	 * @return array
+	 */
 	protected function _buildFileList(\DomElement $element, $hideInvisibleFiles = true)
 	{
 		$list = array();
@@ -225,6 +260,11 @@ class XML extends \Mocovi\Model
 		return $list;
 	}
 
+	/**
+	 * @param \DomElement $element
+	 * @param boolean $hideInvisibeFiles
+	 * @return array of \DomElement
+	 */
 	protected function _buildFileListRecursive(\DomElement $element, $hideInvisibleFiles = true)
 	{
 		static $list = array();

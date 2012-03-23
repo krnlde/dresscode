@@ -71,5 +71,5 @@ abstract class Model
 
 	abstract public function lastModified($path);
 
-	abstract public function __call($method, $arguments);
+	abstract public function __call($method, array $arguments);
 }

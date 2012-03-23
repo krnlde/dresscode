@@ -16,7 +16,6 @@ class Plain extends \Mocovi\Controller
 
 	protected function get(array $params = array())
 	{
-		// parent::get(); // prevent class from loading children, since it's a plain element.
 		$text = $this->node->nodeValue;
 		if(preg_match_all('/\$([a-zA-Z_][a-zA-Z0-9_]*)/', $text, $match))
 		{

@@ -37,10 +37,7 @@ class Module
 	 */
 	protected static $Pool;
 
-	/**
-	 * @var \DirectoryIterator
-	 */
-	protected static $applicationPath;
+	protected static $Application;
 
 	/**
 	 * @var \DirectoryIterator
@@ -57,11 +54,9 @@ class Module
 	 */
 	protected static $dom;
 
-	public static function initialize(\DirectoryIterator $applicationPath, \DirectoryIterator $commonPath, \DomDocument $dom)
+	public static function initialize(\Mocovi\Application $Application)
 	{
-		self::$applicationPath		= $applicationPath;
-		self::$commonPath			= $commonPath;
-		self::$dom					= $dom;
+		self::$Application			= $Application;
 		self::$Pool					= new Pool('');
 		self::$View					= new View\XSL(self::getCommonViewPath());
 		self::$View->addPool(self::getViewPath());
@@ -73,9 +68,9 @@ class Module
 	 * @param \DomNode $sourceNode
 	 * @return \Mocovi\Controller
 	 */
-	public static function createControllerFromNode(\DomNode $sourceNode)
+	public static function createControllerFromNode(\DomNode $sourceNode, \DomNode $parentNode)
 	{
-		return self::_createControllerFromNode($sourceNode);
+		return self::_createControllerFromNode($sourceNode, $parentNode);
 	}
 
 	/**
@@ -147,7 +142,7 @@ class Module
 	 */
 	public static function getPath()
 	{
-		return new \DirectoryIterator(self::$applicationPath->getPath().DIRECTORY_SEPARATOR.'modules');
+		return new \DirectoryIterator(self::$Application->getPath()->getPath().DIRECTORY_SEPARATOR.'modules');
 	}
 
 	/**
@@ -157,7 +152,7 @@ class Module
 	 */
 	public static function getCommonPath()
 	{
-		return new \DirectoryIterator(self::$commonPath->getPath().DIRECTORY_SEPARATOR.'modules');
+		return new \DirectoryIterator(self::$Application->getCommonPath()->getPath().DIRECTORY_SEPARATOR.'modules');
 	}
 
 	/**
@@ -166,7 +161,7 @@ class Module
 	 */
 	public static function getViewPath()
 	{
-		return new \DirectoryIterator(self::$applicationPath->getPath().DIRECTORY_SEPARATOR.'views');
+		return new \DirectoryIterator(self::$Application->getPath()->getPath().DIRECTORY_SEPARATOR.'views');
 	}
 
 	/**
@@ -176,7 +171,7 @@ class Module
 	 */
 	public static function getCommonViewPath()
 	{
-		return new \DirectoryIterator(self::$commonPath->getPath().DIRECTORY_SEPARATOR.'views');
+		return new \DirectoryIterator(self::$Application->getCommonPath()->getPath().DIRECTORY_SEPARATOR.'views');
 	}
 
 	/**
@@ -196,7 +191,7 @@ class Module
 	 * @return \Mocovi\Controller
 	 * @throws \Mocovi\Exception\ControllerNotFound, \Mocovi\Exception\TemplateNotFound
 	 */
-	protected static function _createControllerFromNode(\DomNode $sourceNode)
+	protected static function _createControllerFromNode(\DomNode $sourceNode, \DomNode $parentNode)
 	{
 		if ($sourceNode->nodeType === \XML_TEXT_NODE)
 		{
@@ -221,7 +216,7 @@ class Module
 			throw new Exception\ControllerNotFound($controllerPath, null, null, null, null, $e);
 		}
 
-		$controller = Controller::create($controllerPath, $sourceNode);
+		$controller = Controller::create($controllerPath, $sourceNode, $parentNode, self::$Application);
 
 		if ($templatePool = self::findTemplates($moduleName))
 		{
@@ -238,7 +233,7 @@ class Module
 			{
 				if (in_array($childNode->nodeType, array(XML_ELEMENT_NODE, XML_TEXT_NODE)))
 				{
-					if ($childController = self::_createControllerFromNode($childNode)) // Recursion
+					if ($childController = self::_createControllerFromNode($childNode, $controller->getNode())) // Recursion
 					{
 						$childController->setParent($controller);
 						$controller->addChild($childController);
@@ -261,7 +256,7 @@ class Module
 		{
 			self::$View->addTemplatePool($templatePool);
 		}
-		$node = self::$dom->createElementNS(\Mocovi\Controller::NS, $nodeName, $text);
+		$node = self::$Application->getDom()->createElementNS(\Mocovi\Controller::NS, $nodeName, $text);
 		foreach ($attributes as $key => $value)
 		{
 			$node->setAttribute($key, $value);
@@ -336,7 +331,7 @@ class Module
 	public static function createErrorController(\Exception $exception)
 	{
 		$errorNode	= self::createErrorNode($exception);
-		$controller	= self::createControllerFromNode($errorNode);
+		$controller	= self::createControllerFromNode($errorNode, self::$Application->getDom());
 		return $controller;
 	}
 }

@@ -140,10 +140,19 @@ abstract class Controller extends Observable
 	/**
 	 * @param \DomNode $sourceNode
 	 */
-	final public function __construct(\DomNode $sourceNode)
+	final public function __construct(\DomNode $sourceNode, $parentNode, $Application)
 	{
 		$this->Reflection	= new \ReflectionClass($this);
 		$this->sourceNode	= $sourceNode;
+		$this->loadIn($parentNode);
+		$this->setApplication($Application);
+		if ($this->sourceNode->hasAttributes())
+		{
+			foreach ($this->sourceNode->attributes as $attribute)
+			{
+				$this->setProperty($attribute->name, $attribute->value);
+			}
+		}
 	}
 
 	/**
@@ -154,7 +163,7 @@ abstract class Controller extends Observable
 	 * @param \DomElement $destinationNode
 	 * @return \Mocovi\Controller
 	 */
-	final public static function create(\SplFileObject $controllerPath, \DomNode $sourceNode)
+	final public static function create(\SplFileObject $controllerPath, \DomNode $sourceNode, \DomNode $parentNode, \Mocovi\Application $Application)
 	{
 		if ($sourceNode->nodeType !== \XML_TEXT_NODE)
 		{
@@ -178,7 +187,7 @@ abstract class Controller extends Observable
 		}
 		$class = '\\Mocovi\\Controller\\'.$controllerName;
 		require_once($controllerPath->getPathname());
-		return new $class($sourceNode);
+		return new $class($sourceNode, $parentNode, $Application);
 	}
 
 	/**
@@ -191,27 +200,18 @@ abstract class Controller extends Observable
 	 * @triggers launchChild
 	 * @triggers ready
 	 */
-	final public function launch($method, array $params = array(), \DomNode $parentNode, \Mocovi\Application $application)
+	final public function launch($method, array $params = array())
 	{
 		if ($this->showtime())
 		{
-			$this->setApplication($application);
-			$this->loadIn($parentNode);
 			try
 			{
-				if ($this->sourceNode->hasAttributes())
-				{
-					foreach ($this->sourceNode->attributes as $attribute)
-					{
-						$this->setProperty($attribute->name, $attribute->value);
-					}
-				}
 				$this->before($params);
 				foreach ($this->children as $child)
 				{
 					if (!$this->trigger('launchChild', $child)->isDefaultPrevented())
 					{
-						$child->launch($method, $params, $this->node, $application);
+						$child->launch($method, $params, $this->node);
 					}
 				}
 				$this->$method($params); // -> HTTP Method
@@ -227,6 +227,18 @@ abstract class Controller extends Observable
 			}
 		}
 		$this->trigger('ready');
+	}
+
+	public function __clone()
+	{
+		$children		= array();
+		$this->node		= $this->node->cloneNode(false);
+		foreach ($this->children as $child)
+		{
+			$children[] = $newChild = clone $child;
+			$newChild->setParent($this);
+		}
+		$this->children	= $children;
 	}
 
 	/**
@@ -292,6 +304,7 @@ abstract class Controller extends Observable
 		if (!$this->trigger('addChild', $child)->isDefaultPrevented())
 		{
 			$this->children[] = $child;
+			$child->setParent($this);
 		}
 		return $this;
 	}
@@ -306,6 +319,8 @@ abstract class Controller extends Observable
 		if (!$this->trigger('setParent', $parent)->isDefaultPrevented())
 		{
 			$this->parent = $parent;
+			$this->parentNode = $parent->getNode();
+			$this->parentNode->appendChild($this->node);
 		}
 		return $this;
 	}
@@ -509,7 +524,7 @@ abstract class Controller extends Observable
 			{
 				try
 				{
-					$this->node->parentNode->replaceChild
+					$this->parentNode->replaceChild
 						( $newNode
 						, $this->node
 						);

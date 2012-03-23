@@ -66,6 +66,7 @@ class Router
 	{
 		$path		= $this->Request->path;
 		$rawPath	= $this->Request->queryString()->get('path');
+		$this->Application->setFormat($this->Request->format);
 		if (strlen($path) <= 1)
 		{
 			$this->Response->redirect($this->Application->defaultRoute(), 307); // 301 = Moved Permanently, 307 = Temporary Redirect
@@ -73,7 +74,7 @@ class Router
 		if ($rawPath[strlen($rawPath) - 1] === '/') // if last character is '/', which is not allowed because of duplicate content
 		{
 			$basepath = Application::basePath();
-			$this->Response->redirect($basepath.$path.(Application::getFormat() ? '.'.Application::getFormat() : ''), 301);
+			$this->Response->redirect($basepath.$path.(Application::getFormat() !== Application::DDEFAULTFORMAT ? '.'.Application::getFormat() : ''), 301);
 		}
 
 		$this->Response->Header->contentType(Application::getFormat(), 'UTF-8'); // @todo obsolete in PHP 5.4
@@ -81,9 +82,6 @@ class Router
 		// HTTP methods
 		switch (strtolower($this->Request->method))
 		{
-			default /* get, head */:
-				$this->Application->get($path, $this->Input->get);
-			break;
 			case 'post':
 				$this->Application->post($path, $this->Input->post);
 			break;
@@ -95,6 +93,12 @@ class Router
 			break;
 			case 'options':
 				$this->Application->options($path);
+			break;
+			case 'head':
+				$this->Application->head($path, $this->Input->get);
+			break;
+			default:
+				$this->Application->get($path, $this->Input->get);
 			break;
 		}
 	}
