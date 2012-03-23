@@ -26,7 +26,7 @@ class Root extends \Mocovi\Controller
 	 * @property
 	 * @var string
 	 */
-	protected $title;
+	protected $title = '';
 
 	/**
 	 * @property

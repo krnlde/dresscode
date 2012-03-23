@@ -3,24 +3,29 @@ namespace Mocovi\Controller;
 
 \Mocovi\Module::requireController('Plain');
 
-class Reference extends \Mocovi\Controller\Plain
+class Xpath extends \Mocovi\Controller\Plain
 {
 	/**
 	 * @property
 	 * @var string
 	 */
-	protected $xpath;
+	protected $query;
 
 	protected function get(array $params = array())
 	{
 		$self	= $this;
-		$query	= $this->xpath;
+		$query	= $this->query;
 		$this->closest('Root')->on('ready', function ($event) use ($self, $query) { // @todo you can use $this in anonymous functions directly in PHP 5.4
 			$xpath	= new \DOMXPath($self->getDom());
-			$result	= $xpath->query($query);
-			if ($result->length > 0)
+			$result	= @$xpath->evaluate($query, $self->getNode());
+			if ($result === false)
 			{
-				$self->setText($result->item(0)->nodeValue);
+				$this->error(new \Mocovi\Exception\WrongFormat('xpath'));
+				return;
+			}
+			if ($result)
+			{
+				$self->setText(is_object($result) ? $result->item(0)->nodeValue : $result);
 			}
 			else
 			{

@@ -214,8 +214,12 @@
 		<root>
 			<article>
 				<paragraph>
+					<headline>
+						<xpath query="count(../following-sibling::listing/*)"/>
+						elements found
+					</headline>
 					<listing>
-						<rssreader url="http://delicious.com/v2/rss/krnlde" maximum="1000">
+						<rssreader url="http://delicious.com/v2/rss/krnlde">
 							<paragraph>
 								<link>
 									<attribute name="to">

@@ -206,40 +206,47 @@ class Module
 			$moduleName = $sourceNode->localName;
 		}
 
-		$modulePath = self::find($moduleName);
 		try
 		{
-			$controllerPath = new \SplFileObject($controllerPath = $modulePath->getPath().DIRECTORY_SEPARATOR.'controller.php');
-		}
-		catch (\RuntimeException $e)
-		{
-			throw new Exception\ControllerNotFound($controllerPath, null, null, null, null, $e);
-		}
-
-		$controller = Controller::create($controllerPath, $sourceNode, $parentNode, self::$Application);
-
-		if ($templatePool = self::findTemplates($moduleName))
-		{
-			self::$View->addTemplatePool($templatePool);
-		}
-		else
-		{
-			// throw new Exception\TemplateNotFound($moduleName); // silently accept the missing template
-		}
-
-		if ($sourceNode->hasChildNodes())
-		{
-			foreach ($sourceNode->childNodes as $childNode)
+			$modulePath = self::find($moduleName);
+			try
 			{
-				if (in_array($childNode->nodeType, array(XML_ELEMENT_NODE, XML_TEXT_NODE)))
+				$controllerPath = new \SplFileObject($controllerPath = $modulePath->getPath().DIRECTORY_SEPARATOR.'controller.php');
+			}
+			catch (\RuntimeException $e)
+			{
+				throw new Exception\ControllerNotFound($controllerPath, null, null, null, null, $e);
+			}
+
+			$controller = Controller::create($controllerPath, $sourceNode, $parentNode, self::$Application);
+
+			if ($templatePool = self::findTemplates($moduleName))
+			{
+				self::$View->addTemplatePool($templatePool);
+			}
+			else
+			{
+				// throw new Exception\TemplateNotFound($moduleName); // silently accept the missing template
+			}
+
+			if ($sourceNode->hasChildNodes())
+			{
+				foreach ($sourceNode->childNodes as $childNode)
 				{
-					if ($childController = self::_createControllerFromNode($childNode, $controller->getNode())) // Recursion
+					if (in_array($childNode->nodeType, array(XML_ELEMENT_NODE, XML_TEXT_NODE)))
 					{
-						$childController->setParent($controller);
-						$controller->addChild($childController);
+						if ($childController = self::_createControllerFromNode($childNode, $controller->getNode())) // Recursion
+						{
+							$childController->setParent($controller);
+							$controller->addChild($childController);
+						}
 					}
 				}
 			}
+		}
+		catch(\Exception $e)
+		{
+			$controller = self::createErrorController($e);
 		}
 		return $controller;
 	}
