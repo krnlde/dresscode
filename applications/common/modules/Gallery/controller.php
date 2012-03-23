@@ -33,9 +33,8 @@ class Gallery extends \Mocovi\Controller
 		, 'bmp'
 		);
 
-	protected function before(array $params = array())
+	protected function setup()
 	{
-		parent::before($params);
 		if ($this->maximum > self::MAXIMUM)
 		{
 			$this->maximum = self::MAXIMUM;

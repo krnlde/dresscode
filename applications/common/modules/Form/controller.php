@@ -34,14 +34,14 @@ class Form extends \Mocovi\Controller
 	protected $inputs;
 
 
-	protected function before(array $params = array())
+	protected function setup()
 	{
 		if (strlen($this->jumpTo) > 0 && $this->jumpTo[0] === '/')
 		{
 			$this->jumpTo = \Mocovi\Application::basePath().$this->jumpTo;
 		}
-		$this->Input = \Mocovi\Input::getInstance();
-		$this->inputs = $this->find('Input');
+		$this->Input	= \Mocovi\Input::getInstance();
+		$this->inputs	= $this->find('Input');
 		if (!in_array($this->method, $this->methods))
 		{
 			$this->method = $this->methods[count($this->methods) - 1];

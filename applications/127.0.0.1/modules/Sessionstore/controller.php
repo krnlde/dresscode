@@ -15,7 +15,7 @@ class Sessionstore extends \Mocovi\Controller
 	 */
 	protected $data;
 
-	protected function before(array $params = array())
+	protected function setup()
 	{
 		if ($this->bin)
 		{

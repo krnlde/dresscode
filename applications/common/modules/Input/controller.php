@@ -142,17 +142,22 @@ class Input extends \Mocovi\Controller
 	 */
 	protected $exception;
 
-	protected function before(array $params = array())
+	protected function setup()
 	{
 		if (!$this->id && strlen($this->label) > 0)
 		{
 			$this->id = $this->generateId();
 		}
+
+		$Input	= \Mocovi\Input::getInstance();
+		$method	= $this->closest('Form')->getProperty('method'); // @todo is this the best solution?
+		$params	= $Input->$method;
 		if (array_key_exists($this->name, $params))
 		{
-			$this->setProperty('value', $params[$this->name]); //@todo sets every input even if the form is POST or GET and you provide the opposite.
+			$this->setProperty('value', $params[$this->name]);
 			$this->dataSent = true;
 		}
+
 		if ($this->preset && array_key_exists($this->preset, $this->presets))
 		{
 			foreach ($this->presets[$this->preset] as $property => $value)
@@ -169,6 +174,7 @@ class Input extends \Mocovi\Controller
 	{
 		if ($this->isDataSent())
 		{
+
 			$this->process();
 		}
 	}

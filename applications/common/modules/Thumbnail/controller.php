@@ -24,7 +24,7 @@ class Thumbnail extends \Mocovi\Controller\Image
 	 */
 	protected static $initializeScript;
 
-	protected function before(array $params = array())
+	protected function setup()
 	{
 		if (!self::$initializeScript)
 		{
@@ -56,6 +56,6 @@ class Thumbnail extends \Mocovi\Controller\Image
 		{
 			$this->size = $this->sizes[ceil(count($this->sizes) * 0.5) - 1]; // median
 		}
-		parent::before($params);
+		parent::setup();
 	}
 }

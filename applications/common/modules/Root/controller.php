@@ -52,7 +52,7 @@ class Root extends \Mocovi\Controller
 	 */
 	protected $path;
 
-	protected function before(array $params = array())
+	protected function setup()
 	{
 		$cssPool = $this->getCssPool();
 		$this->Application->stylesheet(new FileAsset('applications/common/assets/css/less/main-16px.css'));
@@ -70,7 +70,6 @@ class Root extends \Mocovi\Controller
 		$this->on('ready', function ($event) use ($Application) { // @todo you can use $this in anonymous functions directly in PHP 5.4
 			$Application->javascript(new FileAsset('applications/common/assets/js/external-links.js')); // load this script at last!
 		});
-		parent::before($params);
 	}
 
 	protected function get(array $params = array())

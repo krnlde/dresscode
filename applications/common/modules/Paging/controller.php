@@ -15,9 +15,8 @@ class Paging extends \Mocovi\Controller
 	 */
 	protected $count = 1;
 
-	protected function before(array $params = array())
+	protected function setup()
 	{
-		$count = &$this->count;
 		$Input = \Mocovi\Input::getInstance();
 		if (!is_null($Input->get('page')))
 		{
@@ -35,6 +34,7 @@ class Paging extends \Mocovi\Controller
 		{
 			$page = ($this->default > 0 && $this->default <= count($this->children) ? $this->default : 1);
 		}
+		$count = &$this->count;
 		$this->on('launchChild', function ($event) use ($page, &$count) { // @todo you can use $this in anonymous functions directly in PHP 5.4
 			if ($page != $count)
 			{

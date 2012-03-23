@@ -195,7 +195,6 @@ abstract class Controller extends Observable
 	 *
 	 * @param string $method HTTP method
 	 * @param array $params array()
-	 * @param \DomNode $parentNode
 	 * @return void
 	 * @triggers launchChild
 	 * @triggers ready
@@ -206,16 +205,16 @@ abstract class Controller extends Observable
 		{
 			try
 			{
-				$this->before($params);
+				$this->setup();
 				foreach ($this->children as $child)
 				{
 					if (!$this->trigger('launchChild', $child)->isDefaultPrevented())
 					{
-						$child->launch($method, $params, $this->node);
+						$child->launch($method, $params);
 					}
 				}
 				$this->$method($params); // -> HTTP Method
-				$this->after($params);
+				$this->adoptProperties();
 			}
 			catch (\Mocovi\Exception\Input $e)
 			{
@@ -225,8 +224,8 @@ abstract class Controller extends Observable
 			{
 				$this->error($e);
 			}
+			$this->trigger('ready');
 		}
-		$this->trigger('ready');
 	}
 
 	public function __clone()
@@ -463,7 +462,7 @@ abstract class Controller extends Observable
 	 * Find closest parent controller.
 	 *
 	 * @param string $name Wanted parent controller
-	 * @return \Mocovi\Controller\Collection Matching controllers
+	 * @return \Mocovi\Controller Matching controllers
 	 */
 	public function closest($name)
 	{
@@ -472,7 +471,7 @@ abstract class Controller extends Observable
 		{
 			if (strtolower($parent->getName()) === strtolower($name))
 			{
-				return new Controller\Collection(array($parent));
+				return $parent;
 			}
 		}
 		return new Controller\Collection();
@@ -675,30 +674,6 @@ abstract class Controller extends Observable
 
 
 	/**
-	 * This method will be executed before the requested method.
-	 *
-	 * Can be overriden whenever needed.
-	 *
-	 * @param array $params array()
-	 * @return void
-	 */
-	protected function before(array $params = array())
-	{}
-
-	/**
-	 * This method will be executed after the requested method.
-	 *
-	 * Can be overriden whenever needed.
-	 *
-	 * @param array $params array()
-	 * @return void
-	 */
-	protected function after(array $params = array())
-	{
-		$this->adoptProperties();
-	}
-
-	/**
 	 * Default method to create the output node.
 	 *
 	 * Can be overriden whenever needed.
@@ -710,6 +685,15 @@ abstract class Controller extends Observable
 		return $this->dom->createElement($this->sourceNode->localName);
 	}
 
+	/**
+	 * This method will be executed before the requested method.
+	 *
+	 * Can be overriden whenever needed.
+	 *
+	 * @return void
+	 */
+	protected function setup()
+	{}
 	/**
 	 * Represents the HTTP GET method.
 	 *

@@ -39,14 +39,14 @@ class Slider extends \Mocovi\Controller
 	 */
 	protected $direction = 'up'; // up, down, left, right
 
-	protected function before(array $params = array())
+	protected function setup()
 	{
 		$this->Application->stylesheet(new FileAsset('applications/common/modules/Slider/assets/css/slider.css'));
 		$this->Application->javascripts
 		(	array
 			(	new FileAsset('applications/common/assets/js/jquery.min.js') // or 'http://code.jquery.com/jquery.min.js'
 			,	new FileAsset('applications/common/modules/Slider/assets/js/jquery-revolver/jquery.revolver.min.js')
-			,	$x = new StringAsset // initialize
+			,	new StringAsset // initialize
 				('
 					$(function() {
 						var $slider = $(".'.$this->class.'");
@@ -64,7 +64,6 @@ class Slider extends \Mocovi\Controller
 						).data("revolver");
 					});
 				')
-			, $x
 			)
 		);
 	}

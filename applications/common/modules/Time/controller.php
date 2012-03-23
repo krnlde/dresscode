@@ -14,7 +14,7 @@ class Time extends \Mocovi\Controller
 	 */
 	protected $datetime;
 
-	protected function before(array $params = array())
+	protected function setup()
 	{
 		$this->on('launchChild', function ($event) {
 			$event->preventDefault(); // block all children

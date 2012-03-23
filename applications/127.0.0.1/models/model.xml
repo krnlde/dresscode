@@ -42,7 +42,7 @@
 					<sessionstore>
 						<form jumpTo="/home/videos" method="post">
 							<input name="name" placeholder="Your Name" label="test" required="1" />
-							<input name="email" placeholder="to@example.com" label="test" />
+							<input name="email" preset="email" placeholder="to@example.com" label="test" />
 							<input name="text" placeholder="Your Message" label="test" />
 						</form>
 					</sessionstore>

@@ -23,9 +23,8 @@ class Filter extends \Mocovi\Controller
 	 */
 	// protected $event;
 
-	protected function before(array $params = array())
+	protected function setup()
 	{
-		parent::before($params);
 		$self = $this;
 		$this->parent->on('loadFile', function($event) use ($self) { // @todo you can use $this in anonymous functions directly in PHP 5.4
 			if ($self->require && !preg_match($self->require, $event->relatedTarget->getFileName()))

@@ -11,7 +11,7 @@ class Protect extends \Mocovi\Controller\Element
 	 */
 	protected $require;
 
-	public function before(array $params = array())
+	public function setup()
 	{
 		$require = $this->require;
 		$this->on('launchChild', function($event) use ($require) { // @todo you can use $this in anonymous functions directly in PHP 5.4

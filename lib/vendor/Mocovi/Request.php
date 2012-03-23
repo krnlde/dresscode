@@ -127,11 +127,11 @@ class Request
 	}
 
 	/**
-	 * @return \Mocovi\HTTPQueryString
+	 * @return \Mocovi\HttpQueryString
 	 */
 	public function queryString()
 	{
-		return HTTPQueryString::getInstance();
+		return HttpQueryString::getInstance();
 	}
 
 	/**

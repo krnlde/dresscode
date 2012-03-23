@@ -120,7 +120,12 @@ class Application
 	 */
 	protected $statusCode = 200;
 
-	protected static $assetOutput = 'assetic/*';
+	/**
+	 * Defines the folder where the compiled assets will be stored.
+	 *
+	 * @var string
+	 */
+	protected static $assetOutput = 'compiled/*';
 
 	/**
 	 * @var \Assetic\Asset\AssetCollection
@@ -132,6 +137,9 @@ class Application
 	 */
 	protected static $javascripts;
 
+	/**
+	 * @var Assetic\AssetWriter
+	 */
 	private static $AssetWriter;
 
 	/**
@@ -332,10 +340,10 @@ class Application
 			else
 			{
 				$this->Response->Header->lastModified(strtotime($mtime));
-				if (!isset($this->Request->Header->cache_control) || $this->Request->Header->cache_control !== 'no-cache')
-				{
-					$this->Response->Header->expires(strtotime('+ 1 minute'));
-				}
+				// if (!isset($this->Request->Header->cache_control) || $this->Request->Header->cache_control !== 'no-cache')
+				// {
+				// 	$this->Response->Header->expires(strtotime('+ 1 minute'));
+				// }
 			}
 
 			if ($this->file->localName !== 'file')
