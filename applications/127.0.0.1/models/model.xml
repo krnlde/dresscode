@@ -89,7 +89,6 @@
 						<element>Test 5</element>
 					</listing>
 					<paragraph>
-						<thumbnail source="http://lorempixel.com/221/160/nature"/>
 						<translate token="loremipsum"/>
 						<thumbnail source="/gallery/auswahl-2.jpg"/>
 					</paragraph>

@@ -45,7 +45,6 @@ class Thumbnail extends \Mocovi\Controller\Image
 				});'
 			);
 		}
-		parent::before($params);
 		$this->Application->stylesheet(new FileAsset('applications/common/modules/Thumbnail/assets/jquery-fancybox/source/jquery.fancybox.css'));
 		$this->Application->javascripts
 			( array
@@ -57,5 +56,6 @@ class Thumbnail extends \Mocovi\Controller\Image
 		{
 			$this->size = $this->sizes[ceil(count($this->sizes) * 0.5) - 1]; // median
 		}
+		parent::before($params);
 	}
 }
