@@ -31,7 +31,7 @@ class Menu extends \Mocovi\Controller
 	 */
 	protected $path;
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		if (!is_null($this->depth))
 		{

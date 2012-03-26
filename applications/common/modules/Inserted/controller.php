@@ -17,7 +17,7 @@ class Inserted extends \Mocovi\Controller
 
 	protected $format = 'c';
 
-	protected function setup()
+	public function setup()
 	{
 		if ($this->datetime)
 		{

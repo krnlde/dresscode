@@ -15,7 +15,7 @@ class Paging extends \Mocovi\Controller
 	 */
 	protected $count = 1;
 
-	protected function setup()
+	public function setup()
 	{
 		$Input = \Mocovi\Input::getInstance();
 		if (!is_null($Input->get('page')))

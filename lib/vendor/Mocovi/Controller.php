@@ -140,12 +140,13 @@ abstract class Controller extends Observable
 	/**
 	 * @param \DomNode $sourceNode
 	 */
-	final public function __construct(\DomNode $sourceNode, $parentNode, $Application)
+	final public function __construct(\DomNode $sourceNode, $Application)
 	{
 		$this->Reflection	= new \ReflectionClass($this);
 		$this->sourceNode	= $sourceNode;
-		$this->loadIn($parentNode);
-		$this->setApplication($Application);
+		$this->Application	= $Application;
+		$this->dom			= $Application->getDom();
+		$this->parentNode	= $Application->getDom();
 		if ($this->sourceNode->hasAttributes())
 		{
 			foreach ($this->sourceNode->attributes as $attribute)
@@ -163,7 +164,7 @@ abstract class Controller extends Observable
 	 * @param \DomElement $destinationNode
 	 * @return \Mocovi\Controller
 	 */
-	final public static function create(\SplFileObject $controllerPath, \DomNode $sourceNode, \DomNode $parentNode, \Mocovi\Application $Application)
+	final public static function create(\SplFileObject $controllerPath, \DomNode $sourceNode, \Mocovi\Application $Application)
 	{
 		if ($sourceNode->nodeType !== \XML_TEXT_NODE)
 		{
@@ -187,7 +188,7 @@ abstract class Controller extends Observable
 		}
 		$class = '\\Mocovi\\Controller\\'.$controllerName;
 		require_once($controllerPath->getPathname());
-		return new $class($sourceNode, $parentNode, $Application);
+		return new $class($sourceNode, $Application);
 	}
 
 	/**
@@ -203,9 +204,10 @@ abstract class Controller extends Observable
 	{
 		if ($this->showtime())
 		{
+			$this->setup(); // user method to initialize controller
+			$this->load();
 			try
 			{
-				$this->setup();
 				foreach ($this->children as $child)
 				{
 					if (!$this->trigger('launchChild', $child)->isDefaultPrevented())
@@ -234,10 +236,13 @@ abstract class Controller extends Observable
 		$this->node		= $this->node->cloneNode(false);
 		foreach ($this->children as $child)
 		{
-			$children[] = $newChild = clone $child;
-			$newChild->setParent($this);
+			$children[] = clone $child;
 		}
-		$this->children	= $children;
+		$this->children = array();
+		foreach ($children as $child)
+		{
+			$this->addChild($child);
+		}
 	}
 
 	/**
@@ -290,7 +295,7 @@ abstract class Controller extends Observable
 	 */
 	public function hasChildren()
 	{
-		return (count($this->children) > 0);
+		return reset($this->children) !== false;
 	}
 
 	/**
@@ -311,14 +316,13 @@ abstract class Controller extends Observable
 	/**
 	 * @param \Mocovi\Controller $parent
 	 * @return \Mocovi\Controller $this
-	 * @triggers setParent
 	 */
-	public function setParent(\Mocovi\Controller $parent)
+	protected function setParent(\Mocovi\Controller $parent)
 	{
-		if (!$this->trigger('setParent', $parent)->isDefaultPrevented())
+		$this->parent		= $parent;
+		$this->parentNode	= $parent->getNode();
+		if ($this->node)
 		{
-			$this->parent = $parent;
-			$this->parentNode = $parent->getNode();
 			$this->parentNode->appendChild($this->node);
 		}
 		return $this;
@@ -605,7 +609,7 @@ abstract class Controller extends Observable
 	{
 		if (!$this->trigger('error', $e)->isDefaultPrevented())
 		{
-			$controller = \Mocovi\Module::createErrorController($e);
+			$controller = \Mocovi\Module::createControllerFromException($e);
 			$controller->launch('get', $params = array(), $this->node, $this->Application);
 			$this->replaceNode($controller->getNode());
 		}
@@ -638,36 +642,21 @@ abstract class Controller extends Observable
 	/**
 	 * Initializes the loading of the own outout node.
 	 *
-	 * @param \DomNode $parentNode
 	 * @return \Mocovi\Controller $this
 	 */
-	final protected function loadIn(\DomNode $parentNode)
+	final protected function load()
 	{
+		if ($this->parent)
+		{
+			$this->parentNode = $this->parent->getNode();
+		}
 		if (is_null($this->node))
 		{
-			$this->parentNode	= $parentNode;
-			$this->dom			= $parentNode instanceof \DomDocument ? $parentNode : $parentNode->ownerDocument;
-			$this->node			= $this->createNode();
-
+			$this->node = $this->createNode();
 			if ($this->node instanceof \DomNode && $this->node->ownerDocument->isSameNode($this->dom))
 			{
 				$this->parentNode->appendChild($this->node);
 			}
-		}
-		return $this;
-	}
-
-	/**
-	 * Sets the current application to have access of all environment features (like headers).
-	 *
-	 * @param \Mocovi\Application $application
-	 * @return \Mocovi\Controller $this
-	 */
-	final protected function setApplication(\Mocovi\Application $application)
-	{
-		if (is_null($this->Application))
-		{
-			$this->Application = $application;
 		}
 		return $this;
 	}
@@ -692,7 +681,7 @@ abstract class Controller extends Observable
 	 *
 	 * @return void
 	 */
-	protected function setup()
+	public function setup()
 	{}
 	/**
 	 * Represents the HTTP GET method.

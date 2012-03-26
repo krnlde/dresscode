@@ -39,7 +39,7 @@ class Slider extends \Mocovi\Controller
 	 */
 	protected $direction = 'up'; // up, down, left, right
 
-	protected function setup()
+	public function setup()
 	{
 		$this->Application->stylesheet(new FileAsset('applications/common/modules/Slider/assets/css/slider.css'));
 		$this->Application->javascripts

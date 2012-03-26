@@ -68,9 +68,61 @@ class Module
 	 * @param \DomNode $sourceNode
 	 * @return \Mocovi\Controller
 	 */
-	public static function createControllerFromNode(\DomNode $sourceNode, \DomNode $parentNode)
+	public static function createControllerFromNode(\DomNode $sourceNode, \Mocovi\Controller $parent = null)
 	{
-		return self::_createControllerFromNode($sourceNode, $parentNode);
+		if ($sourceNode->nodeType === \XML_TEXT_NODE)
+		{
+			$moduleName = 'Plain';
+		}
+		elseif ($sourceNode->lookupNamespaceURI($sourceNode->prefix ?: null) !== \Mocovi\Controller::NS) // ignore other nodes
+		{
+			return null;
+		}
+		else
+		{
+			$moduleName = $sourceNode->localName;
+		}
+
+		try
+		{
+			$modulePath = self::find($moduleName);
+			try
+			{
+				$controllerPath = new \SplFileObject($controllerPath = $modulePath->getPath().DIRECTORY_SEPARATOR.'controller.php');
+			}
+			catch (\RuntimeException $e)
+			{
+				throw new Exception\ControllerNotFound($controllerPath, null, null, null, null, $e);
+			}
+
+			$controller = Controller::create($controllerPath, $sourceNode, self::$Application);
+
+			if ($templatePool = self::findTemplates($moduleName))
+			{
+				self::$View->addTemplatePool($templatePool);
+			}
+			else
+			{
+				// throw new Exception\TemplateNotFound($moduleName); // silently accept the missing template
+			}
+
+			if ($sourceNode->hasChildNodes())
+			{
+				foreach ($sourceNode->childNodes as $childNode)
+				{
+					if (in_array($childNode->nodeType, array(XML_ELEMENT_NODE, XML_TEXT_NODE)))
+					{
+						$child = self::createControllerFromNode($childNode, $controller); // Recursion
+						$controller->addChild($child);
+					}
+				}
+			}
+		}
+		catch(\Exception $e)
+		{
+			$controller = self::createControllerFromException($e);
+		}
+		return $controller;
 	}
 
 	/**
@@ -183,75 +235,6 @@ class Module
 	}
 
 	/**
-	 * Creates a controller hierarchically based on its source node.
-	 *
-	 * This method is called recursively!
-	 *
-	 * @param \DomNode $sourceNode
-	 * @return \Mocovi\Controller
-	 * @throws \Mocovi\Exception\ControllerNotFound, \Mocovi\Exception\TemplateNotFound
-	 */
-	protected static function _createControllerFromNode(\DomNode $sourceNode, \DomNode $parentNode)
-	{
-		if ($sourceNode->nodeType === \XML_TEXT_NODE)
-		{
-			$moduleName = 'Plain';
-		}
-		elseif ($sourceNode->lookupNamespaceURI($sourceNode->prefix ?: null) !== \Mocovi\Controller::NS) // ignore other nodes
-		{
-			return null;
-		}
-		else
-		{
-			$moduleName = $sourceNode->localName;
-		}
-
-		try
-		{
-			$modulePath = self::find($moduleName);
-			try
-			{
-				$controllerPath = new \SplFileObject($controllerPath = $modulePath->getPath().DIRECTORY_SEPARATOR.'controller.php');
-			}
-			catch (\RuntimeException $e)
-			{
-				throw new Exception\ControllerNotFound($controllerPath, null, null, null, null, $e);
-			}
-
-			$controller = Controller::create($controllerPath, $sourceNode, $parentNode, self::$Application);
-
-			if ($templatePool = self::findTemplates($moduleName))
-			{
-				self::$View->addTemplatePool($templatePool);
-			}
-			else
-			{
-				// throw new Exception\TemplateNotFound($moduleName); // silently accept the missing template
-			}
-
-			if ($sourceNode->hasChildNodes())
-			{
-				foreach ($sourceNode->childNodes as $childNode)
-				{
-					if (in_array($childNode->nodeType, array(XML_ELEMENT_NODE, XML_TEXT_NODE)))
-					{
-						if ($childController = self::_createControllerFromNode($childNode, $controller->getNode())) // Recursion
-						{
-							$childController->setParent($controller);
-							$controller->addChild($childController);
-						}
-					}
-				}
-			}
-		}
-		catch(\Exception $e)
-		{
-			$controller = self::createErrorController($e);
-		}
-		return $controller;
-	}
-
-	/**
 	 * @param string $nodeName
 	 * @param string $text
 	 * @param array $attributes array();
@@ -288,7 +271,7 @@ class Module
 	 * @return \DomNode
 	 * @todo Make this method prettier. Use createController() and stuff
 	 */
-	public static function createErrorNode(\Exception $exception)
+	public static function createNodeFromException(\Exception $exception)
 	{
 		// echo $exception; // @debug
 		$error = self::createNode('error');
@@ -335,10 +318,10 @@ class Module
 	 * @param \Exception $exception
 	 * @return \Mocovi\Controller
 	 */
-	public static function createErrorController(\Exception $exception)
+	public static function createControllerFromException(\Exception $exception)
 	{
-		$errorNode	= self::createErrorNode($exception);
-		$controller	= self::createControllerFromNode($errorNode, self::$Application->getDom());
+		$errorNode	= self::createNodeFromException($exception);
+		$controller	= self::createControllerFromNode($errorNode);
 		return $controller;
 	}
 }

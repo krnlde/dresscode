@@ -52,7 +52,7 @@ class Root extends \Mocovi\Controller
 	 */
 	protected $path;
 
-	protected function setup()
+	public function setup()
 	{
 		$cssPool = $this->getCssPool();
 		$this->Application->stylesheet(new FileAsset('applications/common/assets/css/less/main-16px.css'));
@@ -72,7 +72,7 @@ class Root extends \Mocovi\Controller
 		});
 	}
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		$this->canonical	= $params['scheme'].'://'.$params['domain'].($params['port'] ? ':'.$params['port'] : '').$this->Application->basePath().$params['path'];
 		$this->language		= \Mocovi\Translator::getLanguage();

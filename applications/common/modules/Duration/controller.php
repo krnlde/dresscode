@@ -30,7 +30,7 @@ class Duration extends \Mocovi\Controller\Time
 	 */
 	protected $to = 'now';
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		$this->format	= $this->format[0]; // str2char
 		$from			= new \DateTime($this->from);

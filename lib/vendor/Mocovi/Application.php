@@ -385,7 +385,7 @@ class Application
 
 			$params['title']	= $this->file->getAttribute('alias') ?: $this->file->getAttribute('name');
 			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0);
-			$controller			= Module::createControllerFromNode($rootController, $this->dom, $this);
+			$controller			= Module::createControllerFromNode($rootController);
 			$controller->launch('get', $params);
 
 			// $this->Request->Header->x_xpath = './/headline'; // @debug
@@ -421,7 +421,7 @@ class Application
 			try
 			{
 				$this->file			= $this->Model->read('/404');
-				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0), $this->dom, $this);
+				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0));
 				$params['author']	= get_class($this);
 				$params['title']	= '404';
 				$controller->launch('get', $params, $this->dom, $this);
@@ -430,7 +430,7 @@ class Application
 			{
 				// @todo show info that no 404 file is defined
 				$this->resetDom();
-				$controller	= Module::createErrorController($e);
+				$controller	= Module::createControllerFromException($e);
 				$controller->launch('get', $params, $this->dom, $this);
 			}
 		}
@@ -438,14 +438,14 @@ class Application
 		{
 			// @todo test this
 			$this->statusCode = 405; // Method Not Allowed
-			$controller	= Module::createErrorController($e);
+			$controller	= Module::createControllerFromException($e);
 			$controller->launch('get', $params, $this->dom, $this);
 		}
 		catch (Exception $e)
 		{
 			// @todo test this
 			$this->statusCode = 500; // Internal Server Error
-			$controller	= Module::createErrorController($e);
+			$controller	= Module::createControllerFromException($e);
 			$controller->launch('get', $params, $this->dom, $this);
 		}
 		$this->Response->write(null, $this->statusCode);
@@ -495,7 +495,7 @@ class Application
 		{
 			$this->resetDom();
 			$this->statusCode = 500; // Internal Server Error
-			$controller = Module::createErrorController($e);
+			$controller = Module::createControllerFromException($e);
 			$controller->launch('get', $params, $this->dom, $this);
 			$this->Response->end($this->View->transform($this->dom)->to(self::$defaultFormat), $this->statusCode);
 		}
@@ -549,7 +549,7 @@ class Application
 		{
 			$this->file			= $this->Model->read($path);
 			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0);
-			$controller			= Module::createControllerFromNode($rootController, $this->dom, $this);
+			$controller			= Module::createControllerFromNode($rootController);
 			try
 			{
 				$controller->launch('post', $params, $this->dom, $this);
@@ -566,7 +566,7 @@ class Application
 			try
 			{
 				$this->file			= $this->Model->read('/404');
-				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0), $this->dom, $this);
+				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0));
 				$params['author']	= get_class($this);
 				$params['title']	= '404';
 				$controller->launch('post', $params, $this->dom, $this);
@@ -575,7 +575,7 @@ class Application
 			{
 				// @todo show info that no 404 file is defined
 				$this->resetDom();
-				$controller	= Module::createErrorController($e);
+				$controller	= Module::createControllerFromException($e);
 				$controller->launch('post', $params, $this->dom, $this);
 			}
 		}
@@ -583,14 +583,14 @@ class Application
 		{
 			// @todo test
 			$this->statusCode = 405; // Method Not Allowed
-			$controller	= Module::createErrorController($e);
+			$controller	= Module::createControllerFromException($e);
 			$controller->launch('post', $params, $this->dom, $this);
 		}
 		catch (Exception $e)
 		{
 			// @todo test
 			$this->statusCode = 500; // Internal Server Error
-			$controller	= Module::createErrorController($e);
+			$controller	= Module::createControllerFromException($e);
 			$controller->launch('post', $params, $this->dom, $this);
 		}
 		$this->Response->end(null, $this->statusCode);
@@ -696,7 +696,7 @@ class Application
 	public function errorHandler($errno, $errstr, $errfile = __FILE__, $errline = __LINE__, array $errcontext = array())
 	{
 		$this->resetDom();
-		$controller	= Module::createErrorController(new \ErrorException($errstr, $errno, 1, $errfile, $errline));
+		$controller	= Module::createControllerFromException(new \ErrorException($errstr, $errno, 1, $errfile, $errline));
 		$controller->launch('get', $params = array(), $this->dom, $this);
 		$this->statusCode	= 500; // Internal Server Error
 		try
@@ -721,7 +721,7 @@ class Application
 	public function exceptionHandler(\Exception $e)
 	{
 		$this->resetDom();
-		$controller	= Module::createErrorController($e);
+		$controller	= Module::createControllerFromException($e);
 		$controller->launch('get', $params = array(), $this->dom, $this);
 		$this->statusCode	= 500; // Internal Server Error
 		try

@@ -24,7 +24,7 @@ class Thumbnail extends \Mocovi\Controller\Image
 	 */
 	protected static $initializeScript;
 
-	protected function setup()
+	public function setup()
 	{
 		if (!self::$initializeScript)
 		{

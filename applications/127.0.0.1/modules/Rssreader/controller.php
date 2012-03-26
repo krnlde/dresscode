@@ -20,7 +20,7 @@ class Rssreader extends \Mocovi\Controller
 
 	protected $items = array();
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		if ($this->maximum < self::MINIMUM)
 		{
@@ -46,7 +46,7 @@ class Rssreader extends \Mocovi\Controller
 				foreach ($this->children as $child)
 				{
 					$clone = clone $child;
-					$clone->setParent($this->parent);
+					$this->parent->addChild($clone);
 					foreach ($clone->find('Variable') as $var)
 					{
 						if (isset($item->{$var->getProperty('name')}))

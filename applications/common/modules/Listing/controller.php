@@ -15,7 +15,7 @@ class Listing extends \Mocovi\Controller
 	 */
 	protected $maximum;
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		if (!is_null($this->maximum))
 		{

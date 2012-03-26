@@ -5,7 +5,7 @@ use \Mocovi\Event;
 
 class Menuextension extends \Mocovi\Controller
 {
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		/*
 			Here is an example how to select modules in the hierarchy,

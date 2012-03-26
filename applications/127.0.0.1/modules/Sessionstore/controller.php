@@ -15,7 +15,7 @@ class Sessionstore extends \Mocovi\Controller
 	 */
 	protected $data;
 
-	protected function setup()
+	public function setup()
 	{
 		if ($this->bin)
 		{
@@ -31,6 +31,7 @@ class Sessionstore extends \Mocovi\Controller
 		}
 		$self = $this;
 		$this->find('Form')->on('success', function ($event) use ($self) { // @todo you can use $this directly in PHP 5.4
+			$event->preventDefault();
 			$self->save($event->data);
 		});
 		$this->on('data', function ($event) { // @debug
@@ -42,7 +43,7 @@ class Sessionstore extends \Mocovi\Controller
 	/**
 	 * @triggers data
 	 */
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		if (count($this->data))
 		{

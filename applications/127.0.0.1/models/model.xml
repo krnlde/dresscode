@@ -40,7 +40,7 @@
 						<translate token="loremipsum" cut="15"/>
 					</headline>
 					<sessionstore>
-						<form jumpTo="/home/videos" method="post">
+						<form jumpTo="/home/videos" method="get">
 							<input name="name" placeholder="Your Name" label="test" required="1" />
 							<input name="email" preset="email" placeholder="to@example.com" label="test" />
 							<input name="text" placeholder="Your Message" label="test" />
@@ -212,24 +212,28 @@
 	<fs:file name="rss" methods="get" author="Kai Dorschner">
 		<root>
 			<article>
-				<paragraph>
-					<headline>
-						<xpath query="count(../following-sibling::listing/*)"/>
-						elements found
-					</headline>
-					<listing>
-						<rssreader url="http://delicious.com/v2/rss/krnlde">
-							<paragraph>
-								<link>
-									<attribute name="to">
-										<variable name="link"/>
-									</attribute>
-									<variable name="title"/>
-								</link>
-							</paragraph>
-						</rssreader>
-					</listing>
-				</paragraph>
+				<headline>
+					<xpath query="count(../following-sibling::listing/*)"/>
+					elements found
+				</headline>
+				<listing>
+					<rssreader url="http://delicious.com/v2/rss/krnlde">
+						<paragraph>
+							<link>
+								<attribute name="to">
+									<variable name="link"/>
+								</attribute>
+								<variable name="title"/>
+							</link>
+						</paragraph>
+					</rssreader>
+				</listing>
+				<evaluate>
+					- // error
+				</evaluate>
+				<time>
+					2011-02-01
+				</time>
 			</article>
 			<footer>
 				<section>

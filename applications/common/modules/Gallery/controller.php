@@ -33,7 +33,7 @@ class Gallery extends \Mocovi\Controller
 		, 'bmp'
 		);
 
-	protected function setup()
+	public function setup()
 	{
 		if ($this->maximum > self::MAXIMUM)
 		{
@@ -47,7 +47,7 @@ class Gallery extends \Mocovi\Controller
 	 * @triggers loadFile
 	 * @throws \Mocovi\Exception
 	 */
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		parent::get($params);
 		$this->class = strtolower($this->getName());

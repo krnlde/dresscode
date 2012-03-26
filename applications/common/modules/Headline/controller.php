@@ -9,7 +9,7 @@ class Headline extends \Mocovi\Controller
 	 */
 	protected $priority = 1;
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		parent::get($params);
 

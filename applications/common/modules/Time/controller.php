@@ -14,14 +14,14 @@ class Time extends \Mocovi\Controller
 	 */
 	protected $datetime;
 
-	protected function setup()
+	public function setup()
 	{
 		$this->on('launchChild', function ($event) {
 			$event->preventDefault(); // block all children
 		});
 	}
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		if ($this->datetime)
 		{

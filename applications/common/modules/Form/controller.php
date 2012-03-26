@@ -34,7 +34,7 @@ class Form extends \Mocovi\Controller
 	protected $inputs;
 
 
-	protected function setup()
+	public function setup()
 	{
 		if (strlen($this->jumpTo) > 0 && $this->jumpTo[0] === '/')
 		{
@@ -48,7 +48,7 @@ class Form extends \Mocovi\Controller
 		}
 	}
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		if ($this->method === 'get' && count($this->Input->get) > 0)
 		{

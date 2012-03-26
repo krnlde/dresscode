@@ -17,7 +17,7 @@ class When extends \Mocovi\Controller
 	 */
 	protected $in;
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		if (!is_null($this->param) && isset($params[$this->param]) && in_array($params[$this->param], explode(' ', $this->in)))
 		{

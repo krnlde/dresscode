@@ -10,7 +10,7 @@ class Toc extends \Mocovi\Controller
 	 */
 	public $xpath = '//headline[@id]';
 
-	protected function setup()
+	public function setup()
 	{
 		$self = $this;
 		$this->closest('Root')->on('ready', function ($event) use ($self) { // @todo you can use $this in anonymous functions directly in PHP 5.4

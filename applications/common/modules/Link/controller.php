@@ -15,7 +15,7 @@ class Link extends \Mocovi\Controller
 	 */
 	protected $to;
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		if ($this->to)
 		{

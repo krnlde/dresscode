@@ -3,7 +3,7 @@ namespace Mocovi\Controller;
 
 class Guestbook extends \Mocovi\Controller
 {
-	protected function setup()
+	public function setup()
 	{
 		if (!$this->class)
 		{

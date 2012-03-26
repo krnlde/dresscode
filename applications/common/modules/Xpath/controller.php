@@ -11,7 +11,7 @@ class Xpath extends \Mocovi\Controller\Plain
 	 */
 	protected $query;
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		$self	= $this;
 		$query	= $this->query;

@@ -14,7 +14,7 @@ class Plain extends \Mocovi\Controller
 		return $this->dom->createTextNode($this->sourceNode->nodeValue);
 	}
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		$text = $this->node->nodeValue;
 		if(preg_match_all('/\$([a-zA-Z_][a-zA-Z0-9_]*)/', $text, $match))

@@ -142,7 +142,7 @@ class Input extends \Mocovi\Controller
 	 */
 	protected $exception;
 
-	protected function setup()
+	public function setup()
 	{
 		if (!$this->id && strlen($this->label) > 0)
 		{
@@ -170,7 +170,7 @@ class Input extends \Mocovi\Controller
 		}
 	}
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		if ($this->isDataSent())
 		{

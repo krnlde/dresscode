@@ -17,7 +17,7 @@ class Deleted extends \Mocovi\Controller
 
 	protected $format = 'c';
 
-	protected function before(array $params = array())
+	public function setup()
 	{
 		if ($this->datetime)
 		{

@@ -35,14 +35,14 @@ class Image extends \Mocovi\Controller
 	 */
 	protected $crop = true;
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		parent::get($params);
 		if ($this->source[0] === '/')
 		{
 			$this->source = dirname($_SERVER['SCRIPT_NAME']).$this->source;
 		}
-		if(empty($this->description))
+		if (empty($this->description))
 		{
 			$this->description = $this->source;
 		}

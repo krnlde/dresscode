@@ -43,7 +43,7 @@ class Translate extends Plain
 	protected $preserveWords = true;
 
 
-	protected function get(array $params = array())
+	public function get(array $params = array())
 	{
 		if (!($translation = \Mocovi\Translator::translate($this->token))) // shortcut if translation is not found
 		{
@@ -100,7 +100,7 @@ class Translate extends Plain
 
 		foreach($translation->childNodes as $child)
 		{
-			if ($controller = \Mocovi\Module::createControllerFromNode($child, $this->node, $this->Application))
+			if ($controller = \Mocovi\Module::createControllerFromNode($child, $this))
 			{
 				$controller->launch(__FUNCTION__, $this->params);
 			}
