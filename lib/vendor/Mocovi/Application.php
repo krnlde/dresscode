@@ -67,6 +67,11 @@ class Application
 	 */
 	public $Router;
 
+	/**
+	 * @var \Mysqli
+	 */
+	public $Database;
+
 	public $defaultRoute = 'index';
 
 	/**
@@ -157,13 +162,6 @@ class Application
 		self::$format				= self::DEFAULTFORMAT;
 		$this->resetDom();
 		Module::initialize($this);
-		// foreach($this->defaultModules as $module)
-		// {
-		// 	if (file_exists($templatePath = Module::findTemplates($module)))
-		// 	{
-		// 		Module::getView()->addTemplatePool($templatePath);
-		// 	}
-		// }
 		$this->View		= Module::getView();
 		$this->Model	= new Model\XML($this->getModelPath());
 		if ($timezone = $this->Model->timezone())
@@ -182,10 +180,22 @@ class Application
 		self::$stylesheets->ensureFilter(new Filter\CssMinFilter());
 		if (file_exists($bootstrap = $this->getPath()->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
 		{
-			include $bootstrap;
+			require $bootstrap;
 		}
-		set_error_handler(array($this, 'errorHandler'));
+		$this->Database = new \Mysqli
+		( $options['database']['host']
+		, $options['database']['user']
+		, $options['database']['password']
+		, $options['database']['name']
+		, $options['database']['port']
+		);
+		set_error_handler(array($this, 'errorHandler')); // only called on E_USER_*
 		set_exception_handler(array($this, 'exceptionHandler'));
+	}
+
+	public function __destruct()
+	{
+		$this->Database->close();
 	}
 
 	/**

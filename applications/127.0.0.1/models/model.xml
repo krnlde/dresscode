@@ -93,7 +93,7 @@
 						<thumbnail source="/gallery/auswahl-2.jpg"/>
 					</paragraph>
 					<protect require="valid-user">
-						<slider>
+						<slider direction="left">
 							<element>
 								<headline>Slide 1</headline>
 								<paragraph>
