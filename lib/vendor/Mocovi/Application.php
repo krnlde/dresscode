@@ -24,7 +24,6 @@ namespace Mocovi;
 
 use Assetic\Asset\AssetCache;
 use Assetic\Factory\AssetFactory;
-use Assetic\FilterManager;
 use Assetic\AssetWriter;
 use Assetic\Filter;
 use Assetic\Cache\FilesystemCache;
@@ -173,6 +172,7 @@ class Application
 			\Mocovi\Translator::setLanguage($language);
 		}
 		self::$javascripts = new \Assetic\Asset\AssetCollection();
+		// self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter('../yuicompressor.jar'));
 		self::$stylesheets = new \Assetic\Asset\AssetCollection();
 		self::$stylesheets->ensureFilter(new Filter\LessphpFilter()); // @todo make filters dynamic
 		self::$stylesheets->ensureFilter(new Filter\CssImportFilter());
