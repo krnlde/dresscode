@@ -86,7 +86,8 @@ class Gallery extends \Mocovi\Controller
 				, 'description'	=> pathinfo($images[$i], PATHINFO_FILENAME)
 				)
 			);
-			$controller->launch('get', $params, $this->node, $this->Application);
+			$this->addChild($controller);
+			$controller->launch('get', $params);
 		}
 	}
 

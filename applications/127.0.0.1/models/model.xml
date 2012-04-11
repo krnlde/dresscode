@@ -19,22 +19,26 @@
 			<fs:element>kernel32</fs:element>
 		</fs:keywords>
 		<root>
-			<div class="hero-unit">
+			<header class="hero-unit">
 				<headline><translate token="loremipsum" cut="20"/></headline>
 				<paragraph><translate token="loremipsum" cut="400"/></paragraph>
-			</div>
+			</header>
 			<article class="row">
-				<header class="span9">
-					<div class="page-header">
-						<headline>
-							<translate token="loremipsum" cut="15"/>
-						</headline>
-					</div>
+				<header class="span9 page-header">
+					<headline>
+						<translate token="loremipsum" cut="15"/>
+					</headline>
 				</header>
 				<section class="span9">
 					<paragraph>
 						<translate token="loremipsum"/>
 					</paragraph>
+					<code class="prettyprint linenums">
+<![CDATA[<html>
+	<asd/>
+	get();
+</html>]]>
+					</code>
 					<listing maximum="4">
 						<element>
 							<translate token="loremipsum" cut="30"/>
@@ -138,8 +142,10 @@
 							<translate token="loremipsum" cut="300"/>
 						</paragraph>
 						<gallery source="/gallery" maximum="50">
+							<!--
 							<filter require="/1[2-4]/"/>
 							<filter skip="/13/"/>
+							-->
 						</gallery>
 					</article>
 					<footer>
