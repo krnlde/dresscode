@@ -172,12 +172,12 @@ class Application
 			\Mocovi\Translator::setLanguage($language);
 		}
 		self::$javascripts = new \Assetic\Asset\AssetCollection();
+		// @todo make filters dynamic
 		// self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter('../yuicompressor.jar'));
 		self::$stylesheets = new \Assetic\Asset\AssetCollection();
-		self::$stylesheets->ensureFilter(new Filter\LessphpFilter()); // @todo make filters dynamic
 		self::$stylesheets->ensureFilter(new Filter\CssImportFilter());
-		self::$stylesheets->ensureFilter(new Filter\CssRewriteFilter());
-		self::$stylesheets->ensureFilter(new Filter\CssMinFilter());
+		self::$stylesheets->ensureFilter(new Filter\LessphpFilter());
+		// self::$stylesheets->ensureFilter(new Filter\CssMinFilter()); // @todo Bricks the twitter bootsrap css!!!
 		if (file_exists($bootstrap = $this->getPath()->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
 		{
 			require $bootstrap;
@@ -751,9 +751,11 @@ class Application
 	 * Setter for a stylesheet the current path ({@see getPath();}) is using.
 	 *
 	 * @param \Assetic\Asset\AssetInterface $asset
+	 * @param string $media Default: 'screen'
 	 * @return void
+	 * @todo implement $media
 	 */
-	public static function stylesheet(\Assetic\Asset\AssetInterface $asset)
+	public static function stylesheet(\Assetic\Asset\AssetInterface $asset, $media = 'screen')
 	{
 		self::$stylesheets->add($asset);
 	}

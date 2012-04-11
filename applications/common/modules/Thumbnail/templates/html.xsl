@@ -24,12 +24,16 @@
 			</xsl:choose>
 		</xsl:variable>
 		<!-- render image -->
-		<a href="{@source}" rel="lightbox[{@group}]" title="{@description}">
-			<img src="{$source}" alt="{@description}">
-				<xsl:copy-of select="@id"/>
-				<xsl:copy-of select="@class"/>
-			</img>
-		</a>
+		<ul class="thumbnails">
+			<li class="span3">
+				<a href="{@source}" rel="lightbox[{@group}]" title="{@description}" class="thumbnail">
+					<img src="{$source}" alt="{@description}">
+						<xsl:copy-of select="@id"/>
+						<xsl:copy-of select="@class"/>
+					</img>
+				</a>
+			</li>
+		</ul>
 		<!--<img src="/image.php?source={@source}&amp;orientation={@orientation}&amp;crop={@crop}" alt="{@description}" title="{@description}" />-->
 	</xsl:template>
 

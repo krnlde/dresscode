@@ -8,37 +8,44 @@
 	extension-element-prefixes="php">
 
 	<xsl:template match="input">
-		<xsl:if test="@label">
-			<label for="{@id}">
-				<xsl:value-of select="@label"/>
-			</label>
-		</xsl:if>
-		<input>
-			<xsl:copy-of select="@id"/>
-			<xsl:copy-of select="@class"/><!-- @todo see highlight-->
-			<xsl:copy-of select="@type"/>
-			<xsl:copy-of select="@name"/>
-			<xsl:copy-of select="@value"/>
-			<xsl:copy-of select="@title"/>
-			<xsl:copy-of select="@placeholder"/>
-			<xsl:copy-of select="@minlength"/>
-			<xsl:copy-of select="@maxlength"/>
-			<xsl:copy-of select="@pattern"/>
-			<xsl:if test="@required = 1">
-				<xsl:attribute name="required">required</xsl:attribute>
-			</xsl:if>
-			<xsl:if test="@readonly = 1">
-				<xsl:attribute name="readonly">readonly</xsl:attribute>
-			</xsl:if>
-			<xsl:if test="@disabled = 1">
-				<xsl:attribute name="disabled">disabled</xsl:attribute>
-			</xsl:if>
+		<div class="control-group">
 			<xsl:if test="@highlight = 1">
-				<xsl:attribute name="class">highlight</xsl:attribute><!-- @todo see class-->
-				<xsl:attribute name="style">border: 2px solid red;</xsl:attribute>
+				<xsl:attribute name="class">control-group error</xsl:attribute>
 			</xsl:if>
-		</input>
-		<br/><!-- temporary -->
+			<xsl:if test="@label">
+				<label class="control-label" for="{@id}">
+					<xsl:value-of select="@label"/>
+				</label>
+			</xsl:if>
+			<div class="controls">
+				<input>
+					<xsl:copy-of select="@id"/>
+					<xsl:copy-of select="@class"/><!-- @todo see highlight-->
+					<xsl:copy-of select="@type"/>
+					<xsl:copy-of select="@name"/>
+					<xsl:copy-of select="@value"/>
+					<xsl:copy-of select="@title"/>
+					<xsl:copy-of select="@placeholder"/>
+					<xsl:copy-of select="@minlength"/>
+					<xsl:copy-of select="@maxlength"/>
+					<xsl:copy-of select="@pattern"/>
+					<xsl:if test="@required = 1">
+						<xsl:attribute name="required">required</xsl:attribute>
+					</xsl:if>
+					<xsl:if test="@readonly = 1">
+						<xsl:attribute name="readonly">readonly</xsl:attribute>
+					</xsl:if>
+					<xsl:if test="@disabled = 1">
+						<xsl:attribute name="disabled">disabled</xsl:attribute>
+					</xsl:if>
+				</input>
+				<xsl:if test="@highlight = 1">
+					<span class="help-inline">
+						<xsl:value-of select="@title"/>
+					</span>
+				</xsl:if>
+			</div>
+		</div>
 	</xsl:template>
 
 </xsl:stylesheet>

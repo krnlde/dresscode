@@ -6,7 +6,7 @@ use \Assetic\Asset\StringAsset;
 
 class Root extends \Mocovi\Controller
 {
-	const DEFAULT_THEME = 'main';
+	const DEFAULT_THEME = 'base';
 	/**
 	 * You are able to define another "theme" for your website just by changing the CSS folder.
 	 *
@@ -55,7 +55,6 @@ class Root extends \Mocovi\Controller
 	public function setup()
 	{
 		$cssPool = $this->getCssPool();
-		$this->Application->stylesheet(new FileAsset('applications/common/assets/css/less/main-16px.css'));
 		if (!$this->theme)
 		{
 			$this->theme = self::DEFAULT_THEME;

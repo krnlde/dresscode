@@ -1,0 +1,16 @@
+@import "../../../common/assets/bootstrap/less/bootstrap.less";
+
+.pilcrow
+{
+	display: none;margin-left: .1em;
+}
+
+h1:hover .pilcrow,
+h2:hover .pilcrow,
+h3:hover .pilcrow,
+h4:hover .pilcrow,
+h5:hover .pilcrow,
+h6:hover .pilcrow,
+{
+	display: inline;
+}

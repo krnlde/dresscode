@@ -5,18 +5,13 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:template match="form">
-		<form method="{@method}">
+	<xsl:template match="search">
+		<div>
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
-			<fieldset>
-				<xsl:apply-templates/>
-			</fieldset>
-			<div class="form-actions">
-				<input type="submit" class="btn btn-primary"/>
-				<input type="reset" class="btn"/>
-			</div>
-		</form>
+			<h2>Search results:</h2>
+			<xsl:apply-templates/>
+		</div>
 	</xsl:template>
 
 </xsl:stylesheet>

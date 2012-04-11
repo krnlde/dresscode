@@ -6,8 +6,9 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="error">
-		<div class="error">
-			<h1>Error</h1>
+		<div class="alert alert-block alert-error">
+			<a class="close" data-dismiss="alert">×</a>
+			<h4 class="alert-heading">Error</h4>
 			<xsl:apply-templates/>
 		</div>
 	</xsl:template>

@@ -19,56 +19,19 @@
 			<fs:element>kernel32</fs:element>
 		</fs:keywords>
 		<root>
-			<header class="hero-unit">
-				<image source="http://lorempixel.com/896/420/technics">
-					<attribute name="description">
-						<translate token="loremipsum" cut="40"/>
-					</attribute>
-				</image>
-				<paragraph>
-					<image source="http://lorempixel.com/221/160/people">
-						<attribute name="description">moep</attribute>
-					</image>
-					<image source="http://lorempixel.com/221/160/technics"/>
-					<image source="http://lorempixel.com/221/160/nature"/>
-					<image source="http://lorempixel.com/221/160/transport"/>
-				</paragraph>
-			</header>
-			<article>
-				<header>
-					<headline>
-						<translate token="loremipsum" cut="15"/>
-					</headline>
-					<sessionstore>
-						<form jumpTo="/home/videos" method="get">
-							<input name="name" placeholder="Your Name" label="test" required="1" />
-							<input name="email" preset="email" placeholder="to@example.com" label="test" />
-							<input name="text" placeholder="Your Message" label="test" />
-						</form>
-					</sessionstore>
-					<link to="me@krnl.de"/>
-					<paragraph>
-						<translate token="DurationYears">
-							<attribute name="count">
-								<duration from="2013-12-24" format="y"/>
-							</attribute>
-						</translate>, <translate token="DurationMonths">
-							<attribute name="count">
-								<duration from="2013-12-24" format="m"/>
-							</attribute>
-						</translate> und <translate token="DurationDays">
-							<attribute name="count">
-								<duration from="2013-12-24" format="d"/>
-							</attribute>
-						</translate> (insgesamt <translate token="DurationDays">
-							<attribute name="count">
-								<duration from="2013-12-24" format="a"/>
-							</attribute>
-						</translate>) <element showFromDate="2013-12-24">seit dem </element><element showToDate="2013-12-24">bis zum </element> <time datetime="2013-12-24" format="d.m.Y"/>
-					</paragraph>
-					<toc/>
+			<div class="hero-unit">
+				<headline><translate token="loremipsum" cut="20"/></headline>
+				<paragraph><translate token="loremipsum" cut="400"/></paragraph>
+			</div>
+			<article class="row">
+				<header class="span9">
+					<div class="page-header">
+						<headline>
+							<translate token="loremipsum" cut="15"/>
+						</headline>
+					</div>
 				</header>
-				<section>
+				<section class="span9">
 					<paragraph>
 						<translate token="loremipsum"/>
 					</paragraph>
@@ -93,7 +56,7 @@
 						<thumbnail source="/gallery/auswahl-2.jpg"/>
 					</paragraph>
 					<protect require="valid-user">
-						<slider direction="left">
+						<slider direction="up">
 							<element>
 								<headline>Slide 1</headline>
 								<paragraph>
@@ -115,27 +78,31 @@
 						</slider>
 					</protect>
 				</section>
+				<aside class="span3">
+					<headline>Contents</headline>
+					<toc/>
+				</aside>
 			</article>
-			<footer>
-				<section>
+			<footer class="row">
+				<section class="span3">
 					<headline priority="4">Sitemap</headline>
 					<menu source="/">
 						<menuextension/>
 					</menu>
 				</section>
-				<section>
+				<section class="span3">
 					<headline priority="4">Interessanter Artikel</headline>
 					<paragraph><translate token="loremipsum" cut="300"/></paragraph>
-					<link href="">weiterlesen ...</link>
+					<link href="" class="btn">weiterlesen ...</link>
 				</section>
-				<section>
+				<section class="span3">
 					<headline priority="4">Anderer Artikel</headline>
 					<paragraph><translate token="loremipsum" cut="140"/></paragraph>
 				</section>
-				<section>
+				<section class="span3">
 					<headline priority="4">Interessanter Artikel</headline>
 					<paragraph><translate token="loremipsum" cut="200"/></paragraph>
-					<link href="">weiterlesen ...</link>
+					<link href="" class="btn">weiterlesen ...</link>
 				</section>
 			</footer>
 		</root>

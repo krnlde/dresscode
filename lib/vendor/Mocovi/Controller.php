@@ -140,8 +140,10 @@ abstract class Controller extends Observable
 	/**
 	 * @param \DomNode $sourceNode
 	 */
-	final public function __construct(\DomNode $sourceNode, $Application)
+	final public function __construct(\DomNode $sourceNode = null, $Application)
 	{
+		if (is_null($sourceNode))
+			$sourceNode = new \DomElement(strtolower($this->getName()));
 		$this->Reflection	= new \ReflectionClass($this);
 		$this->sourceNode	= $sourceNode;
 		$this->Application	= $Application;

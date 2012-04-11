@@ -6,17 +6,24 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="toc">
-		<ul>
-			<xsl:copy-of select="@id"/>
-			<xsl:copy-of select="@class"/>
-			<xsl:for-each select="element">
-				<li>
-					<a href="#{@id}">
-						<xsl:apply-templates/>
-					</a>
-				</li>
-			</xsl:for-each>
-		</ul>
+		<nav>
+			<ul class="nav nav-list well">
+				<xsl:copy-of select="@id"/>
+				<xsl:if test="@class">
+					<xsl:attribute name="class">
+						<xsl:text>nav nav-list well </xsl:text>
+						<xsl:value-of select="@class"/>
+					</xsl:attribute>
+				</xsl:if>
+				<xsl:for-each select="element">
+					<li>
+						<a href="#{@id}">
+							<xsl:apply-templates/>
+						</a>
+					</li>
+				</xsl:for-each>
+			</ul>
+		</nav>
 	</xsl:template>
 
 </xsl:stylesheet>

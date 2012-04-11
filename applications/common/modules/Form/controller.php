@@ -116,7 +116,10 @@ class Form extends \Mocovi\Controller
 		{
 			if (!$this->trigger('success', /*relatedTarget*/ null, /*data*/ $values)->isDefaultPrevented())
 			{
-				$this->Application->Response->Header->location($this->jumpTo);
+				if ($this->jumpTo)
+				{
+					$this->Application->Response->Header->location($this->jumpTo);
+				}
 			}
 		}
 	}
