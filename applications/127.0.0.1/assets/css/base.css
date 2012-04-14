@@ -1,8 +1,23 @@
 @import "../../../common/assets/bootstrap/less/bootstrap.less";
+@import "../../../common/assets/bootstrap/less/responsive.less";
+@import "../../../common/assets/bootstrap-font-awesome/less/font-awesome.less";
+
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.eot');
+	src: url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.woff') format('woff'),
+		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.ttf') format('truetype'),
+		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.svgz#FontAwesomeRegular') format('svg'),
+		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.svg#FontAwesomeRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
 
 .pilcrow
 {
-	display: none;margin-left: .1em;
+	display: none;
+	margin-left: .1em;
 }
 
 h1:hover .pilcrow,
@@ -13,4 +28,29 @@ h5:hover .pilcrow,
 h6:hover .pilcrow,
 {
 	display: inline;
+}
+
+button[type="submit"],
+button[type="submit"]:visited,
+button[type="submit"]:focus,
+button[type="submit"]:hover,
+button[type="submit"]:active {
+	.btn-primary;
+}
+
+
+article header {
+    .page-header;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    article header {
+        margin-left: 20px;
+    }
+}
+
+@media (min-width: 1200px) {
+    article header {
+        margin-left: 30px;
+    }
 }

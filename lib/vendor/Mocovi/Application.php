@@ -30,6 +30,8 @@ use Assetic\Cache\FilesystemCache;
 
 require_once('lib/vendor/CssMin/src/CssMin.php'); // @todo This class is very slow - it needs about 0.2 sec to load!!!!!!
 require_once('lib/vendor/Lessphp/lessc.inc.php');
+// require_once('lib/vendor/Minify/min/lib/JSMin.php');
+// require_once('lib/vendor/Minify/min/lib/JSMinPlus.php');
 
 /**
  * Handles HTTP requests and provides interfaces for all important HTTP methods.
@@ -173,12 +175,15 @@ class Application
 		}
 		self::$stylesheets = new \Assetic\Asset\AssetCollection();
 		self::$javascripts = new \Assetic\Asset\AssetCollection();
+		self::$stylesheets->ensureFilter(new Filter\CssRewriteFilter());
 		// self::$stylesheets->ensureFilter(new Filter\CssImportFilter()); // The Less Filter already does that
 		self::$stylesheets->ensureFilter(new Filter\LessphpFilter());
 		// if (!$_GET['debug'])
 		{
-			self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); //@todo
-			self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); //@todo
+			// self::$stylesheets->ensureFilter(new Filter\CssMinFilter()); // Bricks bootstrap css files!
+			// self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); // Slow as fuck
+			// self::$javascripts->ensureFilter(new Filter\JSMinFilter()); // Bricks everything!
+			// self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); // Slow as fuck
 		}
 		if (file_exists($bootstrap = $this->getPath()->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
 		{

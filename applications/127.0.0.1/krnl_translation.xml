@@ -41,4 +41,16 @@
 	<token name="Mocovi\Exception\Input\Required">
 		<translation lang="all">This value is required</translation>
 	</token>
+	<token name="button.submit">
+		<translation lang="de">Absenden</translation>
+		<translation lang="all">Submit</translation>
+	</token>
+	<token name="button.reset">
+		<translation lang="de">Zurücksetzen</translation>
+		<translation lang="all">Reset</translation>
+	</token>
+	<token name="TableOfContents">
+		<translation lang="de">Inhalte</translation>
+		<translation lang="all">Contents</translation>
+	</token>
 </root>

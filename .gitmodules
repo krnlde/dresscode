@@ -28,3 +28,6 @@
 [submodule "lib/vendor/CssMin"]
 	path = lib/vendor/CssMin
 	url = https://github.com/natxet/CssMin.git
+[submodule "applications/common/assets/bootstrap-font-awesome"]
+	path = applications/common/assets/bootstrap-font-awesome
+	url = https://github.com/FortAwesome/Font-Awesome.git

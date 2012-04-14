@@ -24,12 +24,13 @@
 				<paragraph><translate token="loremipsum" cut="400"/></paragraph>
 			</header>
 			<article class="row">
-				<header class="page-header">
+				<header>
 					<headline>
 						<translate token="loremipsum" cut="15"/>
+						<small> Test</small>
 					</headline>
 				</header>
-				<aside class="span3 pull-right">
+				<aside class="span3">
 					<toc/>
 				</aside>
 				<section class="span9">
@@ -58,25 +59,40 @@
 						<element>Test 4</element>
 						<element>Test 5</element>
 					</listing>
-					<thumbnail source="/gallery/auswahl-2.jpg"/>
+					<thumbnail source="/gallery/auswahl-2.jpg">
+						<headline priority="5"><translate token="loremipsum" cut="12" /></headline>
+						<paragraph>
+							<translate token="loremipsum" cut="150" />
+						</paragraph>
+						<button type="button" class="btn-primary">Weiterlesen</button>
+					</thumbnail>
+					<thumbnail source="/gallery/auswahl-2.jpg">
+						<headline priority="5">Teaser</headline>
+						<paragraph>
+							<translate token="loremipsum" cut="150" />
+						</paragraph>
+						<button type="button" class="btn-primary">Weiterlesen</button>
+					</thumbnail>
 					<paragraph class="well">
 						<translate token="loremipsum"/>
 					</paragraph>
 					<protect require="valid-user">
-						<tabs transition="fade" maximum="1">
-							<element>
+						<tabs transition="fade">
+							<element title="Moep">
+								<form method="get">
+									<input type="text" name="name" label="name" required="1"/>
+									<input type="text" name="name" label="name"/>
+									<input type="text" name="name" label="name"/>
+								</form>
+							</element>
+							<element title="Tab 1">
 								<headline>Slide 1</headline>
 								<paragraph>
 									<translate token="loremipsum" cut="370"/>
 								</paragraph>
 							</element>
 							<element>
-								<headline>Slide 2</headline>
-								<paragraph>
-									<translate token="loremipsum" cut="200"/>
-								</paragraph>
-							</element>
-							<element>
+								<attribute name="title"><translate token="loremipsum" cut="12"/></attribute>
 								<headline>Slide 3</headline>
 								<paragraph>
 									<translate token="loremipsum" cut="20"/>

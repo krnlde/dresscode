@@ -28,9 +28,21 @@
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
 			<li class="span3">
-				<a href="{@source}" rel="lightbox[{@group}]" title="{@description}" class="thumbnail">
-					<img src="{$source}" alt="{@description}"/>
-				</a>
+				<xsl:choose>
+					<xsl:when test="*">
+						<div class="thumbnail">
+							<img src="{$source}" alt="{@description}"/>
+							<div class="caption">
+								<xsl:apply-templates/>
+							</div>
+						</div>
+					</xsl:when>
+					<xsl:otherwise>
+						<a href="{@source}" rel="lightbox[{@group}]" title="{@description}" class="thumbnail">
+							<img src="{$source}" alt="{@description}"/>
+						</a>
+					</xsl:otherwise>
+				</xsl:choose>
 			</li>
 		</ul>
 		<!--<img src="/image.php?source={@source}&amp;orientation={@orientation}&amp;crop={@crop}" alt="{@description}" title="{@description}" />-->

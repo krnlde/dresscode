@@ -3,7 +3,9 @@
 <xsl:stylesheet
 	version="1.0"
 	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:php="http://php.net/xsl"
+	extension-element-prefixes="php">
 
 	<xsl:template match="toc">
 		<nav>
@@ -15,7 +17,9 @@
 						<xsl:value-of select="@class"/>
 					</xsl:attribute>
 				</xsl:if>
-				<li class="nav-header">Contents</li>
+				<li class="nav-header">
+					<xsl:value-of select="php:function('\Mocovi\Translator::translate', 'TableOfContents')"/>
+				</li>
 				<xsl:for-each select="element">
 					<li>
 						<a href="#{@id}">

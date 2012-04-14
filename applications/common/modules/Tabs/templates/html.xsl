@@ -19,7 +19,16 @@
 							<xsl:if test="position() = 1">
 								<xsl:attribute name="class">active</xsl:attribute>
 							</xsl:if>
-							<a href="#tab{position()}" data-toggle="tab"><xsl:value-of select="position()"/></a>
+							<a href="#tab{position()}" data-toggle="tab">
+								<xsl:choose>
+									<xsl:when test="@title">
+										<xsl:value-of select="@title"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="position()"/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</a>
 						</li>
 					</xsl:if>
 				</xsl:for-each>
@@ -29,7 +38,16 @@
 						<ul class="dropdown-menu">
 							<xsl:for-each select="*[position() &gt; $maximum]">
 								<li>
-									<a href="#tab{position()+$maximum}" data-toggle="tab"><xsl:value-of select="position()+$maximum"/></a>
+									<a href="#tab{position()+$maximum}" data-toggle="tab">
+										<xsl:choose>
+											<xsl:when test="@title">
+												<xsl:value-of select="@title"/>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:value-of select="position()+$maximum"/>
+											</xsl:otherwise>
+										</xsl:choose>
+									</a>
 								</li>
 							</xsl:for-each>
 						</ul>

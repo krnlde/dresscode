@@ -8,7 +8,7 @@ class Toc extends \Mocovi\Controller
 	 * @property
 	 * @var string
 	 */
-	public $xpath = '//article//*[not(name() = "footer")]//headline[@id]';
+	public $xpath = '//article//*[not(name() = "footer")]//headline[@id]/text()';
 
 	public function setup()
 	{
