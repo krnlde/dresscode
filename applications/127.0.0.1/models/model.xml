@@ -24,11 +24,14 @@
 				<paragraph><translate token="loremipsum" cut="400"/></paragraph>
 			</header>
 			<article class="row">
-				<header class="span9 page-header">
+				<header class="page-header">
 					<headline>
 						<translate token="loremipsum" cut="15"/>
 					</headline>
 				</header>
+				<aside class="span3 pull-right">
+					<toc/>
+				</aside>
 				<section class="span9">
 					<paragraph>
 						<translate token="loremipsum"/>
@@ -55,12 +58,12 @@
 						<element>Test 4</element>
 						<element>Test 5</element>
 					</listing>
-					<paragraph>
+					<thumbnail source="/gallery/auswahl-2.jpg"/>
+					<paragraph class="well">
 						<translate token="loremipsum"/>
-						<thumbnail source="/gallery/auswahl-2.jpg"/>
 					</paragraph>
 					<protect require="valid-user">
-						<slider direction="up">
+						<tabs transition="fade" maximum="1">
 							<element>
 								<headline>Slide 1</headline>
 								<paragraph>
@@ -79,13 +82,9 @@
 									<translate token="loremipsum" cut="20"/>
 								</paragraph>
 							</element>
-						</slider>
+						</tabs>
 					</protect>
 				</section>
-				<aside class="span3">
-					<headline>Contents</headline>
-					<toc/>
-				</aside>
 			</article>
 			<footer class="row">
 				<section class="span3">
@@ -113,21 +112,27 @@
 
 		<fs:file name="videos" alias="Youtube &amp; Vimeo Videos" methods="get" author="Kai Dorschner">
 			<root>
-				<article>
-					<headline>Lorem</headline>
-					<paragraph>
-						<translate token="loremipsum"/>
-					</paragraph>
-					<paragraph>
-						Text $title, $path, $path
-					</paragraph>
-					<youtube videoId="JtF7z_DZdVk"/>
-					<vimeo videoId="28571605"/>
-					<vimeo videoId="37512694"/>
-					<vimeo videoId="21762564"/>
+				<header class="hero-unit">
+					<headline><translate token="loremipsum" cut="20"/></headline>
+					<paragraph><translate token="loremipsum" cut="400"/></paragraph>
+				</header>
+				<article class="row">
+					<section class="span9">
+						<headline>Lorem</headline>
+						<paragraph>
+							<translate token="loremipsum"/>
+						</paragraph>
+						<paragraph>
+							Text $title, $path, $path
+						</paragraph>
+						<youtube videoId="JtF7z_DZdVk"/>
+						<vimeo videoId="28571605"/>
+						<vimeo videoId="37512694"/>
+						<vimeo videoId="21762564"/>
+					</section>
 				</article>
 				<footer>
-					<section>
+					<section class="span3">
 						<headline priority="4">Sitemap</headline>
 						<menu source="/" />
 					</section>

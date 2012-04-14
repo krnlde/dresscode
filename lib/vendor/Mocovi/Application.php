@@ -153,12 +153,12 @@ class Application
 	public function __construct(\DirectoryIterator $applicationPool, array $options = array())
 	{
 		session_start();
-		self::$pool					= $applicationPool;
-		$this->Request				= Request::getInstance();
-		$this->Response				= Response::getInstance();
-		$this->name					= isset($options['name']) ? $options['name'] : $this->Request->domain;
-		$this->Router				= new Router($this, /* $options */ $_SERVER);
-		self::$format				= self::DEFAULTFORMAT;
+		self::$pool		= $applicationPool;
+		$this->Request	= Request::getInstance();
+		$this->Response	= Response::getInstance();
+		$this->name		= isset($options['name']) ? $options['name'] : $this->Request->domain;
+		$this->Router	= new Router($this, $_SERVER);
+		self::$format	= self::DEFAULTFORMAT;
 		$this->resetDom();
 		Module::initialize($this);
 		$this->View		= Module::getView();
@@ -171,13 +171,15 @@ class Application
 		{
 			\Mocovi\Translator::setLanguage($language);
 		}
-		self::$javascripts = new \Assetic\Asset\AssetCollection();
-		// @todo make filters dynamic
-		// self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter('../yuicompressor.jar'));
 		self::$stylesheets = new \Assetic\Asset\AssetCollection();
-		self::$stylesheets->ensureFilter(new Filter\CssImportFilter());
+		self::$javascripts = new \Assetic\Asset\AssetCollection();
+		// self::$stylesheets->ensureFilter(new Filter\CssImportFilter()); // The Less Filter already does that
 		self::$stylesheets->ensureFilter(new Filter\LessphpFilter());
-		// self::$stylesheets->ensureFilter(new Filter\CssMinFilter()); // @todo Bricks the twitter bootsrap css!!!
+		// if (!$_GET['debug'])
+		{
+			self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); //@todo
+			self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); //@todo
+		}
 		if (file_exists($bootstrap = $this->getPath()->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
 		{
 			require $bootstrap;

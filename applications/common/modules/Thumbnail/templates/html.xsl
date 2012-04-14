@@ -25,12 +25,11 @@
 		</xsl:variable>
 		<!-- render image -->
 		<ul class="thumbnails">
+			<xsl:copy-of select="@id"/>
+			<xsl:copy-of select="@class"/>
 			<li class="span3">
 				<a href="{@source}" rel="lightbox[{@group}]" title="{@description}" class="thumbnail">
-					<img src="{$source}" alt="{@description}">
-						<xsl:copy-of select="@id"/>
-						<xsl:copy-of select="@class"/>
-					</img>
+					<img src="{$source}" alt="{@description}"/>
 				</a>
 			</li>
 		</ul>

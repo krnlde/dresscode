@@ -23,7 +23,7 @@
 
 				<link rel="canonical" href="{@canonical}"/>
 				<link rel="stylesheet" type="text/css" href="{php:function('\Mocovi\Application::dumpStylesheets')}"/>
-				<link rel="stylesheet" type="text/css" href="applications/common/assets/bootstrap/docs/assets/css/bootstrap-responsive.css"/>
+				<!-- <link rel="stylesheet" type="text/css" href="applications/common/assets/bootstrap/docs/assets/css/bootstrap-responsive.css"/> -->
 
 				<!-- HTML5shiv enables HTML5 elements in old browsers, like IE < 9 -->
 				<xsl:comment><![CDATA[[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]]]></xsl:comment>

@@ -14,6 +14,7 @@ $loader = new GenericLoader(__DIR__.'/lib/vendor/');
 $loader->addNamespace('Mocovi');
 $loader->addNamespace('Assetic', __DIR__.'/lib/vendor/Assetic/src');
 $loader->addNamespace('CssMin', __DIR__.'/lib/vendor/CssMin/src');
+$loader->addNamespace('Symfony', __DIR__.'/lib/vendor/Symfony/src');
 $loader->register();
 
 require 'options.php';
