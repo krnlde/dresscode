@@ -514,7 +514,7 @@ class Application
 			$this->statusCode = 500; // Internal Server Error
 			$controller = Module::createControllerFromException($e);
 			$controller->launch('get', $params, $this->dom, $this);
-			$this->Response->end($this->View->transform($this->dom)->to(self::$defaultFormat), $this->statusCode);
+			$this->Response->end($this->View->transform($this->dom)->to(self::DEFAULTFORMAT), $this->statusCode);
 		}
 	}
 

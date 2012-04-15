@@ -5,8 +5,7 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:php="http://php.net/xsl"
-	extension-element-prefixes="php"
-	>
+	extension-element-prefixes="php">
 
 	<xsl:template match="thumbnail">
 		<xsl:variable name="source">
@@ -27,25 +26,29 @@
 		<ul class="thumbnails">
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
-			<li class="span3">
-				<xsl:choose>
-					<xsl:when test="*">
-						<div class="thumbnail">
-							<img src="{$source}" alt="{@description}"/>
-							<div class="caption">
-								<xsl:apply-templates/>
-							</div>
-						</div>
-					</xsl:when>
-					<xsl:otherwise>
-						<a href="{@source}" rel="lightbox[{@group}]" title="{@description}" class="thumbnail">
-							<img src="{$source}" alt="{@description}"/>
-						</a>
-					</xsl:otherwise>
-				</xsl:choose>
-			</li>
+			<xsl:apply-templates select="." mode="inner"/>
 		</ul>
 		<!--<img src="/image.php?source={@source}&amp;orientation={@orientation}&amp;crop={@crop}" alt="{@description}" title="{@description}" />-->
+	</xsl:template>
+
+	<xsl:template match="thumbnail" mode="inner">
+		<li class="span3">
+			<xsl:choose>
+				<xsl:when test="*">
+					<div class="thumbnail">
+						<img src="{@source}" alt="{@description}"/>
+						<div class="caption">
+							<xsl:apply-templates/>
+						</div>
+					</div>
+				</xsl:when>
+				<xsl:otherwise>
+					<a href="{@source}" rel="lightbox[{@group}]" title="{@description}" class="thumbnail">
+						<img src="{$source}" alt="{@description}"/>
+					</a>
+				</xsl:otherwise>
+			</xsl:choose>
+		</li>
 	</xsl:template>
 
 </xsl:stylesheet>

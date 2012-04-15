@@ -8,7 +8,7 @@ class Toc extends \Mocovi\Controller
 	 * @property
 	 * @var string
 	 */
-	public $xpath = '//article//*[not(name() = "footer")]//headline[@id]/text()';
+	public $xpath = '//article//*[name()="header" or name()="section"]/headline[@id]';
 
 	public function setup()
 	{
@@ -19,8 +19,8 @@ class Toc extends \Mocovi\Controller
 			$xpath	= new \DOMXPath($dom);
 			foreach ($xpath->query($self->xpath) as $headline)
 			{
-				$node->appendChild($element = $dom->createElement('element', $headline->nodeValue));
-				$element->setAttribute('id', urlencode(trim($headline->nodeValue)));
+				$node->appendChild($element = $dom->createElement('element', $xpath->query('./text()', $headline)->item(0)->nodeValue));
+				$element->setAttribute('id', urlencode(trim($headline->getAttribute('id'))));
 			}
 		});
 	}

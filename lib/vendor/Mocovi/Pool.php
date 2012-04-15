@@ -46,7 +46,6 @@ class Pool
 	public function __construct($extension = 'php')
 	{
 		$this->extension = $extension;
-
 	}
 
 	/**
@@ -72,28 +71,34 @@ class Pool
 	 */
 	public function find($name)
 	{
+		if (empty($this->cache))
+		{
+			$this->initialize();
+		}
 		if (isset($this->cache[$name]))
 		{
 			return $this->cache[$name]; // Return already used control from cache.
 		}
+		return null; // not found
+	}
 
+	public function initialize()
+	{
 		for ($i = (count($this->pools) - 1); $i >= 0; $i--) // Search backwards (last added pool is checked first!)
 		{
 			foreach ($this->pools[$i] as $element)
 			{
 				if (!$element->isDot())
 				{
-					$path		= $element->getPathName();
-					$filename	= $name.($this->extension ? '.'.$this->extension : '');
-					// @todo DO NOT USE "$element->getFileName() === $filename" here. There seem to be a bug on Ubuntu which will fail loading the correct controller.
-					if (basename($element->getPathName()) === $filename) // break condition
+					$path				= $element->getPathName();
+					$extension			= '.'.pathinfo($path, PATHINFO_EXTENSION); // $element->getExtension() // Works only in PHP >= 5.3.6
+					$name				= $element->getBaseName($extension);
+					if (!array_key_exists($name, $this->cache))
 					{
-						$this->cache[$name] = $path; // Once it is found in one pool it is cached.
-						return $path;
+						$this->cache[$name] = $path;
 					}
 				}
 			}
 		}
-		return null; // not found
 	}
 }

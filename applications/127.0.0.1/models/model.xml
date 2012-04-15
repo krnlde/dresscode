@@ -27,7 +27,7 @@
 				<header>
 					<headline>
 						<translate token="loremipsum" cut="15"/>
-						<small> Test</small>
+						<small> dolor sit amet</small>
 					</headline>
 				</header>
 				<aside class="span3">
@@ -59,20 +59,50 @@
 						<element>Test 4</element>
 						<element>Test 5</element>
 					</listing>
-					<thumbnail source="/gallery/auswahl-2.jpg">
-						<headline priority="5"><translate token="loremipsum" cut="12" /></headline>
-						<paragraph>
-							<translate token="loremipsum" cut="150" />
-						</paragraph>
-						<button type="button" class="btn-primary">Weiterlesen</button>
-					</thumbnail>
-					<thumbnail source="/gallery/auswahl-2.jpg">
-						<headline priority="5">Teaser</headline>
-						<paragraph>
-							<translate token="loremipsum" cut="150" />
-						</paragraph>
-						<button type="button" class="btn-primary">Weiterlesen</button>
-					</thumbnail>
+					<thumbnails>
+						<thumbnail source="/gallery/auswahl-9.jpg">
+							<headline priority="5"><translate token="loremipsum" cut="12" /></headline>
+							<paragraph>
+								<translate token="loremipsum" cut="150" />
+							</paragraph>
+							<button type="button" class="btn-primary">Weiterlesen</button>
+						</thumbnail>
+						<thumbnail source="/gallery/auswahl-5.jpg">
+							<headline priority="5">Teaser</headline>
+							<paragraph>
+								<translate token="loremipsum" cut="150" />
+							</paragraph>
+							<button type="button" class="btn-primary">Weiterlesen</button>
+						</thumbnail>
+						<thumbnail source="/gallery/auswahl-10.jpg">
+							<headline priority="5">Teaser</headline>
+							<paragraph>
+								<translate token="loremipsum" cut="150" />
+							</paragraph>
+							<button type="button" class="btn-primary">Weiterlesen</button>
+						</thumbnail>
+						<thumbnail source="/gallery/auswahl-10.jpg">
+							<headline priority="5">Teaser</headline>
+							<paragraph>
+								<translate token="loremipsum" cut="150" />
+							</paragraph>
+							<button type="button" class="btn-primary">Weiterlesen</button>
+						</thumbnail>
+						<thumbnail source="/gallery/auswahl-9.jpg">
+							<headline priority="5"><translate token="loremipsum" cut="12" /></headline>
+							<paragraph>
+								<translate token="loremipsum" cut="150" />
+							</paragraph>
+							<button type="button" class="btn-primary">Weiterlesen</button>
+						</thumbnail>
+						<thumbnail source="/gallery/auswahl-5.jpg">
+							<headline priority="5">Teaser</headline>
+							<paragraph>
+								<translate token="loremipsum" cut="150" />
+							</paragraph>
+							<button type="button" class="btn-primary">Weiterlesen</button>
+						</thumbnail>
+					</thumbnails>
 					<paragraph class="well">
 						<translate token="loremipsum"/>
 					</paragraph>
@@ -80,9 +110,9 @@
 						<tabs transition="fade">
 							<element title="Moep">
 								<form method="get">
-									<input type="text" name="name" label="name" required="1"/>
-									<input type="text" name="name" label="name"/>
-									<input type="text" name="name" label="name"/>
+									<input type="text" name="name" label="Name" required="1"/>
+									<input name="email" preset="email" label="E-Mail" required="1"/>
+									<input type="text" name="text" label="Text"/>
 								</form>
 							</element>
 							<element title="Tab 1">

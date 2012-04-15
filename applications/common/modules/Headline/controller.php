@@ -9,6 +9,8 @@ class Headline extends \Mocovi\Controller
 	 */
 	protected $priority = 1;
 
+	protected static $used_ids = array();
+
 	public function get(array $params = array())
 	{
 		parent::get($params);
@@ -24,7 +26,14 @@ class Headline extends \Mocovi\Controller
 
 		if (!$this->id) // Set an ID with maxlength 32, if none is set.
 		{
-			$this->id = substr(urlencode(trim($this->node->nodeValue)), 0, 32);
+			$candidate	= substr(urlencode(trim($this->node->nodeValue)), 0, 32);
+			$tmp		= $candidate;
+			$i			= 1;
+			while (in_array($tmp, self::$used_ids))
+			{
+				$tmp = $candidate.'_'.$i++;
+			}
+			self::$used_ids[] = $this->id = $tmp;
 		}
 	}
 }
