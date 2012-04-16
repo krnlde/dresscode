@@ -65,14 +65,20 @@
 							<paragraph>
 								<translate token="loremipsum" cut="150" />
 							</paragraph>
-							<button type="button" class="btn-primary">Weiterlesen</button>
+							<button type="button" class="btn-primary" onclick="alert('Hier kann eine Funktion ausgeführt werden');">Weiterlesen</button>
 						</thumbnail>
 						<thumbnail source="/gallery/auswahl-5.jpg">
 							<headline priority="5">Teaser</headline>
 							<paragraph>
 								<translate token="loremipsum" cut="150" />
 							</paragraph>
-							<button type="button" class="btn-primary">Weiterlesen</button>
+							<button type="button" class="btn-primary">
+								<attribute name="onclick">
+									alert('Translation test: <translate token="loremipsum" cut="40"/>');
+									boing();
+								</attribute>
+								Weiterlesen
+							</button>
 						</thumbnail>
 						<thumbnail source="/gallery/auswahl-10.jpg">
 							<headline priority="5">Teaser</headline>

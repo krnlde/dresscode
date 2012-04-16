@@ -6,6 +6,7 @@ class Toc extends \Mocovi\Controller
 
 	/**
 	 * @property
+	 * @hidden
 	 * @var string
 	 */
 	public $xpath = '//article//*[name()="header" or name()="section"]/headline[@id]';

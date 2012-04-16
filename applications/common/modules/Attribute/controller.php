@@ -11,6 +11,7 @@ class Attribute extends \Mocovi\Controller
 
 	public function get(array $params = array())
 	{
-		$this->parent->setProperty($this->name, $this->node->nodeValue);
+		$this->parent->setProperty($this->name, trim(preg_replace('/\s{2,}/', ' ', $this->node->nodeValue))); // @todo test this! This might strip WANTED whitespaces.
+		$this->deleteNode();
 	}
 }
