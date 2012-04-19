@@ -38,19 +38,18 @@ button[type="submit"]:active {
 	.btn-primary;
 }
 
-
 article header {
-    .page-header;
+	.page-header;
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
-    article header {
-        margin-left: 20px;
-    }
+	article header {
+		margin-left: 20px;
+	}
 }
 
 @media (min-width: 1200px) {
-    article header {
-        margin-left: 30px;
-    }
+	article header {
+		margin-left: 30px;
+	}
 }

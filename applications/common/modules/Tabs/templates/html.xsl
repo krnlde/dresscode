@@ -9,9 +9,14 @@
 		<xsl:variable name="id" select="@id"/>
 		<xsl:variable name="maximum" select="@maximum"/>
 		<xsl:variable name="transition" select="@transition"/>
-		<div>
+		<div class="tabbable">
 			<xsl:copy-of select="@id"/>
-			<xsl:copy-of select="@class"/>
+			<xsl:if test="@class">
+				<xsl:attribute name="class">
+					<xsl:text>tabbable </xsl:text>
+					<xsl:value-of select="@class"/>
+				</xsl:attribute>
+			</xsl:if>
 			<ul class="nav nav-tabs">
 				<xsl:for-each select="*">
 					<xsl:if test="position() &lt;= $maximum">

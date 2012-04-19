@@ -25,7 +25,7 @@ class Xpath extends \Mocovi\Controller\Plain
 			}
 			if ($result)
 			{
-				$self->setText(is_object($result) ? $result->item(0)->nodeValue : $result);
+				$self->setText(is_object($result) ? ($result->length > 0 ? $result->item(0)->nodeValue : '[null]') : $result);
 			}
 			else
 			{

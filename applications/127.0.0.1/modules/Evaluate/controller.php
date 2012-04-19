@@ -11,10 +11,16 @@ class Evaluate extends \Mocovi\Controller
 	}
 	public function get(array $params = array())
 	{
+		ob_start();
 		if (@eval($this->sourceNode->nodeValue) === false)
 		{
 			$error = (object)error_get_last();
 			$this->errorHandler($error->type, $error->message, $error->file, $error->line);
+		}
+		$value = ob_get_clean();
+		if ($value)
+		{
+			$this->node->appendChild($this->dom->createTextNode($value));
 		}
 	}
 

@@ -16,6 +16,12 @@ class Form extends \Mocovi\Controller
 	protected $method = 'post';
 
 	/**
+	 * @property
+	 * @var boolean
+	 */
+	protected $multipart = false;
+
+	/**
 	 * @var array
 	 */
 	protected $methods = array

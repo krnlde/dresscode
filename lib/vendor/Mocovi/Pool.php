@@ -58,6 +58,7 @@ class Pool
 	{
 		//if ($directory->isDir())
 		{
+			$this->cache = array();
 			$this->pools[] = $directory;
 		}
 		return $this;

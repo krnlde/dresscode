@@ -16,14 +16,13 @@
 				<title><xsl:value-of select="@title" /></title>
 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-				<meta name="keywords" content="{@keywords}" />
-				<meta name="description" content="{php:function('trim', string(//article[1]/*[not(name(.) = 'header')]//paragraph[1]))}" />
-				<meta name="author" content="{@author}" />
+				<meta name="keywords" content="{@keywords}"/>
+				<meta name="description" content="{php:function('trim', string(//article[1]/*[not(name(.) = 'header')]//paragraph[1]))}"/>
+				<meta name="author" content="{@author}"/>
 				<meta name="date" content="{php:function('date', 'c')}"/>
 
 				<link rel="canonical" href="{@canonical}"/>
-				<link rel="stylesheet" type="text/css" href="{php:function('\Mocovi\Application::dumpStylesheets')}"/>
-				<!-- <link rel="stylesheet" type="text/css" href="applications/common/assets/bootstrap/docs/assets/css/bootstrap-responsive.css"/> -->
+				<link rel="stylesheet" type="text/css" href="{php:function('\Mocovi\Application::dumpStylesheets')}" media="all"/>
 
 				<!-- HTML5shiv enables HTML5 elements in old browsers, like IE < 9 -->
 				<xsl:comment><![CDATA[[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]]]></xsl:comment>

@@ -1,6 +1,8 @@
 <?php
 namespace Mocovi\Controller;
 
+use \Assetic\Asset\FileAsset;
+
 class Input extends \Mocovi\Controller
 {
 	/**
@@ -167,6 +169,17 @@ class Input extends \Mocovi\Controller
 					$this->setProperty($property, $value);
 				}
 			}
+		}
+
+		if ($this->type === 'file')
+		{
+			$this->closest('Form')->setProperty('multipart', true);
+		}
+
+		if ($this->type === 'file' && $this->class === 'fancy')
+		{
+			$this->Application->stylesheet(new FileAsset('applications/common/assets/css/jquery.fancyupload.css'));
+			$this->Application->javascript(new FileAsset('applications/common/assets/js/jquery.fancyupload.js'));
 		}
 	}
 

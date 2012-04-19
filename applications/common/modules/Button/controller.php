@@ -56,7 +56,8 @@ class Button extends \Mocovi\Controller
 				(
 					'
 					$("#'.$this->id.'").click(function (event) {
-						var $id = "'.$this->id.'";
+						var $this	= $(this);
+						var $id		= "'.$this->id.'";
 						'.$this->onclick.'
 					});
 					'
