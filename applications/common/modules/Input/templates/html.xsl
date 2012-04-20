@@ -39,6 +39,9 @@
 						<xsl:attribute name="disabled">disabled</xsl:attribute>
 					</xsl:if>
 				</input>
+				<xsl:if test="@type='file' and contains(@class, 'fancy')">
+					<xsl:comment>Here happens some javascript-magic on the clientside</xsl:comment>
+				</xsl:if>
 				<xsl:if test="@highlight = 1">
 					<span class="help-inline">
 						<xsl:value-of select="@title"/>

@@ -13,6 +13,7 @@
 			<xsl:copy-of select="@class"/>
 			<xsl:if test="@multipart = 1">
 				<xsl:attribute name="enctype">multipart/form-data</xsl:attribute>
+				<xsl:attribute name="method">post</xsl:attribute>
 			</xsl:if>
 			<fieldset>
 				<xsl:apply-templates/>

@@ -780,6 +780,7 @@ abstract class Controller extends Observable
 	 */
 	protected static function cast($value, $type)
 	{
+		$value = trim($value);
 		switch (strtolower($type))
 		{
 			case 'int':

@@ -31,3 +31,6 @@
 [submodule "applications/common/assets/bootstrap-font-awesome"]
 	path = applications/common/assets/bootstrap-font-awesome
 	url = https://github.com/FortAwesome/Font-Awesome.git
+[submodule "applications/common/assets/js/jquery-validation"]
+	path = applications/common/assets/js/jquery-validation
+	url = https://github.com/jzaefferer/jquery-validation.git

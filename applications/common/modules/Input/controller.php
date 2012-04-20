@@ -176,7 +176,7 @@ class Input extends \Mocovi\Controller
 			$this->closest('Form')->setProperty('multipart', true);
 		}
 
-		if ($this->type === 'file' && $this->class === 'fancy')
+		if ($this->type === 'file' && in_array('fancy', explode(' ', $this->class)))
 		{
 			$this->Application->stylesheet(new FileAsset('applications/common/assets/css/jquery.fancyupload.css'));
 			$this->Application->javascript(new FileAsset('applications/common/assets/js/jquery.fancyupload.js'));

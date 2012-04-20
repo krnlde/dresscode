@@ -1,6 +1,9 @@
 <?php
 namespace Mocovi\Controller;
 
+use \Assetic\Asset\FileAsset;
+use \Assetic\Asset\StringAsset;
+
 class Form extends \Mocovi\Controller
 {
 	/**
@@ -52,6 +55,12 @@ class Form extends \Mocovi\Controller
 		{
 			$this->method = $this->methods[count($this->methods) - 1];
 		}
+		$this->Application->javascript(new FileAsset('applications/common/assets/js/jquery-validation/jquery.validate.js'));
+		$this->Application->javascript(new StringAsset('
+			 $("form").validate({
+			 	// custom stuff here
+			 });')
+		);
 	}
 
 	public function get(array $params = array())

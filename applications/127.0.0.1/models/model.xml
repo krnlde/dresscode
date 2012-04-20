@@ -10,7 +10,7 @@
 	defaultLanguage="de"
 	>
 
-	<fs:file name="index" invisible="1" redirect="/home"/>
+	<fs:file name="index" redirect="/home" invisible="1"/>
 
 	<fs:file name="home" aliasToken="Home" methods="get" author="Kai Dorschner">
 		<fs:keywords>
@@ -37,11 +37,60 @@
 					<paragraph>
 						<translate token="loremipsum"/>
 					</paragraph>
-					<code class="prettyprint linenums">
-<![CDATA[<html>
-	<asd/>
-	get();
-</html>]]>
+					<code class="prettyprint linenums" language="css">
+<![CDATA[/* Pretty printing styles. Used with prettify.js. */
+
+/* SPAN elements with the classes below are added by prettyprint. */
+.pln { color: #000 }  /* plain text */
+
+@media screen {
+  .str { color: #080 }  /* string content */
+  .kwd { color: #008 }  /* a keyword */
+  .com { color: #800 }  /* a comment */
+  .typ { color: #606 }  /* a type name */
+  .lit { color: #066 }  /* a literal value */
+  /* punctuation, lisp open bracket, lisp close bracket */
+  .pun, .opn, .clo { color: #660 }
+  .tag { color: #008 }  /* a markup tag name */
+  .atn { color: #606 }  /* a markup attribute name */
+  .atv { color: #080 }  /* a markup attribute value */
+  .dec, .var { color: #606 }  /* a declaration; a variable name */
+  .fun { color: red }  /* a function name */
+}
+
+/* Use higher contrast and text-weight for printable form. */
+@media print, projection {
+  .str { color: #060 }
+  .kwd { color: #006; font-weight: bold }
+  .com { color: #600; font-style: italic }
+  .typ { color: #404; font-weight: bold }
+  .lit { color: #044 }
+  .pun, .opn, .clo { color: #440 }
+  .tag { color: #006; font-weight: bold }
+  .atn { color: #404 }
+  .atv { color: #060 }
+}
+
+/* Put a border around prettyprinted code snippets. */
+pre.prettyprint { padding: 2px; border: 1px solid #888 }
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */
+li.L0,
+li.L1,
+li.L2,
+li.L3,
+li.L5,
+li.L6,
+li.L7,
+li.L8 {  }
+/* Alternate shading for lines */
+li.L1,
+li.L3,
+li.L5,
+li.L7,
+li.L9 { background: #eee }
+]]>
 					</code>
 					<listing maximum="4">
 						<element>
@@ -65,7 +114,7 @@
 							<paragraph>
 								<translate token="loremipsum" cut="150" />
 							</paragraph>
-							<button type="button" class="btn-primary" onclick="alert('Hier kann eine Funktion ausgeführt werden');">Weiterlesen</button>
+							<button type="button" class="btn-primary" onclick="alert('Hier kann eine Funktion ausgeführt werden');">Weiterlesen [click me]</button>
 						</thumbnail>
 						<thumbnail source="/gallery/auswahl-5.jpg">
 							<headline priority="5">Teaser</headline>
@@ -75,9 +124,8 @@
 							<button type="button" class="btn-primary">
 								<attribute name="onclick">
 									alert('Translation test: <translate token="loremipsum" cut="40"/>');
-									boing();
 								</attribute>
-								Weiterlesen
+								Weiterlesen [click me]
 							</button>
 						</thumbnail>
 						<thumbnail source="/gallery/auswahl-10.jpg">
@@ -142,7 +190,7 @@
 				</section>
 			</article>
 			<footer class="row">
-				<section class="span3">
+				<section class="span3" xml:id="sitemap1">
 					<headline priority="4">Sitemap</headline>
 					<menu source="/">
 						<menuextension/>
@@ -151,7 +199,7 @@
 				<section class="span3">
 					<headline priority="4">Interessanter Artikel</headline>
 					<paragraph><translate token="loremipsum" cut="300"/></paragraph>
-					<link href="" class="btn">weiterlesen ...</link>
+					<link to="/home/videos" class="btn">weiterlesen ...</link>
 				</section>
 				<section class="span3">
 					<headline priority="4">Anderer Artikel</headline>
@@ -160,7 +208,7 @@
 				<section class="span3">
 					<headline priority="4">Interessanter Artikel</headline>
 					<paragraph><translate token="loremipsum" cut="200"/></paragraph>
-					<link href="" class="btn">weiterlesen ...</link>
+					<link to="/home/videos/gallery" class="btn">weiterlesen ...</link>
 				</section>
 			</footer>
 		</root>
@@ -186,11 +234,8 @@
 						<vimeo videoId="21762564"/>
 					</section>
 				</article>
-				<footer>
-					<section class="span3">
-						<headline priority="4">Sitemap</headline>
-						<menu source="/" />
-					</section>
+				<footer class="row">
+					<xref:reference ref="sitemap1"/>
 				</footer>
 			</root>
 
@@ -208,11 +253,8 @@
 							-->
 						</gallery>
 					</article>
-					<footer>
-						<section>
-							<headline priority="4">Sitemap</headline>
-							<menu source="/" />
-						</section>
+					<footer class="row">
+						<xref:reference ref="sitemap1"/>
 					</footer>
 				</root>
 			</fs:file>
@@ -233,11 +275,8 @@
 					</dbreader>
 				</paragraph>
 			</article>
-			<footer>
-				<section>
-					<headline priority="4">Sitemap</headline>
-					<menu source="/" />
-				</section>
+			<footer class="row">
+				<xref:reference ref="sitemap1"/>
 			</footer>
 		</root>
 	</fs:file>
@@ -264,30 +303,23 @@
 				<evaluate>
 					- // error
 				</evaluate>
-				<time>
-					2011-02-01
-				</time>
+				<time>2011-02-01</time>
 			</article>
-			<footer>
-				<section>
-					<headline priority="4">Sitemap</headline>
-					<menu source="/" />
-				</section>
+			<footer class="row">
+				<xref:reference ref="sitemap1"/>
 			</footer>
 		</root>
 	</fs:file>
 
 	<fs:file name="404" invisible="1" statusCode="404">
 		<root>
-			<article>
-				<header>
-					<headline>404 - File not found</headline>
-				</header>
-				<section>
-					<paragraph>The requested file "$path" was not found.</paragraph>
-					<menu source="/" />
-				</section>
-			</article>
+			<header class="hero-unit">
+				<headline>404 - File not found</headline>
+				<paragraph>The requested file <span class="badge badge-error">$path</span> was not found.</paragraph>
+			</header>
+			<footer class="row">
+				<xref:reference ref="sitemap1"/>
+			</footer>
 		</root>
 	</fs:file>
 
