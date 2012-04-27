@@ -85,6 +85,7 @@ abstract class Controller extends Observable
 	 */
 	protected $children = array();
 
+	protected $hasError = false;
 
 	/* Controller Properties */
 
@@ -207,26 +208,29 @@ abstract class Controller extends Observable
 		if ($this->showtime())
 		{
 			$this->setup(); // user method to initialize controller
-			$this->load();
-			try
+			if (!$this->hasError)
 			{
-				foreach ($this->children as $child)
+				$this->load();
+				try
 				{
-					if (!$this->trigger('launchChild', $child)->isDefaultPrevented())
+					foreach ($this->children as $child)
 					{
-						$child->launch($method, $params);
+						if (!$this->trigger('launchChild', $child)->isDefaultPrevented())
+						{
+							$child->launch($method, $params);
+						}
 					}
+					$this->$method($params); // -> HTTP Method
+					$this->adoptProperties();
 				}
-				$this->$method($params); // -> HTTP Method
-				$this->adoptProperties();
-			}
-			catch (\Mocovi\Exception\Input $e)
-			{
-				throw $e;
-			}
-			catch (\Exception $e)
-			{
-				$this->error($e);
+				catch (\Mocovi\Exception\Input $e)
+				{
+					throw $e;
+				}
+				catch (\Exception $e)
+				{
+					$this->error($e);
+				}
 			}
 			$this->trigger('ready');
 		}
@@ -250,11 +254,23 @@ abstract class Controller extends Observable
 	/**
 	 * Returns the directory contain this controller.
 	 *
+	 * @deprecated Can be done via __DIR__ in each module.
 	 * @return \DirectoryIterator
 	 */
-	public function getPath()
+	// public function getPath()
+	// {
+	// 	return \Mocovi\Module::find($this->getName())->getPath();
+	// }
+
+	/**
+	 * Returns the frontend path to the current Module.
+	 *
+	 * @return string Frontend path to the current Module.
+	 */
+	public function getFrontendPath()
 	{
-		return \Mocovi\Module::find($this->getName());
+		$backendPath = str_replace('\\', '/', \Mocovi\Module::find($this->getName())->getPath());
+		return \Mocovi\Application::basePath().preg_replace('/^.+(\/applications\/.+)$/', '$1', $backendPath);
 	}
 
 	// @todo Callbacks as middleware like in http://expressjs.com/guide.html#route-middleware
@@ -432,11 +448,18 @@ abstract class Controller extends Observable
 	}
 
 	/**
-	 * @return string XPath leading to the current {@see $sourceNode}.
+	 * @return string XPath leading to the current {@see $node}.
 	 */
 	public function getXPath()
 	{
-		return $this->sourceNode->getNodePath();
+		if ($this->node)
+		{
+			return $this->node->getNodePath();
+		}
+		else
+		{
+			return $this->sourceNode->getNodePath();
+		}
 	}
 
 	/**
@@ -480,7 +503,7 @@ abstract class Controller extends Observable
 				return $parent;
 			}
 		}
-		return new Controller\Collection();
+		return null;
 	}
 
 	/**
@@ -525,6 +548,11 @@ abstract class Controller extends Observable
 	{
 		if (!$this->trigger('replaceNode', $newNode)->isDefaultPrevented())
 		{
+			if (is_null($this->node))
+			{
+				$this->load();
+			}
+
 			if ($this->node instanceof \DomNode)
 			{
 				try
@@ -609,6 +637,7 @@ abstract class Controller extends Observable
 	 */
 	public function error(\Exception $e)
 	{
+		$this->hasError = true;
 		if (!$this->trigger('error', $e)->isDefaultPrevented())
 		{
 			$controller = \Mocovi\Module::createControllerFromException($e);

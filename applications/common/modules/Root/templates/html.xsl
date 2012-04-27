@@ -36,6 +36,7 @@
 					So I put javascripts at the bottom.
 					source: http://developer.yahoo.com/performance/rules.html#js_bottom
 				-->
+				<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"><xsl:text> </xsl:text></script>
 				<script type="text/javascript" src="{php:function('\Mocovi\Application::dumpJavascripts')}"><xsl:text> </xsl:text></script>
 			</body>
 		</html>

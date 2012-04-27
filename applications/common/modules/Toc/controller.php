@@ -21,7 +21,7 @@ class Toc extends \Mocovi\Controller
 			foreach ($xpath->query($self->xpath) as $headline)
 			{
 				$node->appendChild($element = $dom->createElement('element', $xpath->query('./text()', $headline)->item(0)->nodeValue));
-				$element->setAttribute('id', urlencode(trim($headline->getAttribute('id'))));
+				$element->setAttribute('id', $headline->getAttribute('id'));
 			}
 		});
 	}

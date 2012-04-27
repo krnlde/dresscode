@@ -64,9 +64,9 @@ class Root extends \Mocovi\Controller
 			$this->Application->stylesheet(new FileAsset($theme));
 		}
 
-		$this->Application->javascript(new FileAsset('applications/common/assets/js/jquery.min.js')); // or new HttpAsset('http://code.jquery.com/jquery.min.js');
 		$Application = $this->Application;
 		$this->on('ready', function ($event) use ($Application) { // @todo you can use $this in anonymous functions directly in PHP 5.4
+			$Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-alert.js')); // @todo temporarily
 			$Application->javascript(new FileAsset('applications/common/assets/js/external-links.js')); // load this script at last!
 		});
 	}

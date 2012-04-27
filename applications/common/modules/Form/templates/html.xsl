@@ -8,7 +8,7 @@
 	extension-element-prefixes="php">
 
 	<xsl:template match="form">
-		<form method="{@method}">
+		<form action="" method="{@method}">
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
 			<xsl:if test="@multipart = 1">
@@ -19,7 +19,7 @@
 				<xsl:apply-templates/>
 			</fieldset>
 			<div class="form-actions">
-				<button type="submit" class="btn">
+				<button type="submit" class="btn btn-primary">
 					<i class="icon-ok"><xsl:text> </xsl:text></i>
 					<xsl:value-of select="php:function('\Mocovi\Translator::translate', 'button.submit')"/>
 				</button>

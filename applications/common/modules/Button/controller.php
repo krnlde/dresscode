@@ -1,6 +1,7 @@
 <?php
 namespace Mocovi\Controller;
 
+use \Assetic\Asset\FileAsset;
 use \Assetic\Asset\StringAsset;
 
 class Button extends \Mocovi\Controller
@@ -30,6 +31,12 @@ class Button extends \Mocovi\Controller
 
 	protected static $initialize;
 
+	public function setup()
+	{
+		$this->Application->javascript(new FileAsset(__DIR__.'/assets/js/spin.min.js')); // @todo temporarily
+		$this->Application->javascript(new FileAsset(__DIR__.'/assets/js/jquery.spin.js')); // @todo temporarily
+	}
+
 	public function get(array $params = array())
 	{
 		if ($this->onclick)
@@ -49,20 +56,26 @@ class Button extends \Mocovi\Controller
 					'
 				);
 			}
+			$self			= $this;
+			$Application	= $this->Application;
+			$onclick		= $this->onclick;
+			$Application->javascript(self::$initialize);
+			$this->closest('Root')->on('ready', function ($event) use ($self, $Application, $onclick) { // @todo "use ($self)"" is obsolote in PHP > 5.4
+				$Application->javascript
+				(	new StringAsset
+					(
+						'
+						$("#'.$self->getProperty('id').'").click(function (event) {
+							var $this	= $(this);
+							var $id		= "'.$self->getProperty('id').'";
+							var $xpath	= "'.$self->getXPath().'";
 
-			$this->Application->javascripts( array
-			(	self::$initialize // include only one time
-			,	new StringAsset
-				(
-					'
-					$("#'.$this->id.'").click(function (event) {
-						var $this	= $(this);
-						var $id		= "'.$this->id.'";
-						'.$this->onclick.'
-					});
-					'
-				)
-			));
+							'.$onclick.'
+						});
+						'
+					)
+				);
+			});
 		}
 	}
 }

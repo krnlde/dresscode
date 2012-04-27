@@ -37,6 +37,7 @@
 					<paragraph>
 						<translate token="loremipsum"/>
 					</paragraph>
+					<headline priority="2" class="page-header">Here comes some CSS code<small> which is nice</small></headline>
 					<code class="prettyprint linenums" language="css">
 <![CDATA[/* Pretty printing styles. Used with prettify.js. */
 
@@ -92,6 +93,7 @@ li.L7,
 li.L9 { background: #eee }
 ]]>
 					</code>
+					<headline priority="2" class="page-header">You like listings?</headline>
 					<listing maximum="4">
 						<element>
 							<translate token="loremipsum" cut="30"/>
@@ -108,6 +110,7 @@ li.L9 { background: #eee }
 						<element>Test 4</element>
 						<element>Test 5</element>
 					</listing>
+					<headline priority="2" class="page-header">What about Thumbnails...</headline>
 					<thumbnails>
 						<thumbnail source="/gallery/auswahl-9.jpg">
 							<headline priority="5"><translate token="loremipsum" cut="12" /></headline>
@@ -160,9 +163,12 @@ li.L9 { background: #eee }
 					<paragraph class="well">
 						<translate token="loremipsum"/>
 					</paragraph>
+					<headline priority="2" class="page-header">OK, I got a form for you!</headline>
 					<protect require="valid-user">
-						<button type="button" onclick="$('#myTabs .nav-tabs .active').prev().children('a').tab('show');">&lt; Previous</button>
-						<button type="button" onclick="$('#myTabs .nav-tabs .active').next().children('a').tab('show');">Next &gt;</button>
+						<section class="well">
+							<button type="button" onclick="$('#myTabs .nav-tabs .active').prev().children('a').tab('show');">&lt; Previous</button>
+							<button type="button" onclick="$('#myTabs .nav-tabs .active').next().children('a').tab('show');">Next &gt;</button>
+						</section>
 						<form method="get" class="form-horizontal">
 							<tabs id="myTabs" transition="fade">
 								<element title="Moep">
@@ -263,17 +269,48 @@ li.L9 { background: #eee }
 
 	</fs:file>
 
-	<fs:file name="test" aliasToken="Testfile" methods="get" author="Kai Dorschner">
+	<fs:file name="todolist" alias="Todolist" methods="get" author="Kai Dorschner">
 		<root>
 			<article>
-				<headline xml:id="reference1">Cross Reference Test</headline>
-				<paragraph>
-					<translate token="loremipsum"/>
-					<dbreader use="vehicleadministration.vehicles" limit="2" orderby="price" direction="ASC">
-						<headline><dbfield name="make"/> <dbfield name="model"/></headline>
-						<paragraph><dbfield name="price"/> €</paragraph>
-					</dbreader>
-				</paragraph>
+				<headline >XPath-Test</headline>
+				<form method="get" class="form-horizontal">
+					<input name="some_name" type="text" id="xpath1" label="XPath" placeholder="Set XPath" value="(//headline)[1]"/>
+					<button type="submit">
+						<attribute name="onclick" trim="false">
+							event.preventDefault();
+							$this.prop('disabled', true);
+							$spinner = $('#results').spin('small');
+							var xpath = $('#xpath1').val();
+							if (xpath)
+							{
+								setTimeout(function () {
+								$.ajax('', {
+									cache:false, // trim test
+									context:this,
+									headers:{
+										x_xpath:xpath
+									}
+								})
+								.done(function(data) {
+									$('#results').append($(data));
+								}).error(function(jqXHR, textStatus, errorThrown) {
+									$('#results').append($(jqXHR.responseText));
+									console.log(jqXHR);
+									console.log(textStatus);
+									console.log(errorThrown);
+								}).complete(function () {
+									$this.prop('disabled', false);
+									$spinner.spin(false);
+								});
+								}, 2000);
+							}
+						</attribute>
+						Execute XPath
+					</button>
+					<headline priority="2">Results:</headline>
+					<section class="well" id="results"></section>
+				</form>
+				<mediaplayer source="/gallery/video.mp4"/>
 			</article>
 			<footer class="row">
 				<xref:reference ref="sitemap1"/>

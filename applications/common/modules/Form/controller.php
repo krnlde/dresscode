@@ -42,9 +42,54 @@ class Form extends \Mocovi\Controller
 	 */
 	protected $inputs;
 
+	/**
+	 * @var \Mocovi\Pool
+	 */
+	protected static $Pool;
 
 	public function setup()
 	{
+		// $this->Application->javascript(new FileAsset('applications/common/assets/js/jquery-validation/jquery.validate.js'));
+		// if (is_null(self::$Pool))
+		// {
+		// 	self::$Pool = new \Mocovi\Pool('js');
+		// 	self::$Pool->add(new \DirectoryIterator('applications/common/assets/js/jquery-validation/localization/'));
+		// }
+		// if ($localization = self::$Pool->find('messages_'.\Mocovi\Translator::getLanguage()))
+		// {
+		// 	$this->Application->javascript(new FileAsset($localization));
+		// }
+		// $this->Application->javascript(new StringAsset('/* This comes from '.__FILE__.' */
+		// 	$("form").validate({
+		// 		debug: true,
+		// 		errorElement: "span",
+		// 		errorClass: "error",
+		// 		validClass: "success",
+		// 		errorPlacement: function(error, element) {
+		// 			error.addClass("help-inline");
+		// 			var proxy = element.closest(".fileProxy");
+		// 			if (proxy.length) { // if is fileproxy (fancy file upload)
+		// 				proxy.append(error);
+		// 			} else {
+		// 				error.insertAfter(element);
+		// 			}
+		// 		},
+		// 		unhighlight: function(element, errorClass, validClass) {
+		// 			if (element.type === "radio") {
+		// 				this.findByName(element.name).closest(".control-group").removeClass(errorClass).addClass(validClass);
+		// 			} else {
+		// 				$(element).closest(".control-group").removeClass(errorClass).addClass(validClass);
+		// 			}
+		// 		},
+		// 		highlight: function(element, errorClass, validClass) {
+		// 			if (element.type === "radio") {
+		// 				this.findByName(element.name).closest(".control-group").removeClass(validClass).addClass(errorClass);
+		// 			} else {
+		// 				$(element).closest(".control-group").removeClass(validClass).addClass(errorClass);
+		// 			}
+		// 		}
+		// 	});')
+		// );
 		if (strlen($this->jumpTo) > 0 && $this->jumpTo[0] === '/')
 		{
 			$this->jumpTo = \Mocovi\Application::basePath().$this->jumpTo;
@@ -55,12 +100,8 @@ class Form extends \Mocovi\Controller
 		{
 			$this->method = $this->methods[count($this->methods) - 1];
 		}
-		$this->Application->javascript(new FileAsset('applications/common/assets/js/jquery-validation/jquery.validate.js'));
-		$this->Application->javascript(new StringAsset('
-			 $("form").validate({
-			 	// custom stuff here
-			 });')
-		);
+
+		// @todo implement routine to check if a submit button exists.
 	}
 
 	public function get(array $params = array())

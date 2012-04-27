@@ -405,7 +405,7 @@ class Application
 			$controller			= Module::createControllerFromNode($rootController);
 			$controller->launch('get', $params);
 
-			// $this->Request->Header->x_xpath = './/headline'; // @debug
+			// $this->Request->Header->x_xpath = '/root/article/form/button'; // @debug
 			if (isset($this->Request->Header->x_xpath))
 			{
 				$query		= $this->Request->Header->x_xpath;

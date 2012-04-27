@@ -152,7 +152,12 @@ class Input extends \Mocovi\Controller
 		}
 
 		$Input	= \Mocovi\Input::getInstance();
-		$method	= $this->closest('Form')->getProperty('method'); // @todo is this the best solution?
+		if (!($form = $this->closest('Form')))
+		{
+			$this->error(new \Mocovi\Exception(get_class($this).' must be in a Form.'));
+			return;
+		}
+		$method	= $form->getProperty('method'); // @todo is this the best solution?
 		$params	= $Input->$method;
 		if (array_key_exists($this->name, $params))
 		{

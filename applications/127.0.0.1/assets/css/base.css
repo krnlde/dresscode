@@ -107,14 +107,8 @@
 	}
 }
 
-button[type="submit"] {
-	&,
-	&:visited,
-	&:focus,
-	&:hover,
-	&:active {
-		.btn-primary;
-	}
+a[href^="http"]:after {
+	content: " \21D2";
 }
 
 article header {
@@ -133,6 +127,6 @@ article header {
 	}
 }
 
-footer {
+footer section {
 	padding-bottom: 2em;
 }
