@@ -2,7 +2,6 @@
 
 <xsl:stylesheet
 	version="1.0"
-	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:php="http://php.net/xsl"
 	extension-element-prefixes="php">
@@ -16,16 +15,21 @@
 				<title><xsl:value-of select="@title" /></title>
 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-				<meta name="keywords" content="{@keywords}"/>
+				<xsl:if test="string-length(@keywords) &gt; 0">
+					<meta name="keywords" content="{@keywords}"/>
+				</xsl:if>
 				<meta name="description" content="{php:function('trim', string(//article[1]/*[not(name(.) = 'header')]//paragraph[1]))}"/>
-				<meta name="author" content="{@author}"/>
+				<xsl:if test="string-length(@author) &gt; 0">
+					<meta name="author" content="{@author}"/>
+				</xsl:if>
 				<meta name="date" content="{php:function('date', 'c')}"/>
 
 				<link rel="canonical" href="{@canonical}"/>
 				<link rel="stylesheet" type="text/css" href="{php:function('\Mocovi\Application::dumpStylesheets')}" media="all"/>
 
 				<!-- HTML5shiv enables HTML5 elements in old browsers, like IE < 9 -->
-				<xsl:comment><![CDATA[[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]]]></xsl:comment>
+				<!-- obsolete since jQuery 1.7 -->
+				<!--xsl:comment><![CDATA[[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]]]></xsl:comment-->
 			</head>
 			<body>
 				<div class="container">
