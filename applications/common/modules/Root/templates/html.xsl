@@ -37,6 +37,11 @@
 					source: http://developer.yahoo.com/performance/rules.html#js_bottom
 				-->
 				<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"><xsl:text> </xsl:text></script>
+				<script type="text/javascript">
+					<xsl:text disable-output-escaping="yes">window.jQuery || document.write('&lt;script type="text/javascript" src="</xsl:text>
+					<xsl:value-of select="$assets"/>
+					<xsl:text disable-output-escaping="yes">/js/jquery.min.js"&gt;&lt;\/script&gt;');</xsl:text>
+				</script>
 				<script type="text/javascript" src="{php:function('\Mocovi\Application::dumpJavascripts')}"><xsl:text> </xsl:text></script>
 			</body>
 		</html>
