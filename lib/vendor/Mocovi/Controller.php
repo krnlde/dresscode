@@ -462,6 +462,11 @@ abstract class Controller extends Observable
 		}
 	}
 
+	private function isTypeOf(\Mocovi\Controller $controller, $name)
+	{
+		return ($controller instanceof $name) || (strtolower($controller->getName()) === strtolower($name));
+	}
+
 	/**
 	 * Find child controllers.
 	 *
@@ -473,12 +478,30 @@ abstract class Controller extends Observable
 		return new Controller\Collection($this->_find($name));
 	}
 
+	/**
+	 * Finds a single child controllers.
+	 *
+	 * @param string $name Searched Wanted child controller
+	 * @return \Mocovi\Controller Matching controller
+	 */
+	public function findOne($name)
+	{
+		foreach ($this->children as $child)
+		{
+			if ($this->isTypeOf($child, $name))
+			{
+				return $child;
+			}
+		}
+		return null;
+	}
+
 	protected function _find($name)
 	{
 		$matches = array();
 		foreach ($this->children as $child)
 		{
-			if (strtolower($child->getName()) === strtolower($name))
+			if ($this->isTypeOf($child, $name))
 			{
 				$matches[] = $child;
 			}
@@ -498,7 +521,7 @@ abstract class Controller extends Observable
 		$parent = $this;
 		while ($parent = $parent->getParent())
 		{
-			if (strtolower($parent->getName()) === strtolower($name))
+			if ($this->isTypeOf($parent, $name))
 			{
 				return $parent;
 			}

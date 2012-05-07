@@ -23,6 +23,7 @@
 					<xsl:copy-of select="@name"/>
 					<xsl:copy-of select="@value"/>
 					<xsl:copy-of select="@title"/>
+					<xsl:copy-of select="@caption"/>
 					<xsl:copy-of select="@placeholder"/>
 					<xsl:copy-of select="@minlength"/>
 					<xsl:copy-of select="@maxlength"/>

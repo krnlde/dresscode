@@ -31,12 +31,6 @@ class Button extends \Mocovi\Controller
 
 	protected static $initialize;
 
-	public function setup()
-	{
-		$this->Application->javascript(new FileAsset(__DIR__.'/assets/js/spin.min.js')); // @todo temporarily
-		$this->Application->javascript(new FileAsset(__DIR__.'/assets/js/jquery.spin.js')); // @todo temporarily
-	}
-
 	public function get(array $params = array())
 	{
 		if ($this->onclick)

@@ -48,6 +48,14 @@ class Root extends \Mocovi\Controller
 
 	/**
 	 * @property
+	 * @hideIfEmpty
+	 * @var string
+	 */
+	protected $keywords;
+
+
+	/**
+	 * @property
 	 * @var string
 	 */
 	protected $path;
@@ -64,24 +72,24 @@ class Root extends \Mocovi\Controller
 			$this->Application->stylesheet(new FileAsset($theme));
 		}
 
+		$this->canonical	=$this->Application->Request->scheme.'://'.$this->Application->getName().($this->Application->Request->port ? ':'.$this->Application->Request->port : '').$this->Application->basePath().$this->Application->Request->path;
+		$this->language		= \Mocovi\Translator::getLanguage();
+		if ($this->Application->file->getAttribute('author'))
+		{
+			$this->author	= $this->Application->file->getAttribute('author');
+		}
+		$this->title		= $this->Application->file->getAttribute('alias') ?: $this->Application->file->getAttribute('name'); // @todo test if the title is provided everytime!
+		$this->domain		= $this->Application->getName();
+		$this->path			= $this->Application->Request->path;
+		$this->modified		= $this->Application->Model->lastModified($this->path);
+		$this->keywords		= implode(',', $this->Application->Model->keywords($this->path, $this->language));
+
+		$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-alert.js')); // @todo temporarily
+
 		$Application = $this->Application;
 		$this->on('ready', function ($event) use ($Application) { // @todo you can use $this in anonymous functions directly in PHP 5.4
-			$Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-alert.js')); // @todo temporarily
 			$Application->javascript(new FileAsset('applications/common/assets/js/external-links.js')); // load this script at last!
 		});
-	}
-
-	public function get(array $params = array())
-	{
-		$this->canonical	= $params['scheme'].'://'.$params['domain'].($params['port'] ? ':'.$params['port'] : '').$this->Application->basePath().$params['path'];
-		$this->language		= \Mocovi\Translator::getLanguage();
-		$this->author		= isset($params['author']) ? $params['author'] : '[unknown]';
-		$this->title		= isset($params['title']) ? $params['title'] : '[no title provided]';
-		$this->modified		= isset($params['modified']) ? $params['modified'] : null;
-		$this->domain		= isset($params['domain']) ? $params['domain'] : null;
-		$this->path			= isset($params['path']) ? $params['path'] : null;
-		$this->node->setAttribute('keywords', implode(',', $this->Application->Model->keywords($this->path, $this->language)));
-		parent::get($params);
 	}
 
 	protected function getCssPool()

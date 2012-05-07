@@ -5,9 +5,7 @@
 @import "../../../common/assets/bootstrap/less/variables.less"; // Modify this for custom colors, font-sizes, etc
 
 
-
-@import "../less/variables.less"; // customized variables (overrides)
-
+@import "../../../common/assets/bootstrap/less/../less/variables.less"; // customized variables (overrides)
 
 
 @import "../../../common/assets/bootstrap/less/mixins.less";
@@ -49,8 +47,7 @@
 
 // Components: Misc
 @import "../../../common/assets/bootstrap/less/thumbnails.less";
-@import "../../../common/assets/bootstrap/less/labels.less";
-@import "../../../common/assets/bootstrap/less/badges.less";
+@import "../../../common/assets/bootstrap/less/labels-badges.less";
 @import "../../../common/assets/bootstrap/less/progress-bars.less";
 @import "../../../common/assets/bootstrap/less/accordion.less";
 @import "../../../common/assets/bootstrap/less/carousel.less";
@@ -58,7 +55,6 @@
 
 // Utility classes
 @import "../../../common/assets/bootstrap/less/utilities.less"; // Has to be last to override when necessary
-
 
 @import "../../../common/assets/bootstrap/less/responsive.less";
 @import "../../../common/assets/bootstrap-font-awesome/less/font-awesome.less";

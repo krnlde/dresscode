@@ -10,7 +10,7 @@ class Form extends \Mocovi\Controller
 	 * @property
 	 * @var string
 	 */
-	protected $jumpTo;
+	protected $jumpTo = '.';
 
 	/**
 	 * @property
@@ -23,6 +23,24 @@ class Form extends \Mocovi\Controller
 	 * @var boolean
 	 */
 	protected $multipart = false;
+
+	/**
+	 * @property
+	 * @var boolean
+	 */
+	protected $ajax = false;
+
+	/**
+	 * @property
+	 * @hidden
+	 * @var string
+	 */
+	protected $onsubmit;
+
+	/**
+	 * @var \Mocovi\Controller
+	 */
+	public $context;
 
 	/**
 	 * @var array
@@ -41,6 +59,8 @@ class Form extends \Mocovi\Controller
 	 * @var array of \Mocovi\Controller\Input
 	 */
 	protected $inputs;
+
+	protected static $initialize;
 
 	/**
 	 * @var \Mocovi\Pool
@@ -90,9 +110,57 @@ class Form extends \Mocovi\Controller
 		// 		}
 		// 	});')
 		// );
-		if (strlen($this->jumpTo) > 0 && $this->jumpTo[0] === '/')
+
+		if ($this->ajax)
 		{
-			$this->jumpTo = \Mocovi\Application::basePath().$this->jumpTo;
+			$this->Application->javascript(new FileAsset('applications/common/assets/js/spin.min.js'));
+			$this->Application->javascript(new FileAsset('applications/common/assets/js/jquery.spin.js'));
+
+			if (!$this->onsubmit)
+			{
+				$this->onsubmit = '
+					event.preventDefault();
+					var $inputs = $this.find(":input");
+					var $data = $this.serializeObject(); // attention! custom method
+					$inputs.prop("disabled", true);
+					$spinner = $context.spin("medium"); // make the size dynamic
+					$.ajax("", {
+						cache: false,
+						context: $context,
+						type: "'.strtoupper($this->method).'",
+						data: $data,
+						headers: {
+							x_xpath: "'.$this->context->getXpath().'/*[position() = last()]" // returns the newest element immediately
+						}
+					})
+					.done(function(data) {
+						// @todo Maybe some custom code here from $this->done?
+						$context.append($(data));
+						$this[0].reset();
+					}).error(function(jqXHR, textStatus, errorThrown) {
+						// @todo Maybe some custom code here from $this->error?
+						console.log(jqXHR);
+						console.log(textStatus);
+						console.log(errorThrown);
+					}).complete(function (jqXHR, textStatus) {
+						// @todo Maybe some custom code here from $this->complete?
+						$inputs.prop("disabled", false);
+						$spinner.spin(false);
+					});
+				';
+			}
+		}
+
+		if (strlen($this->jumpTo) > 0)
+		{
+			if ($this->jumpTo[0] === '/')
+			{
+				$this->jumpTo = \Mocovi\Application::basePath().$this->jumpTo;
+			}
+			elseif($this->jumpTo[0] === '.')
+			{
+				$this->jumpTo = substr_replace($this->jumpTo, \Mocovi\Application::basePath().$this->Application->Request->path, 0, 1);
+			}
 		}
 		$this->Input	= \Mocovi\Input::getInstance();
 		$this->inputs	= $this->find('Input');
@@ -106,6 +174,77 @@ class Form extends \Mocovi\Controller
 
 	public function get(array $params = array())
 	{
+		if ($this->onsubmit)
+		{
+			if (!$this->id)
+			{
+				$this->id = $this->generateId();
+			}
+
+			if (is_null(self::$initialize))
+			{
+				self::$initialize = new StringAsset
+				(
+					'
+					jQuery.fn.serializeObject = function()
+					{
+						var arrayData, objectData;
+						arrayData	= this.serializeArray();
+						objectData	= {};
+						$.each(arrayData, function() {
+							var value;
+							if (this.value != null)
+							{
+								value = this.value;
+							}
+							else
+							{
+								value = "";
+							}
+							if (objectData[this.name] != null)
+							{
+								if (!objectData[this.name].push)
+								{
+									objectData[this.name] = [objectData[this.name]];
+								}
+								objectData[this.name].push(value);
+							}
+							else
+							{
+								objectData[this.name] = value;
+							}
+						});
+						return objectData;
+					};
+
+					var $basepath	= "'.\Mocovi\Application::basePath().'";
+					var $name		= "'.$this->getName().'";
+					'.($this->context ? 'var $context	= $("#'.$this->context->getProperty('id').'");' : '').'
+					'
+				);
+			}
+			$self			= $this;
+			$Application	= $this->Application;
+			$onsubmit		= $this->onsubmit;
+			$Application->javascript(self::$initialize);
+			$this->closest('Root')->on('ready', function ($event) use ($self, $Application, $onsubmit) { // @todo "use ($self)"" is obsolote in PHP > 5.4
+				$Application->javascript
+				(	new StringAsset
+					(
+						'
+						$("#'.$self->getProperty('id').'").submit(function (event) {
+							var $this	= $(this);
+							var $id		= "'.$self->getProperty('id').'";
+							var $xpath	= "'.$self->getXPath().'";
+
+							'.$onsubmit.'
+						});
+						'
+					)
+				);
+			});
+		}
+
 		if ($this->method === 'get' && count($this->Input->get) > 0)
 		{
 			try
@@ -133,6 +272,7 @@ class Form extends \Mocovi\Controller
 	 *
 	 * If one input type validation check fails an "error" event will be triggered.
 	 *
+	 * @return void
 	 * @triggers success
 	 * @triggers error
 	 */
@@ -168,13 +308,14 @@ class Form extends \Mocovi\Controller
 			inputs inside this form and the count of the received values are matching.
 			Otherwise it's assumed that this is not the correct form.
 		*/
+			echo $this->jumpTo;
 		if (count($values) === $this->inputs->length)
 		{
 			if (!$this->trigger('success', /*relatedTarget*/ null, /*data*/ $values)->isDefaultPrevented())
 			{
 				if ($this->jumpTo)
 				{
-					$this->Application->Response->Header->location($this->jumpTo);
+					$this->Application->Response->Header->location($this->jumpTo, $this->Application->statusCode = 303); // 303 See Other
 				}
 			}
 		}

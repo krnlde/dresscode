@@ -69,12 +69,12 @@ class Router
 		$this->Application->setFormat($this->Request->format);
 		if (strlen($path) <= 1)
 		{
-			$this->Response->redirect($this->Application->defaultRoute(), 307); // 301 = Moved Permanently, 307 = Temporary Redirect
+			$this->Response->redirect($this->Application->defaultRoute(), 307); // 301 = Moved Permanently (recommended in production), 307 = Temporary Redirect
 		}
 		if ($rawPath[strlen($rawPath) - 1] === '/') // if last character is '/', which is not allowed because of duplicate content
 		{
 			$basepath = Application::basePath();
-			$this->Response->redirect($basepath.$path.(Application::getFormat() !== Application::DDEFAULTFORMAT ? '.'.Application::getFormat() : ''), 301);
+			$this->Response->redirect($basepath.$path.(Application::getFormat() !== Application::DEFAULTFORMAT ? '.'.Application::getFormat() : ''), 301);
 		}
 
 		$this->Response->Header->contentType(Application::getFormat(), 'UTF-8'); // @todo obsolete in PHP 5.4
@@ -83,22 +83,22 @@ class Router
 		switch (strtolower($this->Request->method))
 		{
 			case 'post':
-				$this->Application->post($path, $this->Input->post);
+				$this->Application->post($path, $this->Input->post); // Posts contents which are handled inside the resource.
 			break;
 			case 'put':
-				$this->Application->put($path, $this->Input->put);
+				$this->Application->put($path, $this->Input->put); // creates a new or overwrites an existing resource.
 			break;
 			case 'delete':
-				$this->Application->delete($path);
+				$this->Application->delete($path); // Deletes a resource.
 			break;
 			case 'options':
-				$this->Application->options($path);
+				$this->Application->options($path); // Returns options for this resource.
 			break;
 			case 'head':
-				$this->Application->head($path, $this->Input->get);
+				$this->Application->head($path, $this->Input->get); // Gets headers for a resource.
 			break;
 			default:
-				$this->Application->get($path, $this->Input->get);
+				$this->Application->get($path, $this->Input->get); // Gets the resource.
 			break;
 		}
 	}

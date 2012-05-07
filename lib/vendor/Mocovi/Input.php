@@ -40,7 +40,7 @@ class Input
 		unset($this->get['path']);
 		unset($this->get['debug']);
 		$this->post	= $_POST;
-		// @todo put
+		parse_str(@file_get_contents('php://input'), $this->put);
 	}
 
 	public static function getInstance()

@@ -83,6 +83,13 @@ class Application
 	public $file;
 
 	/**
+	 * HTTP status code
+	 *
+	 * @var integer
+	 */
+	public $statusCode = 200;
+
+	/**
 	 * Output format.
 	 *
 	 * @var string
@@ -118,13 +125,6 @@ class Application
 	 * @var \DomDocument
 	 */
 	protected $dom;
-
-	/**
-	 * HTTP status code
-	 *
-	 * @var integer
-	 */
-	protected $statusCode = 200;
 
 	/**
 	 * Defines the folder where the compiled assets will be stored.
@@ -337,17 +337,10 @@ class Application
 	 */
 	public function head($path, array $params = array())
 	{
-		$params['method']	= $this->Request->method;
-		$params['scheme']	= $this->Request->scheme;
-		$params['domain']	= $this->name;
-		$params['port']		= $this->Request->port;
-		$params['path']		= $this->Request->path;
-		$params['format']	= self::$format;
 		try
 		{
 			$this->file			= $this->Model->read($path);
 			$mtime				= $this->Model->lastModified($path);
-			$params['modified']	= $mtime;
 
 			// handle client side cache
 			if (strtotime($mtime) <= strtotime($this->Request->if_modified_since))
@@ -356,7 +349,7 @@ class Application
 			}
 			else
 			{
-				$this->Response->Header->lastModified(strtotime($mtime));
+				// $this->Response->Header->lastModified(strtotime($mtime));
 				// if (!isset($this->Request->Header->cache_control) || $this->Request->Header->cache_control !== 'no-cache')
 				// {
 				// 	$this->Response->Header->expires(strtotime('+ 1 minute'));
@@ -367,22 +360,6 @@ class Application
 			{
 				throw new Exception\WrongFormat($path);
 			}
-
-			// $methods = $this->file->getAttribute('methods');
-			// if ($methods)
-			// {
-			// 	$methods = explode(' ', str_replace('get', 'get head', strtolower($methods))); // if get is present, head should be too.
-			// }
-			// else
-			// {
-			// 	$methods = array('get', 'head'); // default methods.
-			// }
-
-			// @todo Doesn't work as expected. It SHOULD do methods="get post ..." and test for this.
-			// if (!in_array(__FUNCTION__, $methods))
-			// {
-			// 	throw new Exception\WrongMethod(__FUNCTION__);
-			// }
 
 			if ($statusCode = $this->file->getAttribute('statusCode'))
 			{
@@ -398,9 +375,6 @@ class Application
 				$this->Response->redirect($to, $this->statusCode);
 			}
 
-			isset($params['author']) or $params['author'] = $this->file->getAttribute('author');
-
-			$params['title']	= $this->file->getAttribute('alias') ?: $this->file->getAttribute('name');
 			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0);
 			$controller			= Module::createControllerFromNode($rootController);
 			$controller->launch('get', $params);
@@ -427,6 +401,7 @@ class Application
 				}
 				else
 				{
+					$this->Response->Header->contentType('text/plain', 'UTF-8');
 					die('No results'); // @todo improve
 				}
 			}
@@ -439,16 +414,14 @@ class Application
 			{
 				$this->file			= $this->Model->read('/404');
 				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0));
-				$params['author']	= get_class($this);
-				$params['title']	= '404';
-				$controller->launch('get', $params, $this->dom, $this);
+				$controller->launch('get', $params);
 			}
 			catch (Exception\FileNotFound $e2)
 			{
 				// @todo show info that no 404 file is defined
 				$this->resetDom();
 				$controller	= Module::createControllerFromException($e);
-				$controller->launch('get', $params, $this->dom, $this);
+				$controller->launch('get', $params);
 			}
 		}
 		catch (Exception\WrongMethod $e)
@@ -456,14 +429,14 @@ class Application
 			// @todo test this
 			$this->statusCode = 405; // Method Not Allowed
 			$controller	= Module::createControllerFromException($e);
-			$controller->launch('get', $params, $this->dom, $this);
+			$controller->launch('get', $params);
 		}
 		catch (Exception $e)
 		{
 			// @todo test this
 			$this->statusCode = 500; // Internal Server Error
 			$controller	= Module::createControllerFromException($e);
-			$controller->launch('get', $params, $this->dom, $this);
+			$controller->launch('get', $params);
 		}
 		$this->Response->write(null, $this->statusCode);
 	}
@@ -500,6 +473,7 @@ class Application
 	 * @return void
 	 * @param string $path
 	 * @param array $params HTTP Params; Default: array()
+	 * @see head()
 	 */
 	public function get($path, array $params = array())
 	{
@@ -513,7 +487,7 @@ class Application
 			$this->resetDom();
 			$this->statusCode = 500; // Internal Server Error
 			$controller = Module::createControllerFromException($e);
-			$controller->launch('get', $params, $this->dom, $this);
+			$controller->launch('get', $params);
 			$this->Response->end($this->View->transform($this->dom)->to(self::DEFAULTFORMAT), $this->statusCode);
 		}
 	}
@@ -562,20 +536,42 @@ class Application
 	 */
 	public function post($path, array $params = array())
 	{
+		$this->statusCode = 201; // Created
 		try
 		{
 			$this->file			= $this->Model->read($path);
 			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0);
 			$controller			= Module::createControllerFromNode($rootController);
-			try
+			$controller->launch('post', $params);
+
+			// $this->Request->Header->x_xpath = '/root/article/form/button'; // @debug
+			if (isset($this->Request->Header->x_xpath))
 			{
-				$controller->launch('post', $params, $this->dom, $this);
+				$query		= $this->Request->Header->x_xpath;
+				$xpath		= new \DOMXPath($this->dom);
+				$results	= $xpath->query($query);
+				if ($results->length === 1)
+				{
+					$this->resetDom();
+					$this->dom->appendChild($this->dom->importNode($results->item(0), true));
+				}
+				else if($results->length > 1)
+				{
+					$this->resetDom();
+					$this->dom->appendChild($collection = $this->dom->createElement('collection'));
+					foreach ($results as $result)
+					{
+						$collection->appendChild($this->dom->importNode($result, true));
+					}
+				}
+				else
+				{
+					$this->statusCode = 404;
+					$this->Response->Header->contentType('text/plain', 'UTF-8');
+					$this->Response->end('No results', $this->statusCode);
+				}
 			}
-			catch (\Exception $e)
-			{
-				$this->resetDom();
-				$this->get($path, $params);
-			}
+			// die($this->dom->saveXML()); // @debug
 		}
 		catch (Exception\FileNotFound $e)
 		{
@@ -584,33 +580,43 @@ class Application
 			{
 				$this->file			= $this->Model->read('/404');
 				$controller			= Module::createControllerFromNode($this->file->childNodes->item(0));
-				$params['author']	= get_class($this);
-				$params['title']	= '404';
-				$controller->launch('post', $params, $this->dom, $this);
+				$controller->launch('get', $params);
 			}
 			catch (Exception\FileNotFound $e2)
 			{
 				// @todo show info that no 404 file is defined
 				$this->resetDom();
 				$controller	= Module::createControllerFromException($e);
-				$controller->launch('post', $params, $this->dom, $this);
+				$controller->launch('get', $params);
 			}
 		}
 		catch (Exception\WrongMethod $e)
 		{
-			// @todo test
+			// @todo test this
 			$this->statusCode = 405; // Method Not Allowed
 			$controller	= Module::createControllerFromException($e);
-			$controller->launch('post', $params, $this->dom, $this);
+			$controller->launch('get', $params);
 		}
 		catch (Exception $e)
 		{
-			// @todo test
+			// @todo test this
 			$this->statusCode = 500; // Internal Server Error
 			$controller	= Module::createControllerFromException($e);
-			$controller->launch('post', $params, $this->dom, $this);
+			$controller->launch('get', $params);
 		}
-		$this->Response->end(null, $this->statusCode);
+		$this->Response->write(null, $this->statusCode);
+		try
+		{
+			$this->Response->end($this->View->transform($this->dom)->to(self::$format), $this->statusCode);
+		}
+		catch (\Exception $e)
+		{
+			$this->resetDom();
+			$this->statusCode = 500; // Internal Server Error
+			$controller = Module::createControllerFromException($e);
+			$controller->launch('get', $params);
+			$this->Response->end($this->View->transform($this->dom)->to(self::DEFAULTFORMAT), $this->statusCode);
+		}
 	}
 
 	/**
@@ -647,6 +653,13 @@ class Application
 	 * -- the user agent knows what URI is intended and the server MUST NOT
 	 * attempt to apply the request to some other resource.
 	 * (source: http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.6)
+	 *
+	 *
+	 * Did you know:
+	 * PUT is the same as POST except for this semantic difference: With POST
+	 * the URI identifies a resource that will handle the entity, such as a
+	 * servlet. With PUT the URI identifies the entity itself, for example a
+	 * file that will be created/replaced with the contents of the entity body.
 	 *
 	 * @todo implement
 	 * @return void
@@ -714,7 +727,7 @@ class Application
 	{
 		$this->resetDom();
 		$controller	= Module::createControllerFromException(new \ErrorException($errstr, $errno, 1, $errfile, $errline));
-		$controller->launch('get', $params = array(), $this->dom, $this);
+		$controller->launch('get', $params = array());
 		$this->statusCode	= 500; // Internal Server Error
 		try
 		{
@@ -739,7 +752,7 @@ class Application
 	{
 		$this->resetDom();
 		$controller	= Module::createControllerFromException($e);
-		$controller->launch('get', $params = array(), $this->dom, $this);
+		$controller->launch('get', $params = array());
 		$this->statusCode	= 500; // Internal Server Error
 		try
 		{

@@ -4,8 +4,16 @@
 	};
 	var $fancy			= $('input[type="file"].fancy');
 	var $proxyInput		= $('<input type="text" class="proxyInput" readonly="readonly" name="fileInputProxy"/>')/*.click(click)*/;
-	var $proxyButton	= $('<button type="button" class="proxyButton btn" name="fileButtonProxy">Choose File...</button>').click(click);
+	var $proxyButton	= $('<button type="button" class="proxyButton btn" name="fileButtonProxy">'+$fancy.attr('caption')+'</button>').click(click);
 	var $proxy			= $('<div class="fileProxy input-append"/>').append($proxyInput).append($proxyButton);
+
+	console.log($fancy);
+
+	$fancy.css({
+		width:		'200px',
+		padding:	'0',
+		margin:		'0 -200px 0 0'
+	});
 	// $proxyInput.bind('dragenter dragover', function (e) {
 	// 	e.stopPropagation();
 	// 	e.preventDefault();

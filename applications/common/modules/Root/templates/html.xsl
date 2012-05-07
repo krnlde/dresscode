@@ -9,7 +9,13 @@
 	<xsl:template match="root">
 		<!-- HTML5 Doctype -->
 		<xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;&#xA;</xsl:text><!-- &#xA; == Line Break -->
-		<html lang="{@language}">
+		<html>
+
+			<xsl:if test="@language">
+				<xsl:attribute name="lang">
+					<xsl:value-of select="@language"/>
+				</xsl:attribute>
+			</xsl:if>
 			<head>
 				<meta charset="utf-8" />
 				<title><xsl:value-of select="@title" /></title>

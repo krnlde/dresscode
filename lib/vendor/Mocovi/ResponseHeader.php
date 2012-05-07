@@ -218,13 +218,17 @@ class ResponseHeader
 	{
 		$this->status($code);
 		$this->add('Location', $location);
+		$this->send();
+		die();
 		return $this;
 	}
 
 	public function contentType($media, $charset = '')
 	{
 		if(isset($this->knownMimeTypes[$media]))
+		{
 			$media = $this->knownMimeTypes[$media];
+		}
 		$this->add('Content-Type', $media.(empty($charset) ? '': '; charset='.$charset));
 		return $this;
 	}

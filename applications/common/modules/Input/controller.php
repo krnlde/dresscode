@@ -13,6 +13,7 @@ class Input extends \Mocovi\Controller
 	 */
 	protected $type = 'text';
 
+
 	/**
 	 * Name of the input.
 	 *
@@ -46,6 +47,12 @@ class Input extends \Mocovi\Controller
 	 * @var string
 	 */
 	protected $label;
+
+	/**
+	 * @property
+	 * @var string
+	 */
+	protected $caption;
 
 	/**
 	 * Placeholder text.
@@ -124,13 +131,13 @@ class Input extends \Mocovi\Controller
 		, 'url'				=> array
 			( 'type'		=> 'url'
 			, 'value'		=> 'http://'
-			, 'pattern'		=> '^https?:\/\/[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$' // needs to be checked!
+			, 'pattern'		=> '^https?:\/\/[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$' // @todo needs to be checked!
 			)
 		, 'zip'				=> array
 			( 'type'		=> 'zip'
 			, 'minlength'	=> 5
 			, 'maxlength'	=> 5
-			, 'pattern'		=> '^[0-9]{5}$' // needs to be checked!
+			, 'pattern'		=> '^[0-9]{5}$' // @todo needs to be checked!
 			)
 		);
 
@@ -181,9 +188,13 @@ class Input extends \Mocovi\Controller
 			$this->closest('Form')->setProperty('multipart', true);
 		}
 
-		if ($this->type === 'file' && in_array('fancy', explode(' ', $this->class)))
+		if ($this->type === 'file')
 		{
-			$this->Application->stylesheet(new FileAsset('applications/common/assets/css/jquery.fancyupload.css'));
+			$this->class .= ($this->class ? ' ' : '').'fancy';
+			if (!$this->caption)
+			{
+				$this->caption = 'Choose File...';
+			}
 			$this->Application->javascript(new FileAsset('applications/common/assets/js/jquery.fancyupload.js'));
 		}
 	}

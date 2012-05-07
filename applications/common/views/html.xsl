@@ -13,16 +13,17 @@
 		indent="yes"
 	/>
 
-	<!--
-		this is not suitable when using for example: foo <element>bar</element>.
-		This will output "foobar" instead of "foo bar"
-	-->
 
-	<!--
 	<xsl:template match="text()">
-		<xsl:value-of select="normalize-space(.)"/>
+		<!--
+			this is not suitable when using for example: "foo <element>bar</element>".
+			This will output "foobar" instead of "foo bar"
+		-->
+		<!-- <xsl:value-of select="normalize-space(.)"/> -->
+		<!-- better, but slow approach - it also may produce "<x> text </x>" -->
+		<xsl:value-of select="php:function('preg_replace', '/\s{2,}/', ' ', string(.))"/>
 	</xsl:template>
--->
+
 
 
 

@@ -73,7 +73,7 @@ class Collection implements \Iterator
 	 *
 	 * @param string $method
 	 * @param array $args
-	 * @return \Mocovi\Controller\Collection $this
+	 * @return mixed || \Mocovi\Controller\Collection $this
 	 */
 	public function __call($method, array $args)
 	{
@@ -81,7 +81,11 @@ class Collection implements \Iterator
 		{
 			if (method_exists($controller, $method))
 			{
-				call_user_func_array(array($controller, $method), $args);
+				$return = call_user_func_array(array($controller, $method), $args);
+				if (!is_null($return)) // @todo to be tested
+				{
+					return $return;
+				}
 			}
 		}
 		return $this;
