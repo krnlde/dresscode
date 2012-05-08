@@ -28,13 +28,8 @@ class Todolist extends \Mocovi\Controller
 	{
 		foreach ($this->dataprovider as $key => $value)
 		{
-			$this->Application->statusCode = 201; // Created
-			$this->node->appendChild($this->dom->createElement('element', $value));
+			$this->node->appendChild($element = $this->dom->createElement('element'));
+			$element->appendChild($this->dom->createTextNode($value)); // Important! It solves the "unterminated entity reference" bug from DomDocument::createElement().
 		}
-	}
-
-	public function post(array $params = array())
-	{
-		$this->get($params);
 	}
 }

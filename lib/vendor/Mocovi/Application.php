@@ -542,7 +542,15 @@ class Application
 			$this->file			= $this->Model->read($path);
 			$rootController		= $this->file->getElementsByTagNameNS(\Mocovi\Controller::NS, '*')->item(0);
 			$controller			= Module::createControllerFromNode($rootController);
-			$controller->launch('post', $params);
+			try
+			{
+				$controller->launch('post', $params);
+			}
+			catch (\Exception $e)
+			{
+				$this->resetDom();
+				$this->get($path, $params); // @todo Maybe improve this with a Header Redirect?
+			}
 
 			// $this->Request->Header->x_xpath = '/root/article/form/button'; // @debug
 			if (isset($this->Request->Header->x_xpath))
@@ -594,6 +602,7 @@ class Application
 		{
 			// @todo test this
 			$this->statusCode = 405; // Method Not Allowed
+			$this->resetDom();
 			$controller	= Module::createControllerFromException($e);
 			$controller->launch('get', $params);
 		}
@@ -601,6 +610,7 @@ class Application
 		{
 			// @todo test this
 			$this->statusCode = 500; // Internal Server Error
+			$this->resetDom();
 			$controller	= Module::createControllerFromException($e);
 			$controller->launch('get', $params);
 		}

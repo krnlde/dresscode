@@ -7,7 +7,9 @@
 		<ul>
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
-			<xsl:text> </xsl:text>
+			<xsl:if test="not(element)">
+				<xsl:text> </xsl:text>
+			</xsl:if>
 			<xsl:apply-templates select="element"/>
 		</ul>
 		<xsl:apply-templates select="*[not(name()='element')]"/>
