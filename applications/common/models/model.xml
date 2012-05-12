@@ -7,37 +7,32 @@
 	xmlns="http://mocovi.de/schema/controller"
 	timezone="Europe/Berlin"
 	defaultFormat="html"
-	defaultLanguage="de"
+	defaultLanguage="en"
 	>
 
 	<fs:file name="index" redirect="/home" invisible="1"/>
-	<fs:file name="home" alias="Home" aliasToken="Home" methods="get" author="Kai Dorschner">
+	<fs:file name="home" alias="Home" aliasToken="Home" methods="get" author="Kai Dorschner" statusCode="404"><!-- this status is obligatory because the application wasn't found -->
 		<root>
-			<article>
-				<header>
-					<headline>Welcome to mocovi</headline>
-				</header>
-				<section>
-					<paragraph>You haven't defined an application suiting your domain yet. Your domain is "$domain".</paragraph>
-					<paragraph>Please copy the <quote>yourdomain.com</quote> folder in the <quote>[mocoviroot]/applications</quote> folder and rename it to "$domain"</paragraph>
-				</section>
+			<header class="hero-unit">
+				<headline>Welcome!</headline>
+				<paragraph>The requested application <strong>$domain</strong> is currently not configured.</paragraph>
+			</header>
+			<article class="well">
+				<paragraph><span class="label label-info">Heads up!</span> If you're the administrator please duplicate the <strong>$basepath/applications/<emphasized>yourdomain.com</emphasized></strong> folder and rename it to <strong>$domain</strong>.</paragraph>
 			</article>
+			<footer class="pull-right" xml:id="footer">
+				<small>Dresscode Framework</small>
+			</footer>
 		</root>
 	</fs:file>
 
 	<fs:file name="404" invisible="1" statusCode="404">
 		<root>
-			<header>
-				<menu/>
+			<header class="hero-unit">
+				<headline>404 - File not found</headline>
+				<paragraph>The requested file <span class="badge badge-error">$path</span> was not found.</paragraph>
 			</header>
-			<article>
-				<header>
-					<headline>404 - File not found</headline>
-				</header>
-				<section>
-					<paragraph>The requested file $path was not found.</paragraph>
-				</section>
-			</article>
+			<xref:reference ref="footer"/>
 		</root>
 	</fs:file>
 

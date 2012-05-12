@@ -84,7 +84,7 @@ class Input extends \Mocovi\Controller
 	 * @property
 	 * @var integer
 	 */
-	protected $maxlength;
+	protected $maxlength = 255;
 
 	/**
 	 * @property

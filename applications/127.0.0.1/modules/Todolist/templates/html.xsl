@@ -4,14 +4,16 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="todolist">
-		<ul>
-			<xsl:copy-of select="@id"/>
+		<section>
 			<xsl:copy-of select="@class"/>
-			<xsl:if test="not(element)">
-				<xsl:text> </xsl:text>
-			</xsl:if>
-			<xsl:apply-templates select="element"/>
-		</ul>
+			<ul>
+				<xsl:copy-of select="@id"/>
+				<xsl:if test="not(element)">
+					<xsl:text> </xsl:text>
+				</xsl:if>
+				<xsl:apply-templates select="element"/>
+			</ul>
+		</section>
 		<xsl:apply-templates select="*[not(name()='element')]"/>
 	</xsl:template>
 

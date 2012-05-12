@@ -101,10 +101,10 @@ class Module
 			{
 				self::$View->addTemplatePool($templatePool);
 			}
-			else
-			{
-				// throw new Exception\TemplateNotFound($moduleName); // silently accept the missing template
-			}
+			// else
+			// {
+			// 	throw new Exception\TemplateNotFound($moduleName); // silently accept the missing template
+			// }
 
 			if ($sourceNode->hasChildNodes())
 			{

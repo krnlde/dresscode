@@ -3,15 +3,12 @@
 	version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:template match="headline">
-
-		<xsl:element name="h{@priority}">
+	<xsl:template match="definitionterm">
+		<dt>
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
 			<xsl:apply-templates/>
-			<a href="#{@id}" class="siteanchor icon-tag"><xsl:text> </xsl:text><!--&#182;--></a>
-		</xsl:element>
-
+		</dt>
 	</xsl:template>
 
 </xsl:stylesheet>

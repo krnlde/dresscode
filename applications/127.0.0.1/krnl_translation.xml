@@ -53,4 +53,8 @@
 		<translation lang="de">Inhalte</translation>
 		<translation lang="all">Contents</translation>
 	</token>
+	<token name="FormRequiredInfo">
+		<translation lang="de">markiert ein Pflichtfeld</translation>
+		<translation lang="all">denotes a required field</translation>
+	</token>
 </root>

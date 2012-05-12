@@ -102,6 +102,7 @@ class Translate extends Plain
 		{
 			if ($controller = \Mocovi\Module::createControllerFromNode($child, $this))
 			{
+				$this->addChild($controller); // this is required so the child knows its parent before the launch
 				$controller->launch(__FUNCTION__, $this->params);
 			}
 			$this->parentNode->insertBefore($controller->getNode(), $this->node);

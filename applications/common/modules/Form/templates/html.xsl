@@ -26,6 +26,9 @@
 					<xsl:value-of select="php:function('\Mocovi\Translator::translate', 'button.reset')"/>
 				</button>
 			</div>
+				<xsl:if test=".//input[@required = 1]">
+					<div><span class="required">*</span> <xsl:value-of select="php:function('\Mocovi\Translator::translate', 'FormRequiredInfo')"/></div>
+				</xsl:if>
 		</form>
 	</xsl:template>
 

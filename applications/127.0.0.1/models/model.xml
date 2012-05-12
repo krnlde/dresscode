@@ -20,187 +20,48 @@
 		</fs:keywords>
 		<root>
 			<header class="hero-unit">
-				<headline><translate token="loremipsum" cut="20"/></headline>
-				<paragraph><translate token="loremipsum" cut="400"/></paragraph>
+				<headline>enfire studios</headline>
+				<paragraph>Unser Team aus erfahrenen Web Entwicklern berät und unterstützt Sie bei Ihren online Marketing Kampagnen.</paragraph>
 			</header>
 			<article class="row">
-				<header>
-					<headline>
-						<translate token="loremipsum" cut="15"/>
-						<small> dolor sit amet</small>
-					</headline>
-				</header>
-				<aside class="span3">
+				<!-- <aside class="span3">
 					<toc/>
-				</aside>
-				<section class="span9">
-					<paragraph>
-						<translate token="loremipsum"/>
-					</paragraph>
-					<headline priority="2" class="page-header">Here comes some CSS code<small> which is nice</small></headline>
-					<code class="prettyprint linenums" language="css">
-<![CDATA[/* Pretty printing styles. Used with prettify.js. */
-
-/* SPAN elements with the classes below are added by prettyprint. */
-.pln { color: #000 }  /* plain text */
-
-@media screen {
-  .str { color: #080 }  /* string content */
-  .kwd { color: #008 }  /* a keyword */
-  .com { color: #800 }  /* a comment */
-  .typ { color: #606 }  /* a type name */
-  .lit { color: #066 }  /* a literal value */
-  /* punctuation, lisp open bracket, lisp close bracket */
-  .pun, .opn, .clo { color: #660 }
-  .tag { color: #008 }  /* a markup tag name */
-  .atn { color: #606 }  /* a markup attribute name */
-  .atv { color: #080 }  /* a markup attribute value */
-  .dec, .var { color: #606 }  /* a declaration; a variable name */
-  .fun { color: red }  /* a function name */
-}
-
-/* Use higher contrast and text-weight for printable form. */
-@media print, projection {
-  .str { color: #060 }
-  .kwd { color: #006; font-weight: bold }
-  .com { color: #600; font-style: italic }
-  .typ { color: #404; font-weight: bold }
-  .lit { color: #044 }
-  .pun, .opn, .clo { color: #440 }
-  .tag { color: #006; font-weight: bold }
-  .atn { color: #404 }
-  .atv { color: #060 }
-}
-
-/* Put a border around prettyprinted code snippets. */
-pre.prettyprint { padding: 2px; border: 1px solid #888 }
-
-/* Specify class=linenums on a pre to get line numbering */
-ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */
-li.L0,
-li.L1,
-li.L2,
-li.L3,
-li.L5,
-li.L6,
-li.L7,
-li.L8 {  }
-/* Alternate shading for lines */
-li.L1,
-li.L3,
-li.L5,
-li.L7,
-li.L9 { background: #eee }
-]]>
-					</code>
-					<headline priority="2" class="page-header">You like listings?</headline>
-					<listing maximum="4">
-						<element>
-							<translate token="loremipsum" cut="30"/>
-						</element>
-						<element>
-							<link to="http://krnl.de/">
-								<translate token="loremipsum" cut="25"/>
-							</link>
-							<listing>
-								<element>verschachtelt!</element>
-							</listing>
-						</element>
-						<element>Test 3</element>
-						<element>Test 4</element>
-						<element>Test 5</element>
-					</listing>
-					<headline priority="2" class="page-header">What about Thumbnails...</headline>
+				</aside> -->
+				<section class="span12">
+					<header>
+						<headline>Unsere Leistungen <small>im Überblick</small></headline>
+					</header>
 					<thumbnails>
 						<thumbnail source="/gallery/auswahl-9.jpg">
-							<headline priority="5"><translate token="loremipsum" cut="12" /></headline>
-							<paragraph>
-								<translate token="loremipsum" cut="150" />
-							</paragraph>
-							<button type="button" class="btn-primary" onclick="alert('Hier kann eine Funktion ausgeführt werden');">Weiterlesen [click me]</button>
+							<headline priority="3">Konzeption</headline>
+							<paragraph>Wir erstellen auf Wunsch eine vollständige Online-Marketing-Kampagne mit Social-Marketing, Newsletter, Adwords-Kampagnen, dynamsichen Landingpages und mehr um Ihr Unternehmen erfolgreich im Web zu platzieren.</paragraph>
+							<button type="button" class="btn-primary" onclick="alert('Hier kann eine Funktion ausgeführt werden');">Mehr erfahren</button>
 						</thumbnail>
 						<thumbnail source="/gallery/auswahl-5.jpg">
-							<headline priority="5">Teaser</headline>
-							<paragraph>
-								<translate token="loremipsum" cut="150" />
-							</paragraph>
+							<headline priority="3">Umsetzung</headline>
+							<paragraph>Unser Team aus erfahrenen Web-Entwicklern setzt Ihre Wünsche schnellst- und bestmöglich um. Dabei setzen wir auf Best-Practices und Web-Standards, so dass die Unterstützung für eine sehr breite Spanne von Browsern gewährleistet bleibt.</paragraph>
 							<button type="button" class="btn-primary">
 								<attribute name="onclick">
 									alert('Translation test: <translate token="loremipsum" cut="40"/>');
 								</attribute>
-								Weiterlesen [click me]
+								Mehr erfahren
 							</button>
 						</thumbnail>
 						<thumbnail source="/gallery/auswahl-10.jpg">
-							<headline priority="5">Teaser</headline>
-							<paragraph>
-								<translate token="loremipsum" cut="150" />
-							</paragraph>
-							<button type="button" class="btn-primary">Weiterlesen</button>
-						</thumbnail>
-						<thumbnail source="/gallery/auswahl-10.jpg">
-							<headline priority="5">Teaser</headline>
-							<paragraph>
-								<translate token="loremipsum" cut="150" />
-							</paragraph>
-							<button type="button" class="btn-primary">Weiterlesen</button>
-						</thumbnail>
-						<thumbnail source="/gallery/auswahl-9.jpg">
-							<headline priority="5"><translate token="loremipsum" cut="12" /></headline>
-							<paragraph>
-								<translate token="loremipsum" cut="150" />
-							</paragraph>
-							<button type="button" class="btn-primary">Weiterlesen</button>
-						</thumbnail>
-						<thumbnail source="/gallery/auswahl-5.jpg">
-							<headline priority="5">Teaser</headline>
-							<paragraph>
-								<translate token="loremipsum" cut="150" />
-							</paragraph>
-							<button type="button" class="btn-primary">Weiterlesen</button>
+							<headline priority="3">Fotografie</headline>
+							<paragraph>Ein großer Vorteil ist für Sie, dass sich in unserem Team zwei hervorragende Fotografen befinden die viele Erfahrungen im Bereich Event- und Studio-Fotografie mitbringen.</paragraph>
+							<button type="button" class="btn-primary">Mehr erfahren</button>
 						</thumbnail>
 					</thumbnails>
-					<paragraph class="well">
+					<!-- <paragraph class="well">
 						<translate token="loremipsum"/>
-					</paragraph>
-					<headline priority="2" class="page-header">OK, I got a form for you!</headline>
-					<protect require="valid-user">
-						<section class="well">
-							<button type="button" onclick="$('#myTabs .nav-tabs .active').prev().children('a').tab('show');">&lt; Previous</button>
-							<button type="button" onclick="$('#myTabs .nav-tabs .active').next().children('a').tab('show');">Next &gt;</button>
-						</section>
-						<form method="get" class="form-horizontal">
-							<tabs id="myTabs" transition="fade">
-								<element title="Moep">
-									<input type="text" name="name" label="Name" required="1"/>
-									<input name="email" preset="email" label="E-Mail" required="1"/>
-									<input type="text" name="text" label="Text"/>
-									<input type="file" name="file" required="1" label="File Upload"/>
-								</element>
-								<element title="Tab 1">
-									<headline>Slide 1</headline>
-									<paragraph>
-										<translate token="loremipsum" cut="370"/>
-									</paragraph>
-								</element>
-								<element>
-									<attribute name="title"><translate token="loremipsum" cut="12"/></attribute>
-									<headline>Slide 3</headline>
-									<paragraph>
-										<translate token="loremipsum" cut="20"/>
-									</paragraph>
-								</element>
-							</tabs>
-						</form>
-					</protect>
+					</paragraph> -->
 				</section>
 			</article>
 			<footer class="row">
-				<section class="span3" xml:id="sitemap1">
-					<headline priority="4">Sitemap</headline>
-					<menu source="/">
-						<menuextension/>
-					</menu>
+				<section class="span3" xml:id="sitemap">
+					<headline priority="4">Sitemap unserer Website</headline>
+					<menu source="/"/>
 				</section>
 				<section class="span3">
 					<headline priority="4">Interessanter Artikel</headline>
@@ -212,110 +73,67 @@ li.L9 { background: #eee }
 					<paragraph><translate token="loremipsum" cut="140"/></paragraph>
 				</section>
 				<section class="span3">
-					<headline priority="4">Interessanter Artikel</headline>
-					<paragraph><translate token="loremipsum" cut="200"/></paragraph>
-					<link to="/home/videos/gallery" class="btn">weiterlesen ...</link>
+					<headline priority="4">Kontakt</headline>
+					<address>
+						<strong>enfire studios GmbH</strong><linebreak/>
+						Dörnbergstraße 12<linebreak/>
+						34123 Kassel
+					</address>
+					<paragraph>Geschäftsführer: Toni Sciacca</paragraph>
+					<paragraph>
+						Tel.: +49 561 76628-303<linebreak/>
+						Fax: +49 561 76628-304<linebreak/>
+					</paragraph>
+					<paragraph>
+						Website: <link to="http://enfire-studios.com"/><linebreak/>
+						E-Mail: <link to="info@enfire-studios.com"/><linebreak/>
+					</paragraph>
 				</section>
 			</footer>
 		</root>
-
-		<fs:file name="videos" alias="Youtube &amp; Vimeo Videos" methods="get" author="Kai Dorschner">
-			<root>
-				<header class="hero-unit">
-					<headline><translate token="loremipsum" cut="20"/></headline>
-					<paragraph><translate token="loremipsum" cut="400"/></paragraph>
-				</header>
-				<article class="row">
-					<section class="span9">
-						<headline>Lorem</headline>
-						<paragraph>
-							<translate token="loremipsum"/>
-						</paragraph>
-						<paragraph>
-							Text $title, $path, $path
-						</paragraph>
-						<youtube videoId="JtF7z_DZdVk"/>
-						<vimeo videoId="28571605"/>
-						<vimeo videoId="37512694"/>
-						<vimeo videoId="21762564"/>
-					</section>
-				</article>
-				<footer class="row">
-					<xref:reference ref="sitemap1"/>
-				</footer>
-			</root>
-
-			<fs:file name="gallery" alias="Image Gallery" methods="get" author="Kai Dorschner">
-				<root>
-					<article>
-						<headline>$title</headline>
-						<paragraph>
-							<translate token="loremipsum" cut="300"/>
-						</paragraph>
-						<gallery source="/gallery" maximum="50">
-							<!--
-							<filter require="/1[2-4]/"/>
-							<filter skip="/13/"/>
-							-->
-						</gallery>
-					</article>
-					<footer class="row">
-						<xref:reference ref="sitemap1"/>
-					</footer>
-				</root>
-			</fs:file>
-
-		</fs:file>
 
 	</fs:file>
 
 	<fs:file name="todolist" alias="Todolist" methods="get" author="Kai Dorschner">
 		<root>
-			<article>
+			<header class="hero-unit">
 				<headline >Todolist</headline>
+			</header>
+			<article>
 				<todolist class="well" id="todolist1">
 					<sessionstore bin="todolist"/>
 					<form method="post" class="form-horizontal" ajax="1">
 						<input name="task" type="text" id="task" label="Todo" placeholder="Add a todo note" required="1" />
 					</form>
 				</todolist>
-				<mediaplayer source="/gallery/video.mp4"/>
 			</article>
 			<footer class="row">
-				<xref:reference ref="sitemap1"/>
+				<xref:reference ref="sitemap"/>
 			</footer>
 		</root>
 	</fs:file>
 
-	<fs:file name="rss" methods="get" author="Kai Dorschner">
+	<fs:file name="contact" alias="Kontakt" methods="get" author="Kai Dorschner">
 		<root>
+			<header class="hero-unit">
+				<headline >Kontakt</headline>
+				<paragraph>Nehmen Sie mit uns Kontakt auf um einen Termin für ein persönliches Gespräch zu vereinbaren oder sich über unsere Leistungen zu informieren. Senden Sie uns Ihre Telefonnummer, wir rufen Sie auch gern zurück.</paragraph>
+			</header>
 			<article>
-				<headline>
-					<xpath query="count(../following-sibling::listing/*)"/>
-					elements found
-				</headline>
-				<listing>
-					<rssreader url="http://delicious.com/v2/rss/krnlde">
-						<paragraph>
-							<link>
-								<attribute name="to">
-									<variable name="link"/>
-								</attribute>
-								<variable name="title"/>
-							</link>
-						</paragraph>
-					</rssreader>
-				</listing>
-				<evaluate>
-					- // error
-				</evaluate>
-				<time>2011-02-01</time>
+				<form method="get" class="form-horizontal">
+					<input type="text" name="name" label="Name" required="1"/>
+					<input name="email" preset="email" label="E-Mail" required="1"/>
+					<input type="text" name="text" label="Text" maxlength="255"/>
+					<input type="file" name="file" required="1" label="File Upload"/>
+				</form>
 			</article>
 			<footer class="row">
-				<xref:reference ref="sitemap1"/>
+				<xref:reference ref="sitemap"/>
 			</footer>
 		</root>
 	</fs:file>
+
+
 
 	<fs:file name="404" invisible="1" statusCode="404">
 		<root>
@@ -324,7 +142,7 @@ li.L9 { background: #eee }
 				<paragraph>The requested file <span class="badge badge-error">$path</span> was not found.</paragraph>
 			</header>
 			<footer class="row">
-				<xref:reference ref="sitemap1"/>
+				<xref:reference ref="sitemap"/>
 			</footer>
 		</root>
 	</fs:file>

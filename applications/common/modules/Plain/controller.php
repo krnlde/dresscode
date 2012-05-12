@@ -23,12 +23,10 @@ class Plain extends \Mocovi\Controller
 	{
 		if (!count(self::$replacements))
 		{
-			self::$replacements = array
-			(	'path'		=> $this->Application->Request->path
-			,	'title'		=> $this->Application->file->getAttribute('alias') ?: $this->Application->file->getAttribute('name')
-			,	'domain'	=> $this->Application->getName()
-			// @todo Put more stuff in here
-			);
+			if ($root = $this->closest('Root'))
+			{
+				self::$replacements = $this->closest('Root')->getProperties(); // adopts all Root-Controller attributes as $-replacements
+			}
 		}
 	}
 

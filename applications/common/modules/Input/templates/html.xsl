@@ -13,6 +13,9 @@
 			<xsl:if test="@label">
 				<label class="control-label" for="{@id}">
 					<xsl:value-of select="@label"/>
+					<xsl:if test="@required = 1">
+						<span class="required">*</span>
+					</xsl:if>
 				</label>
 			</xsl:if>
 			<div class="controls">

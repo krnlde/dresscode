@@ -1,184 +1,157 @@
-body
-{
-	padding: 0;
-	margin: 0 auto;
-	background: #222 url(http://subtlepatterns.com/patterns/px_by_Gre3g.png) repeat top left;
-	text-shadow: rgba(0,0,0, .2) 0px 0px 6px;
-	line-height: 1.5em;
-}
-#container
-{
-	background: #fafaf5 url(http://subtlepatterns.com/patterns/stucco.png) repeat top left;
-	border-radius: 0.1em;
-	box-shadow: rgba(0,0,0, 1) 0px 0px 80px;
-}
+// CSS Reset
+@import "../../../common/assets/bootstrap/less/reset.less";
 
-#container > article, #container > footer
-{
-	padding: 20px 40px;
-}
+// Core variables and mixins
+@import "../../../common/assets/bootstrap/less/variables.less"; // Modify this for custom colors, font-sizes, etc
 
 
-#container > header, #container > footer
-{
-	background-color: #303025;
-	min-height: 300px;
-	box-shadow: inset rgba(0,0,0, .3) 0px 20px 20px;
-	overflow: hidden; /* clears floating */
-}
-
-#container > header
-{
-	box-shadow: inset rgba(0,0,0, .3) 0px -20px 20px;
-}
-
-#container > footer
-{
-	padding-top: 50px;
-}
+@import "../../../common/assets/bootstrap/less/../less/variables.less"; // customized variables (overrides)
 
 
-ul, ol
-{
-	margin-left: 2em;
-}
+@import "../../../common/assets/bootstrap/less/mixins.less";
 
-ul, ol, p
-{
-	margin-bottom: 2em;
-}
+// Grid system and page structure
+@import "../../../common/assets/bootstrap/less/scaffolding.less";
+@import "../../../common/assets/bootstrap/less/grid.less";
+@import "../../../common/assets/bootstrap/less/layouts.less";
 
-ul ul, ol ol, ul ol, ol ul
-{
-	margin: 0 0 0 1em;;
-}
+// Base CSS
+@import "../../../common/assets/bootstrap/less/type.less";
+@import "../../../common/assets/bootstrap/less/code.less";
+@import "../../../common/assets/bootstrap/less/forms.less";
+@import "../../../common/assets/bootstrap/less/tables.less";
 
-h1 {font-size: 3em;}
-h2 {font-size: 2em;}
-h3 {font-size: 1.5em;}
-h4 {font-size: 1.3em;}
-h5 {font-size: 1.1em;}
-h6 {font-size: 1em;}
-h1,h2,h3,h4,h5,h6
-{
+// Components: common
+@import "../../../common/assets/bootstrap/less/sprites.less";
+@import "../../../common/assets/bootstrap/less/dropdowns.less";
+@import "../../../common/assets/bootstrap/less/wells.less";
+@import "../../../common/assets/bootstrap/less/component-animations.less";
+@import "../../../common/assets/bootstrap/less/close.less";
 
-	margin-bottom: .33em;
-}
+// Components: Buttons & Alerts
+@import "../../../common/assets/bootstrap/less/buttons.less";
+@import "../../../common/assets/bootstrap/less/button-groups.less";
+@import "../../../common/assets/bootstrap/less/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
 
-h1
-{
-	border-bottom: 2px solid #999;
-}
+// Components: Nav
+@import "../../../common/assets/bootstrap/less/navs.less";
+@import "../../../common/assets/bootstrap/less/navbar.less";
+@import "../../../common/assets/bootstrap/less/breadcrumbs.less";
+@import "../../../common/assets/bootstrap/less/pagination.less";
+@import "../../../common/assets/bootstrap/less/pager.less";
 
-h1 .pilcrow,
-h2 .pilcrow,
-h3 .pilcrow,
-h4 .pilcrow,
-h5 .pilcrow,
-h6 .pilcrow
-{
-	display:none;
-}
+// Components: Popovers
+@import "../../../common/assets/bootstrap/less/modals.less";
+@import "../../../common/assets/bootstrap/less/tooltip.less";
+@import "../../../common/assets/bootstrap/less/popovers.less";
 
-h1:hover .pilcrow,
-h2:hover .pilcrow,
-h3:hover .pilcrow,
-h4:hover .pilcrow,
-h5:hover .pilcrow,
-h6:hover .pilcrow
-{
-	display:inline;
-	margin-left: 0.1em;
+// Components: Misc
+@import "../../../common/assets/bootstrap/less/thumbnails.less";
+@import "../../../common/assets/bootstrap/less/labels-badges.less";
+@import "../../../common/assets/bootstrap/less/progress-bars.less";
+@import "../../../common/assets/bootstrap/less/accordion.less";
+@import "../../../common/assets/bootstrap/less/carousel.less";
+@import "../../../common/assets/bootstrap/less/hero-unit.less";
+
+// Utility classes
+@import "../../../common/assets/bootstrap/less/utilities.less"; // Has to be last to override when necessary
+
+@import "../../../common/assets/bootstrap/less/responsive.less";
+@import "../../../common/assets/bootstrap-font-awesome/less/font-awesome.less";
+
+
+
+
+// END OF IMPORTS
+
+
+
+
+@font-face {
+	font-family: 'FontAwesome';
+	src: url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.eot');
+	src: url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.woff') format('woff'),
+		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.ttf') format('truetype'),
+		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.svgz#FontAwesomeRegular') format('svg'),
+		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.svg#FontAwesomeRegular') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
-img
+.siteanchor
 {
+	.opacity(0);
+	.transition(
+		opacity	//property
+		.5s		//duration
+		linear	//timing function
+		.5s		//delay
+	);
+	margin-left: .2em;
+	:hover &
+	{
+		h1&,
+		h2&,
+		h3&,
+		h4&,
+		h5&,
+		h6& {
+			.opacity(80);
+			text-decoration: none;
+		}
+	}
+}
+
+a[href^="http"]:after {
 	display: inline-block;
+	width: auto;
+	height: auto;
+	line-height: inherit;
+	vertical-align: baseline;
+	background-image: none;
+	background-position: 0% 0%;
+	background-repeat: repeat;
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration: inherit;
+	content: "\f08e"; /* icon-external-link */
+	color: @blueDark;
+	padding-left: 3px;
 }
 
-object
-{
-	display: block;
-	width: 100%;
-	height: 459px;
-	margin-bottom: 2em;
-	box-shadow: rgba(0,0,0, .4) 0px 10px 20px;
+article header {
+	.page-header;
+}
+/*
+@media (min-width: 768px) and (max-width: 1199px) {
+	article header {
+		margin-left: 20px;
+	}
 }
 
-a[href^="http://"]:hover:after, a[href^="https://"]:hover:after
-{
-	content: "\21D2";
-	padding-left: 0.1em;
+@media (min-width: 1200px) {
+	article header {
+		margin-left: 30px;
+	}
 }
 
-a, a:link
-{
-	color: #88b;
-	text-decoration: none;
-	text-shadow: none;
-}
-
-a:visited
-{
-	color: #99c;
-}
-
-footer
-{
-	color: #fff;
-	font-size: 8pt;
-}
-
-footer a:focus, footer a:hover, footer a:active
-{
-	color: #aad;
-	text-decoration: underline;
-}
-
-footer a, footer a:link
-{
-	color: #ccd;
-	text-decoration: none;
-	text-shadow: none;
-}
-
-footer a:visited
-{
-	color: #dde;
-}
-
-footer a:focus, footer a:hover, footer a:active
-{
-	color: #eef;
-	text-decoration: underline;
-}
-
-footer section
-{
-	width: 175px;
-	float:left;
-	margin-left: 38px;
-}
-
-footer section:first-child
-{
+section header {
 	margin-left: 0;
+}*/
+
+
+footer section {
+	padding-bottom: 2em;
 }
 
-footer h4
-{
-	border-bottom: 2px solid #999;
+form .required {
+	padding: 0 2px;
+	font-weight: bold;
+	color: @red;
 }
 
-.error
-{
-	color: #000;
-	border: 4px solid #f40;
-	background-color: #f90;
-	padding: 20px;
-}
-
-.error h1
-{
-	border-bottom-color: #f00;
+label .required {
+	padding-right: 0;
 }

@@ -21,7 +21,8 @@
 		-->
 		<!-- <xsl:value-of select="normalize-space(.)"/> -->
 		<!-- better, but slow approach - it also may produce "<x> text </x>" -->
-		<xsl:value-of select="php:function('preg_replace', '/\s{2,}/', ' ', string(.))"/>
+		<!-- <xsl:value-of select="php:function('preg_replace', '/\s{2,}/', ' ', string(.))"/> -->
+		<xsl:value-of select="."/>
 	</xsl:template>
 
 

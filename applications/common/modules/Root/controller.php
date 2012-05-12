@@ -26,6 +26,18 @@ class Root extends \Mocovi\Controller
 	 * @property
 	 * @var string
 	 */
+	protected $basepath = '';
+
+	/**
+	 * @property
+	 * @var string
+	 */
+	protected $domain = '';
+
+	/**
+	 * @property
+	 * @var string
+	 */
 	protected $title = '';
 
 	/**
@@ -72,17 +84,19 @@ class Root extends \Mocovi\Controller
 			$this->Application->stylesheet(new FileAsset($theme));
 		}
 
-		$this->canonical	=$this->Application->Request->scheme.'://'.$this->Application->getName().($this->Application->Request->port ? ':'.$this->Application->Request->port : '').$this->Application->basePath().$this->Application->Request->path;
+		$this->basepath		= $this->Application->basePath();
+		$this->domain		= $this->Application->getName();
+		$this->title		= $this->Application->file->getAttribute('alias') ?: $this->Application->file->getAttribute('name'); // @todo test if the title is provided everytime!
+		$this->path			= $this->Application->Request->path;
+		$this->modified		= $this->Application->Model->lastModified($this->path);
+		$this->keywords		= implode(',', $this->Application->Model->keywords($this->path, $this->language));
+		$this->scheme		= $this->Application->Request->scheme;
+		$this->canonical	= $this->scheme.'://'.$this->domain.($this->Application->Request->port ? ':'.$this->Application->Request->port : '').$this->basepath.$this->path;
 		$this->language		= \Mocovi\Translator::getLanguage();
 		if ($this->Application->file->getAttribute('author'))
 		{
 			$this->author	= $this->Application->file->getAttribute('author');
 		}
-		$this->title		= $this->Application->file->getAttribute('alias') ?: $this->Application->file->getAttribute('name'); // @todo test if the title is provided everytime!
-		$this->domain		= $this->Application->getName();
-		$this->path			= $this->Application->Request->path;
-		$this->modified		= $this->Application->Model->lastModified($this->path);
-		$this->keywords		= implode(',', $this->Application->Model->keywords($this->path, $this->language));
 
 		$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-alert.js')); // @todo temporarily
 

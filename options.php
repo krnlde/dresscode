@@ -12,3 +12,14 @@ $options = array
 	);
 
 $_GET['debug'] = true; // @debug
+
+/*
+
+$options =
+[	'java_path' =>
+	[	'windows'	=> 'C:\...'
+	,	'linux'		=> '/usr/bin/...'
+	]
+];
+
+*/

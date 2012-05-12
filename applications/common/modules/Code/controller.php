@@ -34,7 +34,8 @@ class Code extends \Mocovi\Controller
 		{
 			self::$initialize = new StringAsset('$(function() {prettyPrint()});');
 		}
-		$this->Application->stylesheet(new FileAsset(__DIR__.'/assets/google-code-prettify/src/prettify.css'));
+		// $Application->stylesheet(new FileAsset(__DIR__.'/assets/google-code-prettify/src/prettify.css'));
+		$this->Application->stylesheet(new FileAsset(__DIR__.'/assets/prettify.custom.css'));
 		$this->Application->javascript(new FileAsset(__DIR__.'/assets/google-code-prettify/src/prettify.js'));
 		if ($this->language)
 		{
@@ -48,7 +49,8 @@ class Code extends \Mocovi\Controller
 
 		foreach ($this->sourceNode->childNodes as $child)
 		{
-			if(in_array($child->nodeType, array(XML_CDATA_SECTION_NODE, XML_TEXT_NODE, XML_ELEMENT_NODE)))
+			// if(in_array($child->nodeType, array(XML_CDATA_SECTION_NODE, XML_TEXT_NODE, XML_ELEMENT_NODE)))
+			if($child->nodeType === XML_CDATA_SECTION_NODE) // @todo to be tested
 			{
 				$this->node->appendChild($this->dom->createTextNode($child->nodeValue));
 			}
