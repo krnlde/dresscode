@@ -308,7 +308,6 @@ class Form extends \Mocovi\Controller
 			inputs inside this form and the count of the received values are matching.
 			Otherwise it's assumed that this is not the correct form.
 		*/
-			echo $this->jumpTo;
 		if (count($values) === $this->inputs->length)
 		{
 			if (!$this->trigger('success', /*relatedTarget*/ null, /*data*/ $values)->isDefaultPrevented())

@@ -27,6 +27,7 @@ class Plain extends \Mocovi\Controller
 			{
 				self::$replacements = $this->closest('Root')->getProperties(); // adopts all Root-Controller attributes as $-replacements
 			}
+			self::$replacements = array_merge(self::$replacements, \Mocovi\Input::getInstance()->get); // CAUTION!! Possible HTML-Injection
 		}
 	}
 

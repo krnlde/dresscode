@@ -35,7 +35,7 @@
 
 				<!-- HTML5shiv enables HTML5 elements in old browsers, like IE < 9 -->
 				<!-- obsolete since jQuery 1.7 -->
-				<!--xsl:comment><![CDATA[[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]]]></xsl:comment-->
+				<xsl:comment><![CDATA[[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]]]></xsl:comment>
 			</head>
 			<body>
 				<div class="container">
