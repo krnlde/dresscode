@@ -6,7 +6,7 @@
 	extension-element-prefixes="php">
 
 	<xsl:template match="form">
-		<form action="" method="{@method}">
+		<form action="{@action}" method="{@method}">
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
 			<xsl:if test="@multipart = 1">

@@ -6,11 +6,12 @@
  */
 define('STARTTIME', microtime(true));
 
-require __DIR__.'/lib/vendor/Opl/src/Opl/Autoloader/GenericLoader.php';
+require __DIR__.'/lib/vendor/Opl/src/Opl/Autoloader/UniversalLoader.php';
 
-use \Opl\Autoloader\GenericLoader;
+use \Opl\Autoloader\UniversalLoader;
 
-$loader = new GenericLoader(__DIR__.'/lib/vendor/');
+$loader = new UniversalLoader(__DIR__.'/lib/vendor/');
+// $loader->addNamespace('Mocovi\Controller\\', __DIR__.'/applications/common/modules'); // @todo
 $loader->addNamespace('Mocovi');
 $loader->addNamespace('Assetic', __DIR__.'/lib/vendor/Assetic/src');
 $loader->addNamespace('Symfony', __DIR__.'/lib/vendor/Symfony/src');

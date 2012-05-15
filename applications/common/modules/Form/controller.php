@@ -7,12 +7,25 @@ use \Assetic\Asset\StringAsset;
 class Form extends \Mocovi\Controller
 {
 	/**
+	 * Defines the destination URL which should be opened after success.
+	 *
 	 * @property
 	 * @var string
 	 */
 	protected $jumpTo = '.';
 
 	/**
+	 * Defines the URL which handles the form data.
+	 *
+	 * @property
+	 * @var string
+	 */
+	protected $action = '.';
+
+
+	/**
+	 * HTTP method.
+	 *
 	 * @property
 	 * @var string
 	 */
@@ -25,12 +38,15 @@ class Form extends \Mocovi\Controller
 	protected $multipart = false;
 
 	/**
+	 * Defines whether the form should be transmitted via ajax.
+	 *
 	 * @property
 	 * @var boolean
 	 */
 	protected $ajax = false;
 
 	/**
+	 * Javascript which will be called clientside on submit.
 	 * @property
 	 * @hidden
 	 * @var string
@@ -38,6 +54,8 @@ class Form extends \Mocovi\Controller
 	protected $onsubmit;
 
 	/**
+	 * Defines the context object.
+	 *
 	 * @var \Mocovi\Controller
 	 */
 	public $context;
@@ -60,6 +78,11 @@ class Form extends \Mocovi\Controller
 	 */
 	protected $inputs;
 
+	/**
+	 * Initialize script (Javascript)
+	 *
+	 * @var string
+	 */
 	protected static $initialize;
 
 	/**
@@ -69,6 +92,31 @@ class Form extends \Mocovi\Controller
 
 	public function setup()
 	{
+
+		if (strlen($this->jumpTo) > 0)
+		{
+			if ($this->jumpTo[0] === '/')
+			{
+				$this->jumpTo = \Mocovi\Application::basePath().$this->jumpTo;
+			}
+			elseif($this->jumpTo[0] === '.')
+			{
+				$this->jumpTo = substr_replace($this->jumpTo, \Mocovi\Application::basePath().$this->Application->Request->path, 0, 1);
+			}
+		}
+
+		if (strlen($this->action) > 0)
+		{
+			if ($this->action[0] === '/')
+			{
+				$this->action = \Mocovi\Application::basePath().$this->action;
+			}
+			elseif($this->action[0] === '.')
+			{
+				$this->action = substr_replace($this->action, \Mocovi\Application::basePath().$this->Application->Request->path, 0, 1);
+			}
+		}
+
 		// $this->Application->javascript(new FileAsset('applications/common/assets/js/jquery-validation/jquery.validate.js'));
 		// if (is_null(self::$Pool))
 		// {
@@ -124,7 +172,7 @@ class Form extends \Mocovi\Controller
 					var $data = $this.serializeObject(); // attention! custom method
 					$inputs.prop("disabled", true);
 					$spinner = $context.spin("medium"); // make the size dynamic
-					$.ajax("", {
+					$.ajax('.$this->action.', {
 						cache: false,
 						context: $context,
 						type: "'.strtoupper($this->method).'",
@@ -151,17 +199,6 @@ class Form extends \Mocovi\Controller
 			}
 		}
 
-		if (strlen($this->jumpTo) > 0)
-		{
-			if ($this->jumpTo[0] === '/')
-			{
-				$this->jumpTo = \Mocovi\Application::basePath().$this->jumpTo;
-			}
-			elseif($this->jumpTo[0] === '.')
-			{
-				$this->jumpTo = substr_replace($this->jumpTo, \Mocovi\Application::basePath().$this->Application->Request->path, 0, 1);
-			}
-		}
 		$this->Input	= \Mocovi\Input::getInstance();
 		$this->inputs	= $this->find('Input');
 		if (!in_array($this->method, $this->methods))

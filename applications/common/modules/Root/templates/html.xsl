@@ -18,7 +18,7 @@
 			</xsl:if>
 			<head>
 				<meta charset="utf-8" />
-				<title><xsl:value-of select="@title" /></title>
+				<title><xsl:value-of select="@title" /> - <xsl:value-of select="@domain" /></title>
 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				<xsl:if test="string-length(@keywords) &gt; 0">

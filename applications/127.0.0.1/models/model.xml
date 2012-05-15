@@ -52,6 +52,46 @@
 							<paragraph>Ein großer Vorteil ist für Sie, dass sich in unserem Team zwei hervorragende Fotografen befinden die viele Erfahrungen im Bereich Event- und Studio-Fotografie mitbringen.</paragraph>
 							<button type="button" class="btn-primary">Mehr erfahren</button>
 						</thumbnail>
+						<thumbnail source="/gallery/auswahl-9.jpg">
+							<headline priority="3">Konzeption</headline>
+							<paragraph>Wir erstellen auf Wunsch eine vollständige Online-Marketing-Kampagne mit Social-Marketing, Newsletter, Adwords-Kampagnen, dynamsichen Landingpages und mehr um Ihr Unternehmen erfolgreich im Web zu platzieren.</paragraph>
+							<button type="button" class="btn-primary" onclick="alert('Hier kann eine Funktion ausgeführt werden');">Mehr erfahren</button>
+						</thumbnail>
+						<thumbnail source="/gallery/auswahl-5.jpg">
+							<headline priority="3">Umsetzung</headline>
+							<paragraph>Unser Team aus erfahrenen Web-Entwicklern setzt Ihre Wünsche schnellst- und bestmöglich um. Dabei setzen wir auf Best-Practices und Web-Standards, so dass die Unterstützung für eine sehr breite Spanne von Browsern gewährleistet bleibt.</paragraph>
+							<button type="button" class="btn-primary">
+								<attribute name="onclick">
+									alert('Translation test: <translate token="loremipsum" cut="40"/>');
+								</attribute>
+								Mehr erfahren
+							</button>
+						</thumbnail>
+						<thumbnail source="/gallery/auswahl-10.jpg">
+							<headline priority="3">Fotografie</headline>
+							<paragraph>Ein großer Vorteil ist für Sie, dass sich in unserem Team zwei hervorragende Fotografen befinden die viele Erfahrungen im Bereich Event- und Studio-Fotografie mitbringen.</paragraph>
+							<button type="button" class="btn-primary">Mehr erfahren</button>
+						</thumbnail>
+						<thumbnail source="/gallery/auswahl-9.jpg">
+							<headline priority="3">Konzeption</headline>
+							<paragraph>Wir erstellen auf Wunsch eine vollständige Online-Marketing-Kampagne mit Social-Marketing, Newsletter, Adwords-Kampagnen, dynamsichen Landingpages und mehr um Ihr Unternehmen erfolgreich im Web zu platzieren.</paragraph>
+							<button type="button" class="btn-primary" onclick="alert('Hier kann eine Funktion ausgeführt werden');">Mehr erfahren</button>
+						</thumbnail>
+						<thumbnail source="/gallery/auswahl-5.jpg">
+							<headline priority="3">Umsetzung</headline>
+							<paragraph>Unser Team aus erfahrenen Web-Entwicklern setzt Ihre Wünsche schnellst- und bestmöglich um. Dabei setzen wir auf Best-Practices und Web-Standards, so dass die Unterstützung für eine sehr breite Spanne von Browsern gewährleistet bleibt.</paragraph>
+							<button type="button" class="btn-primary">
+								<attribute name="onclick">
+									alert('Translation test: <translate token="loremipsum" cut="40"/>');
+								</attribute>
+								Mehr erfahren
+							</button>
+						</thumbnail>
+						<thumbnail source="/gallery/auswahl-10.jpg">
+							<headline priority="3">Fotografie</headline>
+							<paragraph>Ein großer Vorteil ist für Sie, dass sich in unserem Team zwei hervorragende Fotografen befinden die viele Erfahrungen im Bereich Event- und Studio-Fotografie mitbringen.</paragraph>
+							<button type="button" class="btn-primary">Mehr erfahren</button>
+						</thumbnail>
 					</thumbnails>
 					<!-- <paragraph class="well">
 						<translate token="loremipsum"/>
