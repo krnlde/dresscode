@@ -181,14 +181,11 @@ class Application
 		// if (!$_GET['debug'])
 		// {
 		// 	self::$stylesheets->ensureFilter(new Filter\CssMinFilter()); // Bricks bootstrap css files!
-		// 	self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); // Slow as fuck
-		// 	self::$javascripts->ensureFilter(new Filter\JSMinFilter()); // Bricks everything!
-		// 	self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); // Slow as fuck
+			// self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); // Slow as fuck
+			// self::$javascripts->ensureFilter(new Filter\JSMinFilter()); // Bricks everything!
+			// self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); // Slow as fuck
 		// }
 
-		// load common translation here
-		// $xml->load($this->getPath()->getPath().DIRECTORY_SEPARATOR.'krnl_translation.xml');
-		// \Mocovi\Translator::addTranslationsFromXml($xml);
 		if (file_exists($bootstrap = $this->getPath()->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
 		{
 			require $bootstrap;

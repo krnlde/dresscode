@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="http://mocovi.de/schema/controller">
+	<token name="Input.ChooseFile">
+		<translation lang="de">Datei auswählen...</translation>
+		<translation lang="all">Choose File...</translation>
+	</token>
+</root>

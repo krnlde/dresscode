@@ -69,7 +69,7 @@ class Router
 		$this->Application->setFormat($this->Request->format);
 		if (strlen($path) <= 1)
 		{
-			$this->Response->redirect($this->Application->defaultRoute(), 307); // 301 = Moved Permanently (recommended in production), 307 = Temporary Redirect
+			$this->Response->redirect($this->Application->defaultRoute(), 301); // 301 = Moved Permanently (recommended in production), 307 = Temporary Redirect (good for debugging)
 		}
 		if ($rawPath[strlen($rawPath) - 1] === '/') // if last character is '/', which is not allowed because of duplicate content
 		{

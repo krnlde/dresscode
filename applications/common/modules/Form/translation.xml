@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="http://mocovi.de/schema/controller">
+	<token name="Form.RequiredInfo">
+		<translation lang="de">markiert ein Pflichtfeld</translation>
+		<translation lang="all">denotes a required field</translation>
+	</token>
+</root>

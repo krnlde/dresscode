@@ -54,6 +54,11 @@ class Module
 	 */
 	protected static $dom;
 
+	/**
+	 * @var array
+	 */
+	protected static $includedTranslations = array();
+
 	public static function initialize(\Mocovi\Application $Application)
 	{
 		self::$Application			= $Application;
@@ -69,6 +74,14 @@ class Module
 	 * @return \Mocovi\Controller
 	 */
 	public static function createControllerFromNode(\DomNode $sourceNode, \Mocovi\Controller $parent = null)
+	{
+		$controller = self::_createControllerFromNode($sourceNode, $parent);
+		self::loadTranslations();
+		return $controller;
+	}
+
+
+	protected static function _createControllerFromNode(\DomNode $sourceNode, \Mocovi\Controller $parent = null)
 	{
 		if ($sourceNode->nodeType === \XML_TEXT_NODE)
 		{
@@ -88,6 +101,10 @@ class Module
 			$modulePath = self::find($moduleName);
 			try
 			{
+				if (file_exists($translation = $modulePath->getPath().DIRECTORY_SEPARATOR.'translation.xml') && !array_key_exists($translation, self::$includedTranslations))
+				{
+					self::$includedTranslations[$translation] = true;
+				}
 				$controllerPath = new \SplFileObject($controllerPath = $modulePath->getPath().DIRECTORY_SEPARATOR.'controller.php');
 			}
 			catch (\RuntimeException $e)
@@ -112,7 +129,7 @@ class Module
 				{
 					if (in_array($childNode->nodeType, array(XML_ELEMENT_NODE, XML_TEXT_NODE)))
 					{
-						$child = self::createControllerFromNode($childNode, $controller); // Recursion
+						$child = self::_createControllerFromNode($childNode, $controller); // Recursion
 						$controller->addChild($child);
 					}
 				}
@@ -124,7 +141,6 @@ class Module
 		}
 		return $controller;
 	}
-
 	/**
 	 * Finds a module in the {@see $Pool} and returns the DirectoryIterator of the path.
 	 *
@@ -323,5 +339,29 @@ class Module
 		$errorNode	= self::createNodeFromException($exception);
 		$controller	= self::createControllerFromNode($errorNode);
 		return $controller;
+	}
+
+	/**
+	 * First loads the common-, then the module- and at last the custom-translation!
+	 *
+	 * @return void
+	 */
+	protected static function loadTranslations()
+	{
+		$common = new \DomDocument();
+		$common->load(self::$Application->getCommonPath()->getPath().DIRECTORY_SEPARATOR.'translation.xml');
+		\Mocovi\Translator::addTranslationsFromXml($common);
+		foreach (self::$includedTranslations as $path => $value)
+		{
+			$xml = new \DomDocument();
+			$xml->load($path);
+			\Mocovi\Translator::addTranslationsFromXml($xml);
+		}
+		if (file_exists($filename = self::$Application->getPath()->getPath().DIRECTORY_SEPARATOR.'translation.xml'))
+		{
+			$custom = new \DomDocument();
+			$custom->load($filename);
+			\Mocovi\Translator::addTranslationsFromXml($custom);
+		}
 	}
 }

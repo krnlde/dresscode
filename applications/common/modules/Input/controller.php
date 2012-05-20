@@ -139,6 +139,10 @@ class Input extends \Mocovi\Controller
 			, 'maxlength'	=> 5
 			, 'pattern'		=> '^[0-9]{5}$' // @todo needs to be checked!
 			)
+		, 'password'		=> array
+			( 'type'		=> 'password'
+			, 'required'	=> true
+			)
 		);
 
 	/**
@@ -193,7 +197,7 @@ class Input extends \Mocovi\Controller
 			$this->class .= ($this->class ? ' ' : '').'fancy';
 			if (!$this->caption)
 			{
-				$this->caption = 'Choose File...';
+				$this->caption = \Mocovi\Translator::translate('Input.ChooseFile')->nodeValue;
 			}
 			$this->Application->javascript(new FileAsset('applications/common/assets/js/jquery.fancyupload.js'));
 		}

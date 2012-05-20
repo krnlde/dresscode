@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="http://mocovi.de/schema/controller">
+	<token name="loremipsum">
+		<translation lang="all">
+			<quote cite="http://www.loremipsum.de/">Lorem <strong>ipsum</strong> dolor sit <emphasized>amet</emphasized>, <deleted datetime="-1 day">consetetur</deleted> <super>sadipscing</super> <sub>elitr</sub>, sed diam nonumy <code>eirmod</code> tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</quote>
+		</translation>
+	</token>
+	<token name="DurationSeconds">
+		<translation lang="de">%d Sekunde(n)</translation>
+		<translation lang="all">%d second(s)</translation>
+	</token>
+	<token name="DurationMinutes">
+		<translation lang="de">%d Minute(n)</translation>
+		<translation lang="all">%d minute(s)</translation>
+	</token>
+	<token name="DurationHours">
+		<translation lang="de">%d Stunde(n)</translation>
+		<translation lang="all">%d hour(s)</translation>
+	</token>
+	<token name="DurationDays">
+		<translation lang="de">%d Tag(e)</translation>
+		<translation lang="all">%d Day(s)</translation>
+	</token>
+	<token name="DurationMonths">
+		<translation lang="de">%d Monat(e)</translation>
+		<translation lang="all">%d month(s)</translation>
+	</token>
+	<token name="DurationYears">
+		<translation lang="de">%d Jahr(e)</translation>
+		<translation lang="all">%d year(s)</translation>
+	</token>
+	<token name="Mocovi\Exception\Input\WrongFormat">
+		<translation lang="all">Dieser Wert hat das falsche Format</translation>
+	</token>
+	<token name="Mocovi\Exception\Input\WrongFormat\TooShort">
+		<translation lang="all">Dieser Wert ist zu kurz</translation>
+		<translation lang="all">This value is too short</translation>
+	</token>
+	<token name="Mocovi\Exception\Input\WrongFormat\TooLong">
+		<translation lang="de">Dieser Wert ist zu lang</translation>
+		<translation lang="all">This value is too long</translation>
+	</token>
+	<token name="Mocovi\Exception\Input\Required">
+		<translation lang="de">Dieses Feld muss ausgefüllt werden</translation>
+		<translation lang="all">This value is required</translation>
+	</token>
+	<token name="button.submit">
+		<translation lang="de">Absenden</translation>
+		<translation lang="all">Submit</translation>
+	</token>
+	<token name="button.reset">
+		<translation lang="de">Zurücksetzen</translation>
+		<translation lang="all">Reset</translation>
+	</token>
+	<token name="TableOfContents">
+		<translation lang="de">Inhalte</translation>
+		<translation lang="all">Contents</translation>
+	</token>
+</root>
