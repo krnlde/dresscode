@@ -19,11 +19,11 @@
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary">
 					<i class="icon-ok"><xsl:text> </xsl:text></i>
-					<xsl:value-of select="php:function('\Mocovi\Translator::translate', 'button.submit')"/>
+					<xsl:value-of select="php:function('\Mocovi\Translator::translate', 'Form.submit')"/>
 				</button>
 				<button type="reset" class="btn">
 					<i class="icon-refresh"><xsl:text> </xsl:text></i>
-					<xsl:value-of select="php:function('\Mocovi\Translator::translate', 'button.reset')"/>
+					<xsl:value-of select="php:function('\Mocovi\Translator::translate', 'Form.reset')"/>
 				</button>
 			</div>
 				<xsl:if test=".//input[@required = 1]">

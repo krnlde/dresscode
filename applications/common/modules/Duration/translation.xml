@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="http://mocovi.de/schema/controller">
+	<token name="DurationSeconds">
+		<translation lang="de">%d Sekunde(n)</translation>
+		<translation lang="all">%d second(s)</translation>
+	</token>
+	<token name="DurationMinutes">
+		<translation lang="de">%d Minute(n)</translation>
+		<translation lang="all">%d minute(s)</translation>
+	</token>
+	<token name="DurationHours">
+		<translation lang="de">%d Stunde(n)</translation>
+		<translation lang="all">%d hour(s)</translation>
+	</token>
+	<token name="DurationDays">
+		<translation lang="de">%d Tag(e)</translation>
+		<translation lang="all">%d Day(s)</translation>
+	</token>
+	<token name="DurationMonths">
+		<translation lang="de">%d Monat(e)</translation>
+		<translation lang="all">%d month(s)</translation>
+	</token>
+	<token name="DurationYears">
+		<translation lang="de">%d Jahr(e)</translation>
+		<translation lang="all">%d year(s)</translation>
+	</token>
+</root>

@@ -4,4 +4,13 @@
 		<translation lang="de">markiert ein Pflichtfeld</translation>
 		<translation lang="all">denotes a required field</translation>
 	</token>
+	<token name="Form.submit">
+		<translation lang="de">Absenden</translation>
+		<translation lang="all">Submit</translation>
+	</token>
+	<token name="Form.reset">
+		<translation lang="de">Zurücksetzen</translation>
+		<translation lang="all">Reset</translation>
+	</token>
+
 </root>

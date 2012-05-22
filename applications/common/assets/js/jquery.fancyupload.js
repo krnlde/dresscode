@@ -16,7 +16,9 @@
 		.after($proxy)
 		.attr('tabindex', '-1')
 		.css({
-			marginRight: '-'+$fancy.outerWidth(true)+'.px',
+			position: 'absolute',
+			left: '-999em',
+			opacity: 0,
 			visibility: 'hidden'
 		})
 		.change(function (e) {
