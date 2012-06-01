@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-abstract class Dataprovider extends \Mocovi\Controller implements \Iterator
+abstract class Dataprovider extends \Dresscode\Controller implements \Iterator
 {
 	protected $data = array();
 

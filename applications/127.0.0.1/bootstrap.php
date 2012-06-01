@@ -6,4 +6,4 @@ $this->defaultRoute = 'home';
 
 $xml = new \DomDocument();
 $xml->load($this->getPath()->getPath().DIRECTORY_SEPARATOR.'translation.xml');
-\Mocovi\Translator::addTranslationsFromXml($xml);
+\Dresscode\Translator::addTranslationsFromXml($xml);

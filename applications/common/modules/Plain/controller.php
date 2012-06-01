@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Plain extends \Mocovi\Controller
+class Plain extends \Dresscode\Controller
 {
 
 	/**
@@ -27,7 +27,7 @@ class Plain extends \Mocovi\Controller
 			{
 				self::$replacements = $this->closest('Root')->getProperties(); // adopts all Root-Controller attributes as $-replacements
 			}
-			self::$replacements = array_merge(self::$replacements, \Mocovi\Input::getInstance()->get); // CAUTION!! Possible HTML-Injection
+			self::$replacements = array_merge(self::$replacements, \Dresscode\Input::getInstance()->get); // CAUTION!! Possible HTML-Injection
 		}
 	}
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root xmlns="http://mocovi.de/schema/controller">
+<root xmlns="http://dresscode.com/schema/controller">
 	<token name="Form.RequiredInfo">
 		<translation lang="de">markiert ein Pflichtfeld</translation>
 		<translation lang="all">denotes a required field</translation>
@@ -12,5 +12,4 @@
 		<translation lang="de">Zurücksetzen</translation>
 		<translation lang="all">Reset</translation>
 	</token>
-
 </root>

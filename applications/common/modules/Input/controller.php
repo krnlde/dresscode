@@ -1,9 +1,9 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
 use \Assetic\Asset\FileAsset;
 
-class Input extends \Mocovi\Controller
+class Input extends \Dresscode\Controller
 {
 	/**
 	 * Type of the input.
@@ -151,7 +151,7 @@ class Input extends \Mocovi\Controller
 	protected $dataSent = false;
 
 	/**
-	 * @var \Mocovi\Exception\Input
+	 * @var \Dresscode\Exception\Input
 	 */
 	protected $exception;
 
@@ -162,10 +162,10 @@ class Input extends \Mocovi\Controller
 			$this->id = $this->generateId();
 		}
 
-		$Input	= \Mocovi\Input::getInstance();
+		$Input	= \Dresscode\Input::getInstance();
 		if (!($form = $this->closest('Form')))
 		{
-			$this->error(new \Mocovi\Exception(get_class($this).' must be in a Form.'));
+			$this->error(new \Dresscode\Exception(get_class($this).' must be in a Form.'));
 			return;
 		}
 		$method	= $form->getProperty('method'); // @todo is this the best solution?
@@ -197,7 +197,7 @@ class Input extends \Mocovi\Controller
 			$this->class .= ($this->class ? ' ' : '').'fancy';
 			if (!$this->caption)
 			{
-				$this->caption = \Mocovi\Translator::translate('Input.ChooseFile')->nodeValue;
+				$this->caption = \Dresscode\Translator::translate('Input.ChooseFile')->nodeValue;
 			}
 			$this->Application->javascript(new FileAsset('applications/common/assets/js/jquery.fancyupload.js'));
 		}
@@ -252,9 +252,9 @@ class Input extends \Mocovi\Controller
 		{
 			$this->validate();
 		}
-		catch (\Mocovi\Exception\Input $e)
+		catch (\Dresscode\Exception\Input $e)
 		{
-			if ($node = \Mocovi\Translator::translate(get_class($e)))
+			if ($node = \Dresscode\Translator::translate(get_class($e)))
 			{
 				$this->setProperty('title', $node->nodeValue); // @todo maybe improve this?
 			}
@@ -272,19 +272,19 @@ class Input extends \Mocovi\Controller
 	{
 		if ($this->required && strlen($this->value) === 0)
 		{
-			throw new \Mocovi\Exception\Input\Required($this->name);
+			throw new \Dresscode\Exception\Input\Required($this->name);
 		}
 		if ($this->maxlength && strlen($this->value) > $this->maxlength)
 		{
-			throw new \Mocovi\Exception\Input\WrongFormat\TooLong($this->name);
+			throw new \Dresscode\Exception\Input\WrongFormat\TooLong($this->name);
 		}
 		if ($this->minlength && strlen($this->value) < $this->minlength)
 		{
-			throw new \Mocovi\Exception\Input\WrongFormat\TooShort($this->name);
+			throw new \Dresscode\Exception\Input\WrongFormat\TooShort($this->name);
 		}
 		if ($this->pattern && !preg_match('/'.$this->pattern.'/', $this->value))
 		{
-			throw new \Mocovi\Exception\Input\WrongFormat($this->name);
+			throw new \Dresscode\Exception\Input\WrongFormat($this->name);
 		}
 		return true;
 	}

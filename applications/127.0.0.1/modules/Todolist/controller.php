@@ -1,20 +1,20 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Todolist extends \Mocovi\Controller
+class Todolist extends \Dresscode\Controller
 {
 	protected $dataprovider;
 
 	public function setup()
 	{
-		$this->dataprovider = $this->findOne('\Mocovi\Controller\dataprovider');
+		$this->dataprovider = $this->findOne('\Dresscode\Controller\dataprovider');
 		if (!$this->dataprovider)
 		{
-			$this->error(new \Mocovi\Exception('No dataprovider provided.'));
+			$this->error(new \Dresscode\Exception('No dataprovider provided.'));
 		}
 		// $_SESSION = array();
 		$dataprovider = $this->dataprovider;
-		$form = $this->findOne('\Mocovi\Controller\Form');
+		$form = $this->findOne('\Dresscode\Controller\Form');
 		$form->context = $this;
 		$form->on('success', function($event) use ($dataprovider) {
 			if (isset($event->data['task']) && strlen($event->data['task']))

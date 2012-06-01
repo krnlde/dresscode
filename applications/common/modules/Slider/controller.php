@@ -1,10 +1,10 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
 use \Assetic\Asset\FileAsset;
 use \Assetic\Asset\StringAsset;
 
-class Slider extends \Mocovi\Controller
+class Slider extends \Dresscode\Controller
 {
 	/**
 	 * @property

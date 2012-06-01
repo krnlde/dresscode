@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Vimeo extends \Mocovi\Controller
+class Vimeo extends \Dresscode\Controller
 {
 	/**
 	 * @property

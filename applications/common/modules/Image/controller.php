@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Image extends \Mocovi\Controller
+class Image extends \Dresscode\Controller
 {
 	/**
 	 * @property

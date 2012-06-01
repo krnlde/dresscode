@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Youtube extends \Mocovi\Controller
+class Youtube extends \Dresscode\Controller
 {
 	/**
 	 * @property

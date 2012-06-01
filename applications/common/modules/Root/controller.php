@@ -1,10 +1,10 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
 use \Assetic\Asset\FileAsset;
 use \Assetic\Asset\StringAsset;
 
-class Root extends \Mocovi\Controller
+class Root extends \Dresscode\Controller
 {
 	const DEFAULT_THEME = 'base';
 	/**
@@ -92,7 +92,7 @@ class Root extends \Mocovi\Controller
 		$this->keywords		= implode(',', $this->Application->Model->keywords($this->path, $this->language));
 		$this->scheme		= $this->Application->Request->scheme;
 		$this->canonical	= $this->scheme.'://'.$this->domain.($this->Application->Request->port ? ':'.$this->Application->Request->port : '').$this->basepath.$this->path;
-		$this->language		= \Mocovi\Translator::getLanguage();
+		$this->language		= \Dresscode\Translator::getLanguage();
 		if ($this->Application->file->getAttribute('author'))
 		{
 			$this->author	= $this->Application->file->getAttribute('author');
@@ -104,11 +104,13 @@ class Root extends \Mocovi\Controller
 		$this->on('ready', function ($event) use ($Application) { // @todo you can use $this in anonymous functions directly in PHP 5.4
 			$Application->javascript(new FileAsset('applications/common/assets/js/external-links.js')); // load this script at last!
 		});
+
+		// $this->addChild(\Dresscode\Module::createController('breadcrumb'));
 	}
 
 	protected function getCssPool()
 	{
-		$cssPool = new \Mocovi\Pool('css');
+		$cssPool = new \Dresscode\Pool('css');
 		$cssPool->add(new \DirectoryIterator('applications/common/assets/css'));
 
 		if (file_exists($custom = 'applications/'.$this->Application->getName().'/assets/css')) // @todo clean this mess up.

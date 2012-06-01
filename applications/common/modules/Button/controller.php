@@ -1,10 +1,10 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
 use \Assetic\Asset\FileAsset;
 use \Assetic\Asset\StringAsset;
 
-class Button extends \Mocovi\Controller
+class Button extends \Dresscode\Controller
 {
 	/**
 	 * Type of the input.
@@ -45,7 +45,7 @@ class Button extends \Mocovi\Controller
 				self::$initialize = new StringAsset
 				(
 					'
-					var $basepath	= "'.\Mocovi\Application::basePath().'";
+					var $basepath	= "'.\Dresscode\Application::basePath().'";
 					var $name		= "'.$this->getName().'";
 					'
 				);

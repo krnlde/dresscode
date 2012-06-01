@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-\Mocovi\Module::requireController('Plain');
+\Dresscode\Module::requireController('Plain');
 
 class Translate extends Plain
 {
@@ -45,7 +45,7 @@ class Translate extends Plain
 
 	public function get(array $params = array())
 	{
-		if (!($translation = \Mocovi\Translator::translate($this->token))) // shortcut if translation is not found
+		if (!($translation = \Dresscode\Translator::translate($this->token))) // shortcut if translation is not found
 		{
 			$this->setText($this->token);
 			return;
@@ -59,7 +59,7 @@ class Translate extends Plain
 		}
 		else
 		{
-			$text = sprintf(\Mocovi\translator::textByCount($translation->nodeValue, $this->count), $this->count);
+			$text = sprintf(\Dresscode\translator::textByCount($translation->nodeValue, $this->count), $this->count);
 		}
 
 		if (!is_null($this->cut))
@@ -93,14 +93,14 @@ class Translate extends Plain
 
 		if (array_key_exists($this->token, self::$usedTokens))
 		{
-			throw new \Mocovi\Exception('Loop detected: '.$this->token);
+			throw new \Dresscode\Exception('Loop detected: '.$this->token);
 		}
 
 		self::$usedTokens[$this->token] = null; // required in order to nest translate controllers
 
 		foreach($translation->childNodes as $child)
 		{
-			if ($controller = \Mocovi\Module::createControllerFromNode($child, $this))
+			if ($controller = \Dresscode\Module::createControllerFromNode($child, $this))
 			{
 				$this->addChild($controller); // this is required so the child knows its parent before the launch
 				$controller->launch(__FUNCTION__, $this->params);

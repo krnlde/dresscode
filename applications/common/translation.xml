@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root xmlns="http://mocovi.de/schema/controller">
+<root xmlns="http://dresscode.com/schema/controller">
 
 	<token name="loremipsum">
 		<translation lang="all">

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<root xmlns="http://mocovi.de/schema/controller">
+<root xmlns="http://dresscode.com/schema/controller">
 	<token name="Input.ChooseFile">
 		<translation lang="de">Datei auswählen...</translation>
 		<translation lang="all">Choose File...</translation>
 	</token>
 
 	<translationcollection description="Exceptions">
-		<token name="Mocovi\Exception\Input\WrongFormat">
+		<token name="Dresscode\Exception\Input\WrongFormat">
 			<translation lang="de">Dieser Wert hat das falsche Format</translation>
 			<translation lang="all">This value has a wrong format</translation>
 		</token>
-		<token name="Mocovi\Exception\Input\WrongFormat\TooShort">
+		<token name="Dresscode\Exception\Input\WrongFormat\TooShort">
 			<translation lang="de">Dieser Wert ist zu kurz</translation>
 			<translation lang="all">This value is too short</translation>
 		</token>
-		<token name="Mocovi\Exception\Input\WrongFormat\TooLong">
+		<token name="Dresscode\Exception\Input\WrongFormat\TooLong">
 			<translation lang="de">Dieser Wert ist zu lang</translation>
 			<translation lang="all">This value is too long</translation>
 		</token>
-		<token name="Mocovi\Exception\Input\Required">
+		<token name="Dresscode\Exception\Input\Required">
 			<translation lang="de">Dieses Feld muss ausgefüllt werden</translation>
 			<translation lang="all">This value is required</translation>
 		</token>

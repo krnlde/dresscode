@@ -28,7 +28,7 @@
 
 
 
-	<xsl:variable name="basepath" select="php:function('\Mocovi\Application::basePath')" />
+	<xsl:variable name="basepath" select="php:function('\Dresscode\Application::basePath')" />
 	<xsl:variable name="apppath">
 		<xsl:value-of select="$basepath" />
 		<xsl:text>/applications</xsl:text>

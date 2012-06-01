@@ -1,10 +1,10 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
 use \Assetic\Asset\FileAsset;
 use \Assetic\Asset\StringAsset;
 
-class Form extends \Mocovi\Controller
+class Form extends \Dresscode\Controller
 {
 	/**
 	 * Defines the destination URL which should be opened after success.
@@ -56,7 +56,7 @@ class Form extends \Mocovi\Controller
 	/**
 	 * Defines the context object.
 	 *
-	 * @var \Mocovi\Controller
+	 * @var \Dresscode\Controller
 	 */
 	public $context;
 
@@ -69,12 +69,12 @@ class Form extends \Mocovi\Controller
 	);
 
 	/**
-	 * @var \Mocovi\Input
+	 * @var \Dresscode\Input
 	 */
 	protected $Input;
 
 	/**
-	 * @var array of \Mocovi\Controller\Input
+	 * @var array of \Dresscode\Controller\Input
 	 */
 	protected $inputs;
 
@@ -86,7 +86,7 @@ class Form extends \Mocovi\Controller
 	protected static $initialize;
 
 	/**
-	 * @var \Mocovi\Pool
+	 * @var \Dresscode\Pool
 	 */
 	protected static $Pool;
 
@@ -97,11 +97,11 @@ class Form extends \Mocovi\Controller
 		{
 			if ($this->jumpTo[0] === '/')
 			{
-				$this->jumpTo = \Mocovi\Application::basePath().$this->jumpTo;
+				$this->jumpTo = \Dresscode\Application::basePath().$this->jumpTo;
 			}
 			elseif($this->jumpTo[0] === '.')
 			{
-				$this->jumpTo = substr_replace($this->jumpTo, \Mocovi\Application::basePath().$this->Application->Request->path, 0, 1);
+				$this->jumpTo = substr_replace($this->jumpTo, \Dresscode\Application::basePath().$this->Application->Request->path, 0, 1);
 			}
 		}
 
@@ -109,21 +109,21 @@ class Form extends \Mocovi\Controller
 		{
 			if ($this->action[0] === '/')
 			{
-				$this->action = \Mocovi\Application::basePath().$this->action;
+				$this->action = \Dresscode\Application::basePath().$this->action;
 			}
 			elseif($this->action[0] === '.')
 			{
-				$this->action = substr_replace($this->action, \Mocovi\Application::basePath().$this->Application->Request->path, 0, 1);
+				$this->action = substr_replace($this->action, \Dresscode\Application::basePath().$this->Application->Request->path, 0, 1);
 			}
 		}
 
 		// $this->Application->javascript(new FileAsset('applications/common/assets/js/jquery-validation/jquery.validate.js'));
 		// if (is_null(self::$Pool))
 		// {
-		// 	self::$Pool = new \Mocovi\Pool('js');
+		// 	self::$Pool = new \Dresscode\Pool('js');
 		// 	self::$Pool->add(new \DirectoryIterator('applications/common/assets/js/jquery-validation/localization/'));
 		// }
-		// if ($localization = self::$Pool->find('messages_'.\Mocovi\Translator::getLanguage()))
+		// if ($localization = self::$Pool->find('messages_'.\Dresscode\Translator::getLanguage()))
 		// {
 		// 	$this->Application->javascript(new FileAsset($localization));
 		// }
@@ -199,7 +199,7 @@ class Form extends \Mocovi\Controller
 			}
 		}
 
-		$this->Input	= \Mocovi\Input::getInstance();
+		$this->Input	= \Dresscode\Input::getInstance();
 		$this->inputs	= $this->find('Input');
 		if (!in_array($this->method, $this->methods))
 		{
@@ -254,7 +254,7 @@ class Form extends \Mocovi\Controller
 						return objectData;
 					};
 
-					var $basepath	= "'.\Mocovi\Application::basePath().'";
+					var $basepath	= "'.\Dresscode\Application::basePath().'";
 					var $name		= "'.$this->getName().'";
 					'.($this->context ? 'var $context	= $("#'.$this->context->getProperty('id').'");' : '').'
 					'
@@ -288,7 +288,7 @@ class Form extends \Mocovi\Controller
 			{
 				$this->process();
 			}
-			catch (\Mocovi\Exception\Input $e)
+			catch (\Dresscode\Exception\Input $e)
 			{} // This is important! It prevents the Exception from bubbling up.
 		}
 	}
@@ -333,7 +333,7 @@ class Form extends \Mocovi\Controller
 				}
 			}
 		}
-		catch (\Mocovi\Exception\Input $e)
+		catch (\Dresscode\Exception\Input $e)
 		{
 			if (!$this->trigger('error', $e)->isDefaultPrevented())
 			{

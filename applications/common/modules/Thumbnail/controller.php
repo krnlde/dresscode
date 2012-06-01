@@ -1,12 +1,12 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
 use \Assetic\Asset\FileAsset;
 use \Assetic\Asset\StringAsset;
 
-require_once(\Mocovi\Module::findController('Image'));
+require_once(\Dresscode\Module::findController('Image'));
 
-class Thumbnail extends \Mocovi\Controller\Image
+class Thumbnail extends \Dresscode\Controller\Image
 {
 	/**
 	 * @property

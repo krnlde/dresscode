@@ -1,10 +1,10 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
 use \Assetic\Asset\FileAsset;
 use \Assetic\Asset\StringAsset;
 
-class Code extends \Mocovi\Controller
+class Code extends \Dresscode\Controller
 {
 	/**
 	 * @property
@@ -15,7 +15,7 @@ class Code extends \Mocovi\Controller
 	protected static $initialize;
 
 	/**
-	 * @var \Mocovi\Pool
+	 * @var \Dresscode\Pool
 	 */
 	protected static $Pool;
 
@@ -23,7 +23,7 @@ class Code extends \Mocovi\Controller
 	{
 		if(is_null(self::$Pool))
 		{
-			self::$Pool = new \Mocovi\Pool('js');
+			self::$Pool = new \Dresscode\Pool('js');
 			self::$Pool->add(new \DirectoryIterator(__DIR__.'/assets/google-code-prettify/src/'));
 		}
 	}

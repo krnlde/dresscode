@@ -1,10 +1,10 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
 use \Assetic\Asset\FileAsset;
 use \Assetic\Asset\StringAsset;
 
-class Tabs extends \Mocovi\Controller
+class Tabs extends \Dresscode\Controller
 {
 	/**
 	 * @property

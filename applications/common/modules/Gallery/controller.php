@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Gallery extends \Mocovi\Controller
+class Gallery extends \Dresscode\Controller
 {
 	const MAXIMUM = 100;
 
@@ -42,10 +42,10 @@ class Gallery extends \Mocovi\Controller
 	}
 
 	/**
-	 * Filters ({@see \Mocovi\Controller\Filter}) can be applied to modify the amount of the resulting images.
+	 * Filters ({@see \Dresscode\Controller\Filter}) can be applied to modify the amount of the resulting images.
 	 *
 	 * @triggers loadFile
-	 * @throws \Mocovi\Exception
+	 * @throws \Dresscode\Exception
 	 */
 	public function get(array $params = array())
 	{
@@ -54,7 +54,7 @@ class Gallery extends \Mocovi\Controller
 		$images = array();
 		if ($this->source[0] === '/')
 		{
-			$this->source = $_SERVER['DOCUMENT_ROOT'].\Mocovi\Application::basePath().$this->source;
+			$this->source = $_SERVER['DOCUMENT_ROOT'].\Dresscode\Application::basePath().$this->source;
 		}
 		if (file_exists($this->source) && is_dir($this->source))
 		{
@@ -65,21 +65,21 @@ class Gallery extends \Mocovi\Controller
 					$result = $this->trigger('loadFile', $element)->result;
 					if (is_null($result) || $result) // if $result is null, no result was returned and therefor ignored, otherwise the result value is considered.
 					{
-						$images[] = str_replace(array($_SERVER['DOCUMENT_ROOT'].\Mocovi\Application::basePath(), '\\'), array('', '/'), $element->getPathName());
+						$images[] = str_replace(array($_SERVER['DOCUMENT_ROOT'].\Dresscode\Application::basePath(), '\\'), array('', '/'), $element->getPathName());
 					}
 				}
 			}
 		}
 		else
 		{
-			throw new \Mocovi\Exception('source path "'.$this->source.'" not found.');
+			throw new \Dresscode\Exception('source path "'.$this->source.'" not found.');
 		}
 		usort($images, function($a, $b) {
 			return strnatcmp($a, $b);
 		});
 		for ($i = 0; $i < min(count($images), $this->maximum); $i++)
 		{
-			$controller = \Mocovi\Module::createController('thumbnail', null, array
+			$controller = \Dresscode\Module::createController('thumbnail', null, array
 				( 'source'		=> $images[$i]
 				, 'size'		=> $this->size
 				, 'group'		=> substr(md5($this->getXpath()), 0, 6)

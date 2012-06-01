@@ -1,11 +1,11 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-use \Mocovi\Translator;
+use \Dresscode\Translator;
 
-\Mocovi\Module::requireController('Time');
+\Dresscode\Module::requireController('Time');
 
-class Duration extends \Mocovi\Controller\Time
+class Duration extends \Dresscode\Controller\Time
 {
 
 	protected $formats = array

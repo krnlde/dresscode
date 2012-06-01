@@ -1,9 +1,9 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-\Mocovi\Module::requireController('Dataprovider');
+\Dresscode\Module::requireController('Dataprovider');
 
-class Sessionstore extends \Mocovi\Controller\Dataprovider
+class Sessionstore extends \Dresscode\Controller\Dataprovider
 {
 	/**
 	 * @property

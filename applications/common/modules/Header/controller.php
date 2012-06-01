@@ -1,5 +1,5 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Header extends \Mocovi\Controller
+class Header extends \Dresscode\Controller
 {}

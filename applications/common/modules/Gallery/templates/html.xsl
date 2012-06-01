@@ -31,7 +31,7 @@
 					<xsl:value-of select="@source"/>
 				</xsl:when>
 				<xsl:otherwise>
-						<xsl:value-of select="php:function('\Mocovi\Application::basePath')"/>
+						<xsl:value-of select="php:function('\Dresscode\Application::basePath')"/>
 						<xsl:text>/image.php?source=</xsl:text>
 						<xsl:value-of select="@source"/>
 						<xsl:text>&amp;size=</xsl:text>

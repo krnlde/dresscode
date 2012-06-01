@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Error extends \Mocovi\Controller
+class Error extends \Dresscode\Controller
 {
 	public function setup()
 	{

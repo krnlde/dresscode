@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Search extends \Mocovi\Controller
+class Search extends \Dresscode\Controller
 {
 	/**
 	 * @property
@@ -18,10 +18,10 @@ class Search extends \Mocovi\Controller
 
 	public function get(array $params = array())
 	{
-		$Input = \Mocovi\Input::getInstance();
+		$Input = \Dresscode\Input::getInstance();
 		if (isset($Input->get[$this->parameter]))
 		{
-			$this->addChild($text = new \Mocovi\Controller\Plain(null, $this->Application)); // created on the fly
+			$this->addChild($text = new \Dresscode\Controller\Plain(null, $this->Application)); // created on the fly
 			$text->launch(__FUNCTION__);
 			$text->setText($Input->get[$this->parameter]);
 		}

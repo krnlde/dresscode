@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Paging extends \Mocovi\Controller
+class Paging extends \Dresscode\Controller
 {
 
 	/**
@@ -17,7 +17,7 @@ class Paging extends \Mocovi\Controller
 
 	public function setup()
 	{
-		$Input = \Mocovi\Input::getInstance();
+		$Input = \Dresscode\Input::getInstance();
 		if (!is_null($Input->get('page')))
 		{
 			$page = $Input->get('page');

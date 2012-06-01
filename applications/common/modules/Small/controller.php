@@ -1,6 +1,6 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Small extends \Mocovi\Controller
+class Small extends \Dresscode\Controller
 {
 }

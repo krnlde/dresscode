@@ -1,9 +1,9 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-\Mocovi\Module::requireController('Element');
+\Dresscode\Module::requireController('Element');
 
-class Protect extends \Mocovi\Controller\Element
+class Protect extends \Dresscode\Controller\Element
 {
 	/**
 	 * @property

@@ -1,9 +1,9 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-use \Mocovi\Event;
+use \Dresscode\Event;
 
-class Menuextension extends \Mocovi\Controller
+class Menuextension extends \Dresscode\Controller
 {
 	public function get(array $params = array())
 	{
@@ -11,7 +11,7 @@ class Menuextension extends \Mocovi\Controller
 			Here is an example how to select modules in the hierarchy,
 			modify them and use events with its callbacks.
 		*/
-		$this->closest('Menu')->on('addElement', function (\Mocovi\Event $event) {
+		$this->closest('Menu')->on('addElement', function (\Dresscode\Event $event) {
 			$node = $event->relatedTarget;
 			if ($node->getAttribute('path') === '/home')
 			{

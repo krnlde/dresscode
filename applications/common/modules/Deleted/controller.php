@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Deleted extends \Mocovi\Controller
+class Deleted extends \Dresscode\Controller
 {
 	/**
 	 * @property

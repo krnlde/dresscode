@@ -16,7 +16,7 @@
 					</xsl:attribute>
 				</xsl:if>
 				<li class="nav-header">
-					<xsl:value-of select="php:function('\Mocovi\Translator::translate', 'TableOfContents')"/>
+					<xsl:value-of select="php:function('\Dresscode\Translator::translate', 'TableOfContents')"/>
 				</li>
 				<xsl:for-each select="element">
 					<li>

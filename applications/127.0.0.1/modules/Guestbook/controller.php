@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Guestbook extends \Mocovi\Controller
+class Guestbook extends \Dresscode\Controller
 {
 	public function setup()
 	{

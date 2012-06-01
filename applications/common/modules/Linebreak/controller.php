@@ -1,5 +1,5 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Linebreak extends \Mocovi\Controller
+class Linebreak extends \Dresscode\Controller
 {}

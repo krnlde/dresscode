@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Toc extends \Mocovi\Controller
+class Toc extends \Dresscode\Controller
 {
 
 	/**

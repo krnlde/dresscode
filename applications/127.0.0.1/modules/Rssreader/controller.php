@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Rssreader extends \Mocovi\Controller
+class Rssreader extends \Dresscode\Controller
 {
 	const MINIMUM = 1;
 	const MAXIMUM = 100;

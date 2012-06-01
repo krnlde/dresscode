@@ -31,7 +31,7 @@
 				<meta name="date" content="{php:function('date', 'c')}"/>
 
 				<link rel="canonical" href="{@canonical}"/>
-				<link rel="stylesheet" type="text/css" href="{php:function('\Mocovi\Application::dumpStylesheets')}" media="all"/>
+				<link rel="stylesheet" type="text/css" href="{php:function('\Dresscode\Application::dumpStylesheets')}" media="all"/>
 
 				<!-- HTML5shiv enables HTML5 elements in old browsers, like IE < 9 -->
 				<!-- obsolete since jQuery 1.7 -->
@@ -52,7 +52,7 @@
 					<xsl:value-of select="$assets"/>
 					<xsl:text disable-output-escaping="yes">/js/jquery.min.js"&gt;&lt;\/script&gt;');</xsl:text>
 				</script>
-				<script type="text/javascript" src="{php:function('\Mocovi\Application::dumpJavascripts')}"><xsl:text> </xsl:text></script>
+				<script type="text/javascript" src="{php:function('\Dresscode\Application::dumpJavascripts')}"><xsl:text> </xsl:text></script>
 			</body>
 		</html>
 	</xsl:template>

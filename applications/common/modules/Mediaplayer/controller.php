@@ -1,10 +1,10 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
 use \Assetic\Asset\FileAsset;
 use \Assetic\Asset\StringAsset;
 
-class Mediaplayer extends \Mocovi\Controller
+class Mediaplayer extends \Dresscode\Controller
 {
 	/**
 	 * @property
@@ -20,7 +20,7 @@ class Mediaplayer extends \Mocovi\Controller
 		}
 		if (isset($this->source[0]) && $this->source[0] === '/')
 		{
-			$this->source = \Mocovi\Application::basePath().$this->source;
+			$this->source = \Dresscode\Application::basePath().$this->source;
 		}
 		if (file_exists(($this->source[0] === '/' ? $_SERVER['DOCUMENT_ROOT'] : '').$this->source))
 		{
@@ -38,7 +38,7 @@ class Mediaplayer extends \Mocovi\Controller
 		}
 		else
 		{
-			$this->error(new \Mocovi\Exception('Media source "'.$this->source.'" not found'));
+			$this->error(new \Dresscode\Exception('Media source "'.$this->source.'" not found'));
 		}
 	}
 }

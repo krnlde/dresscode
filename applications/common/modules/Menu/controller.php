@@ -1,12 +1,12 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-use \Mocovi\Event;
+use \Dresscode\Event;
 
-class Menu extends \Mocovi\Controller
+class Menu extends \Dresscode\Controller
 {
 	/*
-		use \Mocovi\Controller\Trait\Param
+		use \Dresscode\Controller\Trait\Param
 		to add parameter methods like getParam($x);
 	*/
 	const MIN_DEPTH = 0;

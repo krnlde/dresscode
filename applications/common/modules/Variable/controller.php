@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-\Mocovi\Module::requireController('Plain');
+\Dresscode\Module::requireController('Plain');
 
 class Variable extends Plain
 {

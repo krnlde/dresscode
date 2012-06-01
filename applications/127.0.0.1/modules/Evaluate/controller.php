@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Evaluate extends \Mocovi\Controller
+class Evaluate extends \Dresscode\Controller
 {
 	public function setup()
 	{

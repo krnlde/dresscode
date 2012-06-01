@@ -1,9 +1,9 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-\Mocovi\Module::requireController('Plain');
+\Dresscode\Module::requireController('Plain');
 
-class Xpath extends \Mocovi\Controller\Plain
+class Xpath extends \Dresscode\Controller\Plain
 {
 	/**
 	 * @property
@@ -20,7 +20,7 @@ class Xpath extends \Mocovi\Controller\Plain
 			$result	= @$xpath->evaluate($query, $self->getNode());
 			if ($result === false)
 			{
-				$this->error(new \Mocovi\Exception\WrongFormat('xpath'));
+				$this->error(new \Dresscode\Exception\WrongFormat('xpath'));
 				return;
 			}
 			if ($result)

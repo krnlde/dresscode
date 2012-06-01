@@ -12,7 +12,7 @@
 					<xsl:value-of select="@source"/>
 				</xsl:when>
 				<xsl:otherwise>
-						<xsl:value-of select="php:function('\Mocovi\Application::basePath')"/>
+						<xsl:value-of select="php:function('\Dresscode\Application::basePath')"/>
 						<xsl:text>/image.php?source=</xsl:text>
 						<xsl:value-of select="@source"/>
 						<xsl:text>&amp;size=</xsl:text>
@@ -29,6 +29,10 @@
 		<!--<img src="/image.php?source={@source}&amp;orientation={@orientation}&amp;crop={@crop}" alt="{@description}" title="{@description}" />-->
 	</xsl:template>
 
+	<xsl:template match="paragraph">
+		test
+	</xsl:template>
+
 	<xsl:template match="thumbnail" mode="inner">
 		<li class="span3">
 			<xsl:choose>
@@ -37,6 +41,9 @@
 						<img src="{@source}" alt="{@description}"/>
 						<div class="caption">
 							<xsl:apply-templates/>
+							<xsl:if test="boolean(string(../@more))">
+								<div class="more"><xsl:text> </xsl:text></div>
+							</xsl:if>
 						</div>
 					</div>
 				</xsl:when>

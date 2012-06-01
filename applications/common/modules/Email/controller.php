@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Email extends \Mocovi\Controller
+class Email extends \Dresscode\Controller
 {
 	/**
 	 * @property
@@ -50,7 +50,7 @@ class Email extends \Mocovi\Controller
 			$this->setProperty('from', 'info@'.$this->Application->getName());
 		}
 		$inputs = array();
-		foreach ($this->find('\Mocovi\Controller\Input') as $input)
+		foreach ($this->find('\Dresscode\Controller\Input') as $input)
 		{
 			$inputs[$input->getProperty('name')] = $input; // @todo what about radios and checkboxes?
 		}
@@ -67,7 +67,7 @@ class Email extends \Mocovi\Controller
 				// .'Reply-To: webmaster@example.com'."\r\n"
 				. 'MIME-Version: 1.0'."\r\n"
 				.'Content-Type: text/plain; charset=UTF-8'."\r\n"
-				.'X-Mailer: Mocovi/'.\Mocovi\Version::VERSION.' PHP/'.phpversion();
+				.'X-Mailer: Dresscode/'.\Dresscode\Version::VERSION.' PHP/'.phpversion();
 
 			// @todo if HTML mail do: $message = htmlentities($message);
 			if (!$self->getProperty('fake'))

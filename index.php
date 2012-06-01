@@ -1,6 +1,6 @@
 <?php
-(version_compare(PHP_VERSION, '5.3.0') >= 0) or die('PHP 5.3+ required in order to run mocovi. Your version is PHP '.PHP_VERSION);
-(class_exists('XSLTProcessor')) or die('Class XSLTProcessor is required in order to run mocovi.');
+(version_compare(PHP_VERSION, '5.3.0') >= 0) or die('PHP 5.3+ required in order to run Dresscode. Your version is PHP '.PHP_VERSION);
+(class_exists('XSLTProcessor')) or die('Class XSLTProcessor is required in order to run Dressode.');
 
 require 'bootstrap.php';
 

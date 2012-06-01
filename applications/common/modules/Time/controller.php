@@ -1,7 +1,7 @@
 <?php
-namespace Mocovi\Controller;
+namespace Dresscode\Controller;
 
-class Time extends \Mocovi\Controller
+class Time extends \Dresscode\Controller
 {
 	/**
 	 * @property
