@@ -13,9 +13,6 @@
 [submodule "applications/common/modules/Slider/assets/js/jquery-revolver"]
 	path = applications/common/modules/Slider/assets/js/jquery-revolver
 	url = git://github.com/johnnyfreeman/revolver.git
-[submodule "applications/common/assets/bootstrap"]
-	path = applications/common/assets/bootstrap
-	url = git://github.com/twitter/bootstrap.git
 [submodule "applications/common/assets/css/less"]
 	path = applications/common/assets/css/less
 	url = git://github.com/jonikorpi/Less-Framework.git
