@@ -31,3 +31,6 @@
 [submodule "applications/common/assets/js/jquery-validation"]
 	path = applications/common/assets/js/jquery-validation
 	url = https://github.com/jzaefferer/jquery-validation.git
+[submodule "applications/common/assets/bootstrap"]
+	path = applications/common/assets/bootstrap
+	url = git://github.com/twitter/bootstrap.git

@@ -172,7 +172,7 @@ class Form extends \Dresscode\Controller
 					var $data = $this.serializeObject(); // attention! custom method
 					$inputs.prop("disabled", true);
 					$spinner = $context.spin("medium"); // make the size dynamic
-					$.ajax('.$this->action.', {
+					$.ajax("'.$this->action.'", {
 						cache: false,
 						context: $context,
 						type: "'.strtoupper($this->method).'",

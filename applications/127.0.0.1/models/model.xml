@@ -7,21 +7,21 @@
 	xmlns="http://dresscode.com/schema/controller"
 	timezone="Europe/Berlin"
 	defaultFormat="html"
-	defaultLanguage="de"
+	defaultLanguage="en"
 	>
 
 	<fs:file name="index" redirect="/home" invisible="1"/>
 
 	<fs:file name="home" aliasToken="Home" methods="get" author="Kai Dorschner">
 		<fs:keywords>
-			<fs:element lang="de">krnl</fs:element>
-			<fs:element lang="en">kernel</fs:element>
-			<fs:element>kernel32</fs:element>
+			<fs:element lang="de">schlagwort1</fs:element>
+			<fs:element lang="en">keyword2</fs:element>
+			<fs:element>keyword3</fs:element>
 		</fs:keywords>
 		<root>
 			<header class="hero-unit">
-				<headline>enfire studios</headline>
-				<paragraph>Unser Team aus erfahrenen Web Entwicklern berät und unterstützt Sie bei Ihren online Marketing Kampagnen.</paragraph>
+				<headline>dresscode framework</headline>
+				<paragraph>Code with style and save yourself some WTFs.</paragraph>
 			</header>
 			<article class="row">
 				<!-- <aside class="span3">
@@ -29,68 +29,33 @@
 				</aside> -->
 				<section class="span12">
 					<header>
-						<headline>Unsere Leistungen <small>im Überblick</small></headline>
+						<headline>Our overview <small>filled with random stuff</small></headline>
 					</header>
 					<thumbnails>
-						<thumbnail source="/gallery/auswahl-9.jpg">
-							<headline priority="3">Konzeption</headline>
-							<paragraph>Wir erstellen auf Wunsch eine vollständige Online-Marketing-Kampagne mit Social-Marketing, Newsletter, Adwords-Kampagnen, dynamsichen Landingpages und mehr um Ihr Unternehmen erfolgreich im Web zu platzieren.</paragraph>
-							<button type="button" class="btn-primary" onclick="alert('Hier kann eine Funktion ausgeführt werden');">Mehr erfahren</button>
+						<thumbnail source="http://placehold.it/260x173">
+							<headline priority="3">Lorem</headline>
+							<paragraph><translate token="loremipsum" cut="300"/></paragraph>
+							<button type="button" class="btn-primary" onclick="alert('You can call a funuction here');">More information</button>
 						</thumbnail>
-						<thumbnail source="/gallery/auswahl-5.jpg">
-							<headline priority="3">Umsetzung</headline>
-							<paragraph>Unser Team aus erfahrenen Web-Entwicklern setzt Ihre Wünsche schnellst- und bestmöglich um. Dabei setzen wir auf Best-Practices und Web-Standards, so dass die Unterstützung für eine sehr breite Spanne von Browsern gewährleistet bleibt.</paragraph>
+						<thumbnail source="http://placehold.it/260x173">
+							<headline priority="3">Ipsum</headline>
+							<paragraph><translate token="loremipsum" cut="300"/></paragraph>
 							<button type="button" class="btn-primary">
 								<attribute name="onclick">
 									alert('Translation test: <translate token="loremipsum" cut="40"/>');
 								</attribute>
-								Mehr erfahren
+								More information
 							</button>
 						</thumbnail>
-						<thumbnail source="/gallery/auswahl-10.jpg">
-							<headline priority="3">Fotografie</headline>
-							<paragraph>Ein großer Vorteil ist für Sie, dass sich in unserem Team zwei hervorragende Fotografen befinden die viele Erfahrungen im Bereich Event- und Studio-Fotografie mitbringen.</paragraph>
-							<button type="button" class="btn-primary">Mehr erfahren</button>
+						<thumbnail source="http://placehold.it/260x173">
+							<headline priority="3">Dolor</headline>
+							<paragraph><translate token="loremipsum" cut="300"/></paragraph>
+							<button type="button" class="btn-primary">More information</button>
 						</thumbnail>
-						<thumbnail source="/gallery/auswahl-9.jpg">
-							<headline priority="3">Konzeption</headline>
-							<paragraph>Wir erstellen auf Wunsch eine vollständige Online-Marketing-Kampagne mit Social-Marketing, Newsletter, Adwords-Kampagnen, dynamsichen Landingpages und mehr um Ihr Unternehmen erfolgreich im Web zu platzieren.</paragraph>
-							<button type="button" class="btn-primary" onclick="alert('Hier kann eine Funktion ausgeführt werden');">Mehr erfahren</button>
-						</thumbnail>
-						<thumbnail source="/gallery/auswahl-5.jpg">
-							<headline priority="3">Umsetzung</headline>
-							<paragraph>Unser Team aus erfahrenen Web-Entwicklern setzt Ihre Wünsche schnellst- und bestmöglich um. Dabei setzen wir auf Best-Practices und Web-Standards, so dass die Unterstützung für eine sehr breite Spanne von Browsern gewährleistet bleibt.</paragraph>
-							<button type="button" class="btn-primary">
-								<attribute name="onclick">
-									alert('Translation test: <translate token="loremipsum" cut="40"/>');
-								</attribute>
-								Mehr erfahren
-							</button>
-						</thumbnail>
-						<thumbnail source="/gallery/auswahl-10.jpg">
-							<headline priority="3">Fotografie</headline>
-							<paragraph>Ein großer Vorteil ist für Sie, dass sich in unserem Team zwei hervorragende Fotografen befinden die viele Erfahrungen im Bereich Event- und Studio-Fotografie mitbringen.</paragraph>
-							<button type="button" class="btn-primary">Mehr erfahren</button>
-						</thumbnail>
-						<thumbnail source="/gallery/auswahl-9.jpg">
-							<headline priority="3">Konzeption</headline>
-							<paragraph>Wir erstellen auf Wunsch eine vollständige Online-Marketing-Kampagne mit Social-Marketing, Newsletter, Adwords-Kampagnen, dynamsichen Landingpages und mehr um Ihr Unternehmen erfolgreich im Web zu platzieren.</paragraph>
-							<button type="button" class="btn-primary" onclick="alert('Hier kann eine Funktion ausgeführt werden');">Mehr erfahren</button>
-						</thumbnail>
-						<thumbnail source="/gallery/auswahl-5.jpg">
-							<headline priority="3">Umsetzung</headline>
-							<paragraph>Unser Team aus erfahrenen Web-Entwicklern setzt Ihre Wünsche schnellst- und bestmöglich um. Dabei setzen wir auf Best-Practices und Web-Standards, so dass die Unterstützung für eine sehr breite Spanne von Browsern gewährleistet bleibt.</paragraph>
-							<button type="button" class="btn-primary">
-								<attribute name="onclick">
-									alert('Translation test: <translate token="loremipsum" cut="40"/>');
-								</attribute>
-								Mehr erfahren
-							</button>
-						</thumbnail>
-						<thumbnail source="/gallery/auswahl-10.jpg">
-							<headline priority="3">Fotografie</headline>
-							<paragraph>Ein großer Vorteil ist für Sie, dass sich in unserem Team zwei hervorragende Fotografen befinden die viele Erfahrungen im Bereich Event- und Studio-Fotografie mitbringen.</paragraph>
-							<button type="button" class="btn-primary">Mehr erfahren</button>
+						<thumbnail source="http://placehold.it/260x173">
+							<headline priority="3">Sit Amet</headline>
+							<paragraph><translate token="loremipsum" cut="300"/></paragraph>
+							<button type="button" class="btn-primary" onclick="alert('Another function goes here');">More information</button>
 						</thumbnail>
 					</thumbnails>
 					<!-- <paragraph class="well">
@@ -100,33 +65,32 @@
 			</article>
 			<footer class="row">
 				<section class="span3" xml:id="sitemap">
-					<headline priority="4">Sitemap unserer Website</headline>
+					<headline priority="4">Sitemap</headline>
 					<menu source="/"/>
 				</section>
 				<section class="span3">
-					<headline priority="4">Interessanter Artikel</headline>
+					<headline priority="4">Interesting Article</headline>
 					<paragraph><translate token="loremipsum" cut="300"/></paragraph>
-					<link to="/home/videos" class="btn">weiterlesen ...</link>
+					<link to="/home/videos" class="btn">read more ...</link>
 				</section>
 				<section class="span3">
-					<headline priority="4">Anderer Artikel</headline>
+					<headline priority="4">Another Article</headline>
 					<paragraph><translate token="loremipsum" cut="140"/></paragraph>
 				</section>
 				<section class="span3">
-					<headline priority="4">Kontakt</headline>
+					<headline priority="4">Contact</headline>
 					<address>
-						<strong>enfire studios GmbH</strong><linebreak/>
-						Dörnbergstraße 12<linebreak/>
-						34123 Kassel
+						<strong>Your Company Ltd.</strong><linebreak/>
+						Loremstreet 1a<linebreak/>
+						D-12345 Somehwere
 					</address>
-					<paragraph>Geschäftsführer: Toni Sciacca</paragraph>
 					<paragraph>
-						Tel.: +49 561 76628-303<linebreak/>
-						Fax: +49 561 76628-304<linebreak/>
+						Tel.: +49 123 45678-90<linebreak/>
+						Fax: +49 561 45678-91<linebreak/>
 					</paragraph>
 					<paragraph>
-						Website: <link to="http://enfire-studios.com"/><linebreak/>
-						E-Mail: <link to="info@enfire-studios.com"/><linebreak/>
+						Website: <link to="https://github.com/krnlde/dresscode"/><linebreak/>
+						E-Mail: <link to="the-kernel32@web.de"/><linebreak/>
 					</paragraph>
 				</section>
 			</footer>
@@ -153,11 +117,11 @@
 		</root>
 	</fs:file>
 
-	<fs:file name="contact" alias="Kontakt" methods="get" author="Kai Dorschner">
+	<fs:file name="contact" alias="Contact" methods="get" author="Kai Dorschner">
 		<root>
 			<header class="hero-unit">
-				<headline >Kontakt</headline>
-				<paragraph>Nehmen Sie mit uns Kontakt auf um einen Termin für ein persönliches Gespräch zu vereinbaren oder sich über unsere Leistungen zu informieren. Senden Sie uns Ihre Telefonnummer, wir rufen Sie auch gern zurück.</paragraph>
+				<headline >Contact</headline>
+				<paragraph>Get in touch with us. We are happy to get some Feedback from you!</paragraph>
 			</header>
 			<article>
 				<form method="get" class="form-horizontal">
