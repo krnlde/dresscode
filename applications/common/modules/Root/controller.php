@@ -74,12 +74,12 @@ class Root extends \Dresscode\Controller
 
 	public function setup()
 	{
-		$cssPool = $this->getCssPool();
+		$lessPool = $this->getlessPool();
 		if (!$this->theme)
 		{
 			$this->theme = self::DEFAULT_THEME;
 		}
-		if ($theme = $cssPool->find($this->theme))
+		if ($theme = $lessPool->find($this->theme))
 		{
 			$this->Application->stylesheet(new FileAsset($theme));
 		}
@@ -98,7 +98,9 @@ class Root extends \Dresscode\Controller
 			$this->author	= $this->Application->file->getAttribute('author');
 		}
 
-		$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-alert.js')); // @todo temporarily
+		$this->Application->javascript(new FileAsset('applications/common/assets/js/jquerypp/jquery.styles.js')); // Uses CSS3 animations (hw accelerated) with graceful degradation instead of JS animations!
+		$this->Application->javascript(new FileAsset('applications/common/assets/js/jquerypp/jquery.animate.js')); // Uses CSS3 animations (hw accelerated) with graceful degradation instead of JS animations!
+		$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-alert.js')); // @todo This is just a temporarily solution for Exception error pages
 
 		$Application = $this->Application;
 		$this->on('ready', function ($event) use ($Application) { // @todo you can use $this in anonymous functions directly in PHP 5.4
@@ -108,15 +110,15 @@ class Root extends \Dresscode\Controller
 		// $this->addChild(\Dresscode\Module::createController('breadcrumb'));
 	}
 
-	protected function getCssPool()
+	protected function getLessPool()
 	{
-		$cssPool = new \Dresscode\Pool('css');
-		$cssPool->add(new \DirectoryIterator('applications/common/assets/css'));
+		$lessPool = new \Dresscode\Pool('less');
+		$lessPool->add(new \DirectoryIterator('applications/common/assets/less'));
 
-		if (file_exists($custom = 'applications/'.$this->Application->getName().'/assets/css')) // @todo clean this mess up.
+		if (file_exists($custom = 'applications/'.$this->Application->getName().'/assets/less')) // @todo clean this mess up.
 		{
-			$cssPool->add(new \DirectoryIterator($custom));
+			$lessPool->add(new \DirectoryIterator($custom));
 		}
-		return $cssPool;
+		return $lessPool;
 	}
 }
