@@ -1,83 +1,8 @@
-// CSS Reset
-@import "../../../common/assets/bootstrap/less/reset.less";
-
-// Core variables and mixins
-@import "../../../common/assets/bootstrap/less/variables.less"; // Modify this for custom colors, font-sizes, etc
-
-
-@import "../../../common/assets/bootstrap/less/../less/variables.less"; // customized variables (overrides)
-
-
-@import "../../../common/assets/bootstrap/less/mixins.less";
-
-// Grid system and page structure
-@import "../../../common/assets/bootstrap/less/scaffolding.less";
-@import "../../../common/assets/bootstrap/less/grid.less";
-@import "../../../common/assets/bootstrap/less/layouts.less";
-
-// Base CSS
-@import "../../../common/assets/bootstrap/less/type.less";
-@import "../../../common/assets/bootstrap/less/code.less";
-@import "../../../common/assets/bootstrap/less/forms.less";
-@import "../../../common/assets/bootstrap/less/tables.less";
-
-// Components: common
-@import "../../../common/assets/bootstrap/less/sprites.less";
-@import "../../../common/assets/bootstrap/less/dropdowns.less";
-@import "../../../common/assets/bootstrap/less/wells.less";
-@import "../../../common/assets/bootstrap/less/component-animations.less";
-@import "../../../common/assets/bootstrap/less/close.less";
-
-// Components: Buttons & Alerts
-@import "../../../common/assets/bootstrap/less/buttons.less";
-@import "../../../common/assets/bootstrap/less/button-groups.less";
-@import "../../../common/assets/bootstrap/less/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
-
-// Components: Nav
-@import "../../../common/assets/bootstrap/less/navs.less";
-@import "../../../common/assets/bootstrap/less/navbar.less";
-@import "../../../common/assets/bootstrap/less/breadcrumbs.less";
-@import "../../../common/assets/bootstrap/less/pagination.less";
-@import "../../../common/assets/bootstrap/less/pager.less";
-
-// Components: Popovers
-@import "../../../common/assets/bootstrap/less/modals.less";
-@import "../../../common/assets/bootstrap/less/tooltip.less";
-@import "../../../common/assets/bootstrap/less/popovers.less";
-
-// Components: Misc
-@import "../../../common/assets/bootstrap/less/thumbnails.less";
-@import "../../../common/assets/bootstrap/less/labels-badges.less";
-@import "../../../common/assets/bootstrap/less/progress-bars.less";
-@import "../../../common/assets/bootstrap/less/accordion.less";
-@import "../../../common/assets/bootstrap/less/carousel.less";
-@import "../../../common/assets/bootstrap/less/hero-unit.less";
-
-// Utility classes
-@import "../../../common/assets/bootstrap/less/utilities.less"; // Has to be last to override when necessary
-
+@import "../../../common/assets/bootstrap/less/bootstrap.less";
 @import "../../../common/assets/bootstrap/less/responsive.less";
 @import "../../../common/assets/bootstrap-font-awesome/less/font-awesome.less";
+@import "../less/variables.less"; // customized variables (overrides)
 
-
-
-
-// END OF IMPORTS
-
-
-
-
-@font-face {
-	font-family: 'FontAwesome';
-	src: url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.eot');
-	src: url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.woff') format('woff'),
-		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.ttf') format('truetype'),
-		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.svgz#FontAwesomeRegular') format('svg'),
-		 url('applications/common/assets/bootstrap-font-awesome/font/fontawesome-webfont.svg#FontAwesomeRegular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
 
 .siteanchor
 {
@@ -103,7 +28,7 @@
 	}
 }
 
-a[href^="http"]:after {
+a[href^="http"]::after, a[href^="http"]:after {
 	display: inline-block;
 	width: auto;
 	height: auto;
@@ -154,4 +79,12 @@ form .required {
 
 label .required {
 	padding-right: 0;
+}
+
+.hero-unit {
+	background: url(http://lorempixel.com/1170/500/) no-repeat top left;
+	height: 250px;
+	overflow: hidden;
+	color: @white;
+	.text-shadow(@textColor);
 }

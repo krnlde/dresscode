@@ -4,6 +4,6 @@ $this->defaultRoute = 'home';
 
 // initialize DB Connections or something else.
 
-$xml = new \DomDocument();
-$xml->load($this->getPath()->getPath().DIRECTORY_SEPARATOR.'translation.xml');
-\Dresscode\Translator::addTranslationsFromXml($xml);
+// $xml = new \DomDocument();
+// $xml->load($this->getPath()->getPath().DIRECTORY_SEPARATOR.'translation.xml');
+// \Dresscode\Translator::addTranslationsFromXml($xml);
