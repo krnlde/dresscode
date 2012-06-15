@@ -1,7 +1,7 @@
 dresscode framework
 ===================
 
-The dresscode framework is a PHP5-driven, completely object-oriented web-framework which makes use of **XML** and **XSLT** to hold and display data. This means there is no requirement for any database (SQL or NoSQL), but you can make use of everything - as you wish.
+The dresscode framework is a PHP5-driven, completely object-oriented web-framework which makes use of **XML** and **XSLT** to hold and display data. This means there is no requirement for any database (SQL or NoSQL), but you can make use of everything - as you wish of course.
 
 Main features
 -------------
