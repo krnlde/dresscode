@@ -24,11 +24,11 @@ class Headline extends \Dresscode\Controller
 			$this->priority = 6;
 		}
 
-		if (!$this->id) // Set an ID with maxlength 32, if none is set.
+		if (!$this->id) // Set an ID with maxLength 32, if none is set.
 		{
-			$candidate	= substr(urlencode(trim($this->node->nodeValue)), 0, 32);
+			$candidate	= urlencode(trim(substr(trim($this->node->nodeValue), 0, 32)));
 			$tmp		= $candidate;
-			$i			= 1;
+			$i			= 2;
 			while (in_array($tmp, self::$used_ids))
 			{
 				$tmp = $candidate.'_'.$i++;
