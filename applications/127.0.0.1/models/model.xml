@@ -101,7 +101,8 @@
 	<fs:file name="todolist" alias="Todolist" methods="get" author="Kai Dorschner">
 		<root>
 			<header class="hero-unit">
-				<headline >Todolist</headline>
+				<headline>Todolist</headline>
+				<paragraph>Here is an example todolist for you.</paragraph>
 			</header>
 			<article>
 				<todolist class="well" id="todolist1">

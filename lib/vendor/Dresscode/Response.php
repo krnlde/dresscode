@@ -120,7 +120,7 @@ class Response
 		}
 		if (isset($_GET['debug']) && \Dresscode\Application::getFormat() === 'html')
 		{
-			echo '<!-- parsed in: '.round(microtime(true) - STARTTIME, 4).'s -->'; // @debug
+			echo '<!-- rendered in: '.round(microtime(true) - STARTTIME, 4).'s -->'; // @debug
 		}
 		exit;
 	}
