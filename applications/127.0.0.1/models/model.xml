@@ -35,7 +35,7 @@
 						<thumbnail source="http://placehold.it/260x173">
 							<headline priority="3">Lorem</headline>
 							<paragraph><translate token="loremipsum" cut="300"/></paragraph>
-							<button type="button" class="btn-primary" onclick="alert('You can call a funuction here');">More information</button>
+							<button type="button" class="btn-primary" onclick="alert('You can call a function here');">More information</button>
 						</thumbnail>
 						<thumbnail source="http://placehold.it/260x173">
 							<headline priority="3">Ipsum</headline>

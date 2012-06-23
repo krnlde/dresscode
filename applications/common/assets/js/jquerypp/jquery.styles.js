@@ -1,5 +1,5 @@
 //    - jquery.styles.js
-(function( $ ) {
+;(function( $ ) {
 
 	var getComputedStyle = document.defaultView && document.defaultView.getComputedStyle,
 		// The following variables are used to convert camelcased attribute names
@@ -100,4 +100,4 @@
 		// Pass the arguments as an array to $.styles
 		return $.styles(this[0], $.makeArray(arguments));
 	};
-})(jQuery)
+})(jQuery);

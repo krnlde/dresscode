@@ -3,7 +3,7 @@
 //    - jquery.animate.js
 //    - jquery.styles.js
 
-(function ($) {
+;(function ($) {
 
 	// Overwrites `jQuery.fn.animate` to use CSS 3 animations if possible
 
@@ -240,7 +240,7 @@
 				// Will be called both on animation end and after calling .stop()
 				animationEnd = function (currentCSS, exec) {
 					self.css(currentCSS);
-					
+
 					self.css(addPrefix({
 						"animation-duration" : "",
 						"animation-name" : "",
@@ -323,4 +323,4 @@
 
 		return this;
 	};
-})(jQuery)
+})(jQuery);
