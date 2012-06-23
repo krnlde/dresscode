@@ -89,10 +89,10 @@ class Root extends \Dresscode\Controller
 		$this->title		= $this->Application->file->getAttribute('alias') ?: $this->Application->file->getAttribute('name'); // @todo test if the title is provided everytime!
 		$this->path			= $this->Application->Request->path;
 		$this->modified		= $this->Application->Model->lastModified($this->path);
+		$this->language		= \Dresscode\Translator::getLanguage();
 		$this->keywords		= implode(',', $this->Application->Model->keywords($this->path, $this->language));
 		$this->scheme		= $this->Application->Request->scheme;
 		$this->canonical	= $this->scheme.'://'.$this->domain.($this->Application->Request->port ? ':'.$this->Application->Request->port : '').$this->basepath.$this->path;
-		$this->language		= \Dresscode\Translator::getLanguage();
 		if ($this->Application->file->getAttribute('author'))
 		{
 			$this->author	= $this->Application->file->getAttribute('author');
