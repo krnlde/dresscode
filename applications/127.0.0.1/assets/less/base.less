@@ -1,8 +1,17 @@
 @import "../../../common/assets/bootstrap/less/bootstrap.less";
 @import "../../../common/assets/bootstrap/less/responsive.less";
 @import "../../../common/assets/bootstrap-font-awesome/less/font-awesome.less";
-@import "../less/variables.less"; // customized variables (overrides)
+@import "../less/bootswatch.less";
+@import "../less/variables.less";
+@import "../less/paths.less"; // customized variables (overrides)
 
+
+// Text shadows
+.text-shadow(@color: @backgroundColor, @offsetX: 0, @offsetY: 0, @blur: 5px) {
+  text-shadow: @offsetX @offsetY @blur @color;
+       // filter: e(%("dropshadow(color=%d, offx=%d, offy=%d)",argb(@color),floor(@offsetX),floor(@offsetY) )); // IE9 and down
+       filter: e(%("Glow(%d, strength=%d)",argb(@color),floor(@blur) )); // IE9 and down
+}
 
 .siteanchor
 {
