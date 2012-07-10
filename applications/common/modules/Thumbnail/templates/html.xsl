@@ -29,10 +29,6 @@
 		<!--<img src="/image.php?source={@source}&amp;orientation={@orientation}&amp;crop={@crop}" alt="{@description}" title="{@description}" />-->
 	</xsl:template>
 
-	<xsl:template match="paragraph">
-		test
-	</xsl:template>
-
 	<xsl:template match="thumbnail" mode="inner">
 		<li class="span3">
 			<xsl:choose>
@@ -49,7 +45,7 @@
 				</xsl:when>
 				<xsl:otherwise>
 					<a href="{@source}" rel="lightbox[{@group}]" title="{@description}" class="thumbnail">
-						<img src="{$source}" alt="{@description}"/>
+						<img src="{@source}" alt="{@description}"/>
 					</a>
 				</xsl:otherwise>
 			</xsl:choose>

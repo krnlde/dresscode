@@ -31,39 +31,13 @@
 					<header>
 						<headline>Our overview <small>filled with random stuff</small></headline>
 					</header>
-					<thumbnails>
-						<thumbnail source="http://placehold.it/260x173">
-							<headline priority="3">Lorem</headline>
-							<paragraph><translate token="loremipsum" cut="300"/></paragraph>
-							<button type="button" class="btn-primary" onclick="alert('You can call a function here');">More information</button>
-						</thumbnail>
-						<thumbnail source="http://placehold.it/260x173">
-							<headline priority="3">Ipsum</headline>
-							<paragraph><translate token="loremipsum" cut="300"/></paragraph>
-							<button type="button" class="btn-primary">
-								<attribute name="onclick">
-									alert('Translation test: <translate token="loremipsum" cut="40"/>');
-								</attribute>
-								More information
-							</button>
-						</thumbnail>
-						<thumbnail source="http://placehold.it/260x173">
-							<headline priority="3">Dolor</headline>
-							<paragraph><translate token="loremipsum" cut="300"/></paragraph>
-							<button type="button" class="btn-primary">More information</button>
-						</thumbnail>
-						<thumbnail source="http://placehold.it/260x173">
-							<headline priority="3">Sit Amet</headline>
-							<paragraph><translate token="loremipsum" cut="300"/></paragraph>
-							<button type="button" class="btn-primary" onclick="alert('Another function goes here');">More information</button>
-						</thumbnail>
-					</thumbnails>
+					<overview source="."/>
 					<!-- <paragraph class="well">
 						<translate token="loremipsum"/>
 					</paragraph> -->
 				</section>
 			</article>
-			<footer class="row">
+			<footer class="row" xml:id="footer">
 				<section class="span3" xml:id="sitemap">
 					<headline priority="4">Sitemap</headline>
 					<menu source="/"/>
@@ -96,6 +70,45 @@
 			</footer>
 		</root>
 
+		<fs:file name="vitae" aliasToken="Vitae" methods="get" author="Kai Dorschner">
+			<root>
+				<header class="hero-unit">
+					<headline>Vitae</headline>
+					<paragraph>This is my curriculum vitae. Totally.</paragraph>
+				</header>
+				<article class="row">
+					<section class="span3">
+						<thumbnail source="/gallery/_MG_0745-Edit.jpg"/>
+					</section>
+					<section class="span3">
+						<listing>
+							<rssreader url="http://delicious.com/v2/rss/krnlde">
+								<element>
+									<variable name="title"/>
+								</element>
+							</rssreader>
+						</listing>
+					</section>
+				</article>
+				<xref:reference ref="footer"/>
+			</root>
+		</fs:file>
+
+		<fs:file name="portfolio" aliasToken="Portfolio" methods="get" author="Kai Dorschner">
+			<root>
+				<header class="hero-unit">
+					<headline>Portfolio</headline>
+					<paragraph>Code with style and save yourself some WTFs.</paragraph>
+				</header>
+				<article class="row">
+					<section class="span3">
+						<image source="/gallery/_MG_0964-Edit.jpg"/>
+					</section>
+				</article>
+				<xref:reference ref="footer"/>
+			</root>
+		</fs:file>
+
 	</fs:file>
 
 	<fs:file name="todolist" alias="Todolist" methods="get" author="Kai Dorschner">
@@ -125,12 +138,13 @@
 				<paragraph>Get in touch with us. We are happy to get some Feedback from you!</paragraph>
 			</header>
 			<article>
-				<form method="get" class="form-horizontal">
-					<input type="text" name="name" label="Name" required="1"/>
-					<input name="email" preset="email" label="E-Mail" required="1"/>
-					<input type="text" name="text" label="Text" maxlength="255"/>
-					<input type="file" name="file" required="1" label="File Upload"/>
-				</form>
+				<email to="me@krnl.de" from="noreply@krnl.de" subject="Kontaktanfrage">
+					<form method="post" class="form-horizontal">
+						<input type="text" name="name" label="Name" required="1"/>
+						<input name="email" preset="email" label="E-Mail" required="1"/>
+						<input type="text" name="text" label="Text" maxlength="255"/>
+					</form>
+				</email>
 			</article>
 			<footer class="row">
 				<xref:reference ref="sitemap"/>
