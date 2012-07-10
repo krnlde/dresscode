@@ -133,6 +133,8 @@ class XML extends \Dresscode\Model
 	}
 
 	/**
+	 * list with direct descendants.
+	 *
 	 * @param string $path
 	 * @return array
 	 */
@@ -147,6 +149,11 @@ class XML extends \Dresscode\Model
 			return $this->_buildFileList($matchingNode);
 		}
 		return array();
+	}
+
+	public function getDom()
+	{
+		return $this->dom;
 	}
 
 	/**
@@ -290,8 +297,8 @@ class XML extends \Dresscode\Model
 	{
 		if ($node->localName === 'file')
 		{
-			$name = '/'.$node->getAttribute('name');
-			$parent = $node;
+			$name	= '/'.$node->getAttribute('name');
+			$parent	= $node;
 			while (($parent = $parent->parentNode) && $parent->localName === 'file')
 			{
 				$name = '/'.$parent->getAttribute('name').$name;
