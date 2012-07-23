@@ -98,8 +98,8 @@ class Root extends \Dresscode\Controller
 			$this->author	= $this->Application->file->getAttribute('author');
 		}
 
-		$this->Application->javascript(new FileAsset('applications/common/assets/js/jquerypp/jquery.styles.js')); // Uses CSS3 animations (hw accelerated) with graceful degradation instead of JS animations!
-		$this->Application->javascript(new FileAsset('applications/common/assets/js/jquerypp/jquery.animate.js')); // Uses CSS3 animations (hw accelerated) with graceful degradation instead of JS animations!
+		// $this->Application->javascript(new FileAsset('applications/common/assets/js/jquerypp/jquery.styles.js')); // Uses CSS3 animations (hw accelerated) with graceful degradation instead of JS animations!
+		// $this->Application->javascript(new FileAsset('applications/common/assets/js/jquerypp/jquery.animate.js')); // Uses CSS3 animations (hw accelerated) with graceful degradation instead of JS animations!
 		$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-alert.js')); // @todo This is just a temporarily solution for Exception error pages
 
 		$Application = $this->Application;

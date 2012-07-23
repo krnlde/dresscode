@@ -16,7 +16,7 @@
 				</xsl:attribute>
 			</xsl:if>
 			<xsl:for-each select="*">
-				<li class="span3">
+				<li class="span2">
 					<xsl:apply-templates select="."/>
 				</li>
 			</xsl:for-each>

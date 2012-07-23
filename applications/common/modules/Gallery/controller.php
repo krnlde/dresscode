@@ -25,7 +25,7 @@ class Gallery extends \Dresscode\Controller
 	 */
 	protected $size = 'medium';
 
-	protected $imageTypes = array
+	protected static $imageTypes = array
 		( 'jpg'
 		, 'png'
 		, 'gif'
@@ -60,7 +60,7 @@ class Gallery extends \Dresscode\Controller
 		{
 			foreach (new \DirectoryIterator($this->source) as $element)
 			{
-				if (!$element->isDot() && $element->isFile() && $this->isImage($element))
+				if (!$element->isDot() && $element->isFile() && self::isImage($element))
 				{
 					$result = $this->trigger('loadFile', $element)->result;
 					if (is_null($result) || $result) // if $result is null, no result was returned and therefor ignored, otherwise the result value is considered.
@@ -95,8 +95,8 @@ class Gallery extends \Dresscode\Controller
 	 * @param \DirectoryIterator $element
 	 * @return boolean
 	 */
-	protected function isImage(\DirectoryIterator $element)
+	public static function isImage(\DirectoryIterator $element)
 	{
-		return in_array(pathinfo($element->getFileName(), PATHINFO_EXTENSION), $this->imageTypes);
+		return in_array(pathinfo($element->getFileName(), PATHINFO_EXTENSION), self::$imageTypes);
 	}
 }

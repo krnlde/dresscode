@@ -1,6 +1,8 @@
 <?php
 namespace Dresscode\Controller;
 
+use \Assetic\Asset\StringAsset;
+
 class Link extends \Dresscode\Controller
 {
 
@@ -14,6 +16,18 @@ class Link extends \Dresscode\Controller
 	 * @var string
 	 */
 	protected $to;
+
+
+	public function post(array $params = array())
+	{
+		$self = $this;
+		$this->closest('Root')->on('ready', function () use ($self, $params) {
+			if ($self->getXPath() === $params['xpath'])
+			{
+				die(print_r($params, true));
+			}
+		});
+	}
 
 	public function get(array $params = array())
 	{
@@ -44,7 +58,7 @@ class Link extends \Dresscode\Controller
 					);
 				$this->url = str_replace('%40', '@', $this->url); // recover mail declaration (from urlencode)
 				$this->url = preg_replace('/^([a-z]+)\%3A\/\//', '$1://', $this->url); // recover scheme declaration (from urlencode)
-				if (preg_match('/^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)$/', $this->url))
+				if (preg_match('/^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{10})$/', $this->url))
 				{
 					$this->url = 'mailto:'.$this->url;
 				}
@@ -55,6 +69,7 @@ class Link extends \Dresscode\Controller
 			}
 			$this->node->setAttribute('url', $this->url);
 		}
+
 		$hasTextNode = false;
 		foreach ($this->node->childNodes as $child)
 		{
@@ -67,5 +82,54 @@ class Link extends \Dresscode\Controller
 		{
 			$this->node->appendChild($this->dom->createTextNode($this->url));
 		}
+
+
+		if (true) // @temporary
+		{
+			if (!$this->id)
+			{
+				$this->id = $this->generateId();
+			}
+			$self			= $this;
+			$Application	= $this->Application;
+			$Root			= $this->closest('Root');
+			$canonical		= $Root->getProperty('canonical');
+			$Root->on('ready', function ($event) use ($self, $Application, $canonical) { // @todo "use ($self)"" is obsolote in PHP > 5.4
+				$Application->javascript
+				(	new StringAsset
+					(
+						'
+						$("#'.$self->getProperty('id').'").click(function (event) {
+							event.preventDefault();
+							var $this	= $(this);
+							var $id		= "'.$self->getProperty('id').'";
+							var $xpath	= "'.$self->getXPath().'";
+
+							$.ajax("'.$canonical.'", {
+								type: "post",
+								data: {
+									xpath:	$xpath,
+									id:		$id,
+									event: {
+										type:		event.type,
+										offsetX:	event.offsetX,
+										offsetY:	event.offsetY,
+										pageX:		event.pageX,
+										pageY:		event.PageY,
+										screenX:	event.screenX,
+										screenY:	event.screenY,
+										which:		event.which
+									}
+								}
+							}).done(function (msg) {
+								console.log(msg);
+							});
+						});
+						'
+					)
+				);
+			});
+		}
+
 	}
 }

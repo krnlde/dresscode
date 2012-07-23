@@ -1,6 +1,8 @@
 <?php
 namespace Dresscode\Controller;
 
+use \Dresscode\Application;
+
 \Dresscode\Module::requireController('Thumbnails');
 
 class Overview extends \Dresscode\Controller\Thumbnails
@@ -12,7 +14,25 @@ class Overview extends \Dresscode\Controller\Thumbnails
 	 */
 	protected $source = '.';
 
+	/**
+	 * @var string
+	 */
+	private $httpMethod;
+
+
+	public function post(array $params = array())
+	{
+		$this->httpMethod = 'post';
+		$this->execute($params);
+	}
+
 	public function get(array $params = array())
+	{
+		$this->httpMethod = 'get';
+		$this->execute($params);
+	}
+
+	protected function execute(array $params = array())
 	{
 		$this->renameNode('thumbnails');
 		if ($this->source === '.')
@@ -24,13 +44,23 @@ class Overview extends \Dresscode\Controller\Thumbnails
 		foreach ($this->Application->Model->getList($this->source) as $path => $element)
 		{
 			$headline	= $xpath->query('.//c:headline[1]', $element)->item(0);
-			$preface	= $xpath->query('.//c:paragraph[1]', $element)->item(0);
-			$image		= $xpath->query('(.//c:image|.//c:thumbnail)[1]', $element)->item(0);
+			$preface	= $xpath->query('(.//c:paragraph|.//text)[1]', $element)->item(0);
+			$image		= $xpath->query('(.//c:image|.//c:thumbnail|.//c:gallery)[1]', $element)->item(0);
 
-			$thumbnail = \Dresscode\Module::createController('thumbnail', null, array
-				( 'source' => $image->getAttribute('source')
-				)
-			);
+			if ($image)
+			{
+				if ($image->nodeName === 'gallery')
+				{
+					$thumbnail = $this->loadThumbnailFromGallery($image);
+				}
+				else
+				{
+					$thumbnail = \Dresscode\Module::createController('thumbnail', null, array
+						( 'source' => $image->getAttribute('source')
+						)
+					);
+				}
+			}
 			$this->addChild($thumbnail);
 			if ($headline)
 			{
@@ -48,7 +78,32 @@ class Overview extends \Dresscode\Controller\Thumbnails
 				)
 			);
 			$thumbnail->addChild($anchor);
-			$thumbnail->launch('get', $params);
+			$thumbnail->launch($this->httpMethod, $params);
+		}
+	}
+
+	protected function loadThumbnailFromGallery(\DomElement $gallery)
+	{
+		\Dresscode\Module::requireController('Gallery');
+		$source = $gallery->getAttribute('source');
+
+		if ($source[0] === '/')
+		{
+			$source = $_SERVER['DOCUMENT_ROOT'].Application::basePath().$source;
+		}
+
+		if (file_exists($source) && is_dir($source))
+		{
+			foreach (new \DirectoryIterator($source) as $element)
+			{
+				if (!$element->isDot() && $element->isFile() && \Dresscode\Controller\Gallery::isImage($element))
+				{
+					return \Dresscode\Module::createController('thumbnail', null, array
+						( 'source' => str_replace(array($_SERVER['DOCUMENT_ROOT'].Application::basePath(), '\\'), array('', '/'), $element->getPathName())
+						)
+					);
+				}
+			}
 		}
 	}
 }
