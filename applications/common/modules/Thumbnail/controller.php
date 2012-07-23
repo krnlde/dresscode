@@ -30,25 +30,27 @@ class Thumbnail extends \Dresscode\Controller\Image
 		{
 			self::$initializeScript = new StringAsset
 			(
-				'$("a[rel]").click(function (event) {
-					event.preventDefault();
-				}).fancybox({
-					openEffect	: "fade",
-					closeEffect	: "none",
-					prevEffect	: "fade",
-					nextEffect	: "fade",
-					helpers		: {
-						title : {
-							type : "over"
+				'$(function () {
+					$("a[rel]").click(function (event) {
+						event.preventDefault();
+					}).fancybox({
+						openEffect	: "fade",
+						closeEffect	: "none",
+						prevEffect	: "fade",
+						nextEffect	: "fade",
+						helpers		: {
+							title : {
+								type : "over"
+							}
 						}
-					}
+					});
 				});'
 			);
 		}
-		$this->Application->stylesheet(new FileAsset('applications/common/modules/Thumbnail/assets/jquery-fancybox/source/jquery.fancybox.css'));
+		$this->Application->stylesheet(new FileAsset('applications/common/modules/Thumbnail/assets/fancyBox/source/jquery.fancybox.css'));
 		$this->Application->javascripts
 			( array
-				( new FileAsset('applications/common/modules/Thumbnail/assets/jquery-fancybox/source/jquery.fancybox.pack.js')
+				( new FileAsset('applications/common/modules/Thumbnail/assets/fancyBox/source/jquery.fancybox.js')
 				, self::$initializeScript
 				)
 			);
