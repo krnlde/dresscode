@@ -34,3 +34,6 @@
 [submodule "applications/common/assets/bootstrap"]
 	path = applications/common/assets/bootstrap
 	url = git://github.com/twitter/bootstrap.git
+[submodule "applications/common/modules/Thumbnail/assets/fancyBox"]
+	path = applications/common/modules/Thumbnail/assets/fancyBox
+	url = git://github.com/fancyapps/fancyBox.git
