@@ -78,7 +78,7 @@
 				</header>
 				<article class="row">
 					<section class="span3">
-						<thumbnail source="/gallery/_MG_0745-Edit.jpg"/>
+						<thumbnail source="/gallery/IMG.jpg"/>
 					</section>
 					<section class="span3">
 						<listing>
@@ -96,13 +96,13 @@
 
 		<fs:file name="portfolio" aliasToken="Portfolio" methods="get" author="Kai Dorschner">
 			<root>
-				<header class="hero-unit">
+				<header class="hero-unit galleryheader">
 					<headline>Portfolio</headline>
 					<paragraph>Code with style and save yourself some WTFs.</paragraph>
 				</header>
 				<article class="row">
-					<section class="span3">
-						<image source="/gallery/_MG_0964-Edit.jpg"/>
+					<section class="span12">
+						<gallery source="/gallery/" maximum="12"/>
 					</section>
 				</article>
 				<xref:reference ref="footer"/>

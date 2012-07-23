@@ -1,9 +1,9 @@
 @import "../../../common/assets/bootstrap/less/bootstrap.less";
 @import "../../../common/assets/bootstrap/less/responsive.less";
 @import "../../../common/assets/bootstrap-font-awesome/less/font-awesome.less";
-@import "../less/bootswatch.less";
-@import "../less/variables.less";
-@import "../less/paths.less"; // customized variables (overrides)
+// @import "bootswatch.less"; // Theme
+// @import "variables.less"; // Theme
+@import "paths.less"; // customized variables (overrides)
 
 
 // Text shadows
@@ -96,4 +96,8 @@ label .required {
 	overflow: hidden;
 	color: @white;
 	.text-shadow(@textColor);
+}
+
+.galleryheader {
+	background: url(/dresscode/gallery/IMG-5.jpg) repeat-x center center;
 }
