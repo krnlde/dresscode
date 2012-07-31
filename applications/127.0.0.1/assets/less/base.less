@@ -1,10 +1,11 @@
 @import "../../../common/assets/bootstrap/less/bootstrap.less";
 @import "../../../common/assets/bootstrap/less/responsive.less";
 @import "../../../common/assets/bootstrap-font-awesome/less/font-awesome.less";
-// @import "bootswatch.less"; // Theme
-// @import "variables.less"; // Theme
 @import "paths.less"; // customized variables (overrides)
 
+a.thumbnail:hover {
+	.box-shadow(0 0 12px fadeout(#000, 40%));
+}
 
 // Text shadows
 .text-shadow(@color: @backgroundColor, @offsetX: 0, @offsetY: 0, @blur: 5px) {
