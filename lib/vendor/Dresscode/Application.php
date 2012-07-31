@@ -180,8 +180,8 @@ class Application
 		self::$stylesheets->ensureFilter(new Filter\LessphpFilter());
 		// if (!$_GET['debug'])
 		// {
-		// 	self::$stylesheets->ensureFilter(new Filter\CssMinFilter()); // Bricks bootstrap css files!
-			// self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); // Slow as fuck
+			// self::$stylesheets->ensureFilter(new Filter\CssMinFilter()); // Bricks bootstrap css files!
+			self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); // Slow as fuck
 			// self::$javascripts->ensureFilter(new Filter\JSMinFilter()); // Bricks everything!
 			// self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); // Slow as fuck
 		// }
