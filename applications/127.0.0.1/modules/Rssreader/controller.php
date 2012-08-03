@@ -32,7 +32,12 @@ class Rssreader extends \Dresscode\Controller
 		}
 		if ($this->url)
 		{
-			$doc = $this->fetchRss($this->url);
+			try {
+				$doc = $this->fetchRss($this->url);
+			}
+			catch (\Exception $e) {
+				return $this->error($e);
+			}
 			$this->items = &$doc->channel->item;
 
 			$count = 0;
@@ -66,8 +71,14 @@ class Rssreader extends \Dresscode\Controller
 		$handle = curl_init($url);
 		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($handle, CURLOPT_HEADER, 0);
+		// @TODO set timeout
 		$data = curl_exec($handle);
+		$error = curl_errno($handle);
 		curl_close($handle);
+		if ($error)
+		{
+			throw new \Exception('Connection Problems');
+		}
 		return new \SimpleXmlElement($data, LIBXML_NOCDATA);
 	}
 
