@@ -23,9 +23,11 @@ else
 {
 	$size = new Imagine\Image\Box(160, 160);
 }
-// $mode		= Imagine\Image\ImageInterface::THUMBNAIL_INSET;
-$mode		= Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
+// $mode		= Imagine\Image\ImageInterface::THUMBNAIL_INSET; // Size to fit
+$mode		= Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND; // Crop
 $imagine	= new \Imagine\Gd\Imagine();
 header('Content-Type: image/png');
 echo $imagine->open($source)
 	->thumbnail($size, $mode);
+
+// @TODO Caching
