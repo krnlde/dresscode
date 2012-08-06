@@ -27,7 +27,7 @@ use \Dresscode\Event;
 /**
  * This collection contains a set of controllers.
  *
- * It also acts as a proxy for all methods, which means it forwards all method calls.
+ * It also acts as a proxy for all methods, which means it forwards all method calls ({@see __call()}).
  *
  * @author		Kai Dorschner <the-kernel32@web.de>
  * @package		Dresscode
