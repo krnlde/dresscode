@@ -12,15 +12,6 @@ $options = array
 	// ,	'default' => '127.0.0.1'
 	);
 
-$_GET['debug'] = true; // @debug
+// $_GET['debug'] = true; // @debug
 
-/* @TODO
-
-$options =
-[	'java_path' =>
-	[	'windows'	=> 'C:\...'
-	,	'linux'		=> '/usr/bin/...'
-	]
-];
-
-*/
+$options['java_path'] = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? 'C:\Program Files\Java\jre7\bin\java.exe' : '/usr/bin/java');
