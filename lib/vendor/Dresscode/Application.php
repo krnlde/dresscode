@@ -178,13 +178,11 @@ class Application
 		self::$stylesheets->ensureFilter(new Filter\CssRewriteFilter());
 		// self::$stylesheets->ensureFilter(new Filter\CssImportFilter()); // The Less Filter already does that
 		self::$stylesheets->ensureFilter(new Filter\LessphpFilter());
-		// if (!$_GET['debug'])
-		// {
-			// self::$stylesheets->ensureFilter(new Filter\CssMinFilter()); // Bricks bootstrap css files!
-			self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter(__DIR__.'/../yuicompressor.jar', $options['java_path'])); // Slow as fuck
-			// self::$javascripts->ensureFilter(new Filter\JSMinFilter()); // Bricks everything!
-			// self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter(__DIR__.'/../yuicompressor.jar', 'C:\Program Files\Java\jre7\bin\java.exe')); // Slow as fuck
-		// }
+		if (isset($options['compress']) && $options['compress'])
+		{
+			self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter($options['yuicompressor_path'], $options['java_path'])); // Slow as fuck
+			self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter($options['yuicompressor_path'], $options['java_path'])); // Slow as fuck
+		}
 
 		if (file_exists($bootstrap = $this->getPath()->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
 		{
