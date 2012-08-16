@@ -40,7 +40,11 @@ class Image extends \Dresscode\Controller
 		parent::get($params);
 		if ($this->source[0] === '/')
 		{
-			$this->source = dirname($_SERVER['SCRIPT_NAME']).$this->source;
+			$dirname = dirname($_SERVER['SCRIPT_NAME']);
+			if ($dirname !== '/')
+			{
+				$this->source = $dirname.$this->source;
+			}
 		}
 		if (empty($this->description))
 		{
