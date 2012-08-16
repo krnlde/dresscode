@@ -43,13 +43,17 @@
 					<menu source="/"/>
 				</section>
 				<section class="span3">
-					<headline priority="4">Interesting Article</headline>
+					<headline priority="4">Mystic Article</headline>
 					<paragraph><translate token="loremipsum" cut="300"/></paragraph>
-					<link to="/home/videos" class="btn">read more ...</link>
+					<link to="/mystic" class="btn">read more ...</link>
 				</section>
 				<section class="span3">
-					<headline priority="4">Another Article</headline>
-					<paragraph><translate token="loremipsum" cut="140"/></paragraph>
+					<headline priority="4">Dynamic Article</headline>
+					<slider transition="slide" direction="left">
+						<paragraph><translate token="loremipsum" cut="140"/></paragraph>
+						<paragraph><translate token="loremipsum" cut="10"/></paragraph>
+						<paragraph><translate token="loremipsum" cut="200"/></paragraph>
+					</slider>
 				</section>
 				<section class="span3">
 					<headline priority="4">Contact</headline>

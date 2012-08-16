@@ -19,11 +19,20 @@ class Slider extends \Dresscode\Controller
 	protected $autoplay = true;
 
 	/**
+	 * Delay between each slide.
+	 *
 	 * @property
 	 * @var integer
 	 * @pattern /^[0-9]{1,4}$/
 	 */
-	protected $rotationSpeed = 5000;
+	protected $speed = 5000;
+
+	/**
+	 * @property
+	 * @var string
+	 * @pattern /^none|slide|fade|reveal$/
+	 */
+	protected $transition = 'slide';
 
 	/**
 	 * @property
@@ -37,28 +46,28 @@ class Slider extends \Dresscode\Controller
 	 * @var string
 	 * @pattern /^up|down|left|right$/
 	 */
-	protected $direction = 'up'; // up, down, left, right
+	protected $direction = 'up';
 
 	public function setup()
 	{
 		$this->Application->stylesheet(new FileAsset('applications/common/modules/Slider/assets/css/slider.css'));
 		$this->Application->javascripts
 		(	array
-			(	new FileAsset('applications/common/assets/js/jquery.min.js') // or 'http://code.jquery.com/jquery.min.js'
-			,	new FileAsset('applications/common/modules/Slider/assets/js/jquery-revolver/jquery.revolver.min.js')
+			(	new FileAsset('applications/common/modules/Slider/assets/js/jquery-revolver/jquery.revolver.min.js')
 			,	new StringAsset // initialize
 				('
 					$(function() {
+						var moep;
 						var $slider = $(".'.$this->class.'");
 						$slider.find(".slide:first-child").css({display: "block"});
 						var revolver = $slider.revolver(
 							{ autoPlay:			'.($this->autoplay ? 'true' : 'false').'
-							, rotationSpeed:	'.$this->rotationSpeed.'
+							, rotationSpeed:	'.$this->speed.'
 							, transition:
 								{ direction:	"'.$this->direction.'"
 								, easing:		"swing"
 								, speed:		'.$this->transitionSpeed.'
-								, type:			"slide"
+								, type:			"'.$this->transition.'"
 								}
 							}
 						).data("revolver");

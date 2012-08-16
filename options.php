@@ -16,3 +16,4 @@ $options = array
 
 $options['java_path'] = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? 'C:\Program Files\Java\jre7\bin\java.exe' : '/usr/bin/java');
 $options['yuicompressor_path'] = __DIR__.'/lib/vendor/yuicompressor.jar';
+$options['compress'] = false;
