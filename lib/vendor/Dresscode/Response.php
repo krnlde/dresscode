@@ -118,7 +118,7 @@ class Response
 		{
 			echo $data;
 		}
-		if (isset($_GET['debug']) && \Dresscode\Application::getFormat() === 'html')
+		if (/*isset($_GET['debug']) && */\Dresscode\Application::getFormat() === 'html')
 		{
 			echo '<!-- rendered in: '.round(microtime(true) - STARTTIME, 4).'s -->'; // @debug
 		}

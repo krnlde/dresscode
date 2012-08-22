@@ -7,6 +7,8 @@
 	extension-element-prefixes="php">
 
 	<xsl:template match="root">
+		<xsl:variable name="externalStylesheets" select="php:function('\Dresscode\Application::getExternalStylesheets')"/>
+		<xsl:variable name="externalJavascripts" select="php:function('\Dresscode\Application::getExternalJavascripts')"/>
 		<!-- HTML5 Doctype -->
 		<xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;&#xA;</xsl:text><!-- &#xA; == Line Break -->
 		<html>
@@ -31,6 +33,15 @@
 				<meta name="date" content="{php:function('date', 'c')}"/>
 
 				<link rel="canonical" href="{@canonical}"/>
+
+				<xsl:for-each select="$externalStylesheets/*/stylesheet">
+					<xsl:if test="string-length(@href) &gt; 0">
+						<link rel="stylesheet" type="text/css" href="{@href}" media="all">
+							<xsl:copy-of select="@media"/>
+						</link>
+					</xsl:if>
+				</xsl:for-each>
+
 				<link rel="stylesheet" type="text/css" href="{php:function('\Dresscode\Application::dumpStylesheets')}" media="all"/>
 
 				<!-- HTML5shiv enables HTML5 elements in old browsers, like IE < 9 -->
@@ -52,6 +63,13 @@
 					<xsl:value-of select="$assets"/>
 					<xsl:text disable-output-escaping="yes">/js/jquery.min.js"&gt;&lt;\/script&gt;');</xsl:text>
 				</script>
+
+				<xsl:for-each select="$externalJavascripts/*/javascript">
+					<xsl:if test="string-length(@href) &gt; 0">
+						<script type="text/javascript" src="{@href}"><xsl:text> </xsl:text></script>
+					</xsl:if>
+				</xsl:for-each>
+
 				<script type="text/javascript" src="{php:function('\Dresscode\Application::dumpJavascripts')}"><xsl:text> </xsl:text></script>
 			</body>
 		</html>

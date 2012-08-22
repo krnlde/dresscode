@@ -139,9 +139,19 @@ class Application
 	protected static $stylesheets;
 
 	/**
+	 * @var array<StdClass>
+	 */
+	protected static $externalStylesheets = array();
+
+	/**
 	 * @var \Assetic\Asset\AssetCollection
 	 */
 	protected static $javascripts;
+
+	/**
+	 * @var array<String>
+	 */
+	protected static $externalJavascripts = array();
 
 	/**
 	 * @var Assetic\AssetWriter
@@ -197,6 +207,7 @@ class Application
 		);
 		set_error_handler(array($this, 'errorHandler')); // only called on E_USER_*
 		set_exception_handler(array($this, 'exceptionHandler'));
+		register_shutdown_function(array($this, 'fatalErrorShutdownHandler')); // E_ERROR
 	}
 
 	public function __destruct()
@@ -741,13 +752,21 @@ class Application
 		try
 		{
 			$this->Response->end($this->View->transform($this->dom)->to(self::$format), $this->statusCode);
-			return true;
 		}
 		catch (\Exception $e)
 		{
 			$this->Response->Header->contentType('text/plain', 'UTF-8');
 			$this->Response->end('Internal Server Error: '.$e, $this->statusCode);
-			return false;
+		}
+	}
+
+	public function fatalErrorShutdownHandler()
+	{
+		$last_error = error_get_last();
+		if ($last_error['type'] === E_ERROR)
+		{
+			// fatal error
+			$this->errorHandler(E_ERROR, $last_error['message'], $last_error['file'], $last_error['line']);
 		}
 	}
 
@@ -826,6 +845,109 @@ class Application
 		{
 			self::javascript($element);
 		}
+	}
+
+	/**
+	 * Setter for external stylesheets the current path ({@see getPath();}) is using.
+	 *
+	 * @param string $asset
+	 */
+	public static function externalStylesheet($asset)
+	{
+		if ($asset instanceof \StdClass)
+		{
+			if (!isset($asset->path))
+			{
+				return;
+			}
+			if ($asset->path[0] === '/' && $asset->path[1] !== '/')
+			{
+				$asset->path = self::basePath().$asset->path;
+			}
+		}
+		else //string
+		{
+			if ($asset[0] === '/' && $asset[1] !== '/')
+			{
+				$asset = self::basePath().$asset;
+			}
+			$asset = (Object)array('path' => $asset);
+		}
+		self::$externalStylesheets[] = $asset;
+	}
+
+	public static function externalStylesheets(array $elements = array())
+	{
+		foreach ($elements as $element)
+		{
+			self::externalStylesheet($element);
+		}
+	}
+
+	/**
+	 * Returns external stylesheets (like these from CDNs).
+	 *
+	 * This is useful when you want to reuse resources and not have them combined
+	 * into single files.
+	 *
+	 * @return \DomDocument Stylesheets
+	 */
+	public static function getExternalStylesheets()
+	{
+		$stylesheets = new \DomDocument('1.0', 'utf-8');
+		$stylesheets->appendChild($root = $stylesheets->createElement('stylesheets'));
+		foreach (self::$externalStylesheets as $asset)
+		{
+			$root->appendChild($external = $stylesheets->createElement('stylesheet'));
+			$external->setAttribute('href', $asset->path);
+			if (isset($asset->media) && $asset->media)
+			{
+				$external->setAttribute('media', $asset->media);
+			}
+		}
+		return $stylesheets;
+	}
+
+	/**
+	 * Setter for external javascript the current path ({@see getPath();}) is using.
+	 *
+	 * @param string $asset
+	 */
+	public static function externalJavascript($asset)
+	{
+		if ($asset[0] === '/' && $asset[1] !== '/')
+		{
+			$asset = self::basePath().$asset;
+		}
+		self::$externalJavascripts[] = $asset;
+	}
+
+	public static function externalJavascripts(array $elements = array())
+	{
+		foreach ($elements as $element)
+		{
+			self::externalJavascript($element);
+		}
+	}
+
+	/**
+	 * Returns external stylesheets (like these from CDNs).
+	 *
+	 * This is useful when you want to reuse resources and not have them combined
+	 * into single files.
+	 *
+	 * @return \DomDocument Stylesheets
+	 */
+	public static function getExternalJavascripts()
+	{
+		$javascripts = new \DomDocument('1.0', 'utf-8');
+		$javascripts->appendChild($root = $javascripts->createElement('javascripts'));
+		foreach (self::$externalJavascripts as $asset)
+		{
+			$root->appendChild($external = $javascripts->createElement('javascript'));
+			$external->setAttribute('href', $asset);
+		}
+		return $javascripts;
 	}
 
 	/**

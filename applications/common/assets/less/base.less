@@ -9,10 +9,9 @@ a.thumbnail:hover {
 
 // Text shadows
 .text-shadow(@color: @backgroundColor, @offsetX: 0, @offsetY: 0, @blur: 5px) {
-	text-shadow: @offsetX @offsetY @blur @color;
-	// filter: e(%("dropshadow(color=%d, offx=%d, offy=%d)",argb(@color),floor(@offsetX),floor(@offsetY) )); // IE9 and down
-	filter: e(%("Glow(%d, strength=%d)",argb(@color),floor(@blur) )); // IE9 and down
-	// Solve via CSS3Pie?
+  text-shadow: @offsetX @offsetY @blur @color;
+       // filter: e(%("dropshadow(color=%d, offx=%d, offy=%d)",argb(@color),floor(@offsetX),floor(@offsetY) )); // IE9 and down
+       filter: e(%("Glow(%d, strength=%d)",argb(@color),floor(@blur) )); // IE9 and down
 }
 
 .siteanchor
@@ -24,6 +23,7 @@ a.thumbnail:hover {
 		linear	//timing function
 		.5s		//delay
 	);
+	margin-left: .2em;
 	:hover &
 	{
 		h1&,
