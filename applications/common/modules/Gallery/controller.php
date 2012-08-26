@@ -84,6 +84,7 @@ class Gallery extends \Dresscode\Controller
 				, 'size'		=> $this->size
 				, 'group'		=> substr(md5($this->getXpath()), 0, 6)
 				, 'description'	=> pathinfo($images[$i], PATHINFO_FILENAME)
+				, 'crop'		=> true
 				)
 			);
 			$this->addChild($controller);

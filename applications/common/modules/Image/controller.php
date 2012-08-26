@@ -38,13 +38,18 @@ class Image extends \Dresscode\Controller
 	public function get(array $params = array())
 	{
 		parent::get($params);
-		if ($this->source[0] === '/')
+		if ($this->source[0] === '/') // Root Directory
 		{
 			$dirname = dirname($_SERVER['SCRIPT_NAME']);
 			if ($dirname !== '/')
 			{
 				$this->source = $dirname.$this->source;
 			}
+		}
+		if ($this->source[0].$this->source[1] === '~/') // Application Home Directory
+		{
+			$dirname = $this->Application->basePath().'/applications/'.$this->Application->getName();
+			$this->source = $dirname.substr($this->source, 1);
 		}
 		if (empty($this->description))
 		{

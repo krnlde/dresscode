@@ -63,10 +63,13 @@ class Module
 	{
 		self::$Application			= $Application;
 		self::$Pool					= new Pool('');
-		self::$View					= new View\XSL(self::getCommonViewPath());
-		self::$View->addPool(self::getViewPath());
-		self::$Pool->add(self::getCommonPath());
-		self::$Pool->add(self::getPath());
+		self::$View					= new View\XSL(new \DirectoryIterator(self::getCommonViewPath()));
+		self::$View->addPool(new \DirectoryIterator(self::getViewPath()));
+		self::$Pool->add(new \DirectoryIterator(self::getCommonPath()));
+		if (self::getPath())
+		{
+			self::$Pool->add(new \DirectoryIterator(self::getPath()));
+		}
 	}
 
 	/**
@@ -210,7 +213,10 @@ class Module
 	 */
 	public static function getPath()
 	{
-		return new \DirectoryIterator(self::$Application->getPath()->getPath().DIRECTORY_SEPARATOR.'modules');
+		if (file_exists($path = self::$Application->getPath().DIRECTORY_SEPARATOR.'modules'))
+		{
+			return $path;
+		}
 	}
 
 	/**
@@ -220,7 +226,7 @@ class Module
 	 */
 	public static function getCommonPath()
 	{
-		return new \DirectoryIterator(self::$Application->getCommonPath()->getPath().DIRECTORY_SEPARATOR.'modules');
+		return self::$Application->getCommonPath().DIRECTORY_SEPARATOR.'modules';
 	}
 
 	/**
@@ -229,7 +235,7 @@ class Module
 	 */
 	public static function getViewPath()
 	{
-		return new \DirectoryIterator(self::$Application->getPath()->getPath().DIRECTORY_SEPARATOR.'views');
+		return self::$Application->getPath().DIRECTORY_SEPARATOR.'views';
 	}
 
 	/**
@@ -239,7 +245,7 @@ class Module
 	 */
 	public static function getCommonViewPath()
 	{
-		return new \DirectoryIterator(self::$Application->getCommonPath()->getPath().DIRECTORY_SEPARATOR.'views');
+		return self::$Application->getCommonPath().DIRECTORY_SEPARATOR.'views';
 	}
 
 	/**
@@ -349,7 +355,7 @@ class Module
 	protected static function loadTranslations()
 	{
 		$common = new \DomDocument();
-		$common->load(self::$Application->getCommonPath()->getPath().DIRECTORY_SEPARATOR.'translation.xml');
+		$common->load(self::$Application->getCommonPath().DIRECTORY_SEPARATOR.'translation.xml');
 		\Dresscode\Translator::addTranslationsFromXml($common);
 		foreach (self::$includedTranslations as $path => $value)
 		{
@@ -357,7 +363,7 @@ class Module
 			$xml->load($path);
 			\Dresscode\Translator::addTranslationsFromXml($xml);
 		}
-		if (file_exists($filename = self::$Application->getPath()->getPath().DIRECTORY_SEPARATOR.'translation.xml'))
+		if (file_exists($filename = self::$Application->getPath().DIRECTORY_SEPARATOR.'translation.xml'))
 		{
 			$custom = new \DomDocument();
 			$custom->load($filename);

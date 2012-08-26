@@ -174,7 +174,7 @@ class Application
 		$this->resetDom();
 		Module::initialize($this);
 		$this->View		= Module::getView();
-		$this->Model	= new Model\XML($this->getModelPath());
+		$this->Model	= new Model\XML(new \DirectoryIterator($this->getModelPath()));
 		if ($timezone = $this->Model->timezone())
 		{
 			date_default_timezone_set($timezone);
@@ -194,7 +194,7 @@ class Application
 			self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter($options['yuicompressor_path'], $options['java_path'])); // Slow as fuck
 		}
 
-		if (file_exists($bootstrap = $this->getPath()->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
+		if (file_exists($bootstrap = $this->getPath().DIRECTORY_SEPARATOR.'bootstrap.php'))
 		{
 			require $bootstrap;
 		}
@@ -290,7 +290,7 @@ class Application
 	{
 		if (file_exists($path = self::$pool->getPath().DIRECTORY_SEPARATOR.$this->name))
 		{
-			return new \DirectoryIterator($path);
+			return $path;
 		}
 		return $this->getCommonPath();
 
@@ -301,7 +301,7 @@ class Application
 	 */
 	public static function getCommonPath()
 	{
-		return new \DirectoryIterator(self::$pool->getPath().DIRECTORY_SEPARATOR.'common');
+		return self::$pool->getPath().DIRECTORY_SEPARATOR.'common';
 	}
 
 	/**
@@ -309,7 +309,7 @@ class Application
 	 */
 	public function getModelPath()
 	{
-		return new \DirectoryIterator($this->getPath()->getPath().DIRECTORY_SEPARATOR.'models');
+		return $this->getPath().DIRECTORY_SEPARATOR.'models';
 	}
 
 	/**

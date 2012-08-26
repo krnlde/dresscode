@@ -40,8 +40,14 @@ else
 	$size = new Imagine\Image\Box(697, 697); // max image size in iPad responsive design
 }
 
-// $mode		= Imagine\Image\ImageInterface::THUMBNAIL_INSET; // Size to fit
-$mode = Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND; // Crop
+if (isset($_GET['crop']) && $_GET['crop'])
+{
+	$mode = Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND; // Crop
+}
+else
+{
+	$mode = Imagine\Image\ImageInterface::THUMBNAIL_INSET; // Size to fit
+}
 $imagine = new \Imagine\Gd\Imagine();
 echo $imagine->open($source)
 	->thumbnail($size, $mode)

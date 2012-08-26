@@ -15,6 +15,12 @@ class Thumbnail extends \Dresscode\Controller\Image
 	protected $size = 'medium';
 
 	/**
+	 * @property
+	 * @var boolean
+	 */
+	protected $crop = false;
+
+	/**
 	 * @var array of string
 	 */
 	protected $sizes = array('small', 'medium', 'large');

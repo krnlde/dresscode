@@ -11,6 +11,7 @@ class Thumbnails extends \Dresscode\Controller
 	/**
 	 * @property
 	 * @var boolean
+	 * @TODO
 	 */
 	protected $more = true;
 }

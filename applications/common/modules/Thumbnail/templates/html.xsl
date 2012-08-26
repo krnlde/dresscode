@@ -6,6 +6,16 @@
 	extension-element-prefixes="php">
 
 	<xsl:template match="thumbnail">
+		<!-- render image -->
+		<ul class="thumbnails">
+			<xsl:copy-of select="@id"/>
+			<xsl:copy-of select="@class"/>
+			<xsl:apply-templates select="." mode="inner"/>
+		</ul>
+		<!--<img src="/image.php?source={@source}&amp;orientation={@orientation}&amp;crop={@crop}" alt="{@description}" title="{@description}" />-->
+	</xsl:template>
+
+	<xsl:template match="thumbnail" mode="inner">
 		<xsl:variable name="source">
 			<xsl:choose>
 				<xsl:when test="starts-with(@source, 'http')">
@@ -17,24 +27,18 @@
 						<xsl:value-of select="@source"/>
 						<xsl:text>&amp;size=</xsl:text>
 						<xsl:value-of select="@size"/>
+						<xsl:if test="@crop">
+							<xsl:text>&amp;crop=</xsl:text><!-- always crop thumbnails -->
+							<xsl:value-of select="@crop"/>
+						</xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<!-- render image -->
-		<ul class="thumbnails">
-			<xsl:copy-of select="@id"/>
-			<xsl:copy-of select="@class"/>
-			<xsl:apply-templates select="." mode="inner"/>
-		</ul>
-		<!--<img src="/image.php?source={@source}&amp;orientation={@orientation}&amp;crop={@crop}" alt="{@description}" title="{@description}" />-->
-	</xsl:template>
-
-	<xsl:template match="thumbnail" mode="inner">
 		<li class="span3">
 			<xsl:choose>
-				<xsl:when test="*">
+				<xsl:when test="*"><!-- has sub contents -->
 					<div class="thumbnail">
-						<img src="{@source}" alt="{@description}"/>
+						<img src="{$source}" alt="{@description}"/>
 						<div class="caption">
 							<xsl:apply-templates/>
 							<xsl:if test="boolean(string(../@more))">
@@ -45,7 +49,7 @@
 				</xsl:when>
 				<xsl:otherwise>
 					<a href="{@source}" rel="lightbox[{@group}]" title="{@description}" class="thumbnail">
-						<img src="{@source}" alt="{@description}"/>
+						<img src="{$source}" alt="{@description}"/>
 					</a>
 				</xsl:otherwise>
 			</xsl:choose>
