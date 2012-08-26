@@ -63,7 +63,7 @@ class Link extends \Dresscode\Controller
 					);
 				$this->url = str_replace('%40', '@', $this->url); // recover mail declaration (from urlencode)
 				$this->url = preg_replace('/^([a-z]+)\%3A\/\//', '$1://', $this->url); // recover scheme declaration (from urlencode)
-				if (preg_match('/^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{10})$/', $this->url))
+				if (preg_match('/^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2,10})$/', $this->url))
 				{
 					$this->url = 'mailto:'.$this->url;
 				}
