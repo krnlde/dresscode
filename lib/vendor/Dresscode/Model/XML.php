@@ -328,7 +328,7 @@ class XML extends \Dresscode\Model
 				// @todo create error node instead!
 				throw new \Dresscode\Exception('Reference "'.$xref->getAttribute('ref').'" is not present (line '.$xref->getLineNo().')');
 			}
-			$xref->parentNode->insertBefore($clone, $xref);
+			$xref->parentNode->insertBefore($this->normalize($clone), $xref);
 			$xrefs[] = $xref;
 		}
 		foreach ($xrefs as $xref)
