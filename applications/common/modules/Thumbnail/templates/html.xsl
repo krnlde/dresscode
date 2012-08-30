@@ -34,7 +34,14 @@
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<li class="span3">
+
+		<li class="span2">
+			<xsl:if test="../@span">
+				<xsl:attribute name="class">
+					<xsl:text>span</xsl:text>
+					<xsl:value-of select="../@span"/>
+				</xsl:attribute>
+			</xsl:if>
 			<xsl:choose>
 				<xsl:when test="*"><!-- has sub contents -->
 					<div class="thumbnail">

@@ -11,7 +11,18 @@ class Thumbnails extends \Dresscode\Controller
 	/**
 	 * @property
 	 * @var boolean
-	 * @TODO
+	 * @TODO implement
 	 */
 	protected $more = true;
+
+	/**
+	 * Defines home many spans should be used for one Thumbnail.
+	 *
+	 * For Example: span = "4" means 3 Thumbnails each row based on a 12 column grid
+	 * because 4 fits 3 times in 12 (12 / 4 = 3).
+	 *
+	 * @property
+	 * @var integer
+	 */
+	protected $span = 4;
 }
