@@ -125,13 +125,13 @@ class Input extends \Dresscode\Controller
 	protected $presets = array
 		( 'email'			=> array
 			( 'type'		=> 'email'
-			, 'pattern'		=> '^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{10})$'
+			, 'pattern'		=> '^[a-zA-Z0-9._%+-]+\@[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2,10})$'
 			, 'required'	=> true
 			)
 		, 'url'				=> array
 			( 'type'		=> 'url'
 			, 'value'		=> 'http://'
-			, 'pattern'		=> '^https?:\/\/[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{10})$' // @todo needs to be checked!
+			, 'pattern'		=> '^https?:\/\/[a-zA-Z0-9.-]+\.(?:[a-zA-Z]{2,10})$'
 			)
 		, 'zip'				=> array
 			( 'type'		=> 'zip'
