@@ -64,7 +64,10 @@ class Module
 		self::$Application			= $Application;
 		self::$Pool					= new Pool('');
 		self::$View					= new View\XSL(new \DirectoryIterator(self::getCommonViewPath()));
-		self::$View->addPool(new \DirectoryIterator(self::getViewPath()));
+		if (file_exists(self::getViewPath()))
+		{
+			self::$View->addPool(new \DirectoryIterator(self::getViewPath()));
+		}
 		self::$Pool->add(new \DirectoryIterator(self::getCommonPath()));
 		if (self::getPath())
 		{
