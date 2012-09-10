@@ -35,7 +35,7 @@
 			</xsl:choose>
 		</xsl:variable>
 
-		<li class="span2">
+		<li class="span2"><!-- default -->
 			<xsl:if test="../@span">
 				<xsl:attribute name="class">
 					<xsl:text>span</xsl:text>
@@ -48,9 +48,6 @@
 						<img src="{$source}" alt="{@description}"/>
 						<div class="caption">
 							<xsl:apply-templates/>
-							<xsl:if test="boolean(string(../@more))">
-								<div class="more"><xsl:text> </xsl:text></div>
-							</xsl:if>
 						</div>
 					</div>
 				</xsl:when>

@@ -696,7 +696,7 @@ abstract class Controller extends Observable
 
 
 	/**
-	 * Initializes the loading of the own outout node.
+	 * Initializes the loading of the own output node.
 	 *
 	 * @return \Dresscode\Controller $this
 	 */

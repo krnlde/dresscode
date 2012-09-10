@@ -29,7 +29,7 @@ class Link extends \Dresscode\Controller
 		$this->closest('Root')->on('ready', function () use ($self, $params) {
 			if ($self->getXPath() === $params['xpath'])
 			{
-				die(print_r($params, true));
+				die(print_r($params, true)); // @TODO
 			}
 		});
 	}
@@ -75,16 +75,7 @@ class Link extends \Dresscode\Controller
 			}
 			$this->node->setAttribute('url', $this->url);
 		}
-
-		$hasTextNode = false;
-		foreach ($this->node->childNodes as $child)
-		{
-			if ($child->nodeType === XML_TEXT_NODE)
-			{
-				$hasTextNode = true;
-			}
-		}
-		if (!$hasTextNode)
+		if (!strlen($this->node->nodeValue))
 		{
 			$this->node->appendChild($this->dom->createTextNode($this->url));
 		}

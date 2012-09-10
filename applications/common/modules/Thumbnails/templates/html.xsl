@@ -11,7 +11,7 @@
 			<xsl:if test="@class">
 				<xsl:attribute name="class">
 					<xsl:text>thumbnails </xsl:text>
-					<xsl:copy-of select="@class"/>
+					<xsl:value-of select="@class"/>
 				</xsl:attribute>
 			</xsl:if>
 			<xsl:apply-templates select="thumbnail" mode="inner"/>

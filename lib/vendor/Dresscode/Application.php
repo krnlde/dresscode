@@ -227,6 +227,11 @@ class Application
 		return $dirname;
 	}
 
+	public static function cachePath()
+	{
+		return self::getAssetBuildPath().'/cache';
+	}
+
 	/**
 	 * @return string
 	 */
@@ -1016,7 +1021,7 @@ class Application
 	{
 		return new AssetCache
 		(	$asset
-		,	new FilesystemCache(self::getAssetBuildPath().'/cache')
+		,	new FilesystemCache(self::cachePath())
 		);
 	}
 

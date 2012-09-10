@@ -9,13 +9,6 @@ require_once(\Dresscode\Module::findController('Thumbnail'));
 class Thumbnails extends \Dresscode\Controller
 {
 	/**
-	 * @property
-	 * @var boolean
-	 * @TODO implement
-	 */
-	protected $more = true;
-
-	/**
 	 * Defines home many spans should be used for one Thumbnail.
 	 *
 	 * For Example: span = "4" means 3 Thumbnails each row based on a 12 column grid

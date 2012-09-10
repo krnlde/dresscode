@@ -19,6 +19,11 @@ class Overview extends \Dresscode\Controller\Thumbnails
 	 */
 	private $httpMethod;
 
+	/**
+	 * @property
+	 * @var string
+	 */
+	protected $class = 'overview';
 
 	public function post(array $params = array())
 	{

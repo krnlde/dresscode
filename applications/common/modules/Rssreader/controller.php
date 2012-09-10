@@ -1,6 +1,9 @@
 <?php
 namespace Dresscode\Controller;
 
+use \Assetic\Cache\ExpiringCache;
+use \Assetic\Cache\FilesystemCache;
+
 class Rssreader extends \Dresscode\Controller
 {
 	const MINIMUM = 1;
@@ -18,7 +21,33 @@ class Rssreader extends \Dresscode\Controller
 	 */
 	protected $maximum = 5;
 
+	/**
+	 * Connection Timeout in milliseconds.
+	 *
+	 * @property
+	 * @var integer
+	 */
+	protected $timeout = 3000; // milliseconds
+
+	/**
+	 * Cache Lifetime in seconds.
+	 *
+	 * @property
+	 * @var integer
+	 */
+	protected $cacheLifetime = 120; //seconds
+
 	protected $items = array();
+
+	/**
+	 * @var \Assetic\Cache\CacheInterface
+	 */
+	private $cache;
+
+	public function setup()
+	{
+		$this->cache = new ExpiringCache(new FilesystemCache($this->Application->cachePath()), $this->cacheLifetime);
+	}
 
 	public function get(array $params = array())
 	{
@@ -32,16 +61,18 @@ class Rssreader extends \Dresscode\Controller
 		}
 		if ($this->url)
 		{
-			try {
+			try
+			{
 				$doc = $this->fetchRss($this->url);
 			}
-			catch (\Exception $e) {
+			catch (\Exception $e)
+			{
 				return $this->error($e);
 			}
-			$this->items = &$doc->channel->item;
+			$this->items = $doc->channel->item;
 
 			$count = 0;
-			foreach ($this->items as $item) // debug
+			foreach ($this->items as $item)
 			{
 				if ($count++ >= $this->maximum)
 				{
@@ -52,11 +83,48 @@ class Rssreader extends \Dresscode\Controller
 				{
 					$clone = clone $child;
 					$this->parent->addChild($clone);
+					foreach ($clone->find('Variablecollection') as $var)
+					{
+						$collection = $item->{$var->getProperty('name')};
+						$list = array();
+						foreach($collection as $current)
+						{
+							if (!strlen((string) $current))
+							{
+								continue;
+							}
+							$list[] = (string) $current;
+						}
+						foreach ($list as $element)
+						{
+							$collectionClone = clone $var;
+							$var->parent->addChild($collectionClone);
+							$var->getNode()->parentNode->appendChild($collectionClone->getNode()); // @TODO improve these steps?
+							foreach ($collectionClone->find('Variable') as $collectionCloneVar)
+							{
+								if ($collectionCloneVar->getProperty('name') == '$value')
+								{
+									$collectionCloneVar->setText($element);
+								}
+							}
+						}
+						$var->deleteNode();
+					}
 					foreach ($clone->find('Variable') as $var)
 					{
-						if (isset($item->{$var->getProperty('name')}))
+						if (isset($item->{$var->getProperty('name')})) // @TODO is this necessary?
 						{
-							$var->setText($item->{$var->getProperty('name')});
+							$collection = $item->{$var->getProperty('name')};
+							$list = array();
+							foreach($collection as $current)
+							{
+								if (!strlen((string) $current))
+								{
+									continue;
+								}
+								$list[] = (string) $current;
+							}
+							$var->setText(implode(', ', $list));
 						}
 					}
 					$clone->launch('get', $params);
@@ -68,16 +136,26 @@ class Rssreader extends \Dresscode\Controller
 
 	protected function fetchRss($url)
 	{
-		$handle = curl_init($url);
-		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($handle, CURLOPT_HEADER, 0);
-		// @TODO set timeout
-		$data = curl_exec($handle);
-		$error = curl_errno($handle);
-		curl_close($handle);
-		if ($error)
+		$data = null;
+		if ($this->cache->has(md5($url)))
 		{
-			throw new \Exception('Connection Problems');
+			$data = $this->cache->get(md5($url));
+		}
+		else
+		{
+			$handle = curl_init($url);
+			curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($handle, CURLOPT_HEADER, 0);
+			curl_setopt($handle, CURLOPT_CONNECTTIMEOUT_MS, $this->timeout);
+			$data = curl_exec($handle);
+			$errno = curl_errno($handle);
+			$error = curl_error($handle);
+			curl_close($handle);
+			if ($errno)
+			{
+				throw new \Exception('CURL Error: '.$error);
+			}
+			$this->cache->set(md5($url), $data);
 		}
 		return new \SimpleXmlElement($data, LIBXML_NOCDATA);
 	}

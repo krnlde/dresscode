@@ -57,7 +57,6 @@ class Slider extends \Dresscode\Controller
 			,	new StringAsset // initialize
 				('
 					$(function() {
-						var moep;
 						var $slider = $(".'.$this->class.'");
 						$slider.find(".slide:first-child").css({display: "block"});
 						var revolver = $slider.revolver(
@@ -71,6 +70,13 @@ class Slider extends \Dresscode\Controller
 								}
 							}
 						).data("revolver");
+
+						$slider.hover(function () {
+							revolver.pause();
+						},
+						function () {
+							revolver.play();
+						});
 					});
 				')
 			)

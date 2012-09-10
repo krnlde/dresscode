@@ -16,9 +16,9 @@ class Time extends \Dresscode\Controller
 
 	public function setup()
 	{
-		$this->on('launchChild', function ($event) {
-			$event->preventDefault(); // block all children
-		});
+		// $this->on('launchChild', function ($event) {
+		// 	$event->preventDefault(); // block all children
+		// });
 	}
 
 	public function get(array $params = array())
