@@ -10,9 +10,6 @@
 [submodule "lib/vendor/Opl"]
 	path = lib/vendor/Opl
 	url = https://github.com/OPL/opl3-autoloader.git
-[submodule "applications/common/modules/Slider/assets/js/jquery-revolver"]
-	path = applications/common/modules/Slider/assets/js/jquery-revolver
-	url = git://github.com/johnnyfreeman/revolver.git
 [submodule "applications/common/assets/css/less"]
 	path = applications/common/assets/css/less
 	url = git://github.com/jonikorpi/Less-Framework.git
