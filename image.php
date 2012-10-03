@@ -2,6 +2,8 @@
 
 require __DIR__.'/lib/vendor/Opl/src/Opl/Autoloader/GenericLoader.php';
 
+ini_set('memory_limit', '512M');
+
 $loader = new \Opl\Autoloader\GenericLoader(__DIR__.'/lib/vendor/');
 $loader->addNamespace('Imagine', __DIR__.'/lib/vendor/Imagine/lib');
 $loader->register();
@@ -21,7 +23,7 @@ $cachedir = __DIR__.'/cache/';
 $key = md5(serialize($_GET));
 $cachesource = $cachedir.$key.'.'.$extension;
 
-header('Content-Type: image/'.$extension);
+header('Content-Type: image/'.($extension == 'jpg' ? 'jpeg' : $extension));
 // header('content-disposition....');
 // header('Last-Modified');
 
@@ -37,7 +39,8 @@ if (isset($_GET['width']))
 }
 else
 {
-	$size = new Imagine\Image\Box(697, 697); // max image size in iPad responsive design
+	// $size = new Imagine\Image\Box(697, 697); // max image size in iPad responsive design
+	$size = new Imagine\Image\Box(370, 370); // max image size in iPad responsive design
 }
 
 if (isset($_GET['crop']) && $_GET['crop'])

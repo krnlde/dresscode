@@ -1,8 +1,15 @@
 <?php
 namespace Dresscode\Controller;
 
-class Gallery extends \Dresscode\Controller
+\Dresscode\Module::requireController('Tabs');
+
+class Gallery extends Tabs
 {
+	/**
+	 * Maximum Images
+	 *
+	 * @var integer
+	 */
 	const MAXIMUM = 100;
 
 	/**
@@ -13,10 +20,15 @@ class Gallery extends \Dresscode\Controller
 
 	/**
 	 * @property
-	 * @hidden
 	 * @var integer
 	 */
-	protected $maximum = 5;
+	protected $maximum = 20;
+
+	/**
+	 * @property
+	 * @var integer
+	 */
+	protected $perTab = 18;
 
 	/**
 	 * @property
@@ -25,6 +37,11 @@ class Gallery extends \Dresscode\Controller
 	 */
 	protected $size = 'medium';
 
+	/**
+	 * Supported image types
+	 *
+	 * @var array<string>
+	 */
 	protected static $imageTypes = array
 		( 'jpg'
 		, 'png'
@@ -35,10 +52,8 @@ class Gallery extends \Dresscode\Controller
 
 	public function setup()
 	{
-		if ($this->maximum > self::MAXIMUM)
-		{
-			$this->maximum = self::MAXIMUM;
-		}
+		parent::setup();
+		$this->maximum = min($this->maximum, self::MAXIMUM);
 	}
 
 	/**
@@ -49,6 +64,11 @@ class Gallery extends \Dresscode\Controller
 	 */
 	public function get(array $params = array())
 	{
+		if (!$this->id)
+		{
+			$this->id = $this->generateId();
+		}
+
 		parent::get($params);
 		$this->class = strtolower($this->getName());
 		$images = array();
@@ -78,6 +98,7 @@ class Gallery extends \Dresscode\Controller
 			return strnatcmp($a, $b);
 		});
 		for ($i = 0; $i < min(count($images), $this->maximum); $i++)
+		// for ($i = 0; $i < count($images); $i++)
 		{
 			$controller = \Dresscode\Module::createController('thumbnail', null, array
 				( 'source'		=> $images[$i]

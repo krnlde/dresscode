@@ -37,8 +37,17 @@
 		<xsl:value-of select="$apppath" />
 		<xsl:text>/common</xsl:text>
 	</xsl:variable>
+	<xsl:variable name="user">
+		<xsl:value-of select="$apppath" />
+		<xsl:text>/</xsl:text>
+		<xsl:value-of select="php:function('\Dresscode\Application::getName')" />
+	</xsl:variable>
 	<xsl:variable name="assets">
 		<xsl:value-of select="$common" />
+		<xsl:text>/assets</xsl:text>
+	</xsl:variable>
+	<xsl:variable name="userAssets">
+		<xsl:value-of select="$user" />
 		<xsl:text>/assets</xsl:text>
 	</xsl:variable>
 

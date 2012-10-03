@@ -21,6 +21,13 @@ class Overview extends \Dresscode\Controller\Thumbnails
 
 	/**
 	 * @property
+	 * @hidden
+	 * @var integer
+	 */
+	protected $maximum = 5;
+
+	/**
+	 * @property
 	 * @var string
 	 */
 	protected $class = 'overview';

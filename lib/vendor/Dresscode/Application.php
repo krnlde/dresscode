@@ -119,7 +119,7 @@ class Application
 	 *
 	 * @var string
 	 */
-	protected $name;
+	protected static $name;
 
 	/**
 	 * @var \DomDocument
@@ -168,7 +168,7 @@ class Application
 		self::$pool		= $applicationPool;
 		$this->Request	= Request::getInstance();
 		$this->Response	= Response::getInstance();
-		$this->name		= isset($options['name']) ? $options['name'] : $this->Request->domain;
+		self::$name		= isset($options['name']) ? $options['name'] : $this->Request->domain;
 		$this->Router	= new Router($this, $_SERVER);
 		self::$format	= self::DEFAULTFORMAT;
 		$this->resetDom();
@@ -293,7 +293,7 @@ class Application
 	 */
 	public function getPath()
 	{
-		if (file_exists($path = self::$pool->getPath().DIRECTORY_SEPARATOR.$this->name))
+		if (file_exists($path = self::$pool->getPath().DIRECTORY_SEPARATOR.self::getName()))
 		{
 			return $path;
 		}
@@ -320,9 +320,9 @@ class Application
 	/**
 	 * @return string
 	 */
-	public function getName()
+	public static function getName()
 	{
-		return $this->name;
+		return self::$name;
 	}
 
 

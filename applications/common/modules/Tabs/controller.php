@@ -7,10 +7,11 @@ use \Assetic\Asset\StringAsset;
 class Tabs extends \Dresscode\Controller
 {
 	/**
+	 *
 	 * @property
 	 * @var integer
 	 */
-	protected $maximum = 5;
+	protected $foldAfter = 5;
 
 	/**
 	 * @property
@@ -25,7 +26,7 @@ class Tabs extends \Dresscode\Controller
 		{
 			$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-transition.js'));
 		}
-		if (count($this->children > $this->maximum))
+		if (count($this->children > $this->foldAfter))
 		{
 			$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-dropdown.js'));
 		}
