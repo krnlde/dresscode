@@ -54,6 +54,23 @@ class Gallery extends Tabs
 	{
 		parent::setup();
 		$this->maximum = min($this->maximum, self::MAXIMUM);
+		$this->Application->javascript(new \Assetic\Asset\StringAsset('
+			$(".nav-pills").on("click.gallery", ".first, .next, .last, .previous", function (e) {
+				var $this = $(this)
+					$target = $this.parent();
+				e.preventDefault();
+				if ($this.is(".first")) {
+					$target = $this.parent().nextAll("li:has(a[data-toggle])").first();
+				} else if ($this.is(".previous")) {
+					$target = $this.closest("ul").find("li.active").prev("li:has(a[data-toggle])");
+				} else if ($this.is(".next")) {
+					$target = $this.closest("ul").find("li.active").next("li:has(a[data-toggle])");
+				}  else { // last
+					$target = $this.parent().prevAll("li:has(a[data-toggle])").first();
+				}
+				$target.children("a").tab("show");
+			});
+		'));
 	}
 
 	/**
