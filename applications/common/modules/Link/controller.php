@@ -23,6 +23,12 @@ class Link extends \Dresscode\Controller
 	 */
 	protected $description;
 
+	/**
+	 * @property
+	 * @var boolean
+	 */
+	protected $escape = true;
+
 	public function post(array $params = array())
 	{
 		$self = $this;
@@ -46,7 +52,7 @@ class Link extends \Dresscode\Controller
 			{
 				$this->node->appendChild($this->dom->createTextNode($this->to));
 			}
-			if (substr($this->to, 0, 4) !== 'http')
+			if ($this->escape && substr($this->to, 0, 4) !== 'http')
 			{
 				$this->url = implode
 					( '/'
