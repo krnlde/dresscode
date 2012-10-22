@@ -10,14 +10,16 @@
 	<xsl:template match="gallery">
 		<!-- render image -->
 		<!-- XSLT 2.0:    <xsl:for-each-group select="gallery" group-by="(position() - 1) idiv 6"> -->
-		<ul class="nav nav-pills">
-			<xsl:call-template name="pills">
-				<xsl:with-param name="id" select="@id"/>
-				<xsl:with-param name="count" select="count(thumbnail)"/>
-				<xsl:with-param name="perTab" select="@perTab"/>
-				<xsl:with-param name="foldAfter" select="@foldAfter"/>
-			</xsl:call-template>
-		</ul>
+		<xsl:if test="count(thumbnail) &gt; @perTab">
+			<ul class="nav nav-pills">
+				<xsl:call-template name="pills">
+					<xsl:with-param name="id" select="@id"/>
+					<xsl:with-param name="count" select="count(thumbnail)"/>
+					<xsl:with-param name="perTab" select="@perTab"/>
+					<xsl:with-param name="foldAfter" select="@foldAfter"/>
+				</xsl:call-template>
+			</ul>
+		</xsl:if>
 		<div class="tab-content">
 			<xsl:copy-of select="@id"/>
 			<xsl:call-template name="tab-content">
