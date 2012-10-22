@@ -14,6 +14,11 @@ class Plain extends \Dresscode\Controller
 		$this->replaceNode($this->dom->createTextNode($text));
 	}
 
+	public function getText()
+	{
+		return $this->node->nodeValue;
+	}
+
 	protected function createNode()
 	{
 		return $this->dom->createTextNode($this->sourceNode->nodeValue);
@@ -33,8 +38,8 @@ class Plain extends \Dresscode\Controller
 
 	public function get(array $params = array())
 	{
-		$text = $this->node->nodeValue;
-		if(preg_match_all('/\$([[:alpha:]_][[:alnum:]_]*)/', $text, $match))
+		$text = $this->getText();
+		if(preg_match_all('/\$([[:alpha:]_][[:alnum:]_]*)/', $text, $match)) // find replacement vars (@see $replacements)
 		{
 			if(isset($match[1]))
 			{
