@@ -16,7 +16,7 @@ class Xpath extends \Dresscode\Controller\Plain
 		$self	= $this;
 		$query	= $this->query;
 		$this->closest('Root')->on('ready', function ($event) use ($self, $query) { // @todo you can use $this in anonymous functions directly in PHP 5.4
-			$xpath	= new \DOMXPath($self->getDom());
+			$xpath	= new \DomXpath($self->getDom()); // @TODO make this static, there's no need to load more than one DomXpath
 			$result	= @$xpath->evaluate($query, $self->getNode());
 			if ($result === false)
 			{

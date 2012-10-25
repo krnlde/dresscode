@@ -53,6 +53,11 @@ class Translate extends Plain
 
 		$this->params = $params;
 
+		if (count($this->children))
+		{
+			$this->setProperty('count', $this->children[0]->getNode()->nodeValue);
+		}
+
 		if (is_null($this->count))
 		{
 			$text = trim($translation->nodeValue);
