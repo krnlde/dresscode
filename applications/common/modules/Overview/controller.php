@@ -64,6 +64,7 @@ class Overview extends \Dresscode\Controller\Thumbnails
 				if ($image->nodeName === 'gallery')
 				{
 					$thumbnail = $this->loadThumbnailFromGallery($image);
+					$thumbnail->setProperty('description', $path);
 				}
 				else
 				{
@@ -113,7 +114,8 @@ class Overview extends \Dresscode\Controller\Thumbnails
 				if (!$element->isDot() && $element->isFile() && \Dresscode\Controller\Gallery::isImage($element))
 				{
 					return \Dresscode\Module::createController('thumbnail', null, array
-						( 'source' => str_replace(array($_SERVER['DOCUMENT_ROOT'].Application::basePath(), '\\'), array('', '/'), $element->getPathName())
+						( 'source'	=> str_replace(array($_SERVER['DOCUMENT_ROOT'].Application::basePath(), '\\'), array('', '/'), $element->getPathName())
+						, 'crop'	=> true
 						)
 					);
 				}
