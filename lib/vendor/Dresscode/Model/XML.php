@@ -170,7 +170,7 @@ class XML extends \Dresscode\Model
 		}
 		try
 		{
-			return $this->read($path)->getAttribute('modified') ?: $this->modified;
+			return $this->read($path)->getAttribute('modified') ?: $this->read($path)->getAttribute('created') ?: $this->modified;
 		}
 		catch (\Dresscode\Exception\FileNotFound $e)
 		{
