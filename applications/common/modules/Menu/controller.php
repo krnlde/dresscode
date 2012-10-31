@@ -77,6 +77,10 @@ class Menu extends \Dresscode\Controller
 			$elementNode->setAttribute('name', $element->getAttribute('name'));
 			$elementNode->setAttribute('alias', $element->getAttribute('alias') ?: $element->getAttribute('name'));
 			$elementNode->setAttribute('modified', $this->Application->Model->lastModified($path));
+			if ($this->Application->Model->priority($path) !== null)
+			{
+				$elementNode->setAttribute('priority', $this->Application->Model->priority($path));
+			}
 			if ($this->path === $path)
 			{
 				$elementNode->setAttribute('active', 1);

@@ -170,11 +170,24 @@ class XML extends \Dresscode\Model
 		}
 		try
 		{
-			return $this->read($path)->getAttribute('modified') ?: $this->read($path)->getAttribute('created') ?: $this->modified;
+			$date = $this->read($path)->getAttribute('modified') ?: $this->read($path)->getAttribute('created') ?: $this->modified;
+			return date('c', strtotime($date));
 		}
 		catch (\Dresscode\Exception\FileNotFound $e)
 		{
-			return $this->modified;
+			return date('c', strtotime($this->modified));
+		}
+	}
+
+	public function priority($path)
+	{
+		try
+		{
+			return $this->read($path)->getAttribute('priority') ?: null;
+		}
+		catch (\Dresscode\Exception\FileNotFound $e)
+		{
+			return null;
 		}
 	}
 

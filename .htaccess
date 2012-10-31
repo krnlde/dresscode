@@ -1,6 +1,9 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine on
 
+	# Mime static sitemap.xml
+	RewriteRule ^sitemap.xml$ index.php?path=sitemap.sitemap
+
 	# if it's not a real file
 	RewriteCond %{REQUEST_FILENAME} !-f
 	# if it's not a real directory
