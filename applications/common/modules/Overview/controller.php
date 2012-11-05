@@ -101,10 +101,11 @@ class Overview extends \Dresscode\Controller\Thumbnails
 	{
 		\Dresscode\Module::requireController('Gallery');
 		$source = $gallery->getAttribute('source');
+		$absolutePrefix = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT'].Application::basePath());
 
 		if ($source[0] === '/')
 		{
-			$source = $_SERVER['DOCUMENT_ROOT'].Application::basePath().$source;
+			$source = $absolutePrefix.$source;
 		}
 
 		if (file_exists($source) && is_dir($source))
@@ -114,7 +115,7 @@ class Overview extends \Dresscode\Controller\Thumbnails
 				if (!$element->isDot() && $element->isFile() && \Dresscode\Controller\Gallery::isImage($element))
 				{
 					return \Dresscode\Module::createController('thumbnail', null, array
-						( 'source'	=> str_replace(array($_SERVER['DOCUMENT_ROOT'].Application::basePath(), '\\'), array('', '/'), $element->getPathName())
+						( 'source'	=> str_replace(array($absolutePrefix, '\\'), array('', '/'), $element->getPathName())
 						, 'crop'	=> true
 						)
 					);

@@ -7,11 +7,16 @@
 		<a href="{@url}">
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
-			<xsl:if test="@description">
-				<xsl:attribute name="title">
-					<xsl:value-of select="@description"/>
-				</xsl:attribute>
-			</xsl:if>
+			<xsl:attribute name="title">
+				<xsl:choose>
+					<xsl:when test="@description">
+						<xsl:value-of select="@description"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="@url"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:attribute>
 			<xsl:apply-templates/>
 		</a>
 	</xsl:template>

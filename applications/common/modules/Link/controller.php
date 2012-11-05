@@ -46,7 +46,7 @@ class Link extends \Dresscode\Controller
 		{
 			if (substr($this->to, 0, 1) === '/')
 			{
-				$appendix = dirname($_SERVER['SCRIPT_NAME']);
+				$appendix = $this->Application->basePath();
 				$this->to = ($appendix != '/' ? $appendix : '').$this->to;
 			}
 			if ($this->node->childNodes->length === 0)

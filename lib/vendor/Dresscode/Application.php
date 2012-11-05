@@ -220,7 +220,7 @@ class Application
 	 */
 	public static function basePath()
 	{
-		if (($dirname = dirname($_SERVER['SCRIPT_NAME'])) === '/')
+		if (($dirname = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']))) === '/')
 		{
 			return '';
 		}

@@ -40,7 +40,7 @@ class Image extends \Dresscode\Controller
 		parent::get($params);
 		if ($this->source[0] === '/') // Root Directory
 		{
-			$dirname = dirname($_SERVER['SCRIPT_NAME']);
+			$dirname = $this->Application->basePath();
 			if ($dirname !== '/')
 			{
 				$this->source = $dirname.$this->source;
