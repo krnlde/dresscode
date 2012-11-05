@@ -34,3 +34,6 @@
 [submodule "applications/common/modules/Thumbnail/assets/fancyBox"]
 	path = applications/common/modules/Thumbnail/assets/fancyBox
 	url = git://github.com/fancyapps/fancyBox.git
+[submodule "applications/common/assets/js/jQuery-Animate-Enhanced"]
+	path = applications/common/assets/js/jQuery-Animate-Enhanced
+	url = git://github.com/benbarnett/jQuery-Animate-Enhanced.git
