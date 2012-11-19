@@ -6,12 +6,12 @@
 	<xsl:template match="breadcrumb">
 		<nav>
 			<ul class="breadcrumb">
-				<xsl:apply-templates select="element"/>
+				<xsl:apply-templates select="element" mode="breadcrumb"/>
 			</ul>
 		</nav>
 	</xsl:template>
 
-	<xsl:template match="element">
+	<xsl:template match="element" mode="breadcrumb">
 		<li>
 			<xsl:choose>
 				<xsl:when test="@active">
