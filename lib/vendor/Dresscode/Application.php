@@ -212,7 +212,7 @@ class Application
 
 	public function __destruct()
 	{
-		$this->Database->close();
+		// $this->Database->close();
 	}
 
 	/**

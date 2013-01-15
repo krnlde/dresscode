@@ -150,10 +150,15 @@ class Rssreader extends \Dresscode\Controller
 			$data = curl_exec($handle);
 			$errno = curl_errno($handle);
 			$error = curl_error($handle);
+			$status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
 			curl_close($handle);
 			if ($errno)
 			{
 				throw new \Exception('CURL Error: '.$error);
+			}
+			if ($status != '200')
+			{
+				throw new \Exception('CURL Error, HTTP Status: '.$status);
 			}
 			$this->cache->set(md5($url), $data);
 		}
