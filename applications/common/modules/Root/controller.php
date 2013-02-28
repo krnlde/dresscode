@@ -99,11 +99,12 @@ class Root extends \Dresscode\Controller
 		}
 
 		// $this->Application->javascript(new FileAsset('applications/common/assets/js/jQuery-Animate-Enhanced/scripts/src/jquery.animate-enhanced.js'));
-		$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-alert.js')); // @todo This is just a temporarily solution for Exception error pages
+		$this->Application->javascript(new FileAsset($this->Application->getCommonPath().'/assets/bootstrap/js/bootstrap-alert.js')); // @todo This is just a temporarily solution for Exception error pages
+		$this->Application->javascript(new FileAsset($this->Application->getCommonPath().'/assets/bootstrap/js/bootstrap-dropdown.js'));
 
 		$Application = $this->Application;
 		$this->on('ready', function ($event) use ($Application) { // @todo you can use $this in anonymous functions directly in PHP 5.4
-			$Application->javascript(new FileAsset('applications/common/assets/js/external-links.js')); // load this script at last!
+			$Application->javascript(new FileAsset($Application->getCommonPath().'/assets/js/external-links.js')); // load this script at last!
 		});
 
 		// $this->addChild(\Dresscode\Module::createController('breadcrumb'));
@@ -112,9 +113,9 @@ class Root extends \Dresscode\Controller
 	protected function getLessPool()
 	{
 		$lessPool = new \Dresscode\Pool('less');
-		$lessPool->add(new \DirectoryIterator('applications/common/assets/less'));
+		$lessPool->add(new \DirectoryIterator($this->Application->getCommonPath().'/assets/less'));
 
-		if (file_exists($custom = 'applications/'.$this->Application->getName().'/assets/less')) // @todo clean this mess up.
+		if (file_exists($custom = $this->Application->getPath().'/assets/less')) // @todo clean this mess up.
 		{
 			$lessPool->add(new \DirectoryIterator($custom));
 		}
