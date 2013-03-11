@@ -21,7 +21,7 @@
 				<paragraph><span class="label label-info">Heads up!</span> If you're the administrator please duplicate the <strong>$basepath/applications/<emphasized>yourdomain.com</emphasized></strong> folder and rename it to <strong>$domain</strong>.</paragraph>
 			</article>
 			<footer class="pull-right" xml:id="footer">
-				<small>Dresscode Framework</small>
+				<small><link to="https://github.com/krnlde/dresscode">Dresscode Framework</link></small>
 			</footer>
 		</root>
 	</fs:file>
