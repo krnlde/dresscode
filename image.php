@@ -39,8 +39,8 @@ if (isset($_GET['width']))
 }
 else
 {
-	// $size = new Imagine\Image\Box(697, 697); // max image size in iPad responsive design
-	$size = new Imagine\Image\Box(370, 370); // max image size in iPad responsive design
+	$size = new Imagine\Image\Box(709, 709); // max image size in iPad responsive design
+	// $size = new Imagine\Image\Box(370, 370); // max image size in iPad responsive design
 }
 
 if (isset($_GET['crop']) && $_GET['crop'])
