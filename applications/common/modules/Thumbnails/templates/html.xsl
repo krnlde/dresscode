@@ -6,16 +6,16 @@
 	extension-element-prefixes="php">
 
 	<xsl:template match="thumbnails">
-		<ul class="thumbnails">
+		<div class="row">
 			<xsl:copy-of select="@id"/>
 			<xsl:if test="@class">
 				<xsl:attribute name="class">
-					<xsl:text>thumbnails </xsl:text>
+					<xsl:text>row </xsl:text>
 					<xsl:value-of select="@class"/>
 				</xsl:attribute>
 			</xsl:if>
 			<xsl:apply-templates select="thumbnail" mode="inner"/>
-		</ul>
+		</div>
 	</xsl:template>
 
 </xsl:stylesheet>

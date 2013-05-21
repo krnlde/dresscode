@@ -7,12 +7,11 @@
 
 	<xsl:template match="thumbnail">
 		<!-- render image -->
-		<ul class="thumbnails">
+		<div>
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
 			<xsl:apply-templates select="." mode="inner"/>
-		</ul>
-		<!--<img src="/image.php?source={@source}&amp;orientation={@orientation}&amp;crop={@crop}" alt="{@description}" title="{@description}" />-->
+		</div>
 	</xsl:template>
 
 	<xsl:template match="thumbnail" mode="inner">
@@ -35,10 +34,10 @@
 			</xsl:choose>
 		</xsl:variable>
 
-		<li class="span2"><!-- default -->
+		<div class="col col-lg-2"><!-- default -->
 			<xsl:if test="../@span">
 				<xsl:attribute name="class">
-					<xsl:text>span</xsl:text>
+					<xsl:text>col col-lg-</xsl:text>
 					<xsl:value-of select="../@span"/>
 				</xsl:attribute>
 			</xsl:if>
@@ -57,7 +56,7 @@
 					</a>
 				</xsl:otherwise>
 			</xsl:choose>
-		</li>
+		</div>
 	</xsl:template>
 
 </xsl:stylesheet>

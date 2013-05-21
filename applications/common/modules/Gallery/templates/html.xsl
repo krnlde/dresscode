@@ -90,9 +90,9 @@
 			<xsl:if test="$index = $active">
 				<xsl:attribute name="class">tab-pane active</xsl:attribute>
 			</xsl:if>
-			<ul class="thumbnails">
+			<div class="row">
 				<xsl:apply-templates select="$thumbnails[position() &lt;= $perTab]" mode="inner"/>
-			</ul>
+			</div>
 		</div>
 		<xsl:if test="count($thumbnails) - $perTab &gt; 0">
 			<xsl:call-template name="tab-content">

@@ -99,8 +99,8 @@ class Root extends \Dresscode\Controller
 		}
 
 		// $this->Application->javascript(new FileAsset('applications/common/assets/js/jQuery-Animate-Enhanced/scripts/src/jquery.animate-enhanced.js'));
-		$this->Application->javascript(new FileAsset($this->Application->getCommonPath().'/assets/bootstrap/js/bootstrap-alert.js')); // @todo This is just a temporarily solution for Exception error pages
-		$this->Application->javascript(new FileAsset($this->Application->getCommonPath().'/assets/bootstrap/js/bootstrap-dropdown.js'));
+		$this->Application->javascript(new FileAsset($this->Application->getCommonPath().'/assets/bootstrap/js/alert.js')); // @todo This is just a temporarily solution for Exception error pages
+		$this->Application->javascript(new FileAsset($this->Application->getCommonPath().'/assets/bootstrap/js/dropdown.js'));
 
 		$Application = $this->Application;
 		$this->on('ready', function ($event) use ($Application) { // @todo you can use $this in anonymous functions directly in PHP 5.4

@@ -20,7 +20,6 @@
 				</xsl:when>
 				<xsl:otherwise>
 					<a href="{@path}"><xsl:value-of select="."/></a>
-					<span class="divider">/</span>
 				</xsl:otherwise>
 			</xsl:choose>
 		</li>
