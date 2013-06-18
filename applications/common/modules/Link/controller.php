@@ -80,6 +80,7 @@ class Link extends \Dresscode\Controller
 			{
 				$this->url = $this->to;
 			}
+			$this->url = str_replace(' ', '%20', $this->url); // Replace whitespace
 			$this->node->setAttribute('url', $this->url);
 		}
 		if (!strlen($this->node->nodeValue))

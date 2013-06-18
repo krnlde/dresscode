@@ -23,17 +23,15 @@ class Headline extends \Dresscode\Controller
 		{
 			$this->priority = 6;
 		}
-
-		if (!$this->id) // Set an ID with maxLength 32, if none is set.
-		{
-			$candidate	= urlencode(trim(substr(trim($this->node->nodeValue), 0, 32)));
-			$tmp		= $candidate;
-			$i			= 2;
-			while (in_array($tmp, self::$used_ids))
-			{
-				$tmp = $candidate.'_'.$i++;
-			}
-			self::$used_ids[] = $this->id = $tmp;
+		if (!$this->id) {
+			$this->id = urlencode(trim(substr(trim($this->node->nodeValue), 0, 32)));
 		}
+		$tmp	= $this->id;
+		$i		= 2;
+		while (in_array($tmp, self::$used_ids))
+		{
+			$tmp = $this->id.'_'.$i++;
+		}
+		$this->setProperty('id', self::$used_ids[] = $tmp);
 	}
 }

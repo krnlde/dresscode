@@ -57,7 +57,7 @@
 					So I put javascripts at the bottom.
 					source: http://developer.yahoo.com/performance/rules.html#js_bottom
 				-->
-				<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"><xsl:text> </xsl:text></script>
+				<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"><xsl:text> </xsl:text></script>
 				<script type="text/javascript">
 					<xsl:text disable-output-escaping="yes">window.jQuery || document.write('&lt;script type="text/javascript" src="</xsl:text>
 					<xsl:value-of select="$assets"/>
