@@ -21,14 +21,14 @@ class Tabs extends \Dresscode\Controller
 
 	public function setup()
 	{
-		$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-tab.js'));
+		$this->Application->externalJavascript('/applications/common/assets/bootstrap/js/tab.js');
 		if ($this->transition)
 		{
-			$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-transition.js'));
+			$this->Application->externalJavascript('/applications/common/assets/bootstrap/js/transition.js');
 		}
 		if (count($this->children > $this->foldAfter))
 		{
-			$this->Application->javascript(new FileAsset('applications/common/assets/bootstrap/js/bootstrap-dropdown.js'));
+			$this->Application->externalJavascript('/applications/common/assets/bootstrap/js/dropdown.js');
 		}
 	}
 }

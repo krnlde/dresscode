@@ -29,7 +29,7 @@ use Assetic\Filter;
 use Assetic\Cache\FilesystemCache;
 
 require_once('lib/vendor/CssMin/src/CssMin.php'); // @todo This class is very slow - it needs about 0.2 sec to load!!!!!!
-require_once('lib/vendor/Lessphp/lessc.inc.php');
+// require_once('lib/vendor/Lessphp/lessc.inc.php');
 // require_once('lib/vendor/Minify/min/lib/JSMin.php');
 // require_once('lib/vendor/Minify/min/lib/JSMinPlus.php');
 
@@ -183,14 +183,14 @@ class Application
 		{
 			\Dresscode\Translator::setLanguage($language);
 		}
-		self::$stylesheets = new \Assetic\Asset\AssetCollection();
+		// self::$stylesheets = new \Assetic\Asset\AssetCollection();
 		self::$javascripts = new \Assetic\Asset\AssetCollection();
-		self::$stylesheets->ensureFilter(new Filter\CssRewriteFilter());
+		// self::$stylesheets->ensureFilter(new Filter\CssRewriteFilter());
 		// self::$stylesheets->ensureFilter(new Filter\CssImportFilter()); // The Less Filter already does that
-		self::$stylesheets->ensureFilter(new Filter\LessphpFilter());
+		// self::$stylesheets->ensureFilter(new Filter\LessphpFilter());
 		if (isset($options['compress']) && $options['compress'])
 		{
-			self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter($options['yuicompressor_path'], $options['java_path'])); // Slow as fuck
+			// self::$stylesheets->ensureFilter(new Filter\Yui\CssCompressorFilter($options['yuicompressor_path'], $options['java_path'])); // Slow as fuck
 			self::$javascripts->ensureFilter(new Filter\Yui\JsCompressorFilter($options['yuicompressor_path'], $options['java_path'])); // Slow as fuck
 		}
 
@@ -810,7 +810,7 @@ class Application
 	 */
 	public static function stylesheet(\Assetic\Asset\AssetInterface $asset, $media = 'screen')
 	{
-		self::$stylesheets->add($asset);
+		// self::$stylesheets->add($asset);
 	}
 
 	/**
@@ -878,7 +878,9 @@ class Application
 			}
 			$asset = (Object)array('path' => $asset);
 		}
-		self::$externalStylesheets[] = $asset;
+		if (!in_array($asset, self::$externalStylesheets)) {
+			self::$externalStylesheets[] = $asset;
+		}
 	}
 
 	public static function externalStylesheets(array $elements = array())
@@ -962,11 +964,11 @@ class Application
 	 */
 	public static function dumpStylesheets()
 	{
-		$asset = self::$stylesheets;
-		$asset->setTargetPath(str_replace('*', self::generateAssetName($asset).'.css', self::$assetOutput));
-		$cache = self::getAssetCache($asset);
-		self::getAssetWriter()->writeAsset($cache);
-		return self::basePath().'/'.$asset->getTargetPath();
+		// $asset = self::$stylesheets;
+		// $asset->setTargetPath(str_replace('*', self::generateAssetName($asset).'.css', self::$assetOutput));
+		// $cache = self::getAssetCache($asset);
+		// self::getAssetWriter()->writeAsset($cache);
+		// return self::basePath().'/'.$asset->getTargetPath();
 	}
 
 	/**

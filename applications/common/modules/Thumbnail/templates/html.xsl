@@ -34,7 +34,12 @@
 			</xsl:choose>
 		</xsl:variable>
 
-		<div class="col col-lg-2"><!-- default -->
+		<div><!-- default -->
+			<xsl:if test="not(../../*[contains(@class, 'col')])"> <!-- this is bad; better produce a general rule -->
+				<xsl:attribute name="class">
+					<xsl:text>col col-lg-2</xsl:text>
+				</xsl:attribute>
+			</xsl:if>
 			<xsl:if test="../@span">
 				<xsl:attribute name="class">
 					<xsl:text>col col-lg-</xsl:text>

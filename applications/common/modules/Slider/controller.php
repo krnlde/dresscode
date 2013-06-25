@@ -50,7 +50,7 @@ class Slider extends \Dresscode\Controller
 
 	public function setup()
 	{
-		$this->Application->stylesheet(new FileAsset('applications/common/modules/Slider/assets/css/slider.css'));
+		$this->Application->externalStylesheet('/applications/common/modules/Slider/assets/css/slider.css');
 		$this->Application->javascripts
 		(	array
 			(	new FileAsset('applications/common/modules/Slider/assets/js/jquery-revolver/jquery.revolver.min.js')

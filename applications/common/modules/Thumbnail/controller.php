@@ -53,7 +53,7 @@ class Thumbnail extends \Dresscode\Controller\Image
 				});'
 			);
 		}
-		$this->Application->stylesheet(new FileAsset('applications/common/modules/Thumbnail/assets/fancyBox/source/jquery.fancybox.css'));
+		$this->Application->externalStylesheet('/applications/common/modules/Thumbnail/assets/fancyBox/source/jquery.fancybox.css');
 		$this->Application->javascripts
 			( array
 				( new FileAsset('applications/common/modules/Thumbnail/assets/fancyBox/source/jquery.fancybox.js')
