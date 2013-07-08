@@ -878,7 +878,8 @@ class Application
 			}
 			$asset = (Object)array('path' => $asset);
 		}
-		if (!in_array($asset, self::$externalStylesheets)) {
+		if (!in_array($asset, self::$externalStylesheets))
+		{
 			self::$externalStylesheets[] = $asset;
 		}
 	}
@@ -926,7 +927,10 @@ class Application
 		{
 			$asset = self::basePath().$asset;
 		}
-		self::$externalJavascripts[] = $asset;
+		if (!in_array($asset, self::$externalJavascripts))
+		{
+			self::$externalJavascripts[] = $asset;
+		}
 	}
 
 	public static function externalJavascripts(array $elements = array())

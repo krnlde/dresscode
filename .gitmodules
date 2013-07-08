@@ -37,3 +37,6 @@
 [submodule "applications/common/modules/Slider/assets/js/jquery-revolver"]
 	path = applications/common/modules/Slider/assets/js/jquery-revolver
 	url = https://github.com/revolverjs/revolver-jquery.git
+[submodule "applications/common/assets/bootstrap-glyphicons"]
+	path = applications/common/assets/bootstrap-glyphicons
+	url = https://github.com/twbs/bootstrap-glyphicons.git

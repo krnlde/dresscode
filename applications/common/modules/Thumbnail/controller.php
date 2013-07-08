@@ -54,12 +54,8 @@ class Thumbnail extends \Dresscode\Controller\Image
 			);
 		}
 		$this->Application->externalStylesheet('/applications/common/modules/Thumbnail/assets/fancyBox/source/jquery.fancybox.css');
-		$this->Application->javascripts
-			( array
-				( new FileAsset('applications/common/modules/Thumbnail/assets/fancyBox/source/jquery.fancybox.js')
-				, self::$initializeScript
-				)
-			);
+		$this->Application->externalJavascript('/applications/common/modules/Thumbnail/assets/fancyBox/source/jquery.fancybox.js');
+		$this->Application->javascript(self::$initializeScript);
 		if (!in_array($this->size, $this->sizes))
 		{
 			$this->size = $this->sizes[ceil(count($this->sizes) * 0.5) - 1]; // median
