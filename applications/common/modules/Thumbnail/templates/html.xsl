@@ -48,12 +48,12 @@
 			</xsl:if>
 			<xsl:choose>
 				<xsl:when test="*"><!-- has sub contents -->
-					<div class="thumbnail">
+					<figure class="thumbnail">
 						<img src="{$source}" alt="{@description}"/>
-						<div class="caption">
+						<figcaption class="caption">
 							<xsl:apply-templates/>
-						</div>
-					</div>
+						</figcaption>
+					</figure>
 				</xsl:when>
 				<xsl:otherwise>
 					<a href="{@source}" rel="lightbox[{@group}]" title="{@description}" class="thumbnail">
