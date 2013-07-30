@@ -21,16 +21,16 @@
 					<i class="icon-ok"><xsl:text> </xsl:text></i>
 					<xsl:value-of select="php:function('\Dresscode\Translator::translate', 'Form.submit')"/>
 				</button>
-				<button type="reset" class="btn">
+				<button type="reset" class="btn btn-default">
 					<i class="icon-refresh"><xsl:text> </xsl:text></i>
 					<xsl:value-of select="php:function('\Dresscode\Translator::translate', 'Form.reset')"/>
 				</button>
 			</div>
 				<xsl:if test=".//input[@required = 1]">
-					<div>
-						<span class="required">*</span>
+					<span class="help-block">
+						<span class="required">* </span>
 						<xsl:value-of select="php:function('\Dresscode\Translator::translate', 'Form.RequiredInfo')"/>
-					</div>
+					</span>
 				</xsl:if>
 		</form>
 	</xsl:template>
