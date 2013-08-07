@@ -18,9 +18,6 @@
 				</xsl:choose>
 			</xsl:attribute>
 			<xsl:apply-templates/>
-			<xsl:if test="starts-with(@url, 'http://')">
-				<i class="icon-external-link"><xsl:text> </xsl:text></i>
-			</xsl:if>
 		</a>
 	</xsl:template>
 
