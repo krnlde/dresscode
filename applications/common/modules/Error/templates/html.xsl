@@ -59,7 +59,7 @@
 
 
 	<xsl:template match="/*//error" name="error">
-		<div class="panel panel-warning">
+		<div class="alert alert-block alert-danger">
 			<a class="close" data-dismiss="alert">×</a>
 			<h4 class="alert-heading">Error</h4>
 			<xsl:apply-templates/>
