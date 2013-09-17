@@ -50,35 +50,10 @@ class Slider extends \Dresscode\Controller
 
 	public function setup()
 	{
-		$this->Application->externalStylesheet('/applications/common/modules/Slider/assets/css/slider.css');
-		$this->Application->externalJavascript('/applications/common/modules/Slider/assets/js/jquery-revolver/jquery.revolver.min.js');
-
-		$this->Application->javascript
-		(	new StringAsset // initialize
-			('
-				$(function() {
-					var $slider = $(".'.$this->class.'");
-					$slider.find(".slide:first-child").css({display: "block"});
-					var revolver = $slider.revolver(
-						{ autoPlay:			'.($this->autoplay ? 'true' : 'false').'
-						, rotationSpeed:	'.$this->speed.'
-						, transition:
-							{ direction:	"'.$this->direction.'"
-							, easing:		"swing"
-							, speed:		'.$this->transitionSpeed.'
-							, type:			"'.$this->transition.'"
-							}
-						}
-					).data("revolver");
-
-					$slider.hover(function () {
-						revolver.pause();
-					},
-					function () {
-						revolver.play();
-					});
-				});
-			')
-		);
+		if (!$this->id)
+		{
+			$this->id = $this->generateId();
+		}
+		$this->Application->externalJavascript('/applications/common/assets/bootstrap/js/carousel.js');
 	}
 }
