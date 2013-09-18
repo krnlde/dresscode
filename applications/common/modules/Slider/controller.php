@@ -10,7 +10,7 @@ class Slider extends \Dresscode\Controller
 	 * @property
 	 * @var string
 	 */
-	protected $class = 'slider';
+	protected $class = '';
 
 	/**
 	 * @property
@@ -55,5 +55,14 @@ class Slider extends \Dresscode\Controller
 			$this->id = $this->generateId();
 		}
 		$this->Application->externalJavascript('/applications/common/assets/bootstrap/js/carousel.js');
+		// $this->Application->Javascript('$(".carousel").carousel();');
+		$this->Application->javascript
+		(	new StringAsset // initialize
+			('
+				$(function () {
+					$("#'.$this->id.'").carousel();
+				});
+			')
+		);
 	}
 }

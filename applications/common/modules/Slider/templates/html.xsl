@@ -12,12 +12,12 @@
 					<xsl:value-of select="@class"/>
 				</xsl:attribute>
 			</xsl:if>
-			<xsl:if test="@transitionSpeed">
+			<xsl:if test="@speed">
 				<xsl:attribute name="data-interval">
-					<xsl:value-of select="@transitionSpeed"/>
+					<xsl:value-of select="@speed"/>
 				</xsl:attribute>
 			</xsl:if>
-			<ol class="carousel-indicators">
+			<!-- <ol class="carousel-indicators">
 				<xsl:for-each select="*">
 					<li data-target="#{../@id}" data-slide-to="{position() - 1}">
 						<xsl:if test="position() = 1">
@@ -25,7 +25,7 @@
 						</xsl:if>
 					</li>
 				</xsl:for-each>
-			</ol>
+			</ol> -->
 			<div class="carousel-inner">
 				<xsl:for-each select="*">
 					<div class="item">
