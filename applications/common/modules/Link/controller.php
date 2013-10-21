@@ -53,7 +53,7 @@ class Link extends \Dresscode\Controller
 			{
 				$this->node->appendChild($this->dom->createTextNode($this->to));
 			}
-			if ($this->escape && substr($this->to, 0, 4) !== 'http')
+			if ($this->escape && !preg_match('/$[a-zA-Z+-]+:/', $this->to))
 			{
 				$this->url = implode
 					( '/'
