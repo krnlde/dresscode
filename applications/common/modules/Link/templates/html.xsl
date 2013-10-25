@@ -7,6 +7,11 @@
 		<a href="{@url}">
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
+			<xsl:if test="@cipher">
+				<xsl:attribute name="data-cipher">
+					<xsl:value-of select="@cipher"/>
+				</xsl:attribute>
+			</xsl:if>
 			<xsl:attribute name="title">
 				<xsl:choose>
 					<xsl:when test="@description">
