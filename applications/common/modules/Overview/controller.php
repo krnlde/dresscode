@@ -53,8 +53,13 @@ class Overview extends \Dresscode\Controller\Thumbnails
 		}
 		$xpath = new \DomXpath($this->Application->Model->getDom());
 		$xpath->registerNamespace('c', \Dresscode\Controller::NS);
+		$count = 0;
 		foreach ($this->Application->Model->getList($this->source) as $path => $element)
 		{
+			if ($count >= $this->maximum) {
+				break;
+			}
+			$count += 1;
 			$headline	= $xpath->query('.//c:headline[1]', $element)->item(0);
 			$preface	= $xpath->query('(.//c:paragraph|.//text)[1]', $element)->item(0);
 			$image		= $xpath->query('(.//c:image|.//c:thumbnail|.//c:gallery)[1]', $element)->item(0);
@@ -74,6 +79,12 @@ class Overview extends \Dresscode\Controller\Thumbnails
 						, 'crop'		=> true
 						)
 					);
+					$anchor = \Dresscode\Module::createController('link', "Read more", array
+						( 'to'		=> $path
+						)
+					);
+					// $anchor->addChild($thumbnail);
+					// $thumbnail = $anchor;
 				}
 			}
 			$this->addChild($thumbnail);
