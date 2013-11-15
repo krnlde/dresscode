@@ -101,52 +101,8 @@ class Link extends \Dresscode\Controller
 		if (!strlen($this->node->nodeValue)) {
 			$this->node->appendChild($this->dom->createTextNode($this->url));
 		}
-
-
-		// if (!$this->id)
-		// {
-		// 	$this->id = $this->generateId();
-		// }
-		// $self			= $this;
-		// $Application	= $this->Application;
-		// $Root			= $this->closest('Root');
-		// $canonical		= $Root->getProperty('canonical');
-		// $Root->on('ready', function ($event) use ($self, $Application, $canonical) { // @todo "use ($self)"" is obsolote in PHP > 5.4
-			// $Application->javascript
-			// (	new StringAsset
-			// 	(
-			// 		'
-			// 		$("#'.$self->getProperty('id').'").click(function (event) {
-			// 			event.preventDefault();
-			// 			var $this	= $(this);
-			// 			var $id		= "'.$self->getProperty('id').'";
-			// 			var $xpath	= "'.$self->getXPath().'";
-
-			// 			$.ajax("'.$canonical.'", {
-			// 				type: "post",
-			// 				data: {
-			// 					xpath:	$xpath,
-			// 					id:		$id,
-			// 					event: {
-			// 						type:		event.type,
-			// 						offsetX:	event.offsetX,
-			// 						offsetY:	event.offsetY,
-			// 						pageX:		event.pageX,
-			// 						pageY:		event.PageY,
-			// 						screenX:	event.screenX,
-			// 						screenY:	event.screenY,
-			// 						which:		event.which
-			// 					}
-			// 				}
-			// 			}).done(function (msg) {
-			// 				console.log(msg);
-			// 			});
-			// 		});
-			// 		'
-			// 	)
-			// );
-		// });
-
+    $this->setProperty('to', $this->to);
+    $this->setProperty('url', $this->url);
 	}
 
   private function encrypt($string) {
