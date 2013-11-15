@@ -9,7 +9,7 @@
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
 			<xsl:apply-templates/>
-			<a href="#{@id}" class="siteanchor" tabindex="-1"><i class="icon-link"><xsl:text> </xsl:text></i><!--&#182;--></a>
+			<a href="#{@id}" class="siteanchor" tabindex="-1"><i class="glyphicon glyphicon-link"><xsl:text> </xsl:text></i><!--&#182;--></a>
 		</xsl:element>
 
 	</xsl:template>
