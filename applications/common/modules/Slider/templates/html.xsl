@@ -4,7 +4,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="slider">
-		<div class="carousel slide">
+		<div class="carousel slide" data-ride="carousel">
 			<xsl:copy-of select="@id"/>
 			<xsl:if test="@class">
 				<xsl:attribute name="class">

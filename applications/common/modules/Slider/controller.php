@@ -54,15 +54,16 @@ class Slider extends \Dresscode\Controller
 		{
 			$this->id = $this->generateId();
 		}
+		$this->Application->externalJavascript('/applications/common/assets/bootstrap/js/transition.js');
 		$this->Application->externalJavascript('/applications/common/assets/bootstrap/js/carousel.js');
 		// $this->Application->Javascript('$(".carousel").carousel();');
-		$this->Application->javascript
-		(	new StringAsset // initialize
-			('
-				$(function () {
-					$("#'.$this->id.'").carousel();
-				});
-			')
-		);
+		// $this->Application->javascript
+		// (	new StringAsset // initialize
+		// 	('
+		// 		$(function () {
+		// 			$("#'.$this->id.'").carousel();
+		// 		});
+		// 	')
+		// );
 	}
 }
