@@ -24,7 +24,7 @@ class Headline extends \Dresscode\Controller
 			$this->priority = 6;
 		}
 		if (!$this->id) {
-			$this->id = urlencode(trim(substr(trim($this->node->nodeValue), 0, 32)));
+			$this->id = urlencode(trim(substr(preg_replace('/[^a-zA-Z0-9 ]/', '', trim($this->node->nodeValue)), 0, 32)));
 		}
 		$tmp	= $this->id;
 		$i		= 2;
