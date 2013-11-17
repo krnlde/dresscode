@@ -43,7 +43,10 @@ if (file_exists($cachesource)) {
 }
 
 if (isset($_GET['width'])) {
-	$size = new Imagine\Image\Box( (int)$_GET['width'], (int)(isset($_GET['height']) ? $_GET['height'] : $_GET['width']) );
+	$size = new Imagine\Image\Box(
+		(int)$_GET['width'],
+		(int)(isset($_GET['height']) ? $_GET['height'] : $_GET['width'])
+	);
 } else {
 	$size = new Imagine\Image\Box(709, 709); // max image size in iPad responsive design
 	// $size = new Imagine\Image\Box(370, 370); // max image size in iPad responsive design
@@ -58,4 +61,4 @@ if (isset($_GET['crop']) && $_GET['crop']) {
 $imagine = new \Imagine\Gd\Imagine();
 echo $imagine->open($source)
 	->thumbnail($size, $mode)
-	->save($cachesource);
+	->save($cachesource, array('quality' => 75));
