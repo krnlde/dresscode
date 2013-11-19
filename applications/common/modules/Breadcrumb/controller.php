@@ -19,6 +19,7 @@ class Breadcrumb extends \Dresscode\Controller
 		foreach ($elements as $element)
 		{
 			$part .= '/'.$element;
+      try {
         $file = $this->Application->Model->read($part);
         $this->node->appendChild($e = $this->dom->createElement('element', $file->getAttribute('alias') ?: $file->getAttribute('name')));
         $e->setAttribute('path', $this->Application->basePath().$part);
@@ -26,6 +27,9 @@ class Breadcrumb extends \Dresscode\Controller
         {
           $e->setAttribute('active', true);
         }
+      } catch (\Dresscode\Exception $e) {
+        // No action needed.
+      }
 		}
 	}
 }
