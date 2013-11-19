@@ -310,8 +310,9 @@ class Module
 		$listing->setAttribute('type', 'ordered');
 		foreach ($exception->getTrace() as $trace)
 		{
-			$listing->appendChild(self::createNode
-				(	'paragraph'
+			$listing->appendChild($paragraph = self::createNode('paragraph'));
+			$paragraph->appendChild(self::createNode
+				(	'code'
 				,	(isset($trace['class']) ? $trace['class'] : 'unknown')
 				.	(isset($trace['type']) ? $trace['type'] : '')
 				.	(isset($trace['function']) ? $trace['function'] : 'unknown')
@@ -329,8 +330,17 @@ class Module
 								return '"'.$element.'"';
 						}
 					}, $trace['args'])) : '')
-				.	') in '
-				.	(isset($trace['file']) ? $trace['file'] : '')
+				.	')'
+				)
+			);
+			$paragraph->appendChild(self::createNode
+				(	'plain'
+				,	' in '
+				)
+			);
+			$paragraph->appendChild(self::createNode
+				(	'emphasized'
+				,	(isset($trace['file']) ? $trace['file'] : '')
 				.	':'
 				.	(isset($trace['line']) ? $trace['line'] : 0)
 				)
