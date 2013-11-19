@@ -4,6 +4,9 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="link">
+		<xsl:if test="@cipher">
+			<xsl:comment>googleoff: index</xsl:comment>
+		</xsl:if>
 		<a href="{@url}">
 			<xsl:copy-of select="@id"/>
 			<xsl:copy-of select="@class"/>
@@ -24,6 +27,9 @@
 			</xsl:attribute>
 			<xsl:apply-templates/>
 		</a>
+		<xsl:if test="@cipher">
+			<xsl:comment>googleon: index</xsl:comment>
+		</xsl:if>
 	</xsl:template>
 
 </xsl:stylesheet>

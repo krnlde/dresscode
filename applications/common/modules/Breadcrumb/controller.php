@@ -19,13 +19,13 @@ class Breadcrumb extends \Dresscode\Controller
 		foreach ($elements as $element)
 		{
 			$part .= '/'.$element;
-			$file = $this->Application->Model->read($part);
-			$this->node->appendChild($e = $this->dom->createElement('element', $file->getAttribute('alias') ?: $file->getAttribute('name')));
-			$e->setAttribute('path', $this->Application->basePath().$part);
-			if ($element === end($elements))
-			{
-				$e->setAttribute('active', true);
-			}
+        $file = $this->Application->Model->read($part);
+        $this->node->appendChild($e = $this->dom->createElement('element', $file->getAttribute('alias') ?: $file->getAttribute('name')));
+        $e->setAttribute('path', $this->Application->basePath().$part);
+        if ($element === end($elements))
+        {
+          $e->setAttribute('active', true);
+        }
 		}
 	}
 }

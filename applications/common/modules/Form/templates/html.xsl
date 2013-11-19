@@ -18,11 +18,13 @@
 			</fieldset>
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary">
-					<i class="icon-ok"><xsl:text> </xsl:text></i>
+					<i class="glyphicon glyphicon-send"><xsl:text> </xsl:text></i>
+					<xsl:text> </xsl:text>
 					<xsl:value-of select="php:function('\Dresscode\Translator::translate', 'Form.submit')"/>
 				</button>
 				<button type="reset" class="btn btn-default">
-					<i class="icon-refresh"><xsl:text> </xsl:text></i>
+					<i class="glyphicon glyphicon-refresh"><xsl:text> </xsl:text></i>
+					<xsl:text> </xsl:text>
 					<xsl:value-of select="php:function('\Dresscode\Translator::translate', 'Form.reset')"/>
 				</button>
 			</div>
