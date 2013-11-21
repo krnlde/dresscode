@@ -20,7 +20,7 @@
 				</xsl:call-template>
 			</ul>
 		</xsl:if>
-		<div class="tab-content">
+		<div class="tab-content gallery">
 			<xsl:copy-of select="@id"/>
 			<xsl:call-template name="tab-content">
 				<xsl:with-param name="id" select="@id"/>
