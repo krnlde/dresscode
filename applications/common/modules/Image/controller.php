@@ -21,7 +21,7 @@ class Image extends \Dresscode\Controller
 	 * @property
 	 * @var string
 	 */
-	protected $description = '';
+	protected $description;
 
 	/**
 	 * @property
@@ -51,7 +51,7 @@ class Image extends \Dresscode\Controller
 			$dirname = $this->Application->basePath().'/applications/'.$this->Application->getName();
 			$this->source = $dirname.substr($this->source, 1);
 		}
-		if (empty($this->description))
+		if ($this->description === null)
 		{
 			$this->description = $this->source;
 		}

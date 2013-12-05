@@ -7,7 +7,12 @@
 
 	<xsl:template match="image">
 		<!-- render image -->
-			<img src="{@source}" alt="{@description}" title="{@description}">
+			<img src="{@source}" alt="{@description}">
+        <xsl:if test="string-length(@description) &gt; 0">
+          <xsl:attribute name="title">
+            <xsl:value-of select="@description"/>
+          </xsl:attribute>
+        </xsl:if>
 				<xsl:copy-of select="@id"/>
 				<xsl:copy-of select="@class"/>
 			</img>
