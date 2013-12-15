@@ -968,6 +968,8 @@ class Application
 	 */
 	public static function dumpStylesheets()
 	{
+		return self::basePath().'/applications/'.self::getName().'/assets/css/base.css';
+
 		$asset = self::$stylesheets;
 		$asset->setTargetPath(str_replace('*', self::generateAssetName($asset).'.css', self::$assetOutput));
 		$cache = self::getAssetCache($asset);
