@@ -26,7 +26,7 @@
 				<xsl:if test="string-length(@keywords) &gt; 0">
 					<meta name="keywords" content="{@keywords}"/>
 				</xsl:if>
-				<meta name="description" content="{php:function('trim', string(//article[1]/*[not(name(.) = 'header')]//paragraph[1]))}"/>
+				<meta name="description" content="{php:function('trim', string(//article[1]//paragraph[1]))}"/>
 				<xsl:if test="string-length(@author) &gt; 0">
 					<meta name="author" content="{@author}"/>
 				</xsl:if>
@@ -44,9 +44,11 @@
 
 				<link rel="stylesheet" type="text/css" href="{php:function('\Dresscode\Application::dumpStylesheets')}" media="all"/>
 
-				<!-- HTML5shiv enables HTML5 elements in old browsers, like IE < 9 -->
-				<!-- obsolete since jQuery 1.7 -->
-				<xsl:comment><![CDATA[[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]]]></xsl:comment>
+				<xsl:comment><![CDATA[[if lt IE 9]>
+          <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+        <![endif]]]></xsl:comment>
+
 			</head>
 			<body>
 				<div class="container">
