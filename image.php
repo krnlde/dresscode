@@ -1,7 +1,7 @@
 <?php
 require __DIR__.'/lib/vendor/Opl/src/Opl/Autoloader/GenericLoader.php';
 
-ini_set('memory_limit', '512M');
+ini_set('memory_limit', '256M');
 
 $loader = new \Opl\Autoloader\GenericLoader(__DIR__.'/lib/vendor/');
 $loader->addNamespace('Dresscode', __DIR__.'/lib/vendor');
@@ -27,9 +27,24 @@ $Request = \Dresscode\Request::getInstance();
 $Response = \Dresscode\Response::getInstance();
 
 if ($Request->if_modified_since && strtotime($mtime) <= strtotime($Request->if_modified_since)) {
-  $Response->end(null, 304); // Not modified
+	$Response->end(null, 304); // Not modified
 }
 
+$imagine = null;
+if (extension_loaded('imagick')) {
+  header('X-Rendered-With: Imagick');
+  $imagine = new \Imagine\Imagick\Imagine();
+} elseif (extension_loaded('gmagick')) {
+  header('X-Rendered-With: Gmagick');
+  $imagine = new \Imagine\Gmagick\Imagine();
+} elseif(extension_loaded('gd')) {
+  header('X-Rendered-With: GD');
+  $imagine = new \Imagine\Gd\Imagine();
+} else {
+  throw new Exception('No image library found.');
+}
+
+$image = $imagine->open($source);
 
 header('Date: ' . date('r'));
 header('Last-Modified: ' . date('r', $mtime));
@@ -58,7 +73,10 @@ if (isset($_GET['crop']) && $_GET['crop']) {
 	$mode = Imagine\Image\ImageInterface::THUMBNAIL_INSET; // Size to fit
 }
 
-$imagine = new \Imagine\Gd\Imagine();
-echo $imagine->open($source)
+echo $image
 	->thumbnail($size, $mode)
+	->interlace(Imagine\Image\ImageInterface::INTERLACE_PLANE)
 	->save($cachesource, array('quality' => 75));
+
+unset($image);
+exit;
