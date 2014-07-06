@@ -1,6 +1,3 @@
-[submodule "applications/common/assets/bootstrap"]
-	path = applications/common/assets/bootstrap
-	url = git://github.com/twitter/bootstrap.git
 [submodule "lib/vendor/CssMin"]
 	path = lib/vendor/CssMin
 	url = https://github.com/natxet/CssMin.git
