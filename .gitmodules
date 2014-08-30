@@ -28,3 +28,6 @@
 [submodule "applications/common/assets/bootstrap-glyphicons"]
 	path = applications/common/assets/bootstrap-glyphicons
 	url = https://github.com/twbs/bootstrap-glyphicons.git
+[submodule "applications/common/assets/bootstrap"]
+	path = applications/common/assets/bootstrap
+	url = https://github.com/twbs/bootstrap.git
